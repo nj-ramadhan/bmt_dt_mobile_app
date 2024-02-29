@@ -15,14 +15,10 @@ class AppColors {
     darkBlue,
     darkerBlue,
     darkestBlue,
-    darkGreen,
-    darkerGreen,
-    darkestGreen,
   ];
 
   static const List<Color> greenGradient = [
-    darkGreen,
-    darkerGreen,
+    primaryColor,
     darkestGreen,
   ];
 }

@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'screens/login_screen.dart';
 import 'screens/register_screen.dart';
+import 'screens/home_screen.dart';
+import 'screens/menu_screen.dart';
 import 'screens/profile_screen.dart';
 import 'screens/deposit_screen.dart';
+import 'screens/checking_screen.dart';
+import 'screens/payment_screen.dart';
+import 'screens/transfer_screen.dart';
 import 'utils/common_widgets/invalid_route.dart';
 import 'values/app_routes.dart';
 
@@ -29,11 +34,26 @@ class Routes {
       case AppRoutes.register:
         return getRoute(widget: const RegisterPage());
 
+      case AppRoutes.home:
+        return getRoute(widget: const HomePage());
+
+      case AppRoutes.menu:
+        return getRoute(widget: const MenuPage());
+
       case AppRoutes.profile:
         return getRoute(widget: const ProfilePage());
 
       case AppRoutes.deposit:
         return getRoute(widget: const DepositPage());
+
+      case AppRoutes.checking:
+        return getRoute(widget: const CheckingPage());
+
+      case AppRoutes.payment:
+        return getRoute(widget: const PaymentPage());
+
+      case AppRoutes.transfer:
+        return getRoute(widget: const TransferPage());
 
       /// An invalid route. User shouldn't see this,
       /// it's for debugging purpose only.

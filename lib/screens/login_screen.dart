@@ -1,8 +1,8 @@
+import 'package:bmt_dt_mobile_app/utils/helpers/snackbar_helper.dart';
 import 'package:bmt_dt_mobile_app/values/app_colors.dart';
+import 'package:bmt_dt_mobile_app/values/app_regex.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:bmt_dt_mobile_app/utils/helpers/snackbar_helper.dart';
-import 'package:bmt_dt_mobile_app/values/app_regex.dart';
 
 import '../components/app_text_form_field.dart';
 import '../resources/resources.dart';
@@ -73,23 +73,35 @@ class _LoginPageState extends State<LoginPage> {
         padding: EdgeInsets.zero,
         children: [
           const GradientBackground(
-            colors: [AppColors.darkestGreen, AppColors.darkGreen],
+            colors: [AppColors.darkestGreen, AppColors.primaryColor],
             children: [
-              Text(
-                AppStrings.signInToYourNAccount,
-                style: AppTheme.titleLarge,
-              ),
-              SizedBox(height: 6),
-              Text(
-                AppStrings.signInToYourAccount,
-                style: AppTheme.bodySmall,
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        AppStrings.signInToYourNAccount,
+                        style: AppTheme.titleLarge,
+                      ),
+                      SizedBox(height: 6),
+                      Text(
+                        AppStrings.signInToYourAccount,
+                        style: AppTheme.bodySmall,
+                      ),
+                    ],
+                  ),
+                  Image(
+                    image: AssetImage('assets/icon/icon_bg.png'),
+                    height: 70,
+                    alignment: Alignment.topCenter,
+                  ),
+                ],
               ),
             ],
           ),
-          const Image(
-              image: AssetImage('assets/icon/icon.png'),
-              height: 180,
-              alignment: Alignment.topCenter),
           Form(
             key: _formKey,
             child: Padding(
@@ -161,7 +173,7 @@ class _LoginPageState extends State<LoginPage> {
                                   AppStrings.loggedIn,
                                 );
                                 NavigationHelper.pushReplacementNamed(
-                                  AppRoutes.profile,
+                                  AppRoutes.home,
                                 );
                                 emailController.clear();
                                 passwordController.clear();
@@ -192,6 +204,7 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Expanded(
                         child: IconButton(
+                          color: Colors.white,
                           onPressed: () {},
                           icon:
                               SvgPicture.asset(Vectors.fingerprint, width: 60),

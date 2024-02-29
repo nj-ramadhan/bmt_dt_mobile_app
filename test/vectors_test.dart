@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:flutter_test/flutter_test.dart';
 import 'package:bmt_dt_mobile_app/resources/resources.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('vectors assets test', () {

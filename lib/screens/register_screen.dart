@@ -1,7 +1,7 @@
-import 'package:bmt_dt_mobile_app/values/app_colors.dart';
-import 'package:flutter/material.dart';
 import 'package:bmt_dt_mobile_app/utils/helpers/snackbar_helper.dart';
+import 'package:bmt_dt_mobile_app/values/app_colors.dart';
 import 'package:bmt_dt_mobile_app/values/app_regex.dart';
+import 'package:flutter/material.dart';
 
 import '../components/app_text_form_field.dart';
 import '../utils/common_widgets/gradient_background.dart';
@@ -22,6 +22,8 @@ class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
 
   late final TextEditingController nameController;
+  late final TextEditingController phoneController;
+  late final TextEditingController idController;
   late final TextEditingController emailController;
   late final TextEditingController passwordController;
   late final TextEditingController confirmPasswordController;
@@ -32,6 +34,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
   void initializeControllers() {
     nameController = TextEditingController()..addListener(controllerListener);
+    phoneController = TextEditingController()..addListener(controllerListener);
+    idController = TextEditingController()..addListener(controllerListener);
     emailController = TextEditingController()..addListener(controllerListener);
     passwordController = TextEditingController()
       ..addListener(controllerListener);
@@ -41,6 +45,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
   void disposeControllers() {
     nameController.dispose();
+    phoneController.dispose();
+    idController.dispose();
     emailController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
@@ -48,11 +54,16 @@ class _RegisterPageState extends State<RegisterPage> {
 
   void controllerListener() {
     final name = nameController.text;
+    final phone = phoneController.text;
+    final id = idController.text;
+
     final email = emailController.text;
     final password = passwordController.text;
     final confirmPassword = confirmPasswordController.text;
 
     if (name.isEmpty &&
+        phone.isEmpty &&
+        id.isEmpty &&
         email.isEmpty &&
         password.isEmpty &&
         confirmPassword.isEmpty) return;
@@ -84,17 +95,35 @@ class _RegisterPageState extends State<RegisterPage> {
       body: ListView(
         children: [
           const GradientBackground(
-            colors: [AppColors.darkestGreen, AppColors.darkGreen],
+            colors: [AppColors.darkestGreen, AppColors.primaryColor],
             children: [
-              Text(AppStrings.register, style: AppTheme.titleLarge),
-              SizedBox(height: 6),
-              Text(AppStrings.createYourAccount, style: AppTheme.bodySmall),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        AppStrings.registerTitle,
+                        style: AppTheme.titleLarge,
+                      ),
+                      SizedBox(height: 6),
+                      Text(
+                        AppStrings.registerSubtitle,
+                        style: AppTheme.bodySmall,
+                      ),
+                    ],
+                  ),
+                  Image(
+                    image: AssetImage('assets/icon/icon_bg.png'),
+                    height: 70,
+                    alignment: Alignment.topCenter,
+                  ),
+                ],
+              ),
             ],
           ),
-          const Image(
-              image: AssetImage('assets/icon/icon.png'),
-              height: 180,
-              alignment: Alignment.topCenter),
           Padding(
             padding: const EdgeInsets.all(20),
             child: Form(
@@ -116,6 +145,36 @@ class _RegisterPageState extends State<RegisterPage> {
                               : null;
                     },
                     controller: nameController,
+                  ),
+                  AppTextFormField(
+                    autofocus: true,
+                    labelText: AppStrings.phone,
+                    keyboardType: TextInputType.phone,
+                    textInputAction: TextInputAction.next,
+                    onChanged: (value) => _formKey.currentState?.validate(),
+                    validator: (value) {
+                      return value!.isEmpty
+                          ? AppStrings.pleaseEnterPhone
+                          : value.length < 11
+                              ? AppStrings.invalidPhone
+                              : null;
+                    },
+                    controller: phoneController,
+                  ),
+                  AppTextFormField(
+                    autofocus: true,
+                    labelText: AppStrings.id,
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.next,
+                    onChanged: (value) => _formKey.currentState?.validate(),
+                    validator: (value) {
+                      return value!.isEmpty
+                          ? AppStrings.pleaseEnterId
+                          : value.length < 15
+                              ? AppStrings.invalidId
+                              : null;
+                    },
+                    controller: idController,
                   ),
                   AppTextFormField(
                     labelText: AppStrings.email,

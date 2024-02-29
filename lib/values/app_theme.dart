@@ -19,6 +19,17 @@ class AppTheme {
         fontSize: 34,
         letterSpacing: 0.5,
       ),
+      bodyLarge: TextStyle(
+        color: Colors.white,
+        fontSize: 26,
+        letterSpacing: 0.5,
+      ),
+      bodyMedium: TextStyle(
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+        fontSize: 21,
+        letterSpacing: 0.5,
+      ),
       bodySmall: TextStyle(
         color: Colors.grey,
         fontSize: 14,
@@ -51,7 +62,7 @@ class AppTheme {
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(8)),
         ),
-        textStyle: const TextStyle(fontWeight: FontWeight.bold),
+        textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
@@ -62,6 +73,7 @@ class AppTheme {
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
+        textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
     ),
     filledButtonTheme: FilledButtonThemeData(
@@ -76,6 +88,29 @@ class AppTheme {
         textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
       ),
     ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        foregroundColor: Colors.black,
+        backgroundColor: AppColors.primaryColor,
+        disabledBackgroundColor: Colors.grey.shade300,
+        minimumSize: const Size(double.infinity, 52),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12)),
+        ),
+        textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+      ),
+    ),
+    iconButtonTheme: IconButtonThemeData(
+      style: IconButton.styleFrom(
+        foregroundColor: Colors.black,
+        backgroundColor: AppColors.primaryColor,
+        disabledBackgroundColor: Colors.grey.shade300,
+        minimumSize: const Size(double.infinity, 52),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12)),
+        ),
+      ),
+    ),
   );
 
   static const TextStyle titleLarge = TextStyle(
@@ -85,8 +120,29 @@ class AppTheme {
     letterSpacing: 0.5,
   );
 
+  static const TextStyle bodyLarge = TextStyle(
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
+    fontSize: 26,
+    letterSpacing: 0.5,
+  );
+
+  static const TextStyle bodyMedium = TextStyle(
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
+    fontSize: 21,
+    letterSpacing: 0.5,
+  );
+
   static const TextStyle bodySmall = TextStyle(
     color: Colors.grey,
+    fontSize: 14,
+    letterSpacing: 0.5,
+  );
+
+  static const TextStyle bodyTiny = TextStyle(
+    color: Colors.grey,
+    fontSize: 10,
     letterSpacing: 0.5,
   );
 }
