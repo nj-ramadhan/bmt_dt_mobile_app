@@ -11,28 +11,28 @@ class AppTheme {
   static final ThemeData themeData = ThemeData(
     useMaterial3: true,
     colorSchemeSeed: AppColors.primaryColor,
-    scaffoldBackgroundColor: Colors.white,
+    scaffoldBackgroundColor: Colors.transparent,
     textTheme: const TextTheme(
       titleLarge: TextStyle(
         fontWeight: FontWeight.bold,
-        color: Colors.white,
-        fontSize: 34,
+        color: Colors.black,
+        fontSize: 30,
         letterSpacing: 0.5,
       ),
       bodyLarge: TextStyle(
-        color: Colors.white,
-        fontSize: 26,
+        color: Colors.black,
+        fontSize: 22,
         letterSpacing: 0.5,
       ),
       bodyMedium: TextStyle(
         fontWeight: FontWeight.bold,
-        color: Colors.white,
-        fontSize: 21,
+        color: Colors.black,
+        fontSize: 18,
         letterSpacing: 0.5,
       ),
       bodySmall: TextStyle(
-        color: Colors.grey,
-        fontSize: 14,
+        color: Colors.black,
+        fontSize: 12,
         letterSpacing: 0.5,
       ),
     ),
@@ -41,7 +41,7 @@ class AppTheme {
       fillColor: Colors.transparent,
       errorStyle: TextStyle(fontSize: 12),
       contentPadding: EdgeInsets.symmetric(
-        horizontal: 24,
+        horizontal: 18,
         vertical: 14,
       ),
       border: textFormFieldBorder,
@@ -50,7 +50,7 @@ class AppTheme {
       focusedErrorBorder: textFormFieldBorder,
       enabledBorder: textFormFieldBorder,
       labelStyle: TextStyle(
-        fontSize: 17,
+        fontSize: 14,
         color: Colors.grey,
         fontWeight: FontWeight.w500,
       ),
@@ -103,7 +103,7 @@ class AppTheme {
     iconButtonTheme: IconButtonThemeData(
       style: IconButton.styleFrom(
         foregroundColor: Colors.black,
-        backgroundColor: AppColors.primaryColor,
+        backgroundColor: Colors.transparent,
         disabledBackgroundColor: Colors.grey.shade300,
         minimumSize: const Size(double.infinity, 52),
         shape: const RoundedRectangleBorder(
@@ -115,28 +115,28 @@ class AppTheme {
 
   static const TextStyle titleLarge = TextStyle(
     fontWeight: FontWeight.bold,
-    color: Colors.white,
-    fontSize: 34,
+    color: Colors.black,
+    fontSize: 30,
     letterSpacing: 0.5,
   );
 
   static const TextStyle bodyLarge = TextStyle(
     fontWeight: FontWeight.bold,
-    color: Colors.white,
-    fontSize: 26,
+    color: Colors.black,
+    fontSize: 22,
     letterSpacing: 0.5,
   );
 
   static const TextStyle bodyMedium = TextStyle(
     fontWeight: FontWeight.bold,
-    color: Colors.white,
-    fontSize: 21,
+    color: Colors.black,
+    fontSize: 18,
     letterSpacing: 0.5,
   );
 
   static const TextStyle bodySmall = TextStyle(
-    color: Colors.grey,
-    fontSize: 14,
+    color: Colors.black,
+    fontSize: 12,
     letterSpacing: 0.5,
   );
 

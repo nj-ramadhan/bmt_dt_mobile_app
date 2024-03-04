@@ -1,7 +1,8 @@
 import 'package:bmt_dt_mobile_app/utils/helpers/snackbar_helper.dart';
-import 'package:bmt_dt_mobile_app/values/app_colors.dart';
 import 'package:bmt_dt_mobile_app/values/app_regex.dart';
 import 'package:flutter/material.dart';
+import 'package:camera/camera.dart';
+import 'camera_screen.dart';
 
 import '../components/app_text_form_field.dart';
 import '../utils/common_widgets/gradient_background.dart';
@@ -91,235 +92,260 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        children: [
-          const GradientBackground(
-            colors: [AppColors.darkestGreen, AppColors.primaryColor],
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        AppStrings.registerTitle,
-                        style: AppTheme.titleLarge,
-                      ),
-                      SizedBox(height: 6),
-                      Text(
-                        AppStrings.registerSubtitle,
-                        style: AppTheme.bodySmall,
-                      ),
-                    ],
-                  ),
-                  Image(
-                    image: AssetImage('assets/icon/icon_bg.png'),
-                    height: 70,
-                    alignment: Alignment.topCenter,
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  AppTextFormField(
-                    autofocus: true,
-                    labelText: AppStrings.name,
-                    keyboardType: TextInputType.name,
-                    textInputAction: TextInputAction.next,
-                    onChanged: (value) => _formKey.currentState?.validate(),
-                    validator: (value) {
-                      return value!.isEmpty
-                          ? AppStrings.pleaseEnterName
-                          : value.length < 4
-                              ? AppStrings.invalidName
-                              : null;
-                    },
-                    controller: nameController,
-                  ),
-                  AppTextFormField(
-                    autofocus: true,
-                    labelText: AppStrings.phone,
-                    keyboardType: TextInputType.phone,
-                    textInputAction: TextInputAction.next,
-                    onChanged: (value) => _formKey.currentState?.validate(),
-                    validator: (value) {
-                      return value!.isEmpty
-                          ? AppStrings.pleaseEnterPhone
-                          : value.length < 11
-                              ? AppStrings.invalidPhone
-                              : null;
-                    },
-                    controller: phoneController,
-                  ),
-                  AppTextFormField(
-                    autofocus: true,
-                    labelText: AppStrings.id,
-                    keyboardType: TextInputType.number,
-                    textInputAction: TextInputAction.next,
-                    onChanged: (value) => _formKey.currentState?.validate(),
-                    validator: (value) {
-                      return value!.isEmpty
-                          ? AppStrings.pleaseEnterId
-                          : value.length < 15
-                              ? AppStrings.invalidId
-                              : null;
-                    },
-                    controller: idController,
-                  ),
-                  AppTextFormField(
-                    labelText: AppStrings.email,
-                    controller: emailController,
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.emailAddress,
-                    onChanged: (_) => _formKey.currentState?.validate(),
-                    validator: (value) {
-                      return value!.isEmpty
-                          ? AppStrings.pleaseEnterEmailAddress
-                          : AppConstants.emailRegex.hasMatch(value)
-                              ? null
-                              : AppStrings.invalidEmailAddress;
-                    },
-                  ),
-                  ValueListenableBuilder<bool>(
-                    valueListenable: passwordNotifier,
-                    builder: (_, passwordObscure, __) {
-                      return AppTextFormField(
-                        obscureText: passwordObscure,
-                        controller: passwordController,
-                        labelText: AppStrings.password,
-                        textInputAction: TextInputAction.next,
-                        keyboardType: TextInputType.visiblePassword,
-                        onChanged: (_) => _formKey.currentState?.validate(),
-                        validator: (value) {
-                          return value!.isEmpty
-                              ? AppStrings.pleaseEnterPassword
-                              : AppConstants.passwordRegex.hasMatch(value)
-                                  ? null
-                                  : AppStrings.invalidPassword;
-                        },
-                        suffixIcon: Focus(
-                          /// If false,
-                          ///
-                          /// disable focus for all of this node's descendants
-                          descendantsAreFocusable: false,
+    return Container(
+      constraints: const BoxConstraints.expand(),
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage('assets/images/background1.jpg'),
+            fit: BoxFit.cover),
+      ),
+      child: Scaffold(
+        body: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const GradientBackground(
+              colors: [Colors.transparent, Colors.transparent],
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          AppStrings.registerTitle,
+                          style: AppTheme.titleLarge,
+                        ),
+                        Text(
+                          AppStrings.registerSubtitle,
+                          style: AppTheme.bodySmall,
+                        ),
+                      ],
+                    ),
+                    Image(
+                      image: AssetImage('assets/icon/icon_text.png'),
+                      height: 50,
+                      alignment: Alignment.topCenter,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    AppTextFormField(
+                      autofocus: true,
+                      labelText: AppStrings.name,
+                      keyboardType: TextInputType.name,
+                      textInputAction: TextInputAction.next,
+                      onChanged: (value) => _formKey.currentState?.validate(),
+                      validator: (value) {
+                        return value!.isEmpty
+                            ? AppStrings.pleaseEnterName
+                            : value.length < 4
+                                ? AppStrings.invalidName
+                                : null;
+                      },
+                      controller: nameController,
+                    ),
+                    AppTextFormField(
+                      autofocus: true,
+                      labelText: AppStrings.phone,
+                      keyboardType: TextInputType.phone,
+                      textInputAction: TextInputAction.next,
+                      onChanged: (value) => _formKey.currentState?.validate(),
+                      validator: (value) {
+                        return value!.isEmpty
+                            ? AppStrings.pleaseEnterPhone
+                            : value.length < 11
+                                ? AppStrings.invalidPhone
+                                : null;
+                      },
+                      controller: phoneController,
+                    ),
+                    AppTextFormField(
+                      autofocus: true,
+                      labelText: AppStrings.id,
+                      keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.next,
+                      onChanged: (value) => _formKey.currentState?.validate(),
+                      validator: (value) {
+                        return value!.isEmpty
+                            ? AppStrings.pleaseEnterId
+                            : value.length < 15
+                                ? AppStrings.invalidId
+                                : null;
+                      },
+                      controller: idController,
+                    ),
+                    AppTextFormField(
+                      labelText: AppStrings.email,
+                      controller: emailController,
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.emailAddress,
+                      onChanged: (_) => _formKey.currentState?.validate(),
+                      validator: (value) {
+                        return value!.isEmpty
+                            ? AppStrings.pleaseEnterEmailAddress
+                            : AppConstants.emailRegex.hasMatch(value)
+                                ? null
+                                : AppStrings.invalidEmailAddress;
+                      },
+                    ),
+                    ValueListenableBuilder<bool>(
+                      valueListenable: passwordNotifier,
+                      builder: (_, passwordObscure, __) {
+                        return AppTextFormField(
+                          obscureText: passwordObscure,
+                          controller: passwordController,
+                          labelText: AppStrings.password,
+                          textInputAction: TextInputAction.next,
+                          keyboardType: TextInputType.visiblePassword,
+                          onChanged: (_) => _formKey.currentState?.validate(),
+                          validator: (value) {
+                            return value!.isEmpty
+                                ? AppStrings.pleaseEnterPassword
+                                : AppConstants.passwordRegex.hasMatch(value)
+                                    ? null
+                                    : AppStrings.invalidPassword;
+                          },
+                          suffixIcon: Focus(
+                            /// If false,
+                            ///
+                            /// disable focus for all of this node's descendants
+                            descendantsAreFocusable: false,
 
-                          /// If false,
-                          ///
-                          /// make this widget's descendants un-traversable.
-                          // descendantsAreTraversable: false,
-                          child: IconButton(
-                            onPressed: () =>
-                                passwordNotifier.value = !passwordObscure,
-                            style: IconButton.styleFrom(
-                              minimumSize: const Size.square(48),
-                            ),
-                            icon: Icon(
-                              passwordObscure
-                                  ? Icons.visibility_off_outlined
-                                  : Icons.visibility_outlined,
-                              color: Colors.black,
+                            /// If false,
+                            ///
+                            /// make this widget's descendants un-traversable.
+                            // descendantsAreTraversable: false,
+                            child: IconButton(
+                              onPressed: () =>
+                                  passwordNotifier.value = !passwordObscure,
+                              style: IconButton.styleFrom(
+                                minimumSize: const Size.square(48),
+                              ),
+                              icon: Icon(
+                                passwordObscure
+                                    ? Icons.visibility_off_outlined
+                                    : Icons.visibility_outlined,
+                                color: Colors.black,
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                  ValueListenableBuilder(
-                    valueListenable: confirmPasswordNotifier,
-                    builder: (_, confirmPasswordObscure, __) {
-                      return AppTextFormField(
-                        labelText: AppStrings.confirmPassword,
-                        controller: confirmPasswordController,
-                        obscureText: confirmPasswordObscure,
-                        textInputAction: TextInputAction.done,
-                        keyboardType: TextInputType.visiblePassword,
-                        onChanged: (_) => _formKey.currentState?.validate(),
-                        validator: (value) {
-                          return value!.isEmpty
-                              ? AppStrings.pleaseReEnterPassword
-                              : AppConstants.passwordRegex.hasMatch(value)
-                                  ? passwordController.text ==
-                                          confirmPasswordController.text
-                                      ? null
-                                      : AppStrings.passwordNotMatched
-                                  : AppStrings.invalidPassword;
-                        },
-                        suffixIcon: Focus(
-                          /// If false,
-                          ///
-                          /// disable focus for all of this node's descendants.
-                          descendantsAreFocusable: false,
+                        );
+                      },
+                    ),
+                    ValueListenableBuilder(
+                      valueListenable: confirmPasswordNotifier,
+                      builder: (_, confirmPasswordObscure, __) {
+                        return AppTextFormField(
+                          labelText: AppStrings.confirmPassword,
+                          controller: confirmPasswordController,
+                          obscureText: confirmPasswordObscure,
+                          textInputAction: TextInputAction.done,
+                          keyboardType: TextInputType.visiblePassword,
+                          onChanged: (_) => _formKey.currentState?.validate(),
+                          validator: (value) {
+                            return value!.isEmpty
+                                ? AppStrings.pleaseReEnterPassword
+                                : AppConstants.passwordRegex.hasMatch(value)
+                                    ? passwordController.text ==
+                                            confirmPasswordController.text
+                                        ? null
+                                        : AppStrings.passwordNotMatched
+                                    : AppStrings.invalidPassword;
+                          },
+                          suffixIcon: Focus(
+                            /// If false,
+                            ///
+                            /// disable focus for all of this node's descendants.
+                            descendantsAreFocusable: false,
 
-                          /// If false,
-                          ///
-                          /// make this widget's descendants un-traversable.
-                          // descendantsAreTraversable: false,
-                          child: IconButton(
-                            onPressed: () => confirmPasswordNotifier.value =
-                                !confirmPasswordObscure,
-                            style: IconButton.styleFrom(
-                              minimumSize: const Size.square(48),
-                            ),
-                            icon: Icon(
-                              confirmPasswordObscure
-                                  ? Icons.visibility_off_outlined
-                                  : Icons.visibility_outlined,
-                              color: Colors.black,
+                            /// If false,
+                            ///
+                            /// make this widget's descendants un-traversable.
+                            // descendantsAreTraversable: false,
+                            child: IconButton(
+                              onPressed: () => confirmPasswordNotifier.value =
+                                  !confirmPasswordObscure,
+                              style: IconButton.styleFrom(
+                                minimumSize: const Size.square(48),
+                              ),
+                              icon: Icon(
+                                confirmPasswordObscure
+                                    ? Icons.visibility_off_outlined
+                                    : Icons.visibility_outlined,
+                                color: Colors.black,
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                  ValueListenableBuilder(
-                    valueListenable: fieldValidNotifier,
-                    builder: (_, isValid, __) {
-                      return FilledButton(
-                        onPressed: isValid
-                            ? () {
-                                SnackbarHelper.showSnackBar(
-                                  AppStrings.registrationComplete,
-                                );
-                                nameController.clear();
-                                emailController.clear();
-                                passwordController.clear();
-                                confirmPasswordController.clear();
-                              }
-                            : null,
-                        child: const Text(AppStrings.register),
-                      );
-                    },
-                  ),
-                ],
+                        );
+                      },
+                    ),
+                    ValueListenableBuilder(
+                      valueListenable: fieldValidNotifier,
+                      builder: (_, isValid, __) {
+                        return FilledButton(
+                          onPressed: isValid
+                              ? () {
+                                  SnackbarHelper.showSnackBar(
+                                    AppStrings.registrationComplete,
+                                  );
+                                  nameController.clear();
+                                  emailController.clear();
+                                  passwordController.clear();
+                                  confirmPasswordController.clear();
+                                }
+                              : null,
+                          child: const Text(AppStrings.register),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                AppStrings.iHaveAnAccount,
-                style: AppTheme.bodySmall.copyWith(color: Colors.black),
+            const SizedBox(height: 20),
+            OutlinedButton.icon(
+              icon: const Icon(
+                Icons.camera,
+                size: 40,
               ),
-              TextButton(
-                onPressed: () => NavigationHelper.pushReplacementNamed(
-                  AppRoutes.login,
+              onPressed: () async {
+                await availableCameras().then((value) => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => CameraPage(cameras: value))));
+              },
+              // onPressed: () => NavigationHelper.pushReplacementNamed(
+              //   AppRoutes.takepicture,
+              // ),
+              label: const Text('Take ID Photo'),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  AppStrings.iHaveAnAccount,
+                  style: AppTheme.bodySmall.copyWith(color: Colors.black),
                 ),
-                child: const Text(AppStrings.login),
-              ),
-            ],
-          ),
-        ],
+                TextButton(
+                  onPressed: () => NavigationHelper.pushReplacementNamed(
+                    AppRoutes.login,
+                  ),
+                  child: const Text(AppStrings.login),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

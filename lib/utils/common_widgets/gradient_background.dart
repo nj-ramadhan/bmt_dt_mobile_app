@@ -18,12 +18,12 @@ class GradientBackground extends StatelessWidget {
     return DecoratedBox(
       decoration: BoxDecoration(gradient: LinearGradient(colors: colors)),
       child: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             SizedBox(
-              height: context.heightFraction(sizeFraction: 0.04),
+              height: context.heightFraction(sizeFraction: 0.02),
             ),
             ...children,
           ],

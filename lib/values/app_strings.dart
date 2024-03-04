@@ -72,4 +72,7 @@ class AppStrings {
 
   static const String transferTitle = 'Transfer';
   static const String transferSubtitle = 'Do you want to transfer amount?';
+
+  static const String cameraTitle = 'ID Photo';
+  static const String cameraSubtitle = 'Take Picture of your ID';
 }

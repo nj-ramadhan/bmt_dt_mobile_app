@@ -10,4 +10,5 @@ class AppRoutes {
   static const String checking = 'checking';
   static const String payment = 'payment';
   static const String transfer = 'transfer';
+  static const String takepicture = 'takepicture';
 }

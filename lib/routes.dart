@@ -9,8 +9,10 @@ import 'screens/deposit_screen.dart';
 import 'screens/checking_screen.dart';
 import 'screens/payment_screen.dart';
 import 'screens/transfer_screen.dart';
+import 'screens/take_picture_screen.dart';
 import 'utils/common_widgets/invalid_route.dart';
 import 'values/app_routes.dart';
+import 'package:camera/camera.dart';
 
 class Routes {
   const Routes._();
@@ -54,6 +56,9 @@ class Routes {
 
       case AppRoutes.transfer:
         return getRoute(widget: const TransferPage());
+
+      // case AppRoutes.takepicture:
+      //   return getRoute(widget: const TakePicturePage());
 
       /// An invalid route. User shouldn't see this,
       /// it's for debugging purpose only.

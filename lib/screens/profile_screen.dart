@@ -17,92 +17,100 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          const GradientBackground(
-            colors: [AppColors.darkestGreen, AppColors.primaryColor],
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        AppStrings.profileAccount,
-                        style: AppTheme.titleLarge,
-                      ),
-                      SizedBox(height: 6),
-                      Text(
-                        AppStrings.profileAccountSubtitle,
-                        style: AppTheme.bodySmall,
-                      ),
-                    ],
-                  ),
-                  Image(
-                    image: AssetImage('assets/icon/icon_bg.png'),
-                    height: 70,
-                    alignment: Alignment.topCenter,
-                  ),
-                ],
-              ),
-            ],
-          ),
-          SizedBox(height: 20),
-          const Image(
-            image: AssetImage('assets/images/user.png'),
-            height: 180,
-            alignment: Alignment.topCenter,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+    return Container(
+      constraints: const BoxConstraints.expand(),
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage('assets/images/background1.jpg'),
+            fit: BoxFit.cover),
+      ),
+      child: Scaffold(
+        body: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const GradientBackground(
+              colors: [Colors.transparent, Colors.transparent],
               children: [
-                const SizedBox(height: 20),
-                FilledButton(
-                  onPressed: () => NavigationHelper.pushReplacementNamed(
-                    AppRoutes.deposit,
-                  ),
-                  child: const Text(AppStrings.depositTitle),
-                ),
-                const SizedBox(height: 20),
-                FilledButton(
-                  onPressed: () => NavigationHelper.pushReplacementNamed(
-                    AppRoutes.login,
-                  ),
-                  child: const Text(AppStrings.login),
-                ),
-                const SizedBox(height: 20),
-                OutlinedButton.icon(
-                  icon: const Icon(
-                    Icons.home,
-                    size: 40,
-                  ),
-                  onPressed: () => NavigationHelper.pushReplacementNamed(
-                    AppRoutes.home,
-                  ),
-                  label: const Text(AppStrings.homeTitle),
-                ),
-                const SizedBox(height: 20),
-                OutlinedButton.icon(
-                  icon: const Icon(
-                    Icons.logout,
-                    size: 40,
-                  ),
-                  onPressed: () => NavigationHelper.pushReplacementNamed(
-                    AppRoutes.login,
-                  ),
-                  label: const Text(AppStrings.logout),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          AppStrings.profileAccount,
+                          style: AppTheme.titleLarge,
+                        ),
+                        SizedBox(height: 6),
+                        Text(
+                          AppStrings.profileAccountSubtitle,
+                          style: AppTheme.bodySmall,
+                        ),
+                      ],
+                    ),
+                    Image(
+                      image: AssetImage('assets/icon/icon_bg.png'),
+                      height: 70,
+                      alignment: Alignment.topCenter,
+                    ),
+                  ],
                 ),
               ],
             ),
-          ),
-        ],
+            SizedBox(height: 20),
+            const Image(
+              image: AssetImage('assets/images/user.png'),
+              height: 180,
+              alignment: Alignment.topCenter,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(height: 20),
+                  FilledButton(
+                    onPressed: () => NavigationHelper.pushReplacementNamed(
+                      AppRoutes.deposit,
+                    ),
+                    child: const Text(AppStrings.depositTitle),
+                  ),
+                  const SizedBox(height: 20),
+                  FilledButton(
+                    onPressed: () => NavigationHelper.pushReplacementNamed(
+                      AppRoutes.login,
+                    ),
+                    child: const Text(AppStrings.login),
+                  ),
+                  const SizedBox(height: 20),
+                  OutlinedButton.icon(
+                    icon: const Icon(
+                      Icons.home,
+                      size: 40,
+                    ),
+                    onPressed: () => NavigationHelper.pushReplacementNamed(
+                      AppRoutes.home,
+                    ),
+                    label: const Text(AppStrings.homeTitle),
+                  ),
+                  const SizedBox(height: 20),
+                  OutlinedButton.icon(
+                    icon: const Icon(
+                      Icons.logout,
+                      size: 40,
+                    ),
+                    onPressed: () => NavigationHelper.pushReplacementNamed(
+                      AppRoutes.login,
+                    ),
+                    label: const Text(AppStrings.logout),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

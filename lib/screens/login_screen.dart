@@ -68,171 +68,178 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          const GradientBackground(
-            colors: [AppColors.darkestGreen, AppColors.primaryColor],
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        AppStrings.signInToYourNAccount,
-                        style: AppTheme.titleLarge,
-                      ),
-                      SizedBox(height: 6),
-                      Text(
-                        AppStrings.signInToYourAccount,
-                        style: AppTheme.bodySmall,
-                      ),
-                    ],
-                  ),
-                  Image(
-                    image: AssetImage('assets/icon/icon_bg.png'),
-                    height: 70,
-                    alignment: Alignment.topCenter,
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Form(
-            key: _formKey,
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  AppTextFormField(
-                    controller: emailController,
-                    labelText: AppStrings.email,
-                    keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.next,
-                    onChanged: (_) => _formKey.currentState?.validate(),
-                    validator: (value) {
-                      return value!.isEmpty
-                          ? AppStrings.pleaseEnterEmailAddress
-                          : AppConstants.emailRegex.hasMatch(value)
-                              ? null
-                              : AppStrings.invalidEmailAddress;
-                    },
-                  ),
-                  ValueListenableBuilder(
-                    valueListenable: passwordNotifier,
-                    builder: (_, passwordObscure, __) {
-                      return AppTextFormField(
-                        obscureText: passwordObscure,
-                        controller: passwordController,
-                        labelText: AppStrings.password,
-                        textInputAction: TextInputAction.done,
-                        keyboardType: TextInputType.visiblePassword,
-                        onChanged: (_) => _formKey.currentState?.validate(),
-                        validator: (value) {
-                          return value!.isEmpty
-                              ? AppStrings.pleaseEnterPassword
-                              : AppConstants.passwordRegex.hasMatch(value)
-                                  ? null
-                                  : AppStrings.invalidPassword;
-                        },
-                        suffixIcon: IconButton(
+    return Container(
+      constraints: const BoxConstraints.expand(),
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage('assets/images/background1.jpg'),
+            fit: BoxFit.cover),
+      ),
+      child: Scaffold(
+        body: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const GradientBackground(
+              colors: [Colors.transparent, Colors.transparent],
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          AppStrings.signInToYourNAccount,
+                          style: AppTheme.titleLarge,
+                        ),
+                        Text(
+                          AppStrings.signInToYourAccount,
+                          style: AppTheme.bodySmall,
+                        ),
+                      ],
+                    ),
+                    Image(
+                      image: AssetImage('assets/icon/icon_text.png'),
+                      height: 50,
+                      alignment: Alignment.topCenter,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            const Image(
+              image: AssetImage('assets/icon/icon.png'),
+              height: 180,
+              alignment: Alignment.topCenter,
+            ),
+            Form(
+              key: _formKey,
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    AppTextFormField(
+                      controller: emailController,
+                      labelText: AppStrings.email,
+                      keyboardType: TextInputType.emailAddress,
+                      textInputAction: TextInputAction.next,
+                      onChanged: (_) => _formKey.currentState?.validate(),
+                      validator: (value) {
+                        return value!.isEmpty
+                            ? AppStrings.pleaseEnterEmailAddress
+                            : AppConstants.emailRegex.hasMatch(value)
+                                ? null
+                                : AppStrings.invalidEmailAddress;
+                      },
+                    ),
+                    ValueListenableBuilder(
+                      valueListenable: passwordNotifier,
+                      builder: (_, passwordObscure, __) {
+                        return AppTextFormField(
+                          obscureText: passwordObscure,
+                          controller: passwordController,
+                          labelText: AppStrings.password,
+                          textInputAction: TextInputAction.done,
+                          keyboardType: TextInputType.visiblePassword,
+                          onChanged: (_) => _formKey.currentState?.validate(),
+                          validator: (value) {
+                            return value!.isEmpty
+                                ? AppStrings.pleaseEnterPassword
+                                : AppConstants.passwordRegex.hasMatch(value)
+                                    ? null
+                                    : AppStrings.invalidPassword;
+                          },
+                          suffixIcon: IconButton(
+                            onPressed: () =>
+                                passwordNotifier.value = !passwordObscure,
+                            style: IconButton.styleFrom(
+                              minimumSize: const Size.square(48),
+                            ),
+                            icon: Icon(
+                              passwordObscure
+                                  ? Icons.visibility_off_outlined
+                                  : Icons.visibility_outlined,
+                              size: 20,
+                              color: Colors.black,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    ValueListenableBuilder(
+                      valueListenable: fieldValidNotifier,
+                      builder: (_, isValid, __) {
+                        return FilledButton(
+                          onPressed: isValid
+                              ? () {
+                                  SnackbarHelper.showSnackBar(
+                                    AppStrings.loggedIn,
+                                  );
+                                  NavigationHelper.pushReplacementNamed(
+                                    AppRoutes.home,
+                                  );
+                                  emailController.clear();
+                                  passwordController.clear();
+                                }
+                              : null,
+                          child: const Text(AppStrings.login),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: IconButton(
+                            color: Colors.white,
+                            onPressed: () {},
+                            icon: SvgPicture.asset(Vectors.fingerprint,
+                                width: 60),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          AppStrings.doNotHaveAnAccount,
+                          style:
+                              AppTheme.bodySmall.copyWith(color: Colors.black),
+                        ),
+                        const SizedBox(width: 10),
+                        TextButton(
+                          // onPressed: () =>
+                          //     NavigationHelper.pushReplacementNamed(
+                          //   AppRoutes.register,
+                          // ),
                           onPressed: () =>
-                              passwordNotifier.value = !passwordObscure,
-                          style: IconButton.styleFrom(
-                            minimumSize: const Size.square(48),
+                              NavigationHelper.pushReplacementNamed(
+                            AppRoutes.register,
                           ),
-                          icon: Icon(
-                            passwordObscure
-                                ? Icons.visibility_off_outlined
-                                : Icons.visibility_outlined,
-                            size: 20,
-                            color: Colors.black,
-                          ),
+                          child: const Text(AppStrings.register),
                         ),
-                      );
-                    },
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: const Text(AppStrings.forgotPassword),
-                  ),
-                  const SizedBox(height: 20),
-                  ValueListenableBuilder(
-                    valueListenable: fieldValidNotifier,
-                    builder: (_, isValid, __) {
-                      return FilledButton(
-                        onPressed: isValid
-                            ? () {
-                                SnackbarHelper.showSnackBar(
-                                  AppStrings.loggedIn,
-                                );
-                                NavigationHelper.pushReplacementNamed(
-                                  AppRoutes.home,
-                                );
-                                emailController.clear();
-                                passwordController.clear();
-                              }
-                            : null,
-                        child: const Text(AppStrings.login),
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    children: [
-                      Expanded(child: Divider(color: Colors.grey.shade200)),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Text(
-                          AppStrings.orLoginWith,
-                          style: AppTheme.bodySmall.copyWith(
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      Expanded(child: Divider(color: Colors.grey.shade200)),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: IconButton(
-                          color: Colors.white,
-                          onPressed: () {},
-                          icon:
-                              SvgPicture.asset(Vectors.fingerprint, width: 60),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      'Version',
+                      style: AppTheme.bodySmall.copyWith(color: Colors.grey),
+                    ),
+                    Text(
+                      '1.0.0',
+                      style: AppTheme.bodySmall.copyWith(color: Colors.grey),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                AppStrings.doNotHaveAnAccount,
-                style: AppTheme.bodySmall.copyWith(color: Colors.black),
-              ),
-              const SizedBox(width: 4),
-              TextButton(
-                onPressed: () => NavigationHelper.pushReplacementNamed(
-                  AppRoutes.register,
-                ),
-                child: const Text(AppStrings.register),
-              ),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
