@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
       constraints: const BoxConstraints.expand(),
       decoration: const BoxDecoration(
         image: DecorationImage(
-            image: AssetImage('assets/images/background2.jpg'),
+            image: AssetImage('assets/images/background1.jpg'),
             fit: BoxFit.cover),
       ),
       child: Scaffold(
@@ -61,29 +61,31 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             const Padding(
-              padding: EdgeInsets.all(20),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        'User Name',
-                        style: AppTheme.bodySmall,
-                      ),
-                      Text('email@domain.com', style: AppTheme.bodySmall)
-                    ],
-                  ),
-                  SizedBox(width: 20),
-                  Image(
-                    image: AssetImage('assets/images/user.png'),
-                    height: 60,
-                    alignment: Alignment.topCenter,
-                  ),
-                ],
+              padding: EdgeInsets.fromLTRB(180, 10, 0, 10),
+              child: Card(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          'User Name',
+                          style: AppTheme.bodySmall,
+                        ),
+                        Text('email@domain.com', style: AppTheme.bodySmall)
+                      ],
+                    ),
+                    SizedBox(width: 20),
+                    Image(
+                      image: AssetImage('assets/images/user.png'),
+                      height: 60,
+                      alignment: Alignment.topCenter,
+                    ),
+                  ],
+                ),
               ),
             ),
             CarouselSlider(
@@ -95,41 +97,64 @@ class _HomePageState extends State<HomePage> {
                       width: MediaQuery.of(context).size.width,
                       margin: EdgeInsets.symmetric(horizontal: 5.0),
                       child: Card(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                          child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    AppStrings.homeAccount + ' No. $i',
+                                    style: AppTheme.bodySmall,
+                                  ),
+                                  const Text(
+                                    '00.9.123.4.5',
+                                    style: AppTheme.bodyMedium,
+                                  ),
+                                  const Text(
+                                    'Rp. ******',
+                                    style: AppTheme.bodyMedium,
+                                  ),
+                                  SizedBox(height: 50),
+                                  const Text(
+                                    AppStrings.homeAccountSubtitle,
+                                    style: AppTheme.bodyTiny,
+                                  ),
+                                ],
+                              ),
+                              QrImageView(
+                                data: '1234567890',
+                                version: QrVersions.auto,
+                                size: 100.0,
+                              ),
+                            ],
+                          ),
+                          Container(
+                            color: Colors.white,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text(
-                                  AppStrings.homeAccount + ' No. $i',
-                                  style: AppTheme.bodySmall,
-                                ),
-                                const Text(
-                                  '00.9.123.4.5',
-                                  style: AppTheme.bodySmall,
-                                ),
-                                const Text(
-                                  'Rp. ******',
-                                  style: AppTheme.bodySmall,
-                                ),
-                                SizedBox(height: 50),
-                                const Text(
-                                  AppStrings.homeAccountSubtitle,
-                                  style: AppTheme.bodyTiny,
-                                ),
+                                TextButton(
+                                    onPressed: () =>
+                                        NavigationHelper.pushReplacementNamed(
+                                            AppRoutes.checking),
+                                    child:
+                                        const Text(AppStrings.checkingTitle)),
+                                TextButton(
+                                    onPressed: () =>
+                                        NavigationHelper.pushReplacementNamed(
+                                            AppRoutes.deposit),
+                                    child: const Text(AppStrings.depositTitle)),
                               ],
                             ),
-                            QrImageView(
-                              data: '1234567890',
-                              version: QrVersions.auto,
-                              size: 100.0,
-                            ),
-                          ],
-                        ),
-                      ),
+                          ),
+                        ],
+                      )),
                     );
                   },
                 );
@@ -138,29 +163,200 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.all(20),
               child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 20),
-                  FilledButton(
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
-                      AppRoutes.menu,
-                    ),
-                    child: const Text(AppStrings.menuTitle),
+                  const Text(
+                    'Transaksi',
+                    style: AppTheme.bodyLarge,
                   ),
-                  const SizedBox(height: 20),
-                  FilledButton(
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
-                      AppRoutes.profile,
-                    ),
-                    child: const Text(AppStrings.profileAccount),
+                  const SizedBox(
+                    height: 20,
                   ),
-                  const SizedBox(height: 20),
-                  OutlinedButton(
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
-                      AppRoutes.login,
-                    ),
-                    child: const Text(AppStrings.logout),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Column(
+                        children: [
+                          MaterialButton(
+                            color: AppColors.primaryColor,
+                            textColor: Colors.white,
+                            padding: const EdgeInsets.all(16),
+                            shape: const CircleBorder(),
+                            onPressed: () =>
+                                NavigationHelper.pushReplacementNamed(
+                              AppRoutes.shopping,
+                            ),
+                            child: const Icon(
+                              Icons.trolley,
+                              size: 40,
+                            ),
+                          ),
+                          const Text(AppStrings.shoppingTitle,
+                              style: AppTheme.bodyTiny),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          MaterialButton(
+                            color: AppColors.primaryColor,
+                            textColor: Colors.white,
+                            padding: const EdgeInsets.all(16),
+                            shape: const CircleBorder(),
+                            onPressed: () =>
+                                NavigationHelper.pushReplacementNamed(
+                              AppRoutes.payment,
+                            ),
+                            child: const Icon(
+                              Icons.attach_money,
+                              size: 40,
+                            ),
+                          ),
+                          const Text(AppStrings.paymentTitle,
+                              style: AppTheme.bodyTiny),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          MaterialButton(
+                            color: AppColors.primaryColor,
+                            textColor: Colors.white,
+                            padding: const EdgeInsets.all(16),
+                            shape: const CircleBorder(),
+                            onPressed: () =>
+                                NavigationHelper.pushReplacementNamed(
+                              AppRoutes.funding,
+                            ),
+                            child: const Icon(
+                              Icons.send,
+                              size: 40,
+                            ),
+                          ),
+                          const Text(AppStrings.fundingTitle,
+                              style: AppTheme.bodyTiny),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          MaterialButton(
+                            color: AppColors.primaryColor,
+                            textColor: Colors.white,
+                            padding: const EdgeInsets.all(16),
+                            shape: const CircleBorder(),
+                            onPressed: () =>
+                                NavigationHelper.pushReplacementNamed(
+                              AppRoutes.register,
+                            ),
+                            child: const Icon(
+                              Icons.man_3,
+                              size: 40,
+                            ),
+                          ),
+                          const Text(AppStrings.register,
+                              style: AppTheme.bodyTiny),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Column(
+                        children: [
+                          MaterialButton(
+                            color: AppColors.primaryColor,
+                            textColor: Colors.white,
+                            padding: const EdgeInsets.all(16),
+                            shape: const CircleBorder(),
+                            onPressed: () =>
+                                NavigationHelper.pushReplacementNamed(
+                              AppRoutes.transfer,
+                            ),
+                            child: const Icon(
+                              Icons.forward,
+                              size: 40,
+                            ),
+                          ),
+                          const Text(AppStrings.transferTitle,
+                              style: AppTheme.bodyTiny),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          MaterialButton(
+                            color: AppColors.primaryColor,
+                            textColor: Colors.white,
+                            padding: const EdgeInsets.all(16),
+                            shape: const CircleBorder(),
+                            onPressed: () =>
+                                NavigationHelper.pushReplacementNamed(
+                              AppRoutes.payment,
+                            ),
+                            child: const Icon(
+                              Icons.atm,
+                              size: 40,
+                            ),
+                          ),
+                          const Text(AppStrings.depositTitle,
+                              style: AppTheme.bodyTiny),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          MaterialButton(
+                            color: AppColors.primaryColor,
+                            textColor: Colors.white,
+                            padding: const EdgeInsets.all(16),
+                            shape: const CircleBorder(),
+                            onPressed: () =>
+                                NavigationHelper.pushReplacementNamed(
+                              AppRoutes.home,
+                            ),
+                            child: const Icon(
+                              Icons.star,
+                              size: 40,
+                            ),
+                          ),
+                          const Text(AppStrings.favouriteTitle,
+                              style: AppTheme.bodyTiny),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          MaterialButton(
+                            color: AppColors.primaryColor,
+                            textColor: Colors.white,
+                            padding: const EdgeInsets.all(16),
+                            shape: const CircleBorder(),
+                            onPressed: () =>
+                                NavigationHelper.pushReplacementNamed(
+                              AppRoutes.checking,
+                            ),
+                            child: const Icon(
+                              Icons.check,
+                              size: 40,
+                            ),
+                          ),
+                          const Text(AppStrings.checkingTitle,
+                              style: AppTheme.bodyTiny),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  const Text(
+                    'Transaksi',
+                    style: AppTheme.bodyLarge,
+                  ),
+                  const SizedBox(
+                    height: 20,
                   ),
                 ],
               ),

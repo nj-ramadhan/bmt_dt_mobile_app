@@ -7,6 +7,8 @@ import 'screens/menu_screen.dart';
 import 'screens/profile_screen.dart';
 import 'screens/deposit_screen.dart';
 import 'screens/checking_screen.dart';
+import 'screens/shopping_screen.dart';
+import 'screens/funding_screen.dart';
 import 'screens/payment_screen.dart';
 import 'screens/transfer_screen.dart';
 import 'screens/take_picture_screen.dart';
@@ -50,6 +52,12 @@ class Routes {
 
       case AppRoutes.checking:
         return getRoute(widget: const CheckingPage());
+
+      case AppRoutes.shopping:
+        return getRoute(widget: const ShoppingPage());
+
+      case AppRoutes.funding:
+        return getRoute(widget: const FundingPage());
 
       case AppRoutes.payment:
         return getRoute(widget: const PaymentPage());

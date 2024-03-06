@@ -2,77 +2,87 @@ class AppStrings {
   const AppStrings._();
 
   static const String title = 'BMT DT Mobile App';
-  static const String uhOhPageNotFound = 'uh-oh!\nPage not found';
-  static const String register = 'Register';
-  static const String login = 'Login';
-  static const String logout = 'Logout';
-  static const String createYourAccount = 'Create your account';
-  static const String doNotHaveAnAccount = "Don't have an account?";
+  static const String uhOhPageNotFound = 'uh-oh!\nHalaman tidak ditemukan';
+  static const String register = 'Daftar';
+  static const String login = 'Masuk';
+  static const String logout = 'Keluar';
+  static const String createYourAccount = 'Buat akun baru';
+  static const String doNotHaveAnAccount = 'Tidak punya akun?';
   static const String facebook = 'Facebook';
   static const String fingerprint = 'Fingerprint';
   static const String google = 'Google';
-  static const String signInToYourNAccount = 'Sign in';
-  static const String signInToYourAccount = 'Sign in to your Account';
-  static const String iHaveAnAccount = 'I have an account?';
-  static const String forgotPassword = 'Forgot Password?';
-  static const String orLoginWith = 'or Login with';
+  static const String signInToYourNAccount = 'Masuk';
+  static const String signInToYourAccount = 'masuk ke akun';
+  static const String iHaveAnAccount = 'Punya akun?';
+  static const String forgotPassword = 'Lupa kata sandi?';
+  static const String orLoginWith = 'atau masuk dengan';
 
-  static const String loggedIn = 'Logged In!';
-  static const String registrationComplete = 'Registration Complete!';
+  static const String loggedIn = 'Berhasil masuk!';
+  static const String registrationComplete = 'Pendaftaran selesai!';
 
-  static const String name = 'Name';
-  static const String pleaseEnterName = 'Please, Enter Name';
-  static const String invalidName = 'Invalid Name';
+  static const String name = 'Nama';
+  static const String pleaseEnterName = 'Mohon isi nama';
+  static const String invalidName = 'Nama tidak sesuai';
 
-  static const String phone = 'Phone Number';
-  static const String pleaseEnterPhone = 'Please, Enter Phone Number';
-  static const String invalidPhone = 'Invalid Phone Number';
+  static const String phone = 'Nomor telepon';
+  static const String pleaseEnterPhone = 'Mohon isi nomor telepon';
+  static const String invalidPhone = 'Nomor telepon tidak sesuai';
 
-  static const String id = 'ID';
-  static const String pleaseEnterId = 'Please, Enter ID Number';
-  static const String invalidId = 'Invalid ID Number';
+  static const String id = 'No KTP';
+  static const String pleaseEnterId = 'Mohon isi nomor KTP';
+  static const String invalidId = 'Nomor KTP tidak sesuai';
 
   static const String email = 'Email';
-  static const String pleaseEnterEmailAddress = 'Please, Enter Email Address';
-  static const String invalidEmailAddress = 'Invalid Email Address';
+  static const String pleaseEnterEmailAddress = 'Mohon isi alamat email';
+  static const String invalidEmailAddress = 'Alamat email tidak sesuai';
 
-  static const String password = 'Password';
-  static const String pleaseEnterPassword = 'Please, Enter Password';
-  static const String invalidPassword = 'Invalid Password';
+  static const String password = 'Kata sandi';
+  static const String pleaseEnterPassword = 'Mohon isi kata sandi';
+  static const String invalidPassword = 'Kata sandi tidak sesuai';
 
-  static const String confirmPassword = 'Confirm Password';
-  static const String pleaseReEnterPassword = 'Please, Re-Enter Password';
-  static const String passwordNotMatched = 'Password not matched!';
+  static const String confirmPassword = 'Konfirmasi kata sandi';
+  static const String pleaseReEnterPassword = 'Mohon isi ulang kata sandi';
+  static const String passwordNotMatched = 'Kata sandi tidak cocok!';
 
-  static const String loginTitle = 'Log in';
-  static const String loginSubtitle = 'Log in to your account';
+  static const String loginTitle = 'Masuk';
+  static const String loginSubtitle = 'Masuk ke akun';
 
-  static const String registerTitle = 'Register';
-  static const String registerSubtitle = 'Create your account';
+  static const String registerTitle = 'Daftar';
+  static const String registerSubtitle = 'Butak akun baru';
 
-  static const String homeTitle = 'Home';
-  static const String homeSubtitle = 'Welcome home';
-  static const String homeAccount = 'BMT DT Account';
-  static const String homeAccountSubtitle = 'Slide to see all account';
+  static const String homeTitle = 'Beranda';
+  static const String homeSubtitle = 'Selamat datang di beranda aplikasi';
+  static const String homeAccount = 'Simpanan BMT DT';
+  static const String homeAccountSubtitle =
+      'geser untuk melihat semua simpanan';
 
   static const String menuTitle = 'Menu';
-  static const String menuSubtitle = 'Main menu';
+  static const String menuSubtitle = 'Menu utama';
 
-  static const String profileAccount = 'Profile';
-  static const String profileAccountSubtitle = 'This is your Profile';
+  static const String profileAccount = 'Profil';
+  static const String profileAccountSubtitle = 'Sesuaikan profil';
 
-  static const String depositTitle = 'Deposit';
-  static const String depositSubtitle = 'Do you want to deposit?';
+  static const String depositTitle = 'Simpanan';
+  static const String depositSubtitle = 'Mau tambah saldo?';
 
-  static const String checkingTitle = 'Checking';
-  static const String checkingSubtitle = 'Do you want to see your checking?';
+  static const String checkingTitle = 'Mutasi';
+  static const String checkingSubtitle = 'Mau lihat mutasi rekening?';
 
-  static const String paymentTitle = 'Payment';
-  static const String paymentSubtitle = 'Do you want to make a payment?';
+  static const String shoppingTitle = 'Pembelian';
+  static const String shoppingSubtitle = 'Mau melakukan pembelian?';
+
+  static const String fundingTitle = 'Pembiayaan';
+  static const String fundingSubtitle = 'Mau melakukan pembiayaan?';
+
+  static const String paymentTitle = 'Pembayaran';
+  static const String paymentSubtitle = 'Mau melakukan pembayaran?';
 
   static const String transferTitle = 'Transfer';
-  static const String transferSubtitle = 'Do you want to transfer amount?';
+  static const String transferSubtitle = 'Mau melakukan pengiriman uang?';
 
-  static const String cameraTitle = 'ID Photo';
-  static const String cameraSubtitle = 'Take Picture of your ID';
+  static const String favouriteTitle = 'Favorit';
+  static const String favouriteSubtitle = 'Menu Favorit';
+
+  static const String cameraTitle = 'Foto KTP';
+  static const String cameraSubtitle = 'Ambil foto KTP';
 }
