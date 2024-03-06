@@ -1,10 +1,8 @@
-import 'dart:html';
-
-import 'package:bmt_dt_mobile_app/components/app_text_form_field.dart';
 import 'package:bmt_dt_mobile_app/values/app_colors.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:path/path.dart';
 
 import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/navigation_helper.dart';
@@ -21,6 +19,11 @@ class TransferPage extends StatefulWidget {
 
 class _TransferPageState extends State<TransferPage> {
   int amountTransfer = 0;
+
+  void updateAmount(int amount) => setState(() {
+        amountTransfer = amount;
+        // Replace with your logic
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -65,77 +68,84 @@ class _TransferPageState extends State<TransferPage> {
                 ),
               ],
             ),
-            const Image(
-              image: AssetImage('assets/images/deposit.png'),
-              height: 180,
-              alignment: Alignment.topCenter,
-            ),
-            // Form(
-            //   key: _formKey,
-            // child:
-            // ),
-
-            const Padding(
-              padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
-              child: Card(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.end,
+            Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Icon(Icons.currency_exchange),
-                    Text(AppStrings.amountTransfer),
+                    const Card(
+                      child: SizedBox(
+                        height: 70,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Icon(Icons.currency_exchange),
+                            Text(AppStrings.amountTransfer),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Text(
+                      'Rp. $amountTransfer',
+                      style: AppTheme.titleLarge,
+                    ),
+                    const Text(
+                      AppStrings.selectAmountTransfer,
+                      style: AppTheme.bodySmall,
+                    ),
                   ],
-                ),
-              ),
-            ),
-            Text(
-              '$amountTransfer',
-              style: AppTheme.bodyLarge,
-            ),
-            const Text(
-              AppStrings.selectAmountTransfer,
-              style: AppTheme.bodySmall,
-            ),
-
+                )),
             CarouselSlider(
-              options: CarouselOptions(height: 70),
-              items: [50, 75, 100].map((i) {
+              options: CarouselOptions(height: 100),
+              items: [50000, 75000, 100000].map((i) {
                 return Builder(
                   builder: (BuildContext context) {
-                    return Container(
+                    return SizedBox(
                       width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.symmetric(horizontal: 5.0),
                       child: Card(
-                        child: Text('Rp.$i.000'),
+                        child: InkWell(
+                          onTap: () {
+                            updateAmount(i);
+                          },
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Rp. $i',
+                                style: AppTheme.titleLarge,
+                              )
+                            ],
+                          ),
+                        ),
                       ),
                     );
                   },
                 );
               }).toList(),
             ),
-            Column(
-              children: [
-                TextButton.icon(
-                  icon: Icon(
-                    Icons.send,
-                    size: 40,
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  FilledButton.icon(
+                    icon: Icon(Icons.abc),
+                    onPressed: () => NavigationHelper.pushReplacementNamed(
+                      AppRoutes.home,
+                    ),
+                    label: const Text(AppStrings.differentAccountTransfer),
                   ),
-                  onPressed: () => NavigationHelper.pushReplacementNamed(
-                    AppRoutes.login,
+                  const SizedBox(
+                    height: 20,
                   ),
-                  label: Text(AppStrings.differentAccountTransfer),
-                ),
-                TextButton.icon(
-                  icon: Icon(
-                    Icons.balance,
-                    size: 40,
+                  FilledButton.icon(
+                    icon: Icon(Icons.abc),
+                    onPressed: () => NavigationHelper.pushReplacementNamed(
+                      AppRoutes.home,
+                    ),
+                    label: const Text(AppStrings.differentBankTransfer),
                   ),
-                  onPressed: () => NavigationHelper.pushReplacementNamed(
-                    AppRoutes.login,
-                  ),
-                  label: Text(AppStrings.differentBankTransfer),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),

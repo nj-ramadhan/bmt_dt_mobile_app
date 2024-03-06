@@ -1,5 +1,6 @@
 import 'package:bmt_dt_mobile_app/values/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -17,6 +18,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  void openProfileScreen(BuildContext context) {
+    NavigationHelper.pushReplacementNamed(
+      AppRoutes.profile,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -89,7 +96,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             CarouselSlider(
-              options: CarouselOptions(height: 200.0),
+              options: CarouselOptions(height: 195.0),
               items: [1, 2, 3].map((i) {
                 return Builder(
                   builder: (BuildContext context) {
@@ -119,11 +126,12 @@ class _HomePageState extends State<HomePage> {
                                     'Rp. ******',
                                     style: AppTheme.bodyMedium,
                                   ),
-                                  SizedBox(height: 50),
+                                  SizedBox(height: 30),
                                   const Text(
                                     AppStrings.homeAccountSubtitle,
                                     style: AppTheme.bodyTiny,
                                   ),
+                                  SizedBox(height: 20),
                                 ],
                               ),
                               QrImageView(
@@ -136,7 +144,7 @@ class _HomePageState extends State<HomePage> {
                           Container(
                             color: Colors.white,
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 TextButton(
@@ -352,11 +360,36 @@ class _HomePageState extends State<HomePage> {
                     height: 40,
                   ),
                   const Text(
-                    'Transaksi',
+                    'Informasi',
                     style: AppTheme.bodyLarge,
                   ),
                   const SizedBox(
                     height: 20,
+                  ),
+                  CarouselSlider(
+                    options: CarouselOptions(height: 195.0),
+                    items: [1, 2, 3].map((i) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return Container(
+                            width: MediaQuery.of(context).size.width,
+                            margin: EdgeInsets.symmetric(horizontal: 5.0),
+                            child: Card(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Info. $i',
+                                    style: AppTheme.bodySmall,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    }).toList(),
                   ),
                 ],
               ),
@@ -366,4 +399,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+  () newMethod(() onTap) => onTap;
 }
