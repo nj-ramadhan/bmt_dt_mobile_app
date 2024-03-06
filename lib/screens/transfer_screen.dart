@@ -1,5 +1,10 @@
+import 'dart:html';
+
+import 'package:bmt_dt_mobile_app/components/app_text_form_field.dart';
 import 'package:bmt_dt_mobile_app/values/app_colors.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/navigation_helper.dart';
@@ -15,6 +20,8 @@ class TransferPage extends StatefulWidget {
 }
 
 class _TransferPageState extends State<TransferPage> {
+  int amountTransfer = 0;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -50,7 +57,7 @@ class _TransferPageState extends State<TransferPage> {
                       ],
                     ),
                     Image(
-                      image: AssetImage('assets/icon/icon_bg.png'),
+                      image: AssetImage('assets/icon/icon_text.png'),
                       height: 70,
                       alignment: Alignment.topCenter,
                     ),
@@ -67,50 +74,68 @@ class _TransferPageState extends State<TransferPage> {
             //   key: _formKey,
             // child:
             // ),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const SizedBox(height: 20),
-                  FilledButton(
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
-                      AppRoutes.profile,
-                    ),
-                    child: const Text(AppStrings.profileAccount),
-                  ),
-                  const SizedBox(height: 20),
-                  FilledButton(
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
-                      AppRoutes.login,
-                    ),
-                    child: const Text(AppStrings.login),
-                  ),
-                  const SizedBox(height: 20),
-                  OutlinedButton.icon(
-                    icon: const Icon(
-                      Icons.home,
-                      size: 40,
-                    ),
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
-                      AppRoutes.home,
-                    ),
-                    label: const Text(AppStrings.homeTitle),
-                  ),
-                  const SizedBox(height: 20),
-                  OutlinedButton.icon(
-                    icon: const Icon(
-                      Icons.logout,
-                      size: 40,
-                    ),
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
-                      AppRoutes.login,
-                    ),
-                    label: const Text(AppStrings.logout),
-                  ),
-                ],
+
+            const Padding(
+              padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
+              child: Card(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Icon(Icons.currency_exchange),
+                    Text(AppStrings.amountTransfer),
+                  ],
+                ),
               ),
+            ),
+            Text(
+              '$amountTransfer',
+              style: AppTheme.bodyLarge,
+            ),
+            const Text(
+              AppStrings.selectAmountTransfer,
+              style: AppTheme.bodySmall,
+            ),
+
+            CarouselSlider(
+              options: CarouselOptions(height: 70),
+              items: [50, 75, 100].map((i) {
+                return Builder(
+                  builder: (BuildContext context) {
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.symmetric(horizontal: 5.0),
+                      child: Card(
+                        child: Text('Rp.$i.000'),
+                      ),
+                    );
+                  },
+                );
+              }).toList(),
+            ),
+            Column(
+              children: [
+                TextButton.icon(
+                  icon: Icon(
+                    Icons.send,
+                    size: 40,
+                  ),
+                  onPressed: () => NavigationHelper.pushReplacementNamed(
+                    AppRoutes.login,
+                  ),
+                  label: Text(AppStrings.differentAccountTransfer),
+                ),
+                TextButton.icon(
+                  icon: Icon(
+                    Icons.balance,
+                    size: 40,
+                  ),
+                  onPressed: () => NavigationHelper.pushReplacementNamed(
+                    AppRoutes.login,
+                  ),
+                  label: Text(AppStrings.differentBankTransfer),
+                ),
+              ],
             ),
           ],
         ),

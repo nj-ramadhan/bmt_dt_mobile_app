@@ -50,6 +50,11 @@ class AppStrings {
   static const String registerTitle = 'Daftar';
   static const String registerSubtitle = 'Butak akun baru';
 
+  static const String amountTransfer = 'Masukan Jumlah Transfer';
+  static const String selectAmountTransfer = 'Pilih Jumlah';
+  static const String differentAccountTransfer = 'Antar Rekening';
+  static const String differentBankTransfer = 'Antar Bank';
+
   static const String homeTitle = 'Beranda';
   static const String homeSubtitle = 'Selamat datang di beranda aplikasi';
   static const String homeAccount = 'Simpanan BMT DT';
