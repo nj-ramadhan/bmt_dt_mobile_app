@@ -4,6 +4,7 @@ class AppStrings {
   static const String title = 'BMT DT Mobile App';
   static const String uhOhPageNotFound = 'uh-oh!\nHalaman tidak ditemukan';
   static const String register = 'Daftar';
+  static const String registerFill = 'Isi Form Pendaftaran';
   static const String login = 'Masuk';
   static const String logout = 'Keluar';
   static const String createYourAccount = 'Buat akun baru';
@@ -48,7 +49,7 @@ class AppStrings {
   static const String loginSubtitle = 'Masuk ke akun';
 
   static const String registerTitle = 'Daftar';
-  static const String registerSubtitle = 'Butak akun baru';
+  static const String registerSubtitle = 'Buat akun baru';
 
   static const String amountTransfer = 'Masukan Jumlah Transfer';
   static const String selectAmountTransfer = 'Pilih Jumlah';
@@ -88,6 +89,13 @@ class AppStrings {
   static const String favouriteTitle = 'Favorit';
   static const String favouriteSubtitle = 'Menu Favorit';
 
-  static const String cameraTitle = 'Foto KTP';
-  static const String cameraSubtitle = 'Ambil foto KTP';
+  static const String savingsMandatory = 'Simpanan\n Wajib';
+  static const String savingsPrincipal = 'Simpanan\n Pokok';
+  static const String savingsVoluntary = 'Simpanan\n Sukarela';
+
+  static const String cameraIDTitle = 'Ambil Foto KTP';
+  static const String cameraIDSubtitle = 'Ambil foto KTP';
+
+  static const String cameraPhotoTitle = 'Ambil Foto Wajah';
+  static const String cameraPhotoSubtitle = 'Ambil foto Wajah';
 }

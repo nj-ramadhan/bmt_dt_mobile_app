@@ -2,7 +2,7 @@ import 'package:bmt_dt_mobile_app/utils/helpers/snackbar_helper.dart';
 import 'package:bmt_dt_mobile_app/values/app_regex.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-import 'camera_screen.dart';
+import 'camera_id_screen.dart';
 
 import '../components/app_text_form_field.dart';
 import '../utils/common_widgets/gradient_background.dart';
@@ -312,23 +312,24 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
             ),
-            const SizedBox(height: 20),
-            OutlinedButton.icon(
-              icon: const Icon(
-                Icons.camera,
-                size: 40,
-              ),
-              onPressed: () async {
-                await availableCameras().then((value) => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => CameraPage(cameras: value))));
-              },
-              // onPressed: () => NavigationHelper.pushReplacementNamed(
-              //   AppRoutes.takepicture,
-              // ),
-              label: const Text('Take ID Photo'),
-            ),
+            // const SizedBox(height: 20),
+            // OutlinedButton.icon(
+            //   icon: const Icon(
+            //     Icons.camera,
+            //     size: 40,
+            //   ),
+            //   onPressed: () {},
+            //   // onPressed : () async {
+            //   //   await availableCameras().then((value) => Navigator.push(
+            //   //       context,
+            //   //       MaterialPageRoute(
+            //   //           builder: (_) => CameraPage(cameras: value))));
+            //   // },
+            //   // onPressed: () => NavigationHelper.pushReplacementNamed(
+            //   //   AppRoutes.takepicture,
+            //   // ),
+            //   label: const Text('Take ID Photo'),
+            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

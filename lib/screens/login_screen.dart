@@ -1,8 +1,9 @@
 import 'package:bmt_dt_mobile_app/utils/helpers/snackbar_helper.dart';
-import 'package:bmt_dt_mobile_app/values/app_colors.dart';
 import 'package:bmt_dt_mobile_app/values/app_regex.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:camera/camera.dart';
+import 'camera_id_screen.dart';
 
 import '../components/app_text_form_field.dart';
 import '../resources/resources.dart';
@@ -216,10 +217,20 @@ class _LoginPageState extends State<LoginPage> {
                           //     NavigationHelper.pushReplacementNamed(
                           //   AppRoutes.register,
                           // ),
-                          onPressed: () =>
-                              NavigationHelper.pushReplacementNamed(
-                            AppRoutes.register,
-                          ),
+                          // onPressed: () =>
+                          onPressed: () async {
+                            await availableCameras().then((value) =>
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) =>
+                                            CameraIDPage(cameras: value))));
+                          },
+                          //   NavigationHelper.pushReplacementNamed(
+                          // AppRoutes.register,
+                          //   NavigationHelper.pushReplacementNamed(
+                          // AppRoutes.register,
+                          // ),
                           child: const Text(AppStrings.register),
                         ),
                       ],
