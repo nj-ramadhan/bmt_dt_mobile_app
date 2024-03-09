@@ -15,4 +15,7 @@ class AppRoutes {
   static const String payment = 'payment';
   static const String transfer = 'transfer';
   static const String takepicture = 'takepicture';
+  static const String saving_mandatory = 'saving_mandatory';
+  static const String saving_principal = 'saving_principal';
+  static const String saving_voluntary = 'saving_voluntary';
 }

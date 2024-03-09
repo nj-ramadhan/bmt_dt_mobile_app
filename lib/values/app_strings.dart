@@ -93,6 +93,14 @@ class AppStrings {
   static const String savingsPrincipal = 'Simpanan\n Pokok';
   static const String savingsVoluntary = 'Simpanan\n Sukarela';
 
+  static const String savingsMandatoryTitle = 'Simpanan Wajib';
+  static const String savingsPrincipalTitle = 'Simpanan Pokok';
+  static const String savingsVoluntaryTitle = 'Simpanan Sukarela';
+
+  static const String savingsMandatorySubtitle = 'Simpanan wajib anda';
+  static const String savingsPrincipalSubtitle = 'Simpanan pokok anda';
+  static const String savingsVoluntarySubtitle = 'Simpanan sukarela anda';
+
   static const String cameraIDTitle = 'Ambil Foto KTP';
   static const String cameraIDSubtitle = 'Ambil foto KTP';
 

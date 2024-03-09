@@ -272,7 +272,6 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Column(
                         children: [
@@ -303,10 +302,10 @@ class _HomePageState extends State<HomePage> {
                             shape: const CircleBorder(),
                             onPressed: () =>
                                 NavigationHelper.pushReplacementNamed(
-                              AppRoutes.payment,
+                              AppRoutes.saving_mandatory,
                             ),
                             child: const Icon(
-                              Icons.atm,
+                              Icons.savings,
                               size: 40,
                             ),
                           ),
@@ -323,10 +322,10 @@ class _HomePageState extends State<HomePage> {
                             shape: const CircleBorder(),
                             onPressed: () =>
                                 NavigationHelper.pushReplacementNamed(
-                              AppRoutes.home,
+                              AppRoutes.saving_principal,
                             ),
                             child: const Icon(
-                              Icons.star,
+                              Icons.savings,
                               size: 40,
                             ),
                           ),
@@ -343,10 +342,10 @@ class _HomePageState extends State<HomePage> {
                             shape: const CircleBorder(),
                             onPressed: () =>
                                 NavigationHelper.pushReplacementNamed(
-                              AppRoutes.checking,
+                              AppRoutes.saving_voluntary,
                             ),
                             child: const Icon(
-                              Icons.check,
+                              Icons.savings,
                               size: 40,
                             ),
                           ),

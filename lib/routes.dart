@@ -11,9 +11,11 @@ import 'screens/deposit_screen.dart';
 import 'screens/checking_screen.dart';
 import 'screens/shopping_screen.dart';
 import 'screens/funding_screen.dart';
+import 'screens/saving_mandatory_screen.dart';
+import 'screens/saving_principal_screen.dart';
+import 'screens/saving_voluntary_screen.dart';
 import 'screens/payment_screen.dart';
 import 'screens/transfer_screen.dart';
-import 'screens/take_picture_screen.dart';
 import 'utils/common_widgets/invalid_route.dart';
 import 'values/app_routes.dart';
 import 'package:camera/camera.dart';
@@ -67,6 +69,14 @@ class Routes {
       case AppRoutes.transfer:
         return getRoute(widget: const TransferPage());
 
+      case AppRoutes.saving_mandatory:
+        return getRoute(widget: const SavingMandatoryPage());
+
+      case AppRoutes.saving_principal:
+        return getRoute(widget: const SavingPrincipalPage());
+
+      case AppRoutes.saving_voluntary:
+        return getRoute(widget: const SavingVoluntaryPage());        
       // case AppRoutes.takepicture:
       //   return getRoute(widget: const TakePicturePage());
 

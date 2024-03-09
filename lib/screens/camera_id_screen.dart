@@ -155,7 +155,7 @@ class _CameraIDPageState extends State<CameraIDPage> {
                     ),
                   ],
                 ),
-                const Image(image: AssetImage('assets/images/face_mask.png')),
+                const Image(image: AssetImage('assets/images/id_mask.png')),
               ],
             )
           ],
