@@ -50,7 +50,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ],
                     ),
                     Image(
-                      image: AssetImage('assets/icon/icon_bg.png'),
+                      image: AssetImage('assets/icon/icon_text.png'),
                       height: 70,
                       alignment: Alignment.topCenter,
                     ),
@@ -58,53 +58,95 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ],
             ),
-            SizedBox(height: 20),
-            const Image(
-              image: AssetImage('assets/images/user.png'),
-              height: 180,
-              alignment: Alignment.topCenter,
+            const SizedBox(height: 20),
+            const Material(
+              color: AppColors.primaryColor,
+              shape: CircleBorder(),
+              child: Padding(
+                padding: EdgeInsets.all(50),
+                child: Image(
+                  image: AssetImage('assets/images/user.png'),
+                  height: 120,
+                  alignment: Alignment.topCenter,
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(20),
               child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  const SizedBox(height: 20),
-                  FilledButton(
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
-                      AppRoutes.deposit,
+                  Card(
+                    color: AppColors.lightGreen,
+                    child: InkWell(
+                      child: const Padding(
+                        padding: EdgeInsets.all(20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Material(
+                              color: AppColors.primaryColor,
+                              shape: CircleBorder(),
+                              child: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Icon(
+                                  Icons.person,
+                                  size: 40,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              AppStrings.profileAccount,
+                            ),
+                            Icon(
+                              Icons.chevron_right,
+                            ),
+                          ],
+                        ),
+                      ),
+                      onTap: () {
+                        NavigationHelper.pushReplacementNamed(
+                          AppRoutes.home,
+                        );
+                      },
                     ),
-                    child: const Text(AppStrings.depositTitle),
                   ),
-                  const SizedBox(height: 20),
-                  FilledButton(
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
-                      AppRoutes.login,
+                  Card(
+                    color: AppColors.lightGreen,
+                    child: InkWell(
+                      child: const Padding(
+                        padding: EdgeInsets.all(20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Material(
+                              color: AppColors.primaryColor,
+                              shape: CircleBorder(),
+                              child: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Icon(
+                                  Icons.shield,
+                                  size: 40,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              AppStrings.password,
+                            ),
+                            Icon(
+                              Icons.chevron_right,
+                            ),
+                          ],
+                        ),
+                      ),
+                      onTap: () {
+                        NavigationHelper.pushReplacementNamed(
+                          AppRoutes.home,
+                        );
+                      },
                     ),
-                    child: const Text(AppStrings.login),
-                  ),
-                  const SizedBox(height: 20),
-                  OutlinedButton.icon(
-                    icon: const Icon(
-                      Icons.home,
-                      size: 40,
-                    ),
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
-                      AppRoutes.home,
-                    ),
-                    label: const Text(AppStrings.homeTitle),
-                  ),
-                  const SizedBox(height: 20),
-                  OutlinedButton.icon(
-                    icon: const Icon(
-                      Icons.logout,
-                      size: 40,
-                    ),
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
-                      AppRoutes.login,
-                    ),
-                    label: const Text(AppStrings.logout),
                   ),
                 ],
               ),

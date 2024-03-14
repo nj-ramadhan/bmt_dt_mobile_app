@@ -3,10 +3,9 @@ import 'dart:convert';
 
 import 'package:bmt_dt_mobile_app/utils/helpers/snackbar_helper.dart';
 import 'package:bmt_dt_mobile_app/values/app_regex.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:camera/camera.dart';
-import 'camera_id_screen.dart';
 import 'package:http/http.dart' as http;
 
 import '../components/app_text_form_field.dart';
@@ -17,6 +16,7 @@ import '../values/app_constants.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
+import 'camera_id_screen.dart';
 
 Future<CreateToken> createAlbum(String username, String password) async {
   final createToken = CreateToken(
@@ -119,8 +119,7 @@ class _LoginPageState extends State<LoginPage> {
   Future<CreateToken>? _futureAlbum;
 
   void initializeControllers() {
-    phoneController = TextEditingController()
-      ..addListener(controllerListener);
+    phoneController = TextEditingController()..addListener(controllerListener);
     passwordController = TextEditingController()
       ..addListener(controllerListener);
   }
@@ -265,11 +264,11 @@ class _LoginPageState extends State<LoginPage> {
                         return FilledButton(
                           onPressed: isValid
                               ? () {
-                                  setState(() {
-                                    _futureAlbum = createAlbum(
-                                        phoneController.text,
-                                        passwordController.text);
-                                  });
+                                  // setState(() {
+                                  //   _futureAlbum = createAlbum(
+                                  //       phoneController.text,
+                                  //       passwordController.text);
+                                  // });
                                   SnackbarHelper.showSnackBar(
                                     AppStrings.loggedIn,
                                   );

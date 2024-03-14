@@ -51,6 +51,16 @@ class _TransferPageState extends State<TransferPage> {
 
   void updateAmount(int amount) => setState(() {
         amountTransfer = amount;
+        amountController.text = amountTransfer.toString();
+        // Replace with your logic
+      });
+
+  void updateAmountText(String amount) => setState(() {
+        if (amount == '') {
+          amountTransfer = 0;
+        } else {
+          amountTransfer = int.parse(amount);
+        }
         // Replace with your logic
       });
 
@@ -100,34 +110,54 @@ class _TransferPageState extends State<TransferPage> {
             Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Card(
+                    Card(
+                      color: AppColors.primaryColor,
                       child: SizedBox(
-                        height: 70,
+                        height: 100,
                         child: Padding(
-                          padding: EdgeInsets.all(20),
+                          padding: const EdgeInsets.all(10),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Icon(Icons.currency_exchange),
-                              // AppTextFormField(
-                              //   textInputAction: TextInputAction.done,
-                              //   labelText: AppStrings.amountTransfer,
-                              //   keyboardType: TextInputType.number,
-                              //   controller: amountController,
-                              // )
-                              Text(
-                                AppStrings.amountTransfer,
-                              )
+                            children: <Widget>[
+                              const Material(
+                                color: AppColors.darkGreen,
+                                shape: CircleBorder(),
+                                child: Padding(
+                                  padding: EdgeInsets.all(15),
+                                  child: Text(
+                                    'Rp.',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Expanded(
+                                child: TextField(
+                                  decoration: const InputDecoration(
+                                      hintText: AppStrings.amountTransfer,
+                                      fillColor: AppColors.lightGreen),
+                                  controller: amountController,
+                                  textInputAction: TextInputAction.done,
+                                  textAlign: TextAlign.end,
+                                  keyboardType: TextInputType.number,
+                                  onChanged: (_) =>
+                                      updateAmountText(amountController.text),
+                                ),
+                              ),
                             ],
                           ),
                         ),
                       ),
                     ),
-                    Text(
-                      'Rp. $amountTransfer',
-                      style: AppTheme.titleLarge,
+                    const SizedBox(
+                      height: 40,
                     ),
                     const Text(
                       AppStrings.selectAmountTransfer,
@@ -176,9 +206,17 @@ class _TransferPageState extends State<TransferPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Icon(
-                              Icons.money,
-                              color: Colors.white,
+                            Material(
+                              color: AppColors.darkGreen,
+                              shape: CircleBorder(),
+                              child: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Image(
+                                  image: AssetImage('assets/images/saving.png'),
+                                  height: 30,
+                                  alignment: Alignment.topCenter,
+                                ),
+                              ),
                             ),
                             Text(
                               AppStrings.differentAccountTransfer,
@@ -208,9 +246,18 @@ class _TransferPageState extends State<TransferPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Icon(
-                              Icons.money,
-                              color: Colors.white,
+                            Material(
+                              color: AppColors.darkGreen,
+                              shape: CircleBorder(),
+                              child: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Image(
+                                  image:
+                                      AssetImage('assets/images/banking.png'),
+                                  height: 30,
+                                  alignment: Alignment.topCenter,
+                                ),
+                              ),
                             ),
                             Text(
                               AppStrings.differentBankTransfer,

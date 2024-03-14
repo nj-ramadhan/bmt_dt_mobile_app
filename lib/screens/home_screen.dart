@@ -106,7 +106,7 @@ class _HomePageState extends State<HomePage> {
                   builder: (BuildContext context) {
                     return Container(
                       width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.symmetric(horizontal: 5.0),
+                      margin: EdgeInsets.symmetric(horizontal: 2.0),
                       child: Card(
                           child: Column(
                         children: [
@@ -147,22 +147,27 @@ class _HomePageState extends State<HomePage> {
                           ),
                           Container(
                             color: Colors.white,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                TextButton(
-                                    onPressed: () =>
-                                        NavigationHelper.pushReplacementNamed(
-                                            AppRoutes.checking),
-                                    child:
-                                        const Text(AppStrings.checkingTitle)),
-                                TextButton(
-                                    onPressed: () =>
-                                        NavigationHelper.pushReplacementNamed(
-                                            AppRoutes.deposit),
-                                    child: const Text(AppStrings.depositTitle)),
-                              ],
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  TextButton(
+                                      onPressed: () =>
+                                          NavigationHelper.pushReplacementNamed(
+                                              AppRoutes.checking),
+                                      child:
+                                          const Text(AppStrings.checkingTitle)),
+                                  TextButton(
+                                      onPressed: () =>
+                                          NavigationHelper.pushReplacementNamed(
+                                              AppRoutes.deposit),
+                                      child:
+                                          const Text(AppStrings.depositTitle)),
+                                ],
+                              ),
                             ),
                           ),
                         ],
@@ -261,7 +266,7 @@ class _HomePageState extends State<HomePage> {
                               AppRoutes.register,
                             ),
                             child: const Icon(
-                              Icons.man_3,
+                              Icons.person,
                               size: 40,
                             ),
                           ),

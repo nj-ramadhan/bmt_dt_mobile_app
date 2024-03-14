@@ -1,4 +1,5 @@
 import 'package:bmt_dt_mobile_app/values/app_colors.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/common_widgets/gradient_background.dart';
@@ -15,6 +16,14 @@ class DepositPage extends StatefulWidget {
 }
 
 class _DepositPageState extends State<DepositPage> {
+  late int totalAmount;
+
+  @override
+  void initState() {
+    super.initState();
+    totalAmount = 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -50,7 +59,7 @@ class _DepositPageState extends State<DepositPage> {
                       ],
                     ),
                     Image(
-                      image: AssetImage('assets/icon/icon_bg.png'),
+                      image: AssetImage('assets/icon/icon_text.png'),
                       height: 70,
                       alignment: Alignment.topCenter,
                     ),
@@ -60,45 +69,77 @@ class _DepositPageState extends State<DepositPage> {
             ),
             Padding(
               padding: const EdgeInsets.all(20),
+              child: CarouselSlider(
+                options: CarouselOptions(
+                    enableInfiniteScroll: false,
+                    height: 400,
+                    scrollDirection: Axis.vertical),
+                items: [1, 2, 3, 4, 5, 6].map((i) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return SizedBox(
+                        height: 200,
+                        child: Card(
+                          semanticContainer: true,
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          elevation: 5,
+                          margin: const EdgeInsets.all(10),
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage(
+                                      'assets/images/background3.jpg'),
+                                  fit: BoxFit.cover),
+                            ),
+                            height: 180,
+                            child: Padding(
+                              padding: const EdgeInsets.all(20),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        '${AppStrings.homeAccount} No. $i',
+                                        style: AppTheme.bodySmall,
+                                      ),
+                                      const Text(
+                                        '00.9.123.4.5',
+                                        style: AppTheme.bodyMedium,
+                                      ),
+                                      const Text(
+                                        'Rp. ******',
+                                        style: AppTheme.bodyMedium,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                }).toList(),
+              ),
+            ),
+            Container(
               child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const SizedBox(height: 20),
-                  FilledButton(
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
-                      AppRoutes.profile,
-                    ),
-                    child: const Text(AppStrings.profileAccount),
+                  const Text(
+                    'Total Saldo',
+                    style: AppTheme.bodySmall,
                   ),
-                  const SizedBox(height: 20),
-                  FilledButton(
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
-                      AppRoutes.login,
-                    ),
-                    child: const Text(AppStrings.login),
-                  ),
-                  const SizedBox(height: 20),
-                  OutlinedButton.icon(
-                    icon: const Icon(
-                      Icons.home,
-                      size: 40,
-                    ),
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
-                      AppRoutes.home,
-                    ),
-                    label: const Text(AppStrings.homeTitle),
-                  ),
-                  const SizedBox(height: 20),
-                  OutlinedButton.icon(
-                    icon: const Icon(
-                      Icons.logout,
-                      size: 40,
-                    ),
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
-                      AppRoutes.login,
-                    ),
-                    label: const Text(AppStrings.logout),
+                  Text(
+                    totalAmount.toString(),
+                    style: AppTheme.bodyLarge,
                   ),
                 ],
               ),

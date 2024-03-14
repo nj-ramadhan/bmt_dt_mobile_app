@@ -52,7 +52,7 @@ class AppTheme {
       labelStyle: TextStyle(
         fontSize: 12,
         color: Colors.grey,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.normal,
       ),
     ),
     textButtonTheme: TextButtonThemeData(
