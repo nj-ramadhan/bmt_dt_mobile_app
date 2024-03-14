@@ -1,8 +1,7 @@
 import 'package:bmt_dt_mobile_app/values/app_colors.dart';
-import 'package:flutter/material.dart';
-import 'package:path/path.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/navigation_helper.dart';
@@ -67,31 +66,36 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(180, 10, 0, 10),
-              child: Card(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          'User Name',
-                          style: AppTheme.bodySmall,
-                        ),
-                        Text('email@domain.com', style: AppTheme.bodySmall)
-                      ],
-                    ),
-                    SizedBox(width: 20),
-                    Image(
-                      image: AssetImage('assets/images/user.png'),
-                      height: 60,
-                      alignment: Alignment.topCenter,
-                    ),
-                  ],
+            Padding(
+              padding: const EdgeInsets.fromLTRB(180, 10, 0, 10),
+              child: InkWell(
+                child: const Card(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            'User Name',
+                            style: AppTheme.bodySmall,
+                          ),
+                          Text('email@domain.com', style: AppTheme.bodySmall)
+                        ],
+                      ),
+                      SizedBox(width: 20),
+                      Image(
+                        image: AssetImage('assets/images/user.png'),
+                        height: 60,
+                        alignment: Alignment.topCenter,
+                      ),
+                    ],
+                  ),
+                ),
+                onTap: () => NavigationHelper.pushReplacementNamed(
+                  AppRoutes.profile,
                 ),
               ),
             ),

@@ -13,20 +13,25 @@ import '../values/app_strings.dart';
 import '../values/app_theme.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+  const RegisterPage({super.key, this.restorationId});
+  final String? restorationId;
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
   final _formKey = GlobalKey<FormState>();
 
   late final TextEditingController nameController;
   late final TextEditingController phoneController;
   late final TextEditingController idController;
-  late final TextEditingController emailController;
+  late final DatePickerDialog birthDateController;
+  late final TextEditingController addressController;
+  late final TextEditingController motherNameController;
+  late final TextEditingController communityChoiceController;
   late final TextEditingController passwordController;
+  late final TextEditingController emailController;
   late final TextEditingController confirmPasswordController;
 
   final ValueNotifier<bool> passwordNotifier = ValueNotifier(true);
@@ -37,6 +42,15 @@ class _RegisterPageState extends State<RegisterPage> {
     nameController = TextEditingController()..addListener(controllerListener);
     phoneController = TextEditingController()..addListener(controllerListener);
     idController = TextEditingController()..addListener(controllerListener);
+    birthDateController = DatePickerDialog(
+        firstDate: DateTime(1900, 1, 1, 23, 59),
+        lastDate: DateTime(2100, 1, 1, 23, 59));
+    addressController = TextEditingController()
+      ..addListener(controllerListener);
+    motherNameController = TextEditingController()
+      ..addListener(controllerListener);
+    communityChoiceController = TextEditingController()
+      ..addListener(controllerListener);
     emailController = TextEditingController()..addListener(controllerListener);
     passwordController = TextEditingController()
       ..addListener(controllerListener);
@@ -48,6 +62,10 @@ class _RegisterPageState extends State<RegisterPage> {
     nameController.dispose();
     phoneController.dispose();
     idController.dispose();
+    birthDateController.toString();
+    addressController.dispose();
+    motherNameController.dispose();
+    communityChoiceController.dispose();
     emailController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
@@ -57,7 +75,9 @@ class _RegisterPageState extends State<RegisterPage> {
     final name = nameController.text;
     final phone = phoneController.text;
     final id = idController.text;
-
+    final address = addressController.text;
+    final mother = motherNameController.text;
+    final community = communityChoiceController.text;
     final email = emailController.text;
     final password = passwordController.text;
     final confirmPassword = confirmPasswordController.text;
@@ -65,6 +85,9 @@ class _RegisterPageState extends State<RegisterPage> {
     if (name.isEmpty &&
         phone.isEmpty &&
         id.isEmpty &&
+        address.isEmpty &&
+        mother.isEmpty &&
+        community.isEmpty &&
         email.isEmpty &&
         password.isEmpty &&
         confirmPassword.isEmpty) return;
@@ -88,6 +111,60 @@ class _RegisterPageState extends State<RegisterPage> {
   void dispose() {
     disposeControllers();
     super.dispose();
+  }
+
+  @override
+  String? get restorationId => widget.restorationId;
+
+  final RestorableDateTime _selectedDate =
+      RestorableDateTime(DateTime(2021, 7, 25));
+  late final RestorableRouteFuture<DateTime?> _restorableDatePickerRouteFuture =
+      RestorableRouteFuture<DateTime?>(
+    onComplete: _selectDate,
+    onPresent: (NavigatorState navigator, Object? arguments) {
+      return navigator.restorablePush(
+        _datePickerRoute,
+        arguments: _selectedDate.value.millisecondsSinceEpoch,
+      );
+    },
+  );
+
+  @pragma('vm:entry-point')
+  static Route<DateTime> _datePickerRoute(
+    BuildContext context,
+    Object? arguments,
+  ) {
+    return DialogRoute<DateTime>(
+      context: context,
+      builder: (BuildContext context) {
+        return DatePickerDialog(
+          restorationId: 'date_picker_dialog',
+          initialEntryMode: DatePickerEntryMode.calendarOnly,
+          initialDate: DateTime.fromMillisecondsSinceEpoch(arguments! as int),
+          firstDate: DateTime(2021),
+          lastDate: DateTime(2022),
+        );
+      },
+    );
+  }
+
+  @override
+  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
+    registerForRestoration(_selectedDate, 'selected_date');
+    registerForRestoration(
+        _restorableDatePickerRouteFuture, 'date_picker_route_future');
+  }
+
+  void _selectDate(DateTime? newSelectedDate) {
+    if (newSelectedDate != null) {
+      setState(() {
+        _selectedDate.value = newSelectedDate;
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+              'Tanggal Lahir: ${_selectedDate.value.day}/${_selectedDate.value.month}/${_selectedDate.value.year}'),
+        ));
+      });
+    }
   }
 
   @override
@@ -183,6 +260,57 @@ class _RegisterPageState extends State<RegisterPage> {
                                 : null;
                       },
                       controller: idController,
+                    ),
+                    OutlinedButton(
+                      onPressed: () {
+                        _restorableDatePickerRouteFuture.present();
+                      },
+                      child: const Text(AppStrings.birthDate),
+                    ),
+                    AppTextFormField(
+                      autofocus: true,
+                      labelText: AppStrings.address,
+                      keyboardType: TextInputType.streetAddress,
+                      textInputAction: TextInputAction.next,
+                      onChanged: (value) => _formKey.currentState?.validate(),
+                      validator: (value) {
+                        return value!.isEmpty
+                            ? AppStrings.pleaseEnterAddress
+                            : value.length < 15
+                                ? AppStrings.invalidAddress
+                                : null;
+                      },
+                      controller: addressController,
+                    ),
+                    AppTextFormField(
+                      autofocus: true,
+                      labelText: AppStrings.motherName,
+                      keyboardType: TextInputType.name,
+                      textInputAction: TextInputAction.next,
+                      onChanged: (value) => _formKey.currentState?.validate(),
+                      validator: (value) {
+                        return value!.isEmpty
+                            ? AppStrings.pleaseEnterMotherName
+                            : value.length < 15
+                                ? AppStrings.invalidMotherName
+                                : null;
+                      },
+                      controller: motherNameController,
+                    ),
+                    AppTextFormField(
+                      autofocus: true,
+                      labelText: AppStrings.community,
+                      keyboardType: TextInputType.text,
+                      textInputAction: TextInputAction.next,
+                      onChanged: (value) => _formKey.currentState?.validate(),
+                      validator: (value) {
+                        return value!.isEmpty
+                            ? AppStrings.pleaseEnterCommunity
+                            : value.length < 15
+                                ? AppStrings.invalidCommunity
+                                : null;
+                      },
+                      controller: communityChoiceController,
                     ),
                     AppTextFormField(
                       labelText: AppStrings.email,
@@ -312,24 +440,6 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
             ),
-            // const SizedBox(height: 20),
-            // OutlinedButton.icon(
-            //   icon: const Icon(
-            //     Icons.camera,
-            //     size: 40,
-            //   ),
-            //   onPressed: () {},
-            //   // onPressed : () async {
-            //   //   await availableCameras().then((value) => Navigator.push(
-            //   //       context,
-            //   //       MaterialPageRoute(
-            //   //           builder: (_) => CameraPage(cameras: value))));
-            //   // },
-            //   // onPressed: () => NavigationHelper.pushReplacementNamed(
-            //   //   AppRoutes.takepicture,
-            //   // ),
-            //   label: const Text('Take ID Photo'),
-            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

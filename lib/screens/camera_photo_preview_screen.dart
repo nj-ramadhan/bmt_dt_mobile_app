@@ -38,12 +38,12 @@ class PreviewPhotoPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          AppStrings.homeTitle,
+                          AppStrings.cameraPhotoTitle,
                           style: AppTheme.titleLarge,
                         ),
                         SizedBox(height: 2),
                         Text(
-                          AppStrings.homeSubtitle,
+                          AppStrings.cameraPhotoSubtitle,
                           style: AppTheme.bodySmall,
                         ),
                       ],

@@ -33,6 +33,22 @@ class AppStrings {
   static const String pleaseEnterId = 'Mohon isi nomor KTP';
   static const String invalidId = 'Nomor KTP tidak sesuai';
 
+  static const String birthDate = 'Tanggal Lahir';
+  static const String pleasePickbirthDate = 'Mohon pilih tanggal lahir';
+  static const String invalidbirthDate = 'Tanggal lahir tidak sesuai';
+
+  static const String address = 'Alamat';
+  static const String pleaseEnterAddress = 'Mohon isi alamat sesuai KTP';
+  static const String invalidAddress = 'Alamat tidak sesuai';
+
+  static const String motherName = 'Nomor Ibu';
+  static const String pleaseEnterMotherName = 'Mohon isi nama ibu';
+  static const String invalidMotherName = 'Nama Ibu tidak sesuai';
+
+  static const String community = 'Komunitas';
+  static const String pleaseEnterCommunity = 'Mohon isi komunitas';
+  static const String invalidCommunity = 'Komunitas tidak sesuai';
+
   static const String email = 'Email';
   static const String pleaseEnterEmailAddress = 'Mohon isi alamat email';
   static const String invalidEmailAddress = 'Alamat email tidak sesuai';

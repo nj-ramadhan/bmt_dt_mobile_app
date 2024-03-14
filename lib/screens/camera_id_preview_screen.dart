@@ -39,12 +39,12 @@ class PreviewIDPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          AppStrings.homeTitle,
+                          AppStrings.cameraIDTitle,
                           style: AppTheme.titleLarge,
                         ),
                         SizedBox(height: 2),
                         Text(
-                          AppStrings.homeSubtitle,
+                          AppStrings.cameraIDSubtitle,
                           style: AppTheme.bodySmall,
                         ),
                       ],

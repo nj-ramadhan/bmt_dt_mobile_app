@@ -1,9 +1,7 @@
+import 'package:bmt_dt_mobile_app/components/app_text_form_field.dart';
 import 'package:bmt_dt_mobile_app/values/app_colors.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:path/path.dart';
-
 import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/navigation_helper.dart';
 import '../values/app_routes.dart';
@@ -19,6 +17,37 @@ class TransferPage extends StatefulWidget {
 
 class _TransferPageState extends State<TransferPage> {
   int amountTransfer = 0;
+
+  final ValueNotifier<bool> amountNotifier = ValueNotifier(true);
+  final ValueNotifier<bool> fieldValidNotifier = ValueNotifier(false);
+
+  late final TextEditingController amountController;
+
+  void initializeControllers() {
+    amountController = TextEditingController()..addListener(controllerListener);
+  }
+
+  void disposeControllers() {
+    amountController.dispose();
+  }
+
+  void controllerListener() {
+    final amount = amountController.text;
+
+    if (amount.isEmpty) return;
+  }
+
+  @override
+  void initState() {
+    initializeControllers();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    disposeControllers();
+    super.dispose();
+  }
 
   void updateAmount(int amount) => setState(() {
         amountTransfer = amount;
@@ -76,12 +105,23 @@ class _TransferPageState extends State<TransferPage> {
                     const Card(
                       child: SizedBox(
                         height: 70,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Icon(Icons.currency_exchange),
-                            Text(AppStrings.amountTransfer),
-                          ],
+                        child: Padding(
+                          padding: EdgeInsets.all(20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Icon(Icons.currency_exchange),
+                              // AppTextFormField(
+                              //   textInputAction: TextInputAction.done,
+                              //   labelText: AppStrings.amountTransfer,
+                              //   keyboardType: TextInputType.number,
+                              //   controller: amountController,
+                              // )
+                              Text(
+                                AppStrings.amountTransfer,
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -113,7 +153,7 @@ class _TransferPageState extends State<TransferPage> {
                               Text(
                                 'Rp. $i',
                                 style: AppTheme.titleLarge,
-                              )
+                              ),
                             ],
                           ),
                         ),
@@ -124,25 +164,73 @@ class _TransferPageState extends State<TransferPage> {
               }).toList(),
             ),
             Padding(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  FilledButton.icon(
-                    icon: Icon(Icons.abc),
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
-                      AppRoutes.home,
+                  Card(
+                    color: AppColors.primaryColor,
+                    child: InkWell(
+                      child: const Padding(
+                        padding: EdgeInsets.all(20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Icon(
+                              Icons.money,
+                              color: Colors.white,
+                            ),
+                            Text(
+                              AppStrings.differentAccountTransfer,
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                            Icon(
+                              Icons.chevron_right,
+                              color: Colors.white,
+                            ),
+                          ],
+                        ),
+                      ),
+                      onTap: () {
+                        NavigationHelper.pushReplacementNamed(
+                          AppRoutes.home,
+                        );
+                      },
                     ),
-                    label: const Text(AppStrings.differentAccountTransfer),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  FilledButton.icon(
-                    icon: Icon(Icons.abc),
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
-                      AppRoutes.home,
+                  Card(
+                    color: AppColors.primaryColor,
+                    child: InkWell(
+                      child: const Padding(
+                        padding: EdgeInsets.all(20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Icon(
+                              Icons.money,
+                              color: Colors.white,
+                            ),
+                            Text(
+                              AppStrings.differentBankTransfer,
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                            Icon(
+                              Icons.chevron_right,
+                              color: Colors.white,
+                            ),
+                          ],
+                        ),
+                      ),
+                      onTap: () {
+                        NavigationHelper.pushReplacementNamed(
+                          AppRoutes.home,
+                        );
+                      },
                     ),
-                    label: const Text(AppStrings.differentBankTransfer),
                   ),
                 ],
               ),
