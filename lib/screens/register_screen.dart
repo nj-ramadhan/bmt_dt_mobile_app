@@ -117,7 +117,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
   String? get restorationId => widget.restorationId;
 
   final RestorableDateTime _selectedDate =
-      RestorableDateTime(DateTime(2021, 7, 25));
+      RestorableDateTime(DateTime(1990, 1, 1));
   late final RestorableRouteFuture<DateTime?> _restorableDatePickerRouteFuture =
       RestorableRouteFuture<DateTime?>(
     onComplete: _selectDate,
@@ -141,8 +141,8 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
           restorationId: 'date_picker_dialog',
           initialEntryMode: DatePickerEntryMode.calendarOnly,
           initialDate: DateTime.fromMillisecondsSinceEpoch(arguments! as int),
-          firstDate: DateTime(2021),
-          lastDate: DateTime(2022),
+          firstDate: DateTime(1990),
+          lastDate: DateTime(2100),
         );
       },
     );
@@ -165,6 +165,12 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
         ));
       });
     }
+  }
+
+  String _selectDateOnly(DateTime? newSelectedDate) {
+    String selectedDateOnly =
+        '${_selectedDate.value.day}/${_selectedDate.value.month}/${_selectedDate.value.year}';
+    return selectedDateOnly;
   }
 
   @override
@@ -214,7 +220,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
               child: Form(
                 key: _formKey,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AppTextFormField(
                       autofocus: true,
@@ -261,11 +267,15 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                       },
                       controller: idController,
                     ),
-                    OutlinedButton(
+                    const Text(AppStrings.pleasePickbirthDate),
+                    FilledButton(
                       onPressed: () {
                         _restorableDatePickerRouteFuture.present();
                       },
-                      child: const Text(AppStrings.birthDate),
+                      child: Text(_selectDateOnly(_selectedDate.value)),
+                    ),
+                    const SizedBox(
+                      height: 20,
                     ),
                     AppTextFormField(
                       autofocus: true,
