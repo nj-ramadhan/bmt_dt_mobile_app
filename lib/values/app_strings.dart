@@ -122,4 +122,23 @@ class AppStrings {
 
   static const String cameraPhotoTitle = 'Ambil Foto Wajah';
   static const String cameraPhotoSubtitle = 'Ambil foto Wajah';
+
+  static const String shoppingCredit = 'Pembelian Pulsa';
+  static const String shoppingData = 'Pembelian Paket Data';
+  static const String shoppingPLNToken = 'Pembelian Token PLN';
+  static const String shoppingEWallet = 'Top Up e-Wallet';
+
+  static const String fundingSimulation = 'Simulasi';
+  static const String fundingSimulationSubtitle =
+      'Simulasikan produk pembiayaan yang ingin anda ajukan';
+  static const String fundingSubmission = 'Riwayat Pengajuan';
+  static const String fundingSubmissionSubtitle =
+      'Cek daftar pengajuan yang telah anda buat';
+  static const String fundingTransaction = 'Transaksi Pembiayaan';
+  static const String fundingTransactionSubtitle = 'Transaksi Pembiayaan';
+  static const String fundingHistory = 'Riwayat Pembiayaan';
+  static const String fundingHistorySubtitle =
+      'Pengajuan pembiayaan sesuai produk yang anda butuhkan';
+
+  static const String checkingProcees = 'Proses';
 }

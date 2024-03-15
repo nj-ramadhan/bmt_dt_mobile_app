@@ -1,6 +1,8 @@
 import 'package:bmt_dt_mobile_app/values/app_colors.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '../utils/common_widgets/gradient_background.dart';
@@ -67,31 +69,34 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(180, 10, 0, 10),
+              padding: const EdgeInsets.fromLTRB(140, 0, 20, 0),
               child: InkWell(
                 child: const Card(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            'User Name',
-                            style: AppTheme.bodySmall,
-                          ),
-                          Text('email@domain.com', style: AppTheme.bodySmall)
-                        ],
-                      ),
-                      SizedBox(width: 20),
-                      Image(
-                        image: AssetImage('assets/images/user.png'),
-                        height: 60,
-                        alignment: Alignment.topCenter,
-                      ),
-                    ],
+                  child: Padding(
+                    padding: EdgeInsets.all(20),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              'User Name',
+                              style: AppTheme.bodySmall,
+                            ),
+                            Text('email@domain.com', style: AppTheme.bodySmall)
+                          ],
+                        ),
+                        SizedBox(width: 20),
+                        Image(
+                          image: AssetImage('assets/images/user.png'),
+                          height: 40,
+                          alignment: Alignment.topCenter,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 onTap: () => NavigationHelper.pushReplacementNamed(
@@ -155,11 +160,11 @@ class _HomePageState extends State<HomePage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   TextButton(
-                                      onPressed: () =>
-                                          NavigationHelper.pushReplacementNamed(
-                                              AppRoutes.checking),
-                                      child:
-                                          const Text(AppStrings.checkingTitle)),
+                                    onPressed: () =>
+                                        NavigationHelper.pushReplacementNamed(
+                                            AppRoutes.checking),
+                                    child: const Text(AppStrings.checkingTitle),
+                                  ),
                                   TextButton(
                                       onPressed: () =>
                                           NavigationHelper.pushReplacementNamed(
@@ -206,7 +211,7 @@ class _HomePageState extends State<HomePage> {
                               AppRoutes.shopping,
                             ),
                             child: const Icon(
-                              Icons.trolley,
+                              Icons.add_shopping_cart,
                               size: 40,
                             ),
                           ),
@@ -226,7 +231,7 @@ class _HomePageState extends State<HomePage> {
                               AppRoutes.payment,
                             ),
                             child: const Icon(
-                              Icons.attach_money,
+                              Icons.credit_card,
                               size: 40,
                             ),
                           ),
@@ -246,7 +251,7 @@ class _HomePageState extends State<HomePage> {
                               AppRoutes.funding,
                             ),
                             child: const Icon(
-                              Icons.send,
+                              Icons.real_estate_agent,
                               size: 40,
                             ),
                           ),
@@ -263,7 +268,7 @@ class _HomePageState extends State<HomePage> {
                             shape: const CircleBorder(),
                             onPressed: () =>
                                 NavigationHelper.pushReplacementNamed(
-                              AppRoutes.register,
+                              AppRoutes.login,
                             ),
                             child: const Icon(
                               Icons.person,
@@ -294,7 +299,7 @@ class _HomePageState extends State<HomePage> {
                               AppRoutes.transfer,
                             ),
                             child: const Icon(
-                              Icons.forward,
+                              Icons.swap_horiz,
                               size: 40,
                             ),
                           ),
@@ -314,7 +319,7 @@ class _HomePageState extends State<HomePage> {
                               AppRoutes.saving_mandatory,
                             ),
                             child: const Icon(
-                              Icons.savings,
+                              Icons.account_balance,
                               size: 40,
                             ),
                           ),
@@ -334,7 +339,7 @@ class _HomePageState extends State<HomePage> {
                               AppRoutes.saving_principal,
                             ),
                             child: const Icon(
-                              Icons.savings,
+                              Icons.account_balance_wallet,
                               size: 40,
                             ),
                           ),

@@ -39,18 +39,18 @@ class _FundingPageState extends State<FundingPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          AppStrings.shoppingTitle,
+                          AppStrings.fundingTitle,
                           style: AppTheme.titleLarge,
                         ),
                         SizedBox(height: 6),
                         Text(
-                          AppStrings.shoppingSubtitle,
+                          AppStrings.fundingSubtitle,
                           style: AppTheme.bodySmall,
                         ),
                       ],
                     ),
                     Image(
-                      image: AssetImage('assets/icon/icon_bg.png'),
+                      image: AssetImage('assets/icon/icon_text.png'),
                       height: 70,
                       alignment: Alignment.topCenter,
                     ),
@@ -61,44 +61,247 @@ class _FundingPageState extends State<FundingPage> {
             Padding(
               padding: const EdgeInsets.all(20),
               child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  const SizedBox(height: 20),
-                  FilledButton(
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
-                      AppRoutes.profile,
+                  Card(
+                    color: AppColors.primaryColor,
+                    child: InkWell(
+                      child: const Padding(
+                        padding: EdgeInsets.all(20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Material(
+                              color: AppColors.darkGreen,
+                              shape: CircleBorder(),
+                              child: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Image(
+                                  image:
+                                      AssetImage('assets/images/handphone.png'),
+                                  height: 30,
+                                  alignment: Alignment.topCenter,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      AppStrings.fundingSimulation,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Text(
+                                      AppStrings.fundingSimulationSubtitle,
+                                      overflow: TextOverflow.clip,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Icon(
+                              Icons.chevron_right,
+                              color: Colors.white,
+                            ),
+                          ],
+                        ),
+                      ),
+                      onTap: () {
+                        NavigationHelper.pushReplacementNamed(
+                          AppRoutes.home,
+                        );
+                      },
                     ),
-                    child: const Text(AppStrings.profileAccount),
                   ),
-                  const SizedBox(height: 20),
-                  FilledButton(
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
-                      AppRoutes.login,
+                  Card(
+                    color: AppColors.primaryColor,
+                    child: InkWell(
+                      child: const Padding(
+                        padding: EdgeInsets.all(20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Material(
+                              color: AppColors.darkGreen,
+                              shape: CircleBorder(),
+                              child: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Image(
+                                  image:
+                                      AssetImage('assets/images/handphone.png'),
+                                  height: 30,
+                                  alignment: Alignment.topCenter,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      AppStrings.fundingSubmission,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Text(
+                                      AppStrings.fundingSubmissionSubtitle,
+                                      overflow: TextOverflow.clip,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Icon(
+                              Icons.chevron_right,
+                              color: Colors.white,
+                            ),
+                          ],
+                        ),
+                      ),
+                      onTap: () {
+                        NavigationHelper.pushReplacementNamed(
+                          AppRoutes.home,
+                        );
+                      },
                     ),
-                    child: const Text(AppStrings.login),
                   ),
-                  const SizedBox(height: 20),
-                  OutlinedButton.icon(
-                    icon: const Icon(
-                      Icons.home,
-                      size: 40,
+                  Card(
+                    color: AppColors.primaryColor,
+                    child: InkWell(
+                      child: const Padding(
+                        padding: EdgeInsets.all(20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Material(
+                              color: AppColors.darkGreen,
+                              shape: CircleBorder(),
+                              child: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Image(
+                                  image:
+                                      AssetImage('assets/images/handphone.png'),
+                                  height: 30,
+                                  alignment: Alignment.topCenter,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      AppStrings.fundingTransaction,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Text(
+                                      AppStrings.fundingTransactionSubtitle,
+                                      overflow: TextOverflow.clip,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Icon(
+                              Icons.chevron_right,
+                              color: Colors.white,
+                            ),
+                          ],
+                        ),
+                      ),
+                      onTap: () {
+                        NavigationHelper.pushReplacementNamed(
+                          AppRoutes.home,
+                        );
+                      },
                     ),
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
-                      AppRoutes.home,
-                    ),
-                    label: const Text(AppStrings.homeTitle),
                   ),
-                  const SizedBox(height: 20),
-                  OutlinedButton.icon(
-                    icon: const Icon(
-                      Icons.logout,
-                      size: 40,
+                  Card(
+                    color: AppColors.primaryColor,
+                    child: InkWell(
+                      child: const Padding(
+                        padding: EdgeInsets.all(20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Material(
+                              color: AppColors.darkGreen,
+                              shape: CircleBorder(),
+                              child: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Image(
+                                  image:
+                                      AssetImage('assets/images/handphone.png'),
+                                  height: 30,
+                                  alignment: Alignment.topCenter,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      AppStrings.fundingHistory,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Text(
+                                      AppStrings.fundingHistorySubtitle,
+                                      overflow: TextOverflow.clip,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Icon(
+                              Icons.chevron_right,
+                              color: Colors.white,
+                            ),
+                          ],
+                        ),
+                      ),
+                      onTap: () {
+                        NavigationHelper.pushReplacementNamed(
+                          AppRoutes.home,
+                        );
+                      },
                     ),
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
-                      AppRoutes.login,
-                    ),
-                    label: const Text(AppStrings.logout),
                   ),
                 ],
               ),

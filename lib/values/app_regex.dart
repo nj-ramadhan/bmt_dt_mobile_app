@@ -5,7 +5,7 @@ class AppRegex {
     r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.([a-zA-Z]{2,})+",
   );
 
-  static final RegExp user_phoneRegex = RegExp(
+  static final RegExp phoneRegex = RegExp(
     r'^(\d{11,})',
   );
 

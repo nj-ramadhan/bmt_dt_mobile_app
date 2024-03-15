@@ -18,88 +18,6 @@ import '../values/app_strings.dart';
 import '../values/app_theme.dart';
 import 'camera_id_screen.dart';
 
-Future<CreateToken> createAlbum(String username, String password) async {
-  final createToken = CreateToken(
-    status: 'OK',
-    dataPost: [
-      DataPost(username: username, password: password),
-    ],
-  );
-
-  final response = await http.post(
-    Uri.parse('https://dkuapi.dkuindonesia.id/api/Authorization/create_token'),
-    headers: <String, String>{
-      // 'Content-Type': 'application/json; charset=UTF-8',
-      'ClientID':
-          'Qb2aFQFWgfCD2svIjE9JiwU7kiC43oJRWytmuzlTADZw4PYQY10Fd8i14gBhyivh90JckPjxVPzLb1fPsyVEt3vDqV70uM2gpAyRGXB9ZFaTkIoT1X8thOnoXOaQ8un5p2c7P\/O10PwRnBY3MgmSDDVtEM9F6UnGt8\/KBP6pUzqc\/H2Ns\/Bn9jLs4mbPqYf\/qKAO+OLgT+ksAKb3p1Zqg\/CHrGyPrUSUC12XXPUGdogax40zWRZKqpL0\/wKF59LR6Vgv8Vlf9OT5oRTrvrIRgFlY3CH1wsIQxI+\/\/meeZJHjfFa8EJNGIvaE5qzY9dUqr\/Cibqd+Tlt7x38gEckBzo6oXtqjMN+WaEmc6K8ft\/ypY\/4vjHNXqd3mjMGXyCePf6WFAm2cyk4xksvymqf1yQ=='
-    },
-    // body: jsonEncode(<String, String>{
-    //   'status': 'OK'
-    //   'data_post': [{
-    //       'username': username,
-    //       'password': password,
-    //   }]
-    // }),
-    body: jsonEncode(createToken),
-  );
-
-  if (response.statusCode == 201) {
-    // If the server did return a 201 CREATED response,
-    // then parse the JSON.
-    return CreateToken.fromJson(
-        jsonDecode(response.body) as Map<String, dynamic>);
-  } else {
-    // If the server did not return a 201 CREATED response,
-    // then throw an exception.
-    throw Exception('Failed to create album.');
-  }
-}
-
-class DataPost {
-  DataPost({required this.username, this.password});
-  // non-nullable - assuming the score field is always present
-  final String? username;
-  // nullable - assuming the review field is optional
-  final String? password;
-
-  factory DataPost.fromJson(Map<String, dynamic> data) {
-    final username = data['username'] as String;
-    final password = data['password'] as String?;
-    return DataPost(username: username, password: password);
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'username': username,
-      'password': password,
-    };
-  }
-}
-
-class CreateToken {
-  CreateToken({
-    required this.status,
-    required this.dataPost,
-  });
-  final String status;
-  final List<DataPost> dataPost;
-
-  factory CreateToken.fromJson(Map<String, dynamic> data) {
-    final status = data['status'] as String;
-    final dataPost = data['data_post'] as List<dynamic>?;
-    return CreateToken(
-      status: status,
-      dataPost: dataPost != null
-          ? dataPost
-              // map each review to a Review object
-              .map((dataPost) =>
-                  DataPost.fromJson(dataPost as Map<String, dynamic>))
-              .toList() // map() returns an Iterable so we convert it to a List
-          : <DataPost>[], // use an empty list as fallback value
-    );
-  }
-}
-
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -116,7 +34,67 @@ class _LoginPageState extends State<LoginPage> {
   late final TextEditingController phoneController;
   late final TextEditingController passwordController;
 
-  Future<CreateToken>? _futureAlbum;
+  late String responseText;
+  late String responseStatusText;
+  late String responseRolePendidikanText;
+  late String responseRoleKoperasiText;
+  late String responseNoUserText;
+  late String responseTokenText;
+  late String responseRefreshTokenText;
+
+  Future<void> createToken() async {
+    const url = 'https://dkuapi.dkuindonesia.id/api/Authorization/create_token';
+    const headers = {
+      'ClientID':
+          'jLdCPSe3816XRXk7+aCMc+Et0nk1y6\/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ\/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A\/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs\/WzXeZ9pQGOkHyX6IK\/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M\/fXTrjkHB\/v+1VFKgkGRFz0eIhDXZ3yp7e\/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n\/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3\/gKIXwL6NGFqzdeEy3xC\/Qr6',
+      'Content-Type': 'application/json',
+    };
+    final body = json.encode({
+      'status': 'OK',
+      'data_post': [
+        {
+          'username': phoneController.text,
+          'password': passwordController.text,
+        }
+      ],
+    });
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: headers,
+        body: body,
+      );
+
+      if (response.statusCode == 200) {
+        final responseBody = json.decode(response.body);
+        responseRolePendidikanText = responseBody['role_pendidikan'].toString();
+        responseRoleKoperasiText = responseBody['role_koperasi'].toString();
+        responseNoUserText = responseBody['no_user'].toString();
+        responseTokenText = responseBody['token'].toString();
+        responseRefreshTokenText = responseBody['refresh_token'].toString();
+        responseText = responseTokenText;
+
+        SnackbarHelper.showSnackBar(
+          responseTokenText,
+        );
+        if (responseNoUserText != '') {
+          SnackbarHelper.showSnackBar(
+            AppStrings.loggedIn,
+          );
+          await NavigationHelper.pushReplacementNamed(
+            AppRoutes.home,
+          );
+          phoneController.clear();
+          passwordController.clear();
+        }
+      } else {
+        responseText = 'Request failed with status: ${response.statusCode}.';
+      }
+    } catch (e) {
+      responseText = 'Error: $e';
+    }
+  }
 
   void initializeControllers() {
     phoneController = TextEditingController()..addListener(controllerListener);
@@ -130,12 +108,12 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void controllerListener() {
-    final user_phone = phoneController.text;
+    final phone = phoneController.text;
     final password = passwordController.text;
 
-    if (user_phone.isEmpty && password.isEmpty) return;
+    if (phone.isEmpty && password.isEmpty) return;
 
-    if (AppRegex.user_phoneRegex.hasMatch(user_phone) &&
+    if (AppRegex.phoneRegex.hasMatch(phone) &&
         AppRegex.passwordRegex.hasMatch(password)) {
       fieldValidNotifier.value = true;
     } else {
@@ -219,7 +197,7 @@ class _LoginPageState extends State<LoginPage> {
                       validator: (value) {
                         return value!.isEmpty
                             ? AppStrings.pleaseEnterPhone
-                            : AppConstants.user_phoneRegex.hasMatch(value)
+                            : AppConstants.phoneRegex.hasMatch(value)
                                 ? null
                                 : AppStrings.invalidPhone;
                       },
@@ -262,26 +240,7 @@ class _LoginPageState extends State<LoginPage> {
                       valueListenable: fieldValidNotifier,
                       builder: (_, isValid, __) {
                         return FilledButton(
-                          onPressed: isValid
-                              ? () {
-                                  // setState(() {
-                                  //   _futureAlbum = createAlbum(
-                                  //       phoneController.text,
-                                  //       passwordController.text);
-                                  // });
-                                  SnackbarHelper.showSnackBar(
-                                    AppStrings.loggedIn,
-                                  );
-                                  SnackbarHelper.showSnackBar(
-                                    _futureAlbum.toString(),
-                                  );
-                                  NavigationHelper.pushReplacementNamed(
-                                    AppRoutes.home,
-                                  );
-                                  phoneController.clear();
-                                  passwordController.clear();
-                                }
-                              : null,
+                          onPressed: isValid ? createToken : null,
                           child: const Text(AppStrings.login),
                         );
                       },

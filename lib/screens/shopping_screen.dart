@@ -58,47 +58,188 @@ class _ShoppingPageState extends State<ShoppingPage> {
                 ),
               ],
             ),
+            const Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 40,
+                    ),
+                    Text(
+                      AppStrings.shoppingTitle,
+                      style: AppTheme.titleLarge,
+                    ),
+                  ],
+                )),
             Padding(
               padding: const EdgeInsets.all(20),
               child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  const SizedBox(height: 20),
-                  FilledButton(
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
-                      AppRoutes.profile,
+                  Card(
+                    color: AppColors.primaryColor,
+                    child: InkWell(
+                      child: const Padding(
+                        padding: EdgeInsets.all(20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Material(
+                              color: AppColors.darkGreen,
+                              shape: CircleBorder(),
+                              child: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Image(
+                                  image:
+                                      AssetImage('assets/images/handphone.png'),
+                                  height: 30,
+                                  alignment: Alignment.topCenter,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              AppStrings.shoppingCredit,
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                            Icon(
+                              Icons.chevron_right,
+                              color: Colors.white,
+                            ),
+                          ],
+                        ),
+                      ),
+                      onTap: () {
+                        NavigationHelper.pushReplacementNamed(
+                          AppRoutes.home,
+                        );
+                      },
                     ),
-                    child: const Text(AppStrings.profileAccount),
                   ),
-                  const SizedBox(height: 20),
-                  FilledButton(
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
-                      AppRoutes.login,
+                  Card(
+                    color: AppColors.primaryColor,
+                    child: InkWell(
+                      child: const Padding(
+                        padding: EdgeInsets.all(20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Material(
+                              color: AppColors.darkGreen,
+                              shape: CircleBorder(),
+                              child: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Image(
+                                  image:
+                                      AssetImage('assets/images/handphone.png'),
+                                  height: 30,
+                                  alignment: Alignment.topCenter,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              AppStrings.shoppingData,
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                            Icon(
+                              Icons.chevron_right,
+                              color: Colors.white,
+                            ),
+                          ],
+                        ),
+                      ),
+                      onTap: () {
+                        NavigationHelper.pushReplacementNamed(
+                          AppRoutes.home,
+                        );
+                      },
                     ),
-                    child: const Text(AppStrings.login),
                   ),
-                  const SizedBox(height: 20),
-                  OutlinedButton.icon(
-                    icon: const Icon(
-                      Icons.home,
-                      size: 40,
+                  Card(
+                    color: AppColors.primaryColor,
+                    child: InkWell(
+                      child: const Padding(
+                        padding: EdgeInsets.all(20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Material(
+                              color: AppColors.darkGreen,
+                              shape: CircleBorder(),
+                              child: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Image(
+                                  image:
+                                      AssetImage('assets/images/handphone.png'),
+                                  height: 30,
+                                  alignment: Alignment.topCenter,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              AppStrings.shoppingPLNToken,
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                            Icon(
+                              Icons.chevron_right,
+                              color: Colors.white,
+                            ),
+                          ],
+                        ),
+                      ),
+                      onTap: () {
+                        NavigationHelper.pushReplacementNamed(
+                          AppRoutes.home,
+                        );
+                      },
                     ),
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
-                      AppRoutes.home,
-                    ),
-                    label: const Text(AppStrings.homeTitle),
                   ),
-                  const SizedBox(height: 20),
-                  OutlinedButton.icon(
-                    icon: const Icon(
-                      Icons.logout,
-                      size: 40,
+                  Card(
+                    color: AppColors.primaryColor,
+                    child: InkWell(
+                      child: const Padding(
+                        padding: EdgeInsets.all(20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Material(
+                              color: AppColors.darkGreen,
+                              shape: CircleBorder(),
+                              child: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Image(
+                                  image:
+                                      AssetImage('assets/images/handphone.png'),
+                                  height: 30,
+                                  alignment: Alignment.topCenter,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              AppStrings.shoppingEWallet,
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                            Icon(
+                              Icons.chevron_right,
+                              color: Colors.white,
+                            ),
+                          ],
+                        ),
+                      ),
+                      onTap: () {
+                        NavigationHelper.pushReplacementNamed(
+                          AppRoutes.home,
+                        );
+                      },
                     ),
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
-                      AppRoutes.login,
-                    ),
-                    label: const Text(AppStrings.logout),
                   ),
                 ],
               ),

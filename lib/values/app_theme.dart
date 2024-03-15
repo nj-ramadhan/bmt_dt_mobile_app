@@ -16,7 +16,7 @@ class AppTheme {
       titleLarge: TextStyle(
         fontWeight: FontWeight.bold,
         color: Colors.black,
-        fontSize: 30,
+        fontSize: 24,
         letterSpacing: 0.5,
       ),
       bodyLarge: TextStyle(
@@ -88,24 +88,12 @@ class AppTheme {
         textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
       ),
     ),
-    // elevatedButtonTheme: ElevatedButtonThemeData(
-    //   style: ElevatedButton.styleFrom(
-    //     foregroundColor: Colors.black,
-    //     backgroundColor: AppColors.primaryColor,
-    //     disabledBackgroundColor: Colors.grey.shade300,
-    //     minimumSize: const Size(double.infinity, 50),
-    //     shape: const RoundedRectangleBorder(
-    //       borderRadius: BorderRadius.all(Radius.circular(12)),
-    //     ),
-    //     textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-    //   ),
-    // ),
   );
 
   static const TextStyle titleLarge = TextStyle(
     fontWeight: FontWeight.bold,
     color: Colors.black,
-    fontSize: 30,
+    fontSize: 24,
     letterSpacing: 0.5,
   );
 
