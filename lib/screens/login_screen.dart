@@ -73,26 +73,27 @@ class _LoginPageState extends State<LoginPage> {
         responseNoUserText = responseBody['no_user'].toString();
         responseTokenText = responseBody['token'].toString();
         responseRefreshTokenText = responseBody['refresh_token'].toString();
-        responseText = responseTokenText;
 
-        SnackbarHelper.showSnackBar(
-          responseTokenText,
-        );
-        if (responseNoUserText != '') {
+        if (responseTokenText.length >= 100) {
+          phoneController.clear();
+          passwordController.clear();
+
           SnackbarHelper.showSnackBar(
             AppStrings.loggedIn,
           );
           await NavigationHelper.pushReplacementNamed(
             AppRoutes.home,
           );
-          phoneController.clear();
-          passwordController.clear();
+        } else {
+          SnackbarHelper.showSnackBar(
+            responseTokenText,
+          );
         }
       } else {
-        responseText = 'Request failed with status: ${response.statusCode}.';
+        debugPrint('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
-      responseText = 'Error: $e';
+      debugPrint('Error: $e');
     }
   }
 
