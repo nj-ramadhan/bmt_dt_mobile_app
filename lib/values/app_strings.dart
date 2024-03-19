@@ -79,6 +79,10 @@ class AppStrings {
   static const String yesConfirm = 'Ya';
   static const String noConfirm = 'Tidak';
 
+  static const String featureInformation = 'Informasi';
+  static const String featureInformationText = 'Maaf, fitur belum tersedia';
+  static const String okConfirm = 'Ok';
+
   static const String homeTitle = 'Beranda';
   static const String homeSubtitle = 'Selamat datang di beranda aplikasi';
   static const String homeAccount = 'Simpanan BMT DT';

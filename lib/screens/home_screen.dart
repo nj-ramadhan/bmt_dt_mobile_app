@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
                         IconButton(
                           icon: const Icon(Icons.logout),
                           onPressed: () async {
-                            final bool? result = await showDialog(
+                            final result = await showDialog(
                               context: context,
                               builder: (context) {
                                 return AlertDialog(
@@ -328,10 +328,33 @@ class _HomePageState extends State<HomePage> {
                             textColor: Colors.white,
                             padding: const EdgeInsets.all(16),
                             shape: const CircleBorder(),
-                            onPressed: () =>
-                                NavigationHelper.pushReplacementNamed(
-                              AppRoutes.login,
-                            ),
+                            onPressed: () async {
+                              final result = await showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: const Text(
+                                          AppStrings.featureInformation),
+                                      content: const Text(
+                                          AppStrings.featureInformationText),
+                                      actions: <Widget>[
+                                        ElevatedButton(
+                                          onPressed: () => NavigationHelper
+                                              .pushReplacementNamed(
+                                            AppRoutes.home,
+                                          ),
+                                          child:
+                                              const Text(AppStrings.okConfirm),
+                                        ),
+                                      ],
+                                    );
+                                  });
+                            },
+
+                            // =>
+                            //                             NavigationHelper.pushReplacementNamed(
+                            //                           AppRoutes.login,
+                            //                         ),
                             child: const Icon(
                               Icons.person,
                               size: 40,
