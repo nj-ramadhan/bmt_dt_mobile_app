@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'login_register_app.dart';
 
-void main() {
+void main() {//cek commit
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(statusBarIconBrightness: Brightness.light),
