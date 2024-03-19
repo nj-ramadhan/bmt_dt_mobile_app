@@ -1,22 +1,23 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:bmt_dt_mobile_app/utils/helpers/snackbar_helper.dart';
-import 'package:bmt_dt_mobile_app/values/app_regex.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 
 import '../components/app_text_form_field.dart';
+import '../global_variables.dart';
 import '../resources/resources.dart';
+import '../screens/camera_id_screen.dart';
 import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/navigation_helper.dart';
+import '../utils/helpers/snackbar_helper.dart';
 import '../values/app_constants.dart';
+import '../values/app_regex.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
-import 'camera_id_screen.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -34,13 +35,27 @@ class _LoginPageState extends State<LoginPage> {
   late final TextEditingController phoneController;
   late final TextEditingController passwordController;
 
-  late String responseText;
-  late String responseStatusText;
-  late String responseRolePendidikanText;
-  late String responseRoleKoperasiText;
-  late String responseNoUserText;
-  late String responseTokenText;
-  late String responseRefreshTokenText;
+  late String responseLoginRolePendidikan;
+  late String responseLoginRoleKoperasi;
+  late String responseLoginNoUser;
+  late String responseLoginToken;
+  late String responseLoginRefreshToken;
+
+  late String responseDetailsStatus;
+
+  late String dataDetailsUser;
+  late String dataDetailsAccount;
+
+  late String responseDetailsUserNik;
+  late String responseDetailsUserNamaLengkap;
+  late String responseDetailsUserTanggalLahir;
+  late String responseDetailsUserAlamatLengkap;
+  // late String responseDetailsUserHpOrtu;
+  // late String responseDetailsUserNamaOrtu;
+
+  late String responseDetailsAccountNoUser;
+  late String responseDetailsAccountEmail;
+  late String responseDetailsAccountTelepon;
 
   Future<void> createToken() async {
     const url = 'https://dkuapi.dkuindonesia.id/api/Authorization/create_token';
@@ -68,13 +83,24 @@ class _LoginPageState extends State<LoginPage> {
 
       if (response.statusCode == 200) {
         final responseBody = json.decode(response.body);
-        responseRolePendidikanText = responseBody['role_pendidikan'].toString();
-        responseRoleKoperasiText = responseBody['role_koperasi'].toString();
-        responseNoUserText = responseBody['no_user'].toString();
-        responseTokenText = responseBody['token'].toString();
-        responseRefreshTokenText = responseBody['refresh_token'].toString();
+        responseLoginRolePendidikan =
+            responseBody['role_pendidikan'].toString();
+        responseLoginRoleKoperasi = responseBody['role_koperasi'].toString();
+        responseLoginNoUser = responseBody['no_user'].toString();
+        responseLoginToken = responseBody['token'].toString();
+        responseLoginRefreshToken = responseBody['refresh_token'].toString();
 
-        if (responseTokenText.length >= 100) {
+        updateLoginVariables(
+          responseLoginRolePendidikan,
+          responseLoginRoleKoperasi,
+          responseLoginNoUser,
+          responseLoginToken,
+          responseLoginRefreshToken,
+        );
+
+        await getDetails();
+
+        if (responseLoginToken.length >= 100) {
           phoneController.clear();
           passwordController.clear();
 
@@ -86,8 +112,84 @@ class _LoginPageState extends State<LoginPage> {
           );
         } else {
           SnackbarHelper.showSnackBar(
-            responseTokenText,
+            responseLoginToken,
           );
+          debugPrint('API response: $responseBody.');
+        }
+      } else {
+        debugPrint('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      debugPrint('Error: $e');
+    }
+  }
+
+  Future<void> getDetails() async {
+    const url =
+        'https://dkuapi.dkuindonesia.id/api/Authorization/get_my_profile';
+    final headers = {
+      'ClientID':
+          'jLdCPSe3816XRXk7+aCMc+Et0nk1y6\/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ\/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A\/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs\/WzXeZ9pQGOkHyX6IK\/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M\/fXTrjkHB\/v+1VFKgkGRFz0eIhDXZ3yp7e\/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n\/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3\/gKIXwL6NGFqzdeEy3xC\/Qr6',
+      'Authorization': 'Bearer $apiLoginToken',
+      'Content-Type': 'application/json',
+    };
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: headers,
+      );
+
+      if (response.statusCode == 200) {
+        final responseBody = json.decode(response.body);
+        // responseDetailsUserNik =
+        //     responseBody['data_user_details']['nik'].toString();
+        responseDetailsUserNamaLengkap =
+            responseBody['data_user_details']['nama_lengkap'].toString();
+        responseDetailsUserAlamatLengkap =
+            responseBody['data_user_details']['alamat_lengkap'].toString();
+        // dataDetailsAccount = responseBody['data_account_details'].toString();
+
+        debugPrint('response details:$responseBody.toString()');
+        debugPrint(
+            'response details user nama:$responseDetailsUserNamaLengkap');
+
+        // final jsonDetailsUser = json.encode(dataDetailsUser);
+        // final dataUser = json.decode(jsonDetailsUser);
+        // responseDetailsUserNik = dataUser['nik'].toString();
+        // responseDetailsUserNamaLengkap = dataUser['nama_lengkap'].toString();
+        // // responseDetailsUserTanggalLahir = dataUser['tanggal_lahir'].toString();
+        // responseDetailsUserAlamatLengkap =
+        //     dataUser['alamat_lengkap'].toString();
+
+        // final jsonDetailsAccount = json.encode(dataDetailsAccount);
+        // final dataAccount = json.decode(jsonDetailsAccount);
+        responseDetailsAccountNoUser =
+            responseBody['data_account_details']['no_user'].toString();
+        responseDetailsAccountEmail =
+            responseBody['data_account_details']['email'].toString();
+        responseDetailsAccountTelepon =
+            responseBody['data_account_details']['telepon'].toString();
+        debugPrint(
+            'response details account email:$responseDetailsAccountEmail');
+
+        updateDetailsUser(
+          responseDetailsUserNamaLengkap,
+          // responseDetailsUserTanggalLahir,
+          responseDetailsUserAlamatLengkap,
+        );
+
+        updateDetailsAccount(
+          responseDetailsAccountNoUser,
+          responseDetailsAccountEmail,
+          responseDetailsAccountTelepon,
+        );
+
+        if (responseBody.toString().length <= 100) {
+          responseDetailsStatus = responseBody['status'].toString();
+          debugPrint('Request failed with status: $responseDetailsStatus');
+        } else {
+          debugPrint('Request success, data details is updated');
         }
       } else {
         debugPrint('Request failed with status: ${response.statusCode}.');

@@ -53,9 +53,11 @@ class AppStrings {
   static const String pleaseEnterEmailAddress = 'Mohon isi alamat email';
   static const String invalidEmailAddress = 'Alamat email tidak sesuai';
 
+  static const String newPassword = 'Kata sandi yang baru';
   static const String password = 'Kata sandi';
   static const String pleaseEnterPassword = 'Mohon isi kata sandi';
   static const String invalidPassword = 'Kata sandi tidak sesuai';
+  static const String changePassword = 'Ubah Kata sandi?';
 
   static const String confirmPassword = 'Konfirmasi kata sandi';
   static const String pleaseReEnterPassword = 'Mohon isi ulang kata sandi';
@@ -71,6 +73,9 @@ class AppStrings {
   static const String selectAmountTransfer = 'Pilih Jumlah';
   static const String differentAccountTransfer = 'Antar Rekening';
   static const String differentBankTransfer = 'Antar Bank';
+
+  static const String logoutConfirmation = 'Konfirmasi';
+  static const String logoutConfirmationText = 'Kamu yakin mau Logout?';
 
   static const String homeTitle = 'Beranda';
   static const String homeSubtitle = 'Selamat datang di beranda aplikasi';

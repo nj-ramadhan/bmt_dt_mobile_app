@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 
-import 'screens/login_screen.dart';
-import 'screens/register_screen.dart';
-import 'screens/camera_id_screen.dart';
-import 'screens/camera_photo_screen.dart';
-import 'screens/home_screen.dart';
-import 'screens/menu_screen.dart';
-import 'screens/profile_screen.dart';
-import 'screens/deposit_screen.dart';
+import 'screens/change_password_screen.dart';
 import 'screens/checking_screen.dart';
-import 'screens/shopping_screen.dart';
+import 'screens/deposit_screen.dart';
 import 'screens/funding_screen.dart';
+import 'screens/home_screen.dart';
+import 'screens/login_screen.dart';
+import 'screens/menu_screen.dart';
+import 'screens/payment_screen.dart';
+import 'screens/profile_detail_screen.dart';
+import 'screens/profile_screen.dart';
+import 'screens/register_screen.dart';
 import 'screens/saving_mandatory_screen.dart';
 import 'screens/saving_principal_screen.dart';
 import 'screens/saving_voluntary_screen.dart';
-import 'screens/payment_screen.dart';
+import 'screens/shopping_screen.dart';
 import 'screens/transfer_screen.dart';
 import 'utils/common_widgets/invalid_route.dart';
 import 'values/app_routes.dart';
-import 'package:camera/camera.dart';
 
 class Routes {
   const Routes._();
@@ -43,13 +42,23 @@ class Routes {
         return getRoute(widget: const RegisterPage());
 
       case AppRoutes.home:
-        return getRoute(widget: const HomePage());
+        return getRoute(widget: Builder(
+          builder: (context) {
+            return const HomePage();
+          },
+        ));
 
       case AppRoutes.menu:
         return getRoute(widget: const MenuPage());
 
       case AppRoutes.profile:
         return getRoute(widget: const ProfilePage());
+
+      case AppRoutes.profile_detail:
+        return getRoute(widget: const ProfileDetailPage());
+
+      case AppRoutes.change_password:
+        return getRoute(widget: const ChangePasswordPage());
 
       case AppRoutes.deposit:
         return getRoute(widget: const DepositPage());
@@ -76,12 +85,8 @@ class Routes {
         return getRoute(widget: const SavingPrincipalPage());
 
       case AppRoutes.saving_voluntary:
-        return getRoute(widget: const SavingVoluntaryPage());        
-      // case AppRoutes.takepicture:
-      //   return getRoute(widget: const TakePicturePage());
+        return getRoute(widget: const SavingVoluntaryPage());
 
-      /// An invalid route. User shouldn't see this,
-      /// it's for debugging purpose only.
       default:
         return getRoute(widget: const InvalidRoute());
     }

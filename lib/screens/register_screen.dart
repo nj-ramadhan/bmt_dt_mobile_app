@@ -1,13 +1,11 @@
-import 'package:bmt_dt_mobile_app/utils/helpers/snackbar_helper.dart';
-import 'package:bmt_dt_mobile_app/values/app_regex.dart';
 import 'package:flutter/material.dart';
-import 'package:camera/camera.dart';
-import 'camera_id_screen.dart';
 
 import '../components/app_text_form_field.dart';
 import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/navigation_helper.dart';
+import '../utils/helpers/snackbar_helper.dart';
 import '../values/app_constants.dart';
+import '../values/app_regex.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';

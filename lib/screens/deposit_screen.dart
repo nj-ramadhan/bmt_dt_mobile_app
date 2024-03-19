@@ -37,28 +37,38 @@ class _DepositPageState extends State<DepositPage> {
         body: ListView(
           padding: EdgeInsets.zero,
           children: [
-            const GradientBackground(
-              colors: [Colors.transparent, Colors.transparent],
+            GradientBackground(
+              colors: const [Colors.transparent, Colors.transparent],
               children: [
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    Row(
                       children: [
-                        Text(
-                          AppStrings.depositTitle,
-                          style: AppTheme.titleLarge,
+                        IconButton(
+                          icon: const Icon(Icons.arrow_back),
+                          onPressed: () =>
+                              NavigationHelper.pushReplacementNamed(
+                                  AppRoutes.home),
                         ),
-                        SizedBox(height: 6),
-                        Text(
-                          AppStrings.depositSubtitle,
-                          style: AppTheme.bodySmall,
+                        const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              AppStrings.depositTitle,
+                              style: AppTheme.titleLarge,
+                            ),
+                            SizedBox(height: 2),
+                            Text(
+                              AppStrings.depositSubtitle,
+                              style: AppTheme.bodyTiny,
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                    Image(
+                    const Image(
                       image: AssetImage('assets/icon/icon_text.png'),
                       height: 70,
                       alignment: Alignment.topCenter,

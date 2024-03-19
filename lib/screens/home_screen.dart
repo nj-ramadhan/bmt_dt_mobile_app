@@ -1,12 +1,11 @@
-import 'package:bmt_dt_mobile_app/values/app_colors.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
+import '../global_variables.dart';
 import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/navigation_helper.dart';
+import '../values/app_colors.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
@@ -38,28 +37,64 @@ class _HomePageState extends State<HomePage> {
         body: ListView(
           padding: EdgeInsets.zero,
           children: [
-            const GradientBackground(
-              colors: [Colors.transparent, Colors.transparent],
+            GradientBackground(
+              colors: const [Colors.transparent, Colors.transparent],
               children: [
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    Row(
                       children: [
-                        Text(
-                          AppStrings.homeTitle,
-                          style: AppTheme.titleLarge,
+                        IconButton(
+                          icon: const Icon(Icons.logout),
+                          onPressed: () async {
+                            bool? result = await showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title:
+                                      const Text(AppStrings.logoutConfirmation),
+                                  content: const Text(
+                                      AppStrings.logoutConfirmationText),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () {
+                                        NavigationHelper.pushReplacementNamed(
+                                            AppRoutes.home);
+                                      },
+                                      child: const Text('No'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        NavigationHelper.pushReplacementNamed(
+                                            AppRoutes.login);
+                                      },
+                                      child: const Text('Yes'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
                         ),
-                        SizedBox(height: 2),
-                        Text(
-                          AppStrings.homeSubtitle,
-                          style: AppTheme.bodySmall,
+                        const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              AppStrings.homeTitle,
+                              style: AppTheme.titleLarge,
+                            ),
+                            SizedBox(height: 2),
+                            Text(
+                              AppStrings.homeSubtitle,
+                              style: AppTheme.bodyTiny,
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                    Image(
+                    const Image(
                       image: AssetImage('assets/icon/icon_text.png'),
                       height: 70,
                       alignment: Alignment.topCenter,
@@ -69,11 +104,11 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(140, 0, 20, 0),
+              padding: const EdgeInsets.fromLTRB(80, 0, 20, 0),
               child: InkWell(
-                child: const Card(
+                child: Card(
                   child: Padding(
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -83,14 +118,16 @@ class _HomePageState extends State<HomePage> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              'User Name',
+                              'Nomor Akun: $apiLoginNoUser',
                               style: AppTheme.bodySmall,
                             ),
-                            Text('email@domain.com', style: AppTheme.bodySmall)
+                            Text(apiDataUserNamaLengkap,
+                                style: AppTheme.bodySmall),
+                            Text(apiDataAccountEmail, style: AppTheme.bodySmall)
                           ],
                         ),
-                        SizedBox(width: 20),
-                        Image(
+                        const SizedBox(width: 20),
+                        const Image(
                           image: AssetImage('assets/images/user.png'),
                           height: 40,
                           alignment: Alignment.topCenter,
@@ -412,6 +449,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
-  () newMethod(() onTap) => onTap;
 }

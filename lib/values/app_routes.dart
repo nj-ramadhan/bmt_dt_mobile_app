@@ -8,6 +8,8 @@ class AppRoutes {
   static const String home = 'home';
   static const String menu = 'menu';
   static const String profile = 'profile';
+  static const String profile_detail = 'profile_detail';
+  static const String change_password = 'change_password';
   static const String deposit = 'deposit';
   static const String checking = 'checking';
   static const String shopping = 'shopping';

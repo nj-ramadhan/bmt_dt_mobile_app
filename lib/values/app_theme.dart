@@ -118,7 +118,7 @@ class AppTheme {
   );
 
   static const TextStyle bodyTiny = TextStyle(
-    color: Colors.grey,
+    color: Colors.black,
     fontSize: 10,
     letterSpacing: 0.5,
   );
