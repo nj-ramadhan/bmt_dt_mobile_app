@@ -1,14 +1,12 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-import 'camera_photo_screen.dart';
+import 'package:flutter/material.dart';
 
 import '../utils/common_widgets/gradient_background.dart';
-import '../utils/helpers/navigation_helper.dart';
-import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
+import 'camera_photo_screen.dart';
 
 class PreviewIDPage extends StatelessWidget {
   const PreviewIDPage({required this.picture, super.key});

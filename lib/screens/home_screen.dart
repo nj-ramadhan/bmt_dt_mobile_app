@@ -48,35 +48,7 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         IconButton(
                           icon: const Icon(Icons.logout),
-                          onPressed: () async {
-                            bool? result = await showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title:
-                                      const Text(AppStrings.logoutConfirmation),
-                                  content: const Text(
-                                      AppStrings.logoutConfirmationText),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () {
-                                        NavigationHelper.pushReplacementNamed(
-                                            AppRoutes.home);
-                                      },
-                                      child: const Text('No'),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {
-                                        NavigationHelper.pushReplacementNamed(
-                                            AppRoutes.login);
-                                      },
-                                      child: const Text('Yes'),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          },
+                          onPressed: () async {},
                         ),
                         const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
