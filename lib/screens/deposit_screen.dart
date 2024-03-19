@@ -89,7 +89,6 @@ class _DepositPageState extends State<DepositPage> {
                       return SizedBox(
                         height: 200,
                         child: Card(
-                          semanticContainer: true,
                           clipBehavior: Clip.antiAliasWithSaveLayer,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0),

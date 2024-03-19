@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '../global_variables.dart';
@@ -120,72 +121,92 @@ class _HomePageState extends State<HomePage> {
                   builder: (BuildContext context) {
                     return Container(
                       width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.symmetric(horizontal: 2.0),
+                      margin: const EdgeInsets.symmetric(horizontal: 2.0),
                       child: Card(
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        elevation: 5,
+                        margin: const EdgeInsets.all(10),
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                                image:
+                                    AssetImage('assets/images/background4.jpg'),
+                                fit: BoxFit.cover),
+                          ),
+                          height: 180,
                           child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Column(
+                              Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    AppStrings.homeAccount + ' No. $i',
-                                    style: AppTheme.bodySmall,
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          '${AppStrings.homeAccount} No. $i',
+                                          style: AppTheme.bodySmall,
+                                        ),
+                                        const Text(
+                                          '00.9.123.4.5',
+                                          style: AppTheme.bodyMedium,
+                                        ),
+                                        const Text(
+                                          'Rp. ******',
+                                          style: AppTheme.bodyMedium,
+                                        ),
+                                        const SizedBox(height: 20),
+                                        const Text(
+                                          AppStrings.homeAccountSubtitle,
+                                          style: AppTheme.bodyTiny,
+                                        ),
+                                        const SizedBox(height: 10),
+                                      ],
+                                    ),
                                   ),
-                                  const Text(
-                                    '00.9.123.4.5',
-                                    style: AppTheme.bodyMedium,
+                                  QrImageView(
+                                    data: '1234567890',
+                                    size: 70,
                                   ),
-                                  const Text(
-                                    'Rp. ******',
-                                    style: AppTheme.bodyMedium,
-                                  ),
-                                  SizedBox(height: 30),
-                                  const Text(
-                                    AppStrings.homeAccountSubtitle,
-                                    style: AppTheme.bodyTiny,
-                                  ),
-                                  SizedBox(height: 20),
                                 ],
                               ),
-                              QrImageView(
-                                data: '1234567890',
-                                version: QrVersions.auto,
-                                size: 100.0,
+                              Container(
+                                color: Colors.white,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      ElevatedButton(
+                                        onPressed: () => NavigationHelper
+                                            .pushReplacementNamed(
+                                                AppRoutes.checking),
+                                        child: const Text(
+                                            AppStrings.checkingTitle),
+                                      ),
+                                      ElevatedButton(
+                                          onPressed: () => NavigationHelper
+                                              .pushReplacementNamed(
+                                                  AppRoutes.deposit),
+                                          child: const Text(
+                                              AppStrings.depositTitle)),
+                                    ],
+                                  ),
+                                ),
                               ),
                             ],
                           ),
-                          Container(
-                            color: Colors.white,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  TextButton(
-                                    onPressed: () =>
-                                        NavigationHelper.pushReplacementNamed(
-                                            AppRoutes.checking),
-                                    child: const Text(AppStrings.checkingTitle),
-                                  ),
-                                  TextButton(
-                                      onPressed: () =>
-                                          NavigationHelper.pushReplacementNamed(
-                                              AppRoutes.deposit),
-                                      child:
-                                          const Text(AppStrings.depositTitle)),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      )),
+                        ),
+                      ),
                     );
                   },
                 );
