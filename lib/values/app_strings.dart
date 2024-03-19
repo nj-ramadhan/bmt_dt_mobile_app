@@ -76,6 +76,8 @@ class AppStrings {
 
   static const String logoutConfirmation = 'Konfirmasi';
   static const String logoutConfirmationText = 'Kamu yakin mau Logout?';
+  static const String yesConfirm = 'Ya';
+  static const String noConfirm = 'Tidak';
 
   static const String homeTitle = 'Beranda';
   static const String homeSubtitle = 'Selamat datang di beranda aplikasi';

@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '../global_variables.dart';
@@ -49,7 +48,37 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         IconButton(
                           icon: const Icon(Icons.logout),
-                          onPressed: () async {},
+                          onPressed: () async {
+                            final bool? result = await showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title:
+                                      const Text(AppStrings.logoutConfirmation),
+                                  content: const Text(
+                                      AppStrings.logoutConfirmationText),
+                                  actions: <Widget>[
+                                    ElevatedButton(
+                                      onPressed: () =>
+                                          NavigationHelper.pushReplacementNamed(
+                                        AppRoutes.home,
+                                      ),
+                                      child: const Text(AppStrings.noConfirm),
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () =>
+                                          NavigationHelper.pushReplacementNamed(
+                                        AppRoutes.login,
+                                      ),
+                                      child: const Text(AppStrings.yesConfirm),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+
+                          // async {},
                         ),
                         const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,7 +172,8 @@ class _HomePageState extends State<HomePage> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 20, 0, 0),
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -177,7 +207,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ],
                               ),
-                              Container(
+                              ColoredBox(
                                 color: Colors.white,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -194,11 +224,14 @@ class _HomePageState extends State<HomePage> {
                                             AppStrings.checkingTitle),
                                       ),
                                       ElevatedButton(
-                                          onPressed: () => NavigationHelper
-                                              .pushReplacementNamed(
-                                                  AppRoutes.deposit),
-                                          child: const Text(
-                                              AppStrings.depositTitle)),
+                                        onPressed: () => NavigationHelper
+                                            .pushReplacementNamed(
+                                          AppRoutes.deposit,
+                                        ),
+                                        child: const Text(
+                                          AppStrings.depositTitle,
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -227,7 +260,6 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Column(
                         children: [
@@ -410,17 +442,16 @@ class _HomePageState extends State<HomePage> {
                     height: 20,
                   ),
                   CarouselSlider(
-                    options: CarouselOptions(height: 195.0),
+                    options: CarouselOptions(height: 195),
                     items: [1, 2, 3].map((i) {
                       return Builder(
                         builder: (BuildContext context) {
                           return Container(
                             width: MediaQuery.of(context).size.width,
-                            margin: EdgeInsets.symmetric(horizontal: 5.0),
+                            margin: const EdgeInsets.symmetric(horizontal: 5.0),
                             child: Card(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     'Info. $i',
