@@ -16,6 +16,8 @@ class MenuPage extends StatefulWidget {
 class _MenuPageState extends State<MenuPage> {
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Container(
       constraints: const BoxConstraints.expand(),
       decoration: const BoxDecoration(
@@ -27,14 +29,14 @@ class _MenuPageState extends State<MenuPage> {
         body: ListView(
           padding: EdgeInsets.zero,
           children: [
-            const GradientBackground(
-              colors: [Colors.transparent, Colors.transparent],
+            GradientBackground(
+              colors: const [Colors.transparent, Colors.transparent],
               children: [
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
+                    const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -49,8 +51,9 @@ class _MenuPageState extends State<MenuPage> {
                       ],
                     ),
                     Image(
-                      image: AssetImage('assets/icon/icon_bg.png'),
-                      height: 70,
+                      image: const AssetImage('assets/icon/icon_bg.png'),
+                      width: screenWidth * 0.25,
+                      fit: BoxFit.cover,
                       alignment: Alignment.topCenter,
                     ),
                   ],

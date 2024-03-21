@@ -26,12 +26,15 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Container(
       constraints: const BoxConstraints.expand(),
       decoration: const BoxDecoration(
         image: DecorationImage(
-            image: AssetImage('assets/images/background1.jpg'),
-            fit: BoxFit.cover),
+          image: AssetImage('assets/images/background1.jpg'),
+          fit: BoxFit.contain,
+        ),
       ),
       child: Scaffold(
         body: ListView(
@@ -77,7 +80,6 @@ class _HomePageState extends State<HomePage> {
                               },
                             );
                           },
-
                           // async {},
                         ),
                         const Column(
@@ -96,9 +98,10 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ],
                     ),
-                    const Image(
-                      image: AssetImage('assets/icon/icon_text.png'),
-                      height: 70,
+                    Image(
+                      image: const AssetImage('assets/icon/icon_text.png'),
+                      width: screenWidth * 0.25,
+                      fit: BoxFit.cover,
                       alignment: Alignment.topCenter,
                     ),
                   ],
@@ -128,10 +131,13 @@ class _HomePageState extends State<HomePage> {
                             Text(apiDataAccountEmail, style: AppTheme.bodySmall)
                           ],
                         ),
-                        const SizedBox(width: 20),
-                        const Image(
-                          image: AssetImage('assets/images/user.png'),
-                          height: 40,
+                        SizedBox(
+                          width: screenWidth * 0.05,
+                        ),
+                        Image(
+                          image: const AssetImage('assets/images/user.png'),
+                          height: screenHeight * 0.05,
+                          // height: 40,
                           alignment: Alignment.topCenter,
                         ),
                       ],
@@ -144,20 +150,22 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             CarouselSlider(
-              options: CarouselOptions(height: 195.0),
+              options: CarouselOptions(height: screenHeight * 0.23),
               items: [1, 2, 3].map((i) {
                 return Builder(
                   builder: (BuildContext context) {
                     return Container(
                       width: MediaQuery.of(context).size.width,
-                      margin: const EdgeInsets.symmetric(horizontal: 2.0),
+                      margin:
+                          EdgeInsets.symmetric(horizontal: screenWidth * 0.01),
                       child: Card(
                         clipBehavior: Clip.antiAliasWithSaveLayer,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
+                          borderRadius:
+                              BorderRadius.circular(screenHeight * 0.02),
                         ),
                         elevation: 5,
-                        margin: const EdgeInsets.all(10),
+                        margin: EdgeInsets.all(screenHeight * 0.01),
                         child: Container(
                           decoration: const BoxDecoration(
                             image: DecorationImage(
@@ -165,15 +173,15 @@ class _HomePageState extends State<HomePage> {
                                     AssetImage('assets/images/background4.jpg'),
                                 fit: BoxFit.cover),
                           ),
-                          height: 180,
+                          height: screenHeight * 0.1,
                           child: Column(
                             children: [
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                                    padding: EdgeInsets.fromLTRB(
+                                        0, screenHeight * 0.02, 0, 0),
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -192,26 +200,31 @@ class _HomePageState extends State<HomePage> {
                                           'Rp. ******',
                                           style: AppTheme.bodyMedium,
                                         ),
-                                        const SizedBox(height: 20),
+                                        SizedBox(
+                                          height: screenHeight * 0.03,
+                                        ),
                                         const Text(
                                           AppStrings.homeAccountSubtitle,
                                           style: AppTheme.bodyTiny,
                                         ),
-                                        const SizedBox(height: 10),
+                                        SizedBox(
+                                          height: screenHeight * 0.01,
+                                        ),
                                       ],
                                     ),
                                   ),
                                   QrImageView(
                                     data: '1234567890',
-                                    size: 70,
+                                    size: screenHeight * 0.08,
                                   ),
                                 ],
                               ),
                               ColoredBox(
                                 color: Colors.white,
                                 child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20),
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: screenHeight * 0.02,
+                                  ),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -246,10 +259,11 @@ class _HomePageState extends State<HomePage> {
               }).toList(),
             ),
             Padding(
-              padding: const EdgeInsets.all(20),
+              padding: EdgeInsets.all(
+                screenHeight * 0.02,
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text(
                     'Transaksi',
@@ -266,7 +280,9 @@ class _HomePageState extends State<HomePage> {
                           MaterialButton(
                             color: AppColors.primaryColor,
                             textColor: Colors.white,
-                            padding: const EdgeInsets.all(16),
+                            padding: EdgeInsets.all(
+                              screenHeight * 0.02,
+                            ),
                             shape: const CircleBorder(),
                             onPressed: () =>
                                 NavigationHelper.pushReplacementNamed(
@@ -274,11 +290,13 @@ class _HomePageState extends State<HomePage> {
                             ),
                             child: const Icon(
                               Icons.add_shopping_cart,
-                              size: 40,
+                              // size: 40,
                             ),
                           ),
-                          const Text(AppStrings.shoppingTitle,
-                              style: AppTheme.bodyTiny),
+                          const Text(
+                            AppStrings.shoppingTitle,
+                            style: AppTheme.bodyTiny,
+                          ),
                         ],
                       ),
                       Column(
@@ -286,7 +304,9 @@ class _HomePageState extends State<HomePage> {
                           MaterialButton(
                             color: AppColors.primaryColor,
                             textColor: Colors.white,
-                            padding: const EdgeInsets.all(16),
+                            padding: EdgeInsets.all(
+                              screenHeight * 0.02,
+                            ),
                             shape: const CircleBorder(),
                             onPressed: () =>
                                 NavigationHelper.pushReplacementNamed(
@@ -294,11 +314,13 @@ class _HomePageState extends State<HomePage> {
                             ),
                             child: const Icon(
                               Icons.credit_card,
-                              size: 40,
+                              // size: 40,
                             ),
                           ),
-                          const Text(AppStrings.paymentTitle,
-                              style: AppTheme.bodyTiny),
+                          const Text(
+                            AppStrings.paymentTitle,
+                            style: AppTheme.bodyTiny,
+                          ),
                         ],
                       ),
                       Column(
@@ -306,7 +328,9 @@ class _HomePageState extends State<HomePage> {
                           MaterialButton(
                             color: AppColors.primaryColor,
                             textColor: Colors.white,
-                            padding: const EdgeInsets.all(16),
+                            padding: EdgeInsets.all(
+                              screenHeight * 0.02,
+                            ),
                             shape: const CircleBorder(),
                             onPressed: () =>
                                 NavigationHelper.pushReplacementNamed(
@@ -314,11 +338,13 @@ class _HomePageState extends State<HomePage> {
                             ),
                             child: const Icon(
                               Icons.real_estate_agent,
-                              size: 40,
+                              // size: 40,
                             ),
                           ),
-                          const Text(AppStrings.fundingTitle,
-                              style: AppTheme.bodyTiny),
+                          const Text(
+                            AppStrings.fundingTitle,
+                            style: AppTheme.bodyTiny,
+                          ),
                         ],
                       ),
                       Column(
@@ -326,7 +352,9 @@ class _HomePageState extends State<HomePage> {
                           MaterialButton(
                             color: AppColors.primaryColor,
                             textColor: Colors.white,
-                            padding: const EdgeInsets.all(16),
+                            padding: EdgeInsets.all(
+                              screenHeight * 0.02,
+                            ),
                             shape: const CircleBorder(),
                             onPressed: () async {
                               final result = await showDialog(
@@ -350,18 +378,15 @@ class _HomePageState extends State<HomePage> {
                                     );
                                   });
                             },
-
-                            // =>
-                            //                             NavigationHelper.pushReplacementNamed(
-                            //                           AppRoutes.login,
-                            //                         ),
                             child: const Icon(
                               Icons.person,
-                              size: 40,
+                              // size: 40,
                             ),
                           ),
-                          const Text(AppStrings.register,
-                              style: AppTheme.bodyTiny),
+                          const Text(
+                            AppStrings.register,
+                            style: AppTheme.bodyTiny,
+                          ),
                         ],
                       ),
                     ],
@@ -377,7 +402,9 @@ class _HomePageState extends State<HomePage> {
                           MaterialButton(
                             color: AppColors.primaryColor,
                             textColor: Colors.white,
-                            padding: const EdgeInsets.all(16),
+                            padding: EdgeInsets.all(
+                              screenHeight * 0.02,
+                            ),
                             shape: const CircleBorder(),
                             onPressed: () =>
                                 NavigationHelper.pushReplacementNamed(
@@ -385,11 +412,13 @@ class _HomePageState extends State<HomePage> {
                             ),
                             child: const Icon(
                               Icons.swap_horiz,
-                              size: 40,
+                              // size: 40,
                             ),
                           ),
-                          const Text(AppStrings.transferTitle,
-                              style: AppTheme.bodyTiny),
+                          const Text(
+                            AppStrings.transferTitle,
+                            style: AppTheme.bodyTiny,
+                          ),
                         ],
                       ),
                       Column(
@@ -397,7 +426,9 @@ class _HomePageState extends State<HomePage> {
                           MaterialButton(
                             color: AppColors.primaryColor,
                             textColor: Colors.white,
-                            padding: const EdgeInsets.all(16),
+                            padding: EdgeInsets.all(
+                              screenHeight * 0.02,
+                            ),
                             shape: const CircleBorder(),
                             onPressed: () =>
                                 NavigationHelper.pushReplacementNamed(
@@ -405,11 +436,13 @@ class _HomePageState extends State<HomePage> {
                             ),
                             child: const Icon(
                               Icons.account_balance,
-                              size: 40,
+                              // size: 40,
                             ),
                           ),
-                          const Text(AppStrings.savingsMandatory,
-                              style: AppTheme.bodyTiny),
+                          const Text(
+                            AppStrings.savingsMandatory,
+                            style: AppTheme.bodyTiny,
+                          ),
                         ],
                       ),
                       Column(
@@ -417,7 +450,9 @@ class _HomePageState extends State<HomePage> {
                           MaterialButton(
                             color: AppColors.primaryColor,
                             textColor: Colors.white,
-                            padding: const EdgeInsets.all(16),
+                            padding: EdgeInsets.all(
+                              screenHeight * 0.02,
+                            ),
                             shape: const CircleBorder(),
                             onPressed: () =>
                                 NavigationHelper.pushReplacementNamed(
@@ -425,11 +460,13 @@ class _HomePageState extends State<HomePage> {
                             ),
                             child: const Icon(
                               Icons.account_balance_wallet,
-                              size: 40,
+                              // size: 40,
                             ),
                           ),
-                          const Text(AppStrings.savingsPrincipal,
-                              style: AppTheme.bodyTiny),
+                          const Text(
+                            AppStrings.savingsPrincipal,
+                            style: AppTheme.bodyTiny,
+                          ),
                         ],
                       ),
                       Column(
@@ -437,7 +474,9 @@ class _HomePageState extends State<HomePage> {
                           MaterialButton(
                             color: AppColors.primaryColor,
                             textColor: Colors.white,
-                            padding: const EdgeInsets.all(16),
+                            padding: EdgeInsets.all(
+                              screenHeight * 0.02,
+                            ),
                             shape: const CircleBorder(),
                             onPressed: () =>
                                 NavigationHelper.pushReplacementNamed(
@@ -445,33 +484,39 @@ class _HomePageState extends State<HomePage> {
                             ),
                             child: const Icon(
                               Icons.savings,
-                              size: 40,
+                              // size: 40,
                             ),
                           ),
-                          const Text(AppStrings.savingsVoluntary,
-                              style: AppTheme.bodyTiny),
+                          const Text(
+                            AppStrings.savingsVoluntary,
+                            style: AppTheme.bodyTiny,
+                          ),
                         ],
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 40,
+                  SizedBox(
+                    height: screenHeight * 0.04,
                   ),
                   const Text(
                     'Informasi',
                     style: AppTheme.bodyLarge,
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: screenHeight * 0.02,
                   ),
                   CarouselSlider(
-                    options: CarouselOptions(height: 195),
+                    options: CarouselOptions(
+                      height: screenHeight * 0.2,
+                    ),
                     items: [1, 2, 3].map((i) {
                       return Builder(
                         builder: (BuildContext context) {
                           return Container(
                             width: MediaQuery.of(context).size.width,
-                            margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                            margin: EdgeInsets.symmetric(
+                              horizontal: screenHeight * 0.01,
+                            ),
                             child: Card(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
