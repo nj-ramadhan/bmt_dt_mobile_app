@@ -94,7 +94,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(
-                screenWidth * 0.08,
+                screenWidth * 0.1,
                 0,
                 screenWidth * 0.02,
                 0,
@@ -102,7 +102,7 @@ class _HomePageState extends State<HomePage> {
               child: InkWell(
                 child: Card(
                   child: Padding(
-                    padding: EdgeInsets.all(screenWidth * 0.02),
+                    padding: EdgeInsets.all(screenWidth * 0.05),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -125,7 +125,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                         Image(
                           image: const AssetImage('assets/images/user.png'),
-                          width: screenWidth * 0.05,
+                          width: screenWidth * 0.15,
                           // height: 40,
                           alignment: Alignment.topCenter,
                         ),
@@ -139,14 +139,13 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             CarouselSlider(
-              options: CarouselOptions(height: screenHeight * 0.23),
+              options: CarouselOptions(height: screenHeight * 0.22),
               items: [1, 2, 3].map((i) {
                 return Builder(
                   builder: (BuildContext context) {
                     return Container(
-                      width: MediaQuery.of(context).size.width,
                       margin:
-                          EdgeInsets.symmetric(horizontal: screenWidth * 0.01),
+                          EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
                       child: Card(
                         clipBehavior: Clip.antiAliasWithSaveLayer,
                         shape: RoundedRectangleBorder(
@@ -154,26 +153,32 @@ class _HomePageState extends State<HomePage> {
                               BorderRadius.circular(screenHeight * 0.02),
                         ),
                         elevation: 5,
-                        margin: EdgeInsets.all(screenHeight * 0.01),
                         child: Container(
                           decoration: const BoxDecoration(
                             image: DecorationImage(
-                                image:
-                                    AssetImage('assets/images/background4.jpg'),
-                                fit: BoxFit.cover),
+                              opacity: 0.4,
+                              image:
+                                  AssetImage('assets/images/background4.jpg'),
+                              fit: BoxFit.cover,
+                            ),
                           ),
                           height: screenHeight * 0.1,
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Padding(
                                     padding: EdgeInsets.fromLTRB(
-                                        0, screenHeight * 0.02, 0, 0),
+                                        screenWidth * 0.04,
+                                        screenHeight * 0.02,
+                                        0,
+                                        0),
                                     child: Column(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                          MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
@@ -189,16 +194,6 @@ class _HomePageState extends State<HomePage> {
                                           'Rp. ******',
                                           style: AppTheme.bodyMedium,
                                         ),
-                                        SizedBox(
-                                          height: screenHeight * 0.03,
-                                        ),
-                                        const Text(
-                                          AppStrings.homeAccountSubtitle,
-                                          style: AppTheme.bodyTiny,
-                                        ),
-                                        SizedBox(
-                                          height: screenHeight * 0.01,
-                                        ),
                                       ],
                                     ),
                                   ),
@@ -207,6 +202,13 @@ class _HomePageState extends State<HomePage> {
                                     size: screenHeight * 0.08,
                                   ),
                                 ],
+                              ),
+                              const Text(
+                                AppStrings.homeAccountSubtitle,
+                                style: AppTheme.bodyTiny,
+                              ),
+                              SizedBox(
+                                height: screenHeight * 0.01,
                               ),
                               ColoredBox(
                                 color: Colors.white,
@@ -249,10 +251,10 @@ class _HomePageState extends State<HomePage> {
             ),
             Padding(
               padding: EdgeInsets.all(
-                screenHeight * 0.01,
+                screenWidth * 0.005,
               ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
                     'Transaksi',
@@ -262,7 +264,8 @@ class _HomePageState extends State<HomePage> {
                     height: screenHeight * 0.02,
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Column(
                         children: [
@@ -270,7 +273,7 @@ class _HomePageState extends State<HomePage> {
                             color: AppColors.primaryColor,
                             textColor: Colors.white,
                             padding: EdgeInsets.all(
-                              screenHeight * 0.01,
+                              screenWidth * 0.05,
                             ),
                             shape: const CircleBorder(),
                             onPressed: () =>
@@ -294,7 +297,7 @@ class _HomePageState extends State<HomePage> {
                             color: AppColors.primaryColor,
                             textColor: Colors.white,
                             padding: EdgeInsets.all(
-                              screenHeight * 0.01,
+                              screenWidth * 0.05,
                             ),
                             shape: const CircleBorder(),
                             onPressed: () =>
@@ -318,7 +321,7 @@ class _HomePageState extends State<HomePage> {
                             color: AppColors.primaryColor,
                             textColor: Colors.white,
                             padding: EdgeInsets.all(
-                              screenHeight * 0.01,
+                              screenWidth * 0.05,
                             ),
                             shape: const CircleBorder(),
                             onPressed: () =>
@@ -342,7 +345,7 @@ class _HomePageState extends State<HomePage> {
                             color: AppColors.primaryColor,
                             textColor: Colors.white,
                             padding: EdgeInsets.all(
-                              screenHeight * 0.01,
+                              screenWidth * 0.05,
                             ),
                             shape: const CircleBorder(),
                             onPressed: () async {
@@ -380,11 +383,12 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 40,
+                  SizedBox(
+                    height: screenHeight * 0.02,
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Column(
                         children: [
@@ -392,7 +396,7 @@ class _HomePageState extends State<HomePage> {
                             color: AppColors.primaryColor,
                             textColor: Colors.white,
                             padding: EdgeInsets.all(
-                              screenHeight * 0.01,
+                              screenWidth * 0.05,
                             ),
                             shape: const CircleBorder(),
                             onPressed: () =>
@@ -416,7 +420,7 @@ class _HomePageState extends State<HomePage> {
                             color: AppColors.primaryColor,
                             textColor: Colors.white,
                             padding: EdgeInsets.all(
-                              screenHeight * 0.01,
+                              screenWidth * 0.05,
                             ),
                             shape: const CircleBorder(),
                             onPressed: () =>
@@ -440,7 +444,7 @@ class _HomePageState extends State<HomePage> {
                             color: AppColors.primaryColor,
                             textColor: Colors.white,
                             padding: EdgeInsets.all(
-                              screenHeight * 0.01,
+                              screenWidth * 0.05,
                             ),
                             shape: const CircleBorder(),
                             onPressed: () =>
@@ -464,7 +468,7 @@ class _HomePageState extends State<HomePage> {
                             color: AppColors.primaryColor,
                             textColor: Colors.white,
                             padding: EdgeInsets.all(
-                              screenHeight * 0.01,
+                              screenWidth * 0.05,
                             ),
                             shape: const CircleBorder(),
                             onPressed: () =>

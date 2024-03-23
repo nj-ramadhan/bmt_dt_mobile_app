@@ -101,14 +101,14 @@ class AppStrings {
   static const String checkingTitle = 'Mutasi';
   static const String checkingSubtitle = 'Mau lihat mutasi rekening?';
 
-  static const String shoppingTitle = 'Pembelian';
+  static const String shoppingTitle = 'Beli';
   static const String shoppingSubtitle = 'Mau melakukan pembelian?';
 
-  static const String fundingTitle = 'Pembiayaan';
-  static const String fundingSubtitle = 'Mau melakukan pembiayaan?';
-
-  static const String paymentTitle = 'Pembayaran';
+  static const String paymentTitle = 'Bayar';
   static const String paymentSubtitle = 'Mau melakukan pembayaran?';
+
+  static const String fundingTitle = 'Biaya';
+  static const String fundingSubtitle = 'Mau melakukan pembiayaan?';
 
   static const String transferTitle = 'Transfer';
   static const String transferSubtitle = 'Mau melakukan pengiriman uang?';
@@ -116,9 +116,9 @@ class AppStrings {
   static const String favouriteTitle = 'Favorit';
   static const String favouriteSubtitle = 'Menu Favorit';
 
-  static const String savingsMandatory = 'Simpanan\n Wajib';
-  static const String savingsPrincipal = 'Simpanan\n Pokok';
-  static const String savingsVoluntary = 'Simpanan\n Sukarela';
+  static const String savingsMandatory = 'Simpanan\nWajib';
+  static const String savingsPrincipal = 'Simpanan\nPokok';
+  static const String savingsVoluntary = 'Simpanan\nSukarela';
 
   static const String savingsMandatoryTitle = 'Simpanan Wajib';
   static const String savingsPrincipalTitle = 'Simpanan Pokok';
