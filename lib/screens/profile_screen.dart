@@ -37,29 +37,15 @@ class _ProfilePageState extends State<ProfilePage> {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.arrow_back),
-                          onPressed: () =>
-                              NavigationHelper.pushReplacementNamed(
-                                  AppRoutes.home),
-                        ),
-                        const Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              AppStrings.profileAccount,
-                              style: AppTheme.titleLarge,
-                            ),
-                            SizedBox(height: 2),
-                            Text(
-                              AppStrings.profileAccountSubtitle,
-                              style: AppTheme.bodyTiny,
-                            ),
-                          ],
-                        ),
-                      ],
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back),
+                      onPressed: () => NavigationHelper.pushReplacementNamed(
+                        AppRoutes.home,
+                      ),
+                    ),
+                    const Text(
+                      AppStrings.profileAccount,
+                      style: AppTheme.titleLarge,
                     ),
                     Image(
                       image: const AssetImage('assets/icon/icon_text.png'),

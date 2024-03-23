@@ -16,23 +16,23 @@ class AppTheme {
       titleLarge: TextStyle(
         fontWeight: FontWeight.bold,
         color: Colors.black,
-        fontSize: 24,
+        fontSize: 26,
         letterSpacing: 0.5,
       ),
       bodyLarge: TextStyle(
         color: Colors.black,
-        fontSize: 22,
+        fontSize: 24,
         letterSpacing: 0.5,
       ),
       bodyMedium: TextStyle(
         fontWeight: FontWeight.bold,
         color: Colors.black,
-        fontSize: 16,
+        fontSize: 22,
         letterSpacing: 0.5,
       ),
       bodySmall: TextStyle(
         color: Colors.black,
-        fontSize: 12,
+        fontSize: 20,
         letterSpacing: 0.5,
       ),
     ),
@@ -93,33 +93,33 @@ class AppTheme {
   static const TextStyle titleLarge = TextStyle(
     fontWeight: FontWeight.bold,
     color: Colors.black,
-    fontSize: 24,
+    fontSize: 26,
     letterSpacing: 0.5,
   );
 
   static const TextStyle bodyLarge = TextStyle(
     fontWeight: FontWeight.bold,
     color: Colors.black,
-    fontSize: 22,
+    fontSize: 24,
     letterSpacing: 0.5,
   );
 
   static const TextStyle bodyMedium = TextStyle(
     fontWeight: FontWeight.bold,
     color: Colors.black,
-    fontSize: 16,
+    fontSize: 22,
     letterSpacing: 0.5,
   );
 
   static const TextStyle bodySmall = TextStyle(
     color: Colors.black,
-    fontSize: 12,
+    fontSize: 20,
     letterSpacing: 0.5,
   );
 
   static const TextStyle bodyTiny = TextStyle(
     color: Colors.black,
-    fontSize: 10,
+    fontSize: 18,
     letterSpacing: 0.5,
   );
 }

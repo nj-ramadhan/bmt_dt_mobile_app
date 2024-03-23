@@ -36,19 +36,15 @@ class _MenuPageState extends State<MenuPage> {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          AppStrings.menuTitle,
-                          style: AppTheme.titleLarge,
-                        ),
-                        SizedBox(height: 6),
-                        Text(
-                          AppStrings.menuSubtitle,
-                          style: AppTheme.bodySmall,
-                        ),
-                      ],
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back),
+                      onPressed: () => NavigationHelper.pushReplacementNamed(
+                        AppRoutes.home,
+                      ),
+                    ),
+                    const Text(
+                      AppStrings.menuTitle,
+                      style: AppTheme.titleLarge,
                     ),
                     Image(
                       image: const AssetImage('assets/icon/icon_bg.png'),

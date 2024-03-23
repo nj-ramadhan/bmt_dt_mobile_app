@@ -193,18 +193,9 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          AppStrings.registerTitle,
-                          style: AppTheme.titleLarge,
-                        ),
-                        Text(
-                          AppStrings.registerSubtitle,
-                          style: AppTheme.bodySmall,
-                        ),
-                      ],
+                    const Text(
+                      AppStrings.registerTitle,
+                      style: AppTheme.titleLarge,
                     ),
                     Image(
                       image: const AssetImage('assets/icon/icon_text.png'),

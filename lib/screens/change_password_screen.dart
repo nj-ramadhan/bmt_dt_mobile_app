@@ -205,29 +205,15 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.arrow_back),
-                          onPressed: () =>
-                              NavigationHelper.pushReplacementNamed(
-                                  AppRoutes.profile),
-                        ),
-                        const Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              AppStrings.password,
-                              style: AppTheme.titleLarge,
-                            ),
-                            SizedBox(height: 2),
-                            Text(
-                              AppStrings.changePassword,
-                              style: AppTheme.bodyTiny,
-                            ),
-                          ],
-                        ),
-                      ],
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back),
+                      onPressed: () => NavigationHelper.pushReplacementNamed(
+                        AppRoutes.profile,
+                      ),
+                    ),
+                    const Text(
+                      AppStrings.password,
+                      style: AppTheme.titleLarge,
                     ),
                     Image(
                       image: const AssetImage('assets/icon/icon_text.png'),

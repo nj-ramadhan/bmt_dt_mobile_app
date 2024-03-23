@@ -4,6 +4,8 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/common_widgets/gradient_background.dart';
+import '../utils/helpers/navigation_helper.dart';
+import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
 import 'camera_photo_screen.dart';
@@ -36,19 +38,15 @@ class PreviewIDPage extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          AppStrings.cameraIDTitle,
-                          style: AppTheme.titleLarge,
-                        ),
-                        SizedBox(height: 2),
-                        Text(
-                          AppStrings.cameraIDSubtitle,
-                          style: AppTheme.bodySmall,
-                        ),
-                      ],
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back),
+                      onPressed: () => NavigationHelper.pushReplacementNamed(
+                        AppRoutes.home,
+                      ),
+                    ),
+                    const Text(
+                      AppStrings.cameraIDTitle,
+                      style: AppTheme.bodySmall,
                     ),
                     Image(
                       image: const AssetImage('assets/icon/icon_text.png'),

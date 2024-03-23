@@ -89,18 +89,9 @@ class _CameraPhotoPageState extends State<CameraPhotoPage> {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          AppStrings.cameraPhotoTitle,
-                          style: AppTheme.titleLarge,
-                        ),
-                        Text(
-                          AppStrings.cameraPhotoSubtitle,
-                          style: AppTheme.bodySmall,
-                        ),
-                      ],
+                    const Text(
+                      AppStrings.cameraPhotoTitle,
+                      style: AppTheme.titleLarge,
                     ),
                     Image(
                       image: const AssetImage('assets/icon/icon_text.png'),

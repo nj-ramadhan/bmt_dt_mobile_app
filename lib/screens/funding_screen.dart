@@ -37,29 +37,15 @@ class _FundingPageState extends State<FundingPage> {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.arrow_back),
-                          onPressed: () =>
-                              NavigationHelper.pushReplacementNamed(
-                                  AppRoutes.home),
-                        ),
-                        const Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              AppStrings.fundingTitle,
-                              style: AppTheme.titleLarge,
-                            ),
-                            SizedBox(height: 2),
-                            Text(
-                              AppStrings.fundingSubtitle,
-                              style: AppTheme.bodyTiny,
-                            ),
-                          ],
-                        ),
-                      ],
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back),
+                      onPressed: () => NavigationHelper.pushReplacementNamed(
+                        AppRoutes.home,
+                      ),
+                    ),
+                    const Text(
+                      AppStrings.fundingTitle,
+                      style: AppTheme.titleLarge,
                     ),
                     Image(
                       image: const AssetImage('assets/icon/icon_text.png'),

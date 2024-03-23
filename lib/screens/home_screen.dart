@@ -47,56 +47,40 @@ class _HomePageState extends State<HomePage> {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.logout),
-                          onPressed: () async {
-                            final result = await showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title:
-                                      const Text(AppStrings.logoutConfirmation),
-                                  content: const Text(
-                                      AppStrings.logoutConfirmationText),
-                                  actions: <Widget>[
-                                    ElevatedButton(
-                                      onPressed: () =>
-                                          NavigationHelper.pushReplacementNamed(
-                                        AppRoutes.home,
-                                      ),
-                                      child: const Text(AppStrings.noConfirm),
-                                    ),
-                                    ElevatedButton(
-                                      onPressed: () =>
-                                          NavigationHelper.pushReplacementNamed(
-                                        AppRoutes.login,
-                                      ),
-                                      child: const Text(AppStrings.yesConfirm),
-                                    ),
-                                  ],
-                                );
-                              },
+                    IconButton(
+                      icon: const Icon(Icons.logout),
+                      onPressed: () async {
+                        final result = await showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text(AppStrings.logoutConfirmation),
+                              content:
+                                  const Text(AppStrings.logoutConfirmationText),
+                              actions: <Widget>[
+                                ElevatedButton(
+                                  onPressed: () =>
+                                      NavigationHelper.pushReplacementNamed(
+                                    AppRoutes.home,
+                                  ),
+                                  child: const Text(AppStrings.noConfirm),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () =>
+                                      NavigationHelper.pushReplacementNamed(
+                                    AppRoutes.login,
+                                  ),
+                                  child: const Text(AppStrings.yesConfirm),
+                                ),
+                              ],
                             );
                           },
-                          // async {},
-                        ),
-                        const Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              AppStrings.homeTitle,
-                              style: AppTheme.titleLarge,
-                            ),
-                            SizedBox(height: 2),
-                            Text(
-                              AppStrings.homeSubtitle,
-                              style: AppTheme.bodyTiny,
-                            ),
-                          ],
-                        ),
-                      ],
+                        );
+                      },
+                    ),
+                    const Text(
+                      AppStrings.homeTitle,
+                      style: AppTheme.titleLarge,
                     ),
                     Image(
                       image: const AssetImage('assets/icon/icon_text.png'),
@@ -109,11 +93,16 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(80, 0, 20, 0),
+              padding: EdgeInsets.fromLTRB(
+                screenWidth * 0.08,
+                0,
+                screenWidth * 0.02,
+                0,
+              ),
               child: InkWell(
                 child: Card(
                   child: Padding(
-                    padding: const EdgeInsets.all(20),
+                    padding: EdgeInsets.all(screenWidth * 0.02),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -136,7 +125,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                         Image(
                           image: const AssetImage('assets/images/user.png'),
-                          height: screenHeight * 0.05,
+                          width: screenWidth * 0.05,
                           // height: 40,
                           alignment: Alignment.topCenter,
                         ),
@@ -260,7 +249,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Padding(
               padding: EdgeInsets.all(
-                screenHeight * 0.02,
+                screenHeight * 0.01,
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -269,8 +258,8 @@ class _HomePageState extends State<HomePage> {
                     'Transaksi',
                     style: AppTheme.bodyLarge,
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: screenHeight * 0.02,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -281,7 +270,7 @@ class _HomePageState extends State<HomePage> {
                             color: AppColors.primaryColor,
                             textColor: Colors.white,
                             padding: EdgeInsets.all(
-                              screenHeight * 0.02,
+                              screenHeight * 0.01,
                             ),
                             shape: const CircleBorder(),
                             onPressed: () =>
@@ -305,7 +294,7 @@ class _HomePageState extends State<HomePage> {
                             color: AppColors.primaryColor,
                             textColor: Colors.white,
                             padding: EdgeInsets.all(
-                              screenHeight * 0.02,
+                              screenHeight * 0.01,
                             ),
                             shape: const CircleBorder(),
                             onPressed: () =>
@@ -329,7 +318,7 @@ class _HomePageState extends State<HomePage> {
                             color: AppColors.primaryColor,
                             textColor: Colors.white,
                             padding: EdgeInsets.all(
-                              screenHeight * 0.02,
+                              screenHeight * 0.01,
                             ),
                             shape: const CircleBorder(),
                             onPressed: () =>
@@ -353,7 +342,7 @@ class _HomePageState extends State<HomePage> {
                             color: AppColors.primaryColor,
                             textColor: Colors.white,
                             padding: EdgeInsets.all(
-                              screenHeight * 0.02,
+                              screenHeight * 0.01,
                             ),
                             shape: const CircleBorder(),
                             onPressed: () async {
@@ -403,7 +392,7 @@ class _HomePageState extends State<HomePage> {
                             color: AppColors.primaryColor,
                             textColor: Colors.white,
                             padding: EdgeInsets.all(
-                              screenHeight * 0.02,
+                              screenHeight * 0.01,
                             ),
                             shape: const CircleBorder(),
                             onPressed: () =>
@@ -427,7 +416,7 @@ class _HomePageState extends State<HomePage> {
                             color: AppColors.primaryColor,
                             textColor: Colors.white,
                             padding: EdgeInsets.all(
-                              screenHeight * 0.02,
+                              screenHeight * 0.01,
                             ),
                             shape: const CircleBorder(),
                             onPressed: () =>
@@ -451,7 +440,7 @@ class _HomePageState extends State<HomePage> {
                             color: AppColors.primaryColor,
                             textColor: Colors.white,
                             padding: EdgeInsets.all(
-                              screenHeight * 0.02,
+                              screenHeight * 0.01,
                             ),
                             shape: const CircleBorder(),
                             onPressed: () =>
@@ -475,7 +464,7 @@ class _HomePageState extends State<HomePage> {
                             color: AppColors.primaryColor,
                             textColor: Colors.white,
                             padding: EdgeInsets.all(
-                              screenHeight * 0.02,
+                              screenHeight * 0.01,
                             ),
                             shape: const CircleBorder(),
                             onPressed: () =>
@@ -523,7 +512,7 @@ class _HomePageState extends State<HomePage> {
                                 children: [
                                   Text(
                                     'Info. $i',
-                                    style: AppTheme.bodySmall,
+                                    style: AppTheme.bodyLarge,
                                   ),
                                 ],
                               ),

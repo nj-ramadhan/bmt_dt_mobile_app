@@ -44,29 +44,15 @@ class _SavingVoluntaryPageState extends State<SavingVoluntaryPage> {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.arrow_back),
-                          onPressed: () =>
-                              NavigationHelper.pushReplacementNamed(
-                                  AppRoutes.home),
-                        ),
-                        const Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              AppStrings.savingsVoluntaryTitle,
-                              style: AppTheme.bodyMedium,
-                            ),
-                            SizedBox(height: 2),
-                            Text(
-                              AppStrings.savingsVoluntarySubtitle,
-                              style: AppTheme.bodyTiny,
-                            ),
-                          ],
-                        ),
-                      ],
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back),
+                      onPressed: () => NavigationHelper.pushReplacementNamed(
+                        AppRoutes.home,
+                      ),
+                    ),
+                    const Text(
+                      AppStrings.savingsVoluntaryTitle,
+                      style: AppTheme.bodyLarge,
                     ),
                     Image(
                       image: const AssetImage('assets/icon/icon_text.png'),

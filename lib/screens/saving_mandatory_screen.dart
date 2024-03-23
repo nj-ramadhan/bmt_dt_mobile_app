@@ -44,29 +44,15 @@ class _SavingMandatoryPageState extends State<SavingMandatoryPage> {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.arrow_back),
-                          onPressed: () =>
-                              NavigationHelper.pushReplacementNamed(
-                                  AppRoutes.home),
-                        ),
-                        const Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              AppStrings.savingsMandatoryTitle,
-                              style: AppTheme.bodyLarge,
-                            ),
-                            SizedBox(height: 2),
-                            Text(
-                              AppStrings.savingsMandatorySubtitle,
-                              style: AppTheme.bodyTiny,
-                            ),
-                          ],
-                        ),
-                      ],
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back),
+                      onPressed: () => NavigationHelper.pushReplacementNamed(
+                        AppRoutes.home,
+                      ),
+                    ),
+                    const Text(
+                      AppStrings.savingsMandatoryTitle,
+                      style: AppTheme.bodyLarge,
                     ),
                     Image(
                       image: const AssetImage('assets/icon/icon_text.png'),
