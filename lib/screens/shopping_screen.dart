@@ -7,6 +7,7 @@ import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
 import '../global_variables.dart';
+
 class ShoppingPage extends StatefulWidget {
   const ShoppingPage({super.key});
 
@@ -21,11 +22,11 @@ class _ShoppingPageState extends State<ShoppingPage> {
     double screenHeight = MediaQuery.of(context).size.height;
     return Container(
       constraints: const BoxConstraints.expand(),
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage('assets/images/background2.jpg'),
-            fit: BoxFit.cover),
-      ),
+      // decoration: const BoxDecoration(
+      //   image: DecorationImage(
+      //       image: AssetImage('assets/images/background2.jpg'),
+      //       fit: BoxFit.cover),
+      // ),
       child: Scaffold(
         body: ListView(
           padding: EdgeInsets.zero,

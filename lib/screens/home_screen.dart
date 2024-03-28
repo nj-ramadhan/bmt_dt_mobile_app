@@ -154,14 +154,14 @@ class _HomePageState extends State<HomePage> {
                         ),
                         elevation: 5,
                         child: Container(
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              opacity: 0.4,
-                              image:
-                                  AssetImage('assets/images/background4.jpg'),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
+                          // decoration: const BoxDecoration(
+                          //   image: DecorationImage(
+                          //     opacity: 0.4,
+                          //     image:
+                          //         AssetImage('assets/images/background4.jpg'),
+                          //     fit: BoxFit.cover,
+                          //   ),
+                          // ),
                           height: screenHeight * 0.1,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.end,
