@@ -22,11 +22,12 @@ class _ShoppingPageState extends State<ShoppingPage> {
     double screenHeight = MediaQuery.of(context).size.height;
     return Container(
       constraints: const BoxConstraints.expand(),
-      // decoration: const BoxDecoration(
-      //   image: DecorationImage(
-      //       image: AssetImage('assets/images/background2.jpg'),
-      //       fit: BoxFit.cover),
-      // ),
+      decoration: const BoxDecoration(
+        color: AppColors.lightGreen,
+        // image: DecorationImage(
+        //     image: AssetImage('assets/images/background2.jpg'),
+        //     fit: BoxFit.cover,),
+      ),
       child: Scaffold(
         body: ListView(
           padding: EdgeInsets.zero,
@@ -73,16 +74,16 @@ class _ShoppingPageState extends State<ShoppingPage> {
                   ],
                 )),
             Padding(
-              padding: const EdgeInsets.all(20),
+              padding: EdgeInsets.all(screenWidth * 0.1),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Card(
                     color: AppColors.primaryColor,
                     child: InkWell(
-                      child: const Padding(
-                        padding: EdgeInsets.all(20),
-                        child: Row(
+                      child: Padding(
+                        padding: EdgeInsets.all(screenWidth * 0.1),
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Material(
@@ -121,9 +122,9 @@ class _ShoppingPageState extends State<ShoppingPage> {
                   Card(
                     color: AppColors.primaryColor,
                     child: InkWell(
-                      child: const Padding(
-                        padding: EdgeInsets.all(20),
-                        child: Row(
+                      child: Padding(
+                        padding: EdgeInsets.all(screenWidth * 0.1),
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Material(
@@ -162,9 +163,9 @@ class _ShoppingPageState extends State<ShoppingPage> {
                   Card(
                     color: AppColors.primaryColor,
                     child: InkWell(
-                      child: const Padding(
-                        padding: EdgeInsets.all(20),
-                        child: Row(
+                      child: Padding(
+                        padding: EdgeInsets.all(screenWidth * 0.1),
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Material(
@@ -203,9 +204,9 @@ class _ShoppingPageState extends State<ShoppingPage> {
                   Card(
                     color: AppColors.primaryColor,
                     child: InkWell(
-                      child: const Padding(
-                        padding: EdgeInsets.all(20),
-                        child: Row(
+                      child: Padding(
+                        padding: EdgeInsets.all(screenWidth * 0.1),
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Material(
