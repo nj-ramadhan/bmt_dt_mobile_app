@@ -199,8 +199,8 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
                       AppStrings.profileAccount,
                       style: AppTheme.titleLarge,
                     ),
-                    Image(
-                      image: const AssetImage('assets/icon/icon_text.png'),
+                    Image.network(
+                      apiDataAppLogoBar,
                       width: screenWidth * 0.25,
                       fit: BoxFit.cover,
                       alignment: Alignment.topCenter,

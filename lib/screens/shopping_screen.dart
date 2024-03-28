@@ -6,7 +6,7 @@ import '../utils/helpers/navigation_helper.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
-
+import '../global_variables.dart';
 class ShoppingPage extends StatefulWidget {
   const ShoppingPage({super.key});
 
@@ -47,8 +47,8 @@ class _ShoppingPageState extends State<ShoppingPage> {
                       AppStrings.shoppingTitle,
                       style: AppTheme.titleLarge,
                     ),
-                    Image(
-                      image: const AssetImage('assets/icon/icon_text.png'),
+                    Image.network(
+                      apiDataAppLogoBar,
                       width: screenWidth * 0.25,
                       fit: BoxFit.cover,
                       alignment: Alignment.topCenter,

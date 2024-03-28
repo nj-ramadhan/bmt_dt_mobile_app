@@ -60,6 +60,9 @@ String apiDataAppAccessFrom = 'null';
 String apiDataAppLembagaId = 'null';
 String apiDataAppBlocked = 'null';
 String apiDataAppStatus = 'null';
+String apiDataAppNameString = 'null';
+String apiDataAppLogo = 'null';
+String apiDataAppLogoBar = 'null';
 
 void updateLoginVariables(
   String newApiRolePendidikan,
@@ -176,23 +179,30 @@ void updateDetailsAccount(
 }
 
 void updateDetailsApp(
-  String newApiDataAppId,
-  String newApiDataAppName,
-  String newApiDataAppIp,
-  String newApiDataAppVerify,
-  String newApiDataAppDomain,
-  String newApiDataAppAccessFrom,
-  String newApiDataAppLembagaId,
-  String newApiDataAppBlocked,
-  String newApiDataAppStatus,
+  // String newApiDataAppId,
+  // String newApiDataAppName,
+  // String newApiDataAppIp,
+  // String newApiDataAppVerify,
+  // String newApiDataAppDomain,
+  // String newApiDataAppAccessFrom,
+  // String newApiDataAppLembagaId,
+  // String newApiDataAppBlocked,
+  // String newApiDataAppStatus,
+  String newapiDataAppNameString, 
+  String newapiDataAppLogo, 
+  String newapiDataAppLogoBar, 
 ) {
-  apiDataAppId = newApiDataAppId;
-  apiDataAppName = newApiDataAppName;
-  apiDataAppIp = newApiDataAppIp;
-  apiDataAppVerify = newApiDataAppVerify;
-  apiDataAppDomain = newApiDataAppDomain;
-  apiDataAppAccessFrom = newApiDataAppAccessFrom;
-  apiDataAppLembagaId = newApiDataAppLembagaId;
-  apiDataAppBlocked = newApiDataAppBlocked;
-  apiDataAppStatus = newApiDataAppStatus;
+  // apiDataAppId = newApiDataAppId;
+  // apiDataAppName = newApiDataAppName;
+  // apiDataAppIp = newApiDataAppIp;
+  // apiDataAppVerify = newApiDataAppVerify;
+  // apiDataAppDomain = newApiDataAppDomain;
+  // apiDataAppAccessFrom = newApiDataAppAccessFrom;
+  // apiDataAppLembagaId = newApiDataAppLembagaId;
+  // apiDataAppBlocked = newApiDataAppBlocked;
+  // apiDataAppStatus = newApiDataAppStatus;
+  
+  apiDataAppNameString  = newapiDataAppNameString;
+  apiDataAppLogo = newapiDataAppLogo;
+  apiDataAppLogoBar = newapiDataAppLogoBar;
 }

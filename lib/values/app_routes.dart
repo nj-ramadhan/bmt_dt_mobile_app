@@ -6,6 +6,7 @@ class AppRoutes {
   static const String camera_id = 'camera_id';
   static const String camera_photo = 'camera_photo';
   static const String home = 'home';
+  static const String splash = 'splash';
   static const String menu = 'menu';
   static const String profile = 'profile';
   static const String profile_detail = 'profile_detail';

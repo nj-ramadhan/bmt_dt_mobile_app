@@ -3,13 +3,22 @@ import 'package:flutter/services.dart';
 
 import 'login_register_app.dart';
 
+
+
 void main() {
-  //cek commit
-  WidgetsFlutterBinding.ensureInitialized();
+   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(statusBarIconBrightness: Brightness.light),
   );
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
     (_) => runApp(const LoginRegisterApp()),
   );
+  // WidgetsFlutterBinding.ensureInitialized();
+  // initApp().then((_) {
+  //   SystemChrome.setSystemUIOverlayStyle(
+  //     const SystemUiOverlayStyle(statusBarIconBrightness: Brightness.light),
+  //   );
+  //   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+  //       .then((_) => runApp(const LoginRegisterApp()));
+  // });
 }

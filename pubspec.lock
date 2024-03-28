@@ -217,7 +217,7 @@ packages:
     source: sdk
     version: "0.0.0"
   http:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: http
       sha256: "761a297c042deedc1ffbb156d6e2af13886bb305c2a343a4d972504cd67dd938"
@@ -461,14 +461,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.1"
-  stacked_card_carousel:
-    dependency: "direct main"
-    description:
-      name: stacked_card_carousel
-      sha256: "24fa85ae54d34348bcb48688f326278c3d433156c7064e5f6089b365e0e6b954"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.4"
   stream_channel:
     dependency: transitive
     description:
@@ -509,14 +501,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.1"
-  toast:
-    dependency: "direct main"
-    description:
-      name: toast
-      sha256: "12433091e3e5a25b3a25f670126e42547c9ade135de30ad9ace45d1ddccd57c9"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.3.0"
   typed_data:
     dependency: transitive
     description:
