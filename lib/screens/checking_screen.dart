@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../global_variables.dart';
 import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/navigation_helper.dart';
 import '../values/app_colors.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
-import '../global_variables.dart';
 
 class CheckingPage extends StatefulWidget {
   const CheckingPage({super.key});
@@ -153,7 +153,7 @@ class _CheckingPageState extends State<CheckingPage> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(20),
+                              padding: EdgeInsets.all(screenWidth * 0.02),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -187,7 +187,7 @@ class _CheckingPageState extends State<CheckingPage> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.all(20),
+                              padding: EdgeInsets.all(screenWidth * 0.02),
                               child: FilledButton(
                                 onPressed: () {},
                                 child: const Text(AppStrings.checkingProcees),

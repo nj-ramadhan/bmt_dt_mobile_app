@@ -22,7 +22,7 @@ import '../values/app_theme.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
-  
+
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -200,7 +200,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void initializeControllers() {
-    
     phoneController = TextEditingController()..addListener(controllerListener);
     passwordController = TextEditingController()
       ..addListener(controllerListener);
@@ -251,7 +250,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
       child: Scaffold(
         body: ListView(
-          padding: EdgeInsets.zero,
+          padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
           children: [
             GradientBackground(
               colors: const [Colors.transparent, Colors.transparent],
@@ -264,7 +263,7 @@ class _LoginPageState extends State<LoginPage> {
                       AppStrings.signInToYourNAccount,
                       style: AppTheme.titleLarge,
                     ),
-                      // 'https://dkuapi.dkuindonesia.id/api/assets/uploads/app_logo_bar20240327031120.png',
+                    // 'https://dkuapi.dkuindonesia.id/api/assets/uploads/app_logo_bar20240327031120.png',
                     Image.network(
                       apiDataAppLogoBar,
                       width: screenWidth * 0.25,
@@ -282,7 +281,7 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
             const SizedBox(height: 20),
-            
+
             Image.network(
               // "https://dkuapi.dkuindonesia.id/api/assets/uploads/app_logo20240327031120.png",
               apiDataAppLogo,
@@ -293,17 +292,12 @@ class _LoginPageState extends State<LoginPage> {
             Text(
               apiDataAppNameString,
               textAlign: TextAlign.center,
-              
-              style:
-                  AppTheme.bodyMedium.copyWith(color: Colors.black),
-                  
+              style: AppTheme.bodyMedium.copyWith(color: Colors.black),
             ),
             Text(
               "Mobile",
               textAlign: TextAlign.center,
-              style:
-                  AppTheme.bodySmall.copyWith(color: Colors.black),
-                  
+              style: AppTheme.bodySmall.copyWith(color: Colors.black),
             ),
 
             // Image(

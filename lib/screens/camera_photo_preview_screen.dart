@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
+import '../global_variables.dart';
 import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/navigation_helper.dart';
 import '../values/app_colors.dart';
@@ -42,8 +43,8 @@ class PreviewPhotoPage extends StatelessWidget {
                       AppStrings.cameraPhotoTitle,
                       style: AppTheme.titleLarge,
                     ),
-                    Image(
-                      image: const AssetImage('assets/icon/icon_text.png'),
+                    Image.network(
+                      apiDataAppLogoBar,
                       width: screenWidth * 0.25,
                       fit: BoxFit.cover,
                       alignment: Alignment.topCenter,

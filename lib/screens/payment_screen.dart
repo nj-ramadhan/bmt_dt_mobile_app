@@ -60,7 +60,7 @@ class _PaymentPageState extends State<PaymentPage> {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.all(20),
+              padding: EdgeInsets.all(screenWidth * 0.02),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -69,10 +69,10 @@ class _PaymentPageState extends State<PaymentPage> {
                     child: InkWell(
                       child: Padding(
                         padding: EdgeInsets.all(screenWidth * 0.02),
-                        child: const Row(
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Material(
+                            const Material(
                               color: AppColors.darkGreen,
                               shape: CircleBorder(),
                               child: Padding(
@@ -87,8 +87,8 @@ class _PaymentPageState extends State<PaymentPage> {
                             ),
                             Expanded(
                               child: Padding(
-                                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                                child: Column(
+                                padding: EdgeInsets.all(screenWidth * 0.02),
+                                child: const Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
@@ -110,7 +110,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                 ),
                               ),
                             ),
-                            Icon(
+                            const Icon(
                               Icons.chevron_right,
                               color: Colors.white,
                             ),
@@ -129,10 +129,10 @@ class _PaymentPageState extends State<PaymentPage> {
                     child: InkWell(
                       child: Padding(
                         padding: EdgeInsets.all(screenWidth * 0.02),
-                        child: const Row(
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Material(
+                            const Material(
                               color: AppColors.darkGreen,
                               shape: CircleBorder(),
                               child: Padding(
@@ -147,8 +147,8 @@ class _PaymentPageState extends State<PaymentPage> {
                             ),
                             Expanded(
                               child: Padding(
-                                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                                child: Column(
+                                padding: EdgeInsets.all(screenWidth * 0.02),
+                                child: const Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
@@ -170,7 +170,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                 ),
                               ),
                             ),
-                            Icon(
+                            const Icon(
                               Icons.chevron_right,
                               color: Colors.white,
                             ),
@@ -189,10 +189,10 @@ class _PaymentPageState extends State<PaymentPage> {
                     child: InkWell(
                       child: Padding(
                         padding: EdgeInsets.all(screenWidth * 0.02),
-                        child: const Row(
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Material(
+                            const Material(
                               color: AppColors.darkGreen,
                               shape: CircleBorder(),
                               child: Padding(
@@ -207,8 +207,8 @@ class _PaymentPageState extends State<PaymentPage> {
                             ),
                             Expanded(
                               child: Padding(
-                                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                                child: Column(
+                                padding: EdgeInsets.all(screenWidth * 0.02),
+                                child: const Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
@@ -230,7 +230,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                 ),
                               ),
                             ),
-                            Icon(
+                            const Icon(
                               Icons.chevron_right,
                               color: Colors.white,
                             ),
@@ -249,10 +249,10 @@ class _PaymentPageState extends State<PaymentPage> {
                     child: InkWell(
                       child: Padding(
                         padding: EdgeInsets.all(screenWidth * 0.02),
-                        child: const Row(
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Material(
+                            const Material(
                               color: AppColors.darkGreen,
                               shape: CircleBorder(),
                               child: Padding(
@@ -267,8 +267,8 @@ class _PaymentPageState extends State<PaymentPage> {
                             ),
                             Expanded(
                               child: Padding(
-                                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                                child: Column(
+                                padding: EdgeInsets.all(screenWidth * 0.02),
+                                child: const Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
@@ -290,7 +290,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                 ),
                               ),
                             ),
-                            Icon(
+                            const Icon(
                               Icons.chevron_right,
                               color: Colors.white,
                             ),

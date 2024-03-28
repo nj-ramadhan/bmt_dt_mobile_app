@@ -1,7 +1,7 @@
 class AppStrings {
   const AppStrings._();
 
-  static const String title = 'BMT DT Mobile App';
+  static const String title = 'DMS Mobile App';
   static const String uhOhPageNotFound = 'uh-oh!\nHalaman tidak ditemukan';
   static const String register = 'Daftar';
   static const String registerFill = 'Isi Form Pendaftaran';
@@ -85,7 +85,7 @@ class AppStrings {
 
   static const String homeTitle = 'Beranda';
   static const String homeSubtitle = 'Selamat datang di beranda aplikasi';
-  static const String homeAccount = 'Simpanan BMT DT';
+  static const String homeAccount = 'Simpanan DMS';
   static const String homeAccountSubtitle =
       'geser untuk melihat semua simpanan';
 

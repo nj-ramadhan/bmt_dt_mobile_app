@@ -1,7 +1,7 @@
-import 'package:bmt_dt_mobile_app/global_variables.dart';
 import 'package:flutter/material.dart';
 
 import '../components/app_text_form_field.dart';
+import '../global_variables.dart';
 import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/navigation_helper.dart';
 import '../values/app_colors.dart';

@@ -1,12 +1,12 @@
-import 'package:bmt_dt_mobile_app/values/app_colors.dart';
 import 'package:flutter/material.dart';
 
+import '../global_variables.dart';
 import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/navigation_helper.dart';
+import '../values/app_colors.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
-import '../global_variables.dart';
 
 class FundingPage extends StatefulWidget {
   const FundingPage({super.key});

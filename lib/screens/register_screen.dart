@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../components/app_text_form_field.dart';
+import '../global_variables.dart';
 import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/navigation_helper.dart';
 import '../utils/helpers/snackbar_helper.dart';
@@ -10,7 +11,6 @@ import '../values/app_regex.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
-import '../global_variables.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key, this.restorationId});
@@ -187,7 +187,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
       ),
       child: Scaffold(
         body: ListView(
-          padding: EdgeInsets.zero,
+          padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
           children: [
             GradientBackground(
               colors: const [Colors.transparent, Colors.transparent],

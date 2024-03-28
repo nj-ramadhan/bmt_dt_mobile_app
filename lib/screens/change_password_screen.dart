@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../global_variables.dart';
 import '../components/app_text_form_field.dart';
 import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/navigation_helper.dart';
@@ -217,8 +218,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                       AppStrings.password,
                       style: AppTheme.titleLarge,
                     ),
-                    Image(
-                      image: const AssetImage('assets/icon/icon_text.png'),
+                    Image.network(
+                      apiDataAppLogoBar,
                       width: screenWidth * 0.25,
                       fit: BoxFit.cover,
                       alignment: Alignment.topCenter,
