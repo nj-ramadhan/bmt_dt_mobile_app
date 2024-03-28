@@ -23,9 +23,10 @@ class _PaymentPageState extends State<PaymentPage> {
     return Container(
       constraints: const BoxConstraints.expand(),
       decoration: const BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage('assets/images/background2.jpg'),
-            fit: BoxFit.cover),
+        color: AppColors.lightGreen,
+        // image: DecorationImage(
+        //     image: AssetImage('assets/images/background2.jpg'),
+        //     fit: BoxFit.cover),
       ),
       child: Scaffold(
         body: ListView(

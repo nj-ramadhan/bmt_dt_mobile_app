@@ -4,6 +4,7 @@ import '../components/app_text_form_field.dart';
 import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/navigation_helper.dart';
 import '../utils/helpers/snackbar_helper.dart';
+import '../values/app_colors.dart';
 import '../values/app_constants.dart';
 import '../values/app_regex.dart';
 import '../values/app_routes.dart';
@@ -179,9 +180,10 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
     return Container(
       constraints: const BoxConstraints.expand(),
       decoration: const BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage('assets/images/background1.jpg'),
-            fit: BoxFit.cover),
+        color: AppColors.lightGreen,
+        // image: DecorationImage(
+        //     image: AssetImage('assets/images/background1.jpg'),
+        //     fit: BoxFit.cover),
       ),
       child: Scaffold(
         body: ListView(

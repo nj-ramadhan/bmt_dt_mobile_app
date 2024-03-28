@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/common_widgets/gradient_background.dart';
+import '../values/app_colors.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
 import 'camera_id_preview_screen.dart';
@@ -74,10 +75,11 @@ class _CameraIDPageState extends State<CameraIDPage> {
     return Container(
       constraints: const BoxConstraints.expand(),
       decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/images/background1.jpg'),
-          fit: BoxFit.contain,
-        ),
+        color: AppColors.lightGreen,
+        // image: DecorationImage(
+        //   image: AssetImage('assets/images/background1.jpg'),
+        //   fit: BoxFit.contain,
+        // ),
       ),
       child: Scaffold(
         body: ListView(

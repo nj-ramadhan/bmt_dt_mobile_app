@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/navigation_helper.dart';
+import '../values/app_colors.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
@@ -30,9 +31,10 @@ class _DepositPageState extends State<DepositPage> {
     return Container(
       constraints: const BoxConstraints.expand(),
       decoration: const BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage('assets/images/background2.jpg'),
-            fit: BoxFit.cover),
+        color: AppColors.lightGreen,
+        // image: DecorationImage(
+        //     image: AssetImage('assets/images/background2.jpg'),
+        //     fit: BoxFit.cover),
       ),
       child: Scaffold(
         body: ListView(

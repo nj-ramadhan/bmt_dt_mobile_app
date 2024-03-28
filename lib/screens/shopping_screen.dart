@@ -1,12 +1,12 @@
-import 'package:bmt_dt_mobile_app/values/app_colors.dart';
 import 'package:flutter/material.dart';
 
+import '../global_variables.dart';
 import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/navigation_helper.dart';
+import '../values/app_colors.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
-import '../global_variables.dart';
 
 class ShoppingPage extends StatefulWidget {
   const ShoppingPage({super.key});
@@ -74,7 +74,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                   ],
                 )),
             Padding(
-              padding: EdgeInsets.all(screenWidth * 0.1),
+              padding: EdgeInsets.all(screenWidth * 0.02),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -82,16 +82,16 @@ class _ShoppingPageState extends State<ShoppingPage> {
                     color: AppColors.primaryColor,
                     child: InkWell(
                       child: Padding(
-                        padding: EdgeInsets.all(screenWidth * 0.1),
-                        child: const Row(
+                        padding: EdgeInsets.all(screenWidth * 0.02),
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Material(
                               color: AppColors.darkGreen,
-                              shape: CircleBorder(),
+                              shape: const CircleBorder(),
                               child: Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Image(
+                                padding: EdgeInsets.all(screenWidth * 0.02),
+                                child: const Image(
                                   image:
                                       AssetImage('assets/images/handphone.png'),
                                   height: 30,
@@ -99,13 +99,13 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                 ),
                               ),
                             ),
-                            Text(
+                            const Text(
                               AppStrings.shoppingCredit,
                               style: TextStyle(
                                 color: Colors.white,
                               ),
                             ),
-                            Icon(
+                            const Icon(
                               Icons.chevron_right,
                               color: Colors.white,
                             ),
@@ -123,16 +123,16 @@ class _ShoppingPageState extends State<ShoppingPage> {
                     color: AppColors.primaryColor,
                     child: InkWell(
                       child: Padding(
-                        padding: EdgeInsets.all(screenWidth * 0.1),
-                        child: const Row(
+                        padding: EdgeInsets.all(screenWidth * 0.02),
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Material(
                               color: AppColors.darkGreen,
-                              shape: CircleBorder(),
+                              shape: const CircleBorder(),
                               child: Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Image(
+                                padding: EdgeInsets.all(screenWidth * 0.02),
+                                child: const Image(
                                   image:
                                       AssetImage('assets/images/handphone.png'),
                                   height: 30,
@@ -140,13 +140,13 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                 ),
                               ),
                             ),
-                            Text(
+                            const Text(
                               AppStrings.shoppingData,
                               style: TextStyle(
                                 color: Colors.white,
                               ),
                             ),
-                            Icon(
+                            const Icon(
                               Icons.chevron_right,
                               color: Colors.white,
                             ),
@@ -164,16 +164,16 @@ class _ShoppingPageState extends State<ShoppingPage> {
                     color: AppColors.primaryColor,
                     child: InkWell(
                       child: Padding(
-                        padding: EdgeInsets.all(screenWidth * 0.1),
-                        child: const Row(
+                        padding: EdgeInsets.all(screenWidth * 0.02),
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Material(
                               color: AppColors.darkGreen,
-                              shape: CircleBorder(),
+                              shape: const CircleBorder(),
                               child: Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Image(
+                                padding: EdgeInsets.all(screenWidth * 0.02),
+                                child: const Image(
                                   image:
                                       AssetImage('assets/images/handphone.png'),
                                   height: 30,
@@ -181,13 +181,13 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                 ),
                               ),
                             ),
-                            Text(
+                            const Text(
                               AppStrings.shoppingPLNToken,
                               style: TextStyle(
                                 color: Colors.white,
                               ),
                             ),
-                            Icon(
+                            const Icon(
                               Icons.chevron_right,
                               color: Colors.white,
                             ),
@@ -205,16 +205,16 @@ class _ShoppingPageState extends State<ShoppingPage> {
                     color: AppColors.primaryColor,
                     child: InkWell(
                       child: Padding(
-                        padding: EdgeInsets.all(screenWidth * 0.1),
-                        child: const Row(
+                        padding: EdgeInsets.all(screenWidth * 0.02),
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Material(
                               color: AppColors.darkGreen,
-                              shape: CircleBorder(),
+                              shape: const CircleBorder(),
                               child: Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Image(
+                                padding: EdgeInsets.all(screenWidth * 0.02),
+                                child: const Image(
                                   image:
                                       AssetImage('assets/images/handphone.png'),
                                   height: 30,
@@ -222,13 +222,13 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                 ),
                               ),
                             ),
-                            Text(
+                            const Text(
                               AppStrings.shoppingEWallet,
                               style: TextStyle(
                                 color: Colors.white,
                               ),
                             ),
-                            Icon(
+                            const Icon(
                               Icons.chevron_right,
                               color: Colors.white,
                             ),
