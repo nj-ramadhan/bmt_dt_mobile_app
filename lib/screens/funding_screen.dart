@@ -67,9 +67,9 @@ class _FundingPageState extends State<FundingPage> {
                   Card(
                     color: AppColors.primaryColor,
                     child: InkWell(
-                      child: const Padding(
-                        padding: EdgeInsets.all(20),
-                        child: Row(
+                      child: Padding(
+                        padding: EdgeInsets.all(screenWidth * 0.02),
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Material(
@@ -127,9 +127,9 @@ class _FundingPageState extends State<FundingPage> {
                   Card(
                     color: AppColors.primaryColor,
                     child: InkWell(
-                      child: const Padding(
-                        padding: EdgeInsets.all(20),
-                        child: Row(
+                      child: Padding(
+                        padding: EdgeInsets.all(screenWidth * 0.02),
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Material(
@@ -187,9 +187,9 @@ class _FundingPageState extends State<FundingPage> {
                   Card(
                     color: AppColors.primaryColor,
                     child: InkWell(
-                      child: const Padding(
-                        padding: EdgeInsets.all(20),
-                        child: Row(
+                      child: Padding(
+                        padding: EdgeInsets.all(screenWidth * 0.02),
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Material(
@@ -247,9 +247,9 @@ class _FundingPageState extends State<FundingPage> {
                   Card(
                     color: AppColors.primaryColor,
                     child: InkWell(
-                      child: const Padding(
-                        padding: EdgeInsets.all(20),
-                        child: Row(
+                      child: Padding(
+                        padding: EdgeInsets.all(screenWidth * 0.02),
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Material(

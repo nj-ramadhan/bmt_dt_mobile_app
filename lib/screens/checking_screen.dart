@@ -119,7 +119,7 @@ class _CheckingPageState extends State<CheckingPage> {
                         child: Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.all(20),
+                              padding: EdgeInsets.all(screenWidth * 0.02),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,

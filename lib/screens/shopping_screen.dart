@@ -60,7 +60,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
               ],
             ),
             const Padding(
-                padding: const EdgeInsets.all(20),
+                padding: EdgeInsets.all(20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

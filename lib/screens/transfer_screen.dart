@@ -109,7 +109,7 @@ class _TransferPageState extends State<TransferPage> {
               ],
             ),
             Padding(
-                padding: const EdgeInsets.all(20),
+                padding: EdgeInsets.all(screenWidth * 0.02),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -195,7 +195,7 @@ class _TransferPageState extends State<TransferPage> {
               }).toList(),
             ),
             Padding(
-              padding: const EdgeInsets.all(20),
+              padding: EdgeInsets.all(screenWidth * 0.02),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [

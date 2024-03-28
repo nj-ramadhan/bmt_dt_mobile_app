@@ -80,9 +80,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   Card(
                     color: AppColors.lightGreen,
                     child: InkWell(
-                      child: const Padding(
-                        padding: EdgeInsets.all(20),
-                        child: Row(
+                      child: Padding(
+                        padding: EdgeInsets.all(screenWidth * 0.02),
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Material(
@@ -116,9 +116,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   Card(
                     color: AppColors.lightGreen,
                     child: InkWell(
-                      child: const Padding(
-                        padding: EdgeInsets.all(20),
-                        child: Row(
+                      child: Padding(
+                        padding: EdgeInsets.all(screenWidth * 0.02),
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Material(

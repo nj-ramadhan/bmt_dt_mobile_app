@@ -129,19 +129,17 @@ class _DepositPageState extends State<DepositPage> {
                 }).toList(),
               ),
             ),
-            Container(
-              child: Column(
-                children: [
-                  const Text(
-                    'Total Saldo',
-                    style: AppTheme.bodySmall,
-                  ),
-                  Text(
-                    totalAmount.toString(),
-                    style: AppTheme.bodyLarge,
-                  ),
-                ],
-              ),
+            Column(
+              children: [
+                const Text(
+                  'Total Saldo',
+                  style: AppTheme.bodySmall,
+                ),
+                Text(
+                  totalAmount.toString(),
+                  style: AppTheme.bodyLarge,
+                ),
+              ],
             ),
           ],
         ),
