@@ -82,8 +82,8 @@ class _HomePageState extends State<HomePage> {
                       AppStrings.homeTitle,
                       style: AppTheme.titleLarge,
                     ),
-                    Image(
-                      image: const AssetImage('assets/icon/icon_text.png'),
+                    Image.network(
+                      apiDataAppLogoBar,
                       width: screenWidth * 0.25,
                       fit: BoxFit.cover,
                       alignment: Alignment.topCenter,

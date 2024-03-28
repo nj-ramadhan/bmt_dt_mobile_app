@@ -16,6 +16,7 @@ import 'screens/saving_principal_screen.dart';
 import 'screens/saving_voluntary_screen.dart';
 import 'screens/shopping_screen.dart';
 import 'screens/transfer_screen.dart';
+import 'screens/splash_screen.dart';
 import 'utils/common_widgets/invalid_route.dart';
 import 'values/app_routes.dart';
 
@@ -47,6 +48,9 @@ class Routes {
             return const HomePage();
           },
         ));
+        
+      case AppRoutes.splash:
+        return getRoute(widget: const SplashScreen());
 
       case AppRoutes.menu:
         return getRoute(widget: const MenuPage());
@@ -86,6 +90,7 @@ class Routes {
 
       case AppRoutes.saving_voluntary:
         return getRoute(widget: const SavingVoluntaryPage());
+
 
       default:
         return getRoute(widget: const InvalidRoute());

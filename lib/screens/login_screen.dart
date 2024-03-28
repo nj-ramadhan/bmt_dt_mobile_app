@@ -22,7 +22,7 @@ import '../values/app_theme.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
-
+  
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -57,7 +57,6 @@ class _LoginPageState extends State<LoginPage> {
   late String responseDetailsAccountNoUser;
   late String responseDetailsAccountEmail;
   late String responseDetailsAccountTelepon;
-
   Future<void> createToken() async {
     const url = 'https://dkuapi.dkuindonesia.id/api/Authorization/create_token';
     const headers = {
@@ -201,6 +200,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void initializeControllers() {
+    
     phoneController = TextEditingController()..addListener(controllerListener);
     passwordController = TextEditingController()
       ..addListener(controllerListener);
@@ -264,23 +264,54 @@ class _LoginPageState extends State<LoginPage> {
                       AppStrings.signInToYourNAccount,
                       style: AppTheme.titleLarge,
                     ),
-                    Image(
-                      image: const AssetImage('assets/icon/icon_text.png'),
+                      // 'https://dkuapi.dkuindonesia.id/api/assets/uploads/app_logo_bar20240327031120.png',
+                    Image.network(
+                      apiDataAppLogoBar,
                       width: screenWidth * 0.25,
                       fit: BoxFit.cover,
                       alignment: Alignment.topCenter,
                     ),
+                    // Image(
+                    //   image: const AssetImage('assets/icon/icon_text.png'),
+                    //   width: screenWidth * 0.25,
+                    //   fit: BoxFit.cover,
+                    //   alignment: Alignment.topCenter,
+                    // ),
                   ],
                 ),
               ],
             ),
             const SizedBox(height: 20),
-            Image(
-              image: const AssetImage('assets/icon/icon.png'),
+            
+            Image.network(
+              // "https://dkuapi.dkuindonesia.id/api/assets/uploads/app_logo20240327031120.png",
+              apiDataAppLogo,
               height: screenHeight * 0.3,
               fit: BoxFit.contain,
               alignment: Alignment.topCenter,
             ),
+            Text(
+              apiDataAppNameString,
+              textAlign: TextAlign.center,
+              
+              style:
+                  AppTheme.bodyMedium.copyWith(color: Colors.black),
+                  
+            ),
+            Text(
+              "Mobile",
+              textAlign: TextAlign.center,
+              style:
+                  AppTheme.bodySmall.copyWith(color: Colors.black),
+                  
+            ),
+
+            // Image(
+            //   image: const AssetImage('assets/icon/icon.png'),
+            //   height: screenHeight * 0.3,
+            //   fit: BoxFit.contain,
+            //   alignment: Alignment.topCenter,
+            // ),
             Form(
               key: _formKey,
               child: Padding(
