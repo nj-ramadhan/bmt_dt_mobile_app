@@ -107,7 +107,7 @@ class AppStrings {
   static const String paymentTitle = 'Bayar';
   static const String paymentSubtitle = 'Mau melakukan pembayaran?';
 
-  static const String fundingTitle = 'Biaya';
+  static const String fundingTitle = 'Pembiayaan';
   static const String fundingSubtitle = 'Mau melakukan pembiayaan?';
 
   static const String transferTitle = 'Transfer';
@@ -116,9 +116,9 @@ class AppStrings {
   static const String favouriteTitle = 'Favorit';
   static const String favouriteSubtitle = 'Menu Favorit';
 
-  static const String savingsMandatory = 'Simpanan\nWajib';
-  static const String savingsPrincipal = 'Simpanan\nPokok';
-  static const String savingsVoluntary = 'Simpanan\nSukarela';
+  static const String savingsMandatory = 'ATM Cash';
+  static const String savingsPrincipal = 'Favorit';
+  static const String savingsVoluntary = 'Merchant';
 
   static const String savingsMandatoryTitle = 'Simpanan Wajib';
   static const String savingsPrincipalTitle = 'Simpanan Pokok';
