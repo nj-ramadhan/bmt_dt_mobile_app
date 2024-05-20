@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
     const url = 'https://dkuapi.dkuindonesia.id/api/Credential/koperasi_details';
     const headers = {
       'ClientID':
-          'bX4LUEznPFu1WIA5ykO\/Q\/9O9VKVqaGyr7mXBWMdxDFHTwAjsC+R3dW6GuZDJzQrQHSWSDxWMLyWLb5ppbFfP1m2vQ22Wzvsk1wS0yoMMTkSyYtAWPv7pDQKWznPZJtQOTDeodHYexRm0OOnmA05009fjZdAL7kVldbNu3c2ld2dgfiifrCkWjmEwf8ENgQFsT49lbkBaIbmdEMd1cWlkm036ukefHYpf\/mEAcsdRleO0UKvNhHsT+fDxr2ztZwMJ7F4DIGn6hOTr7f4AgcbHiX18jmrhaAMispIFcbNRvQJACb9D7HunKt90yhUpfF3YQzHdSaZ+zrc5xf4Quw46z5E9Yj3JDyl7kZC8c6dT4E=',
+          'jLdCPSe3816XRXk7+aCMc+Et0nk1y6\/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ\/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A\/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs\/WzXeZ9pQGOkHyX6IK\/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M\/fXTrjkHB\/v+1VFKgkGRFz0eIhDXZ3yp7e\/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n\/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3\/gKIXwL6NGFqzdeEy3xC\/Qr6',
       'Content-Type': 'application/json',
     };
     // final body = json.encode({
