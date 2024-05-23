@@ -1,20 +1,19 @@
 // splash_screen.dart
-import 'package:flutter/material.dart';
-import 'login_screen.dart'; // Make sure to import your login screen
-import '../utils/helpers/navigation_helper.dart';
-import 'package:http/http.dart' as http;
+// ignore_for_file: lines_longer_than_80_chars, avoid_dynamic_calls
 
 import 'dart:convert';
 
-import '../values/app_routes.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import '../global_variables.dart';
-
+import '../utils/helpers/navigation_helper.dart';
+import '../values/app_routes.dart';
 
 late String responseDetailsAppLogo;
 late String responseDetailsAppLogoBar;
 late String responseDetailsAppNameString;
-
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -24,7 +23,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
   void initState() {
     super.initState();
@@ -36,17 +34,22 @@ class _SplashScreenState extends State<SplashScreen> {
       await detailLembaga(); // Call your detailLembaga function
       // Navigate to your login screen and pass the loaded data
       // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginPage(detailData: detailData)));
-      print("lanjut");
-      NavigationHelper.pushReplacementNamed(AppRoutes.login);
+      if (kDebugMode) {
+        print('lanjut');
+      }
+      await NavigationHelper.pushReplacementNamed(AppRoutes.login);
     } catch (e) {
       // Handle errors or show an error message
-      print("Error loading data: $e");
+      if (kDebugMode) {
+        print('Error loading data: $e');
+      }
     }
   }
 
   Future<void> detailLembaga() async {
     // Your existing detailLembaga logic here
-    const url = 'https://dkuapi.dkuindonesia.id/api/Credential/koperasi_details';
+    const url =
+        'https://dkuapi.dkuindonesia.id/api/Credential/koperasi_details';
     const headers = {
       'ClientID':
           'KnxNoQkPMMesAVR85tM\/XdLG6Bruiabbx\/8KmD3GyDnB4G8tCmKSnaUa4HMu+nCtRR1FaQK4uTTTiPu+m+8u83JrExoOE0L5AI5TEFHhhKH6pFq3PLqfqyKWXgmb4FFMX7Y2oZ0PtKjXhkWefB6S4\/I3Oe0aTy9rHfC7uFTUeadmExtCcSRsBXUklgneVI9kGwkMSbVOUN06UsrGwYvJqu8GizUJ6NJH98cVaJ9mqdcgXhNoLVSv68LicRycfoYVf0T\/IL5iXgHEoKYEBcfL5tzpZQ8g+D\/njHYYaIsVl16LDUcWTrCxrChgodXTRCtFWqtsIW1OSbAAZU7LZZJGU\/3iTqzGvBc6Irs10bvwQsAGbiNMTGJ5WyDGolSfp7c55ZYPgm+G82hin8qoICSCSndPJjbyVAkstdjjMbDUoqwwSuAOmEJVSvRLpx1P7+djYc+tNHAK1A269UTDwfv5B0nK6M5ZWRab2eGeNBQ5QXDsNZIhfNg1rqWaFwFtVzatnjk0vbSv+TFvSDqja\/2+Qtr+hZR68hRKtGurmSqZoMwQ4g8pM4RhCv7bvne77Ku\/uGcMbLBoep4WTnx+654eMA==',
@@ -71,19 +74,26 @@ class _SplashScreenState extends State<SplashScreen> {
 
       if (response.statusCode == 200) {
         final responseBody = json.decode(response.body);
-        print(responseBody);
-        responseDetailsAppNameString = responseBody['data_app']['app_name_string'].toString();
-        responseDetailsAppLogo = responseBody['data_app']['app_logo'].toString();
-        responseDetailsAppLogoBar = responseBody['data_app']['app_logo_bar'].toString();
+        if (kDebugMode) {
+          print(responseBody);
+        }
+        responseDetailsAppNameString =
+            responseBody['data_app']['app_name_string'].toString();
+        responseDetailsAppLogo =
+            responseBody['data_app']['app_logo'].toString();
+        responseDetailsAppLogoBar =
+            responseBody['data_app']['app_logo_bar'].toString();
         updateDetailsApp(
           responseDetailsAppNameString,
           responseDetailsAppLogo,
           responseDetailsAppLogoBar,
         );
 
-        print(apiDataAppLogo);
-        print(apiDataAppLogoBar);
-        print(apiDataAppNameString);
+        if (kDebugMode) {
+          print(apiDataAppLogo);
+          print(apiDataAppLogoBar);
+          print(apiDataAppNameString);
+        }
       } else {
         debugPrint('Request failed with status: ${response.statusCode}.');
       }
@@ -96,7 +106,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     // Your SplashScreen widget tree here
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: CircularProgressIndicator(), // Display a loading indicator
       ),

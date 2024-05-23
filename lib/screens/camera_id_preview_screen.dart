@@ -74,13 +74,16 @@ class PreviewIDPage extends StatelessWidget {
                   // ),
                   // ),
                   onPressed: () async {
-                    await availableCameras().then((value) => Navigator.push(
+                    await availableCameras().then(
+                      (value) => Navigator.push(
                         context,
                         // ignore: inference_failure_on_instance_creation
                         MaterialPageRoute(
-                            builder: (_) => CameraPhotoPage(cameras: value))));
+                          builder: (_) => CameraPhotoPage(cameras: value),
+                        ),
+                      ),
+                    );
                   },
-
                   child: const Text(AppStrings.cameraPhotoTitle),
                 ),
               ],
