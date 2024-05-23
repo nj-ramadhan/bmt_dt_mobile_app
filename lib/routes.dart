@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'screens/change_password_screen.dart';
+import 'screens/change_email_screen.dart';
+import 'screens/change_pin_screen.dart';
 import 'screens/checking_screen.dart';
 import 'screens/deposit_screen.dart';
 import 'screens/funding_screen.dart';
@@ -63,6 +65,12 @@ class Routes {
 
       case AppRoutes.change_password:
         return getRoute(widget: const ChangePasswordPage());
+
+      case AppRoutes.change_email:
+        return getRoute(widget: const ChangeEmailPage());
+
+      case AppRoutes.change_pin:
+        return getRoute(widget: const ChangePinPage());
 
       case AppRoutes.deposit:
         return getRoute(widget: const DepositPage());

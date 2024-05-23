@@ -402,6 +402,7 @@ class _LoginPageState extends State<LoginPage> {
                             await availableCameras().then((value) =>
                                 Navigator.push(
                                     context,
+                                    // ignore: inference_failure_on_instance_creation
                                     MaterialPageRoute(
                                         builder: (_) =>
                                             CameraIDPage(cameras: value))));

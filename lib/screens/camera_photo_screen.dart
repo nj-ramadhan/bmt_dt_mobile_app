@@ -34,6 +34,7 @@ class _CameraPhotoPageState extends State<CameraPhotoPage> {
     initCamera(widget.cameras![0]);
   }
 
+  // ignore: strict_raw_type
   Future takePicture() async {
     if (!_cameraController.value.isInitialized) {
       return null;
@@ -46,6 +47,7 @@ class _CameraPhotoPageState extends State<CameraPhotoPage> {
       XFile picture = await _cameraController.takePicture();
       await Navigator.push(
           context,
+          // ignore: inference_failure_on_instance_creation
           MaterialPageRoute(
               builder: (context) => PreviewPhotoPage(
                     picture: picture,
@@ -56,6 +58,7 @@ class _CameraPhotoPageState extends State<CameraPhotoPage> {
     }
   }
 
+  // ignore: strict_raw_type
   Future initCamera(CameraDescription cameraDescription) async {
     _cameraController =
         CameraController(cameraDescription, ResolutionPreset.high);
@@ -71,8 +74,8 @@ class _CameraPhotoPageState extends State<CameraPhotoPage> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Container(
       constraints: const BoxConstraints.expand(),
       decoration: const BoxDecoration(
