@@ -3,7 +3,6 @@ import 'dart:convert';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 
@@ -57,6 +56,7 @@ class _LoginPageState extends State<LoginPage> {
   late String responseDetailsAccountNoUser;
   late String responseDetailsAccountEmail;
   late String responseDetailsAccountTelepon;
+
   Future<void> createToken() async {
     const url = 'https://dkuapi.dkuindonesia.id/api/Authorization/create_token';
     const headers = {
@@ -105,15 +105,15 @@ class _LoginPageState extends State<LoginPage> {
           passwordController.clear();
 
           SnackbarHelper.showSnackBar(
-            AppStrings.loggedIn,
-          );
+              // ignore: void_checks
+              AppStrings.loggedIn,);
           await NavigationHelper.pushReplacementNamed(
             AppRoutes.home,
           );
         } else {
           SnackbarHelper.showSnackBar(
-            responseLoginToken,
-          );
+              // ignore: void_checks
+              responseLoginToken,);
           debugPrint('API response: $responseBody.');
         }
       } else {
@@ -238,8 +238,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Container(
       constraints: const BoxConstraints.expand(),
       decoration: const BoxDecoration(

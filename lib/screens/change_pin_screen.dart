@@ -143,8 +143,7 @@ class _ChangePinPageState extends State<ChangePinPage> {
                           suffixIcon: Focus(
                             descendantsAreFocusable: false,
                             child: IconButton(
-                              onPressed: () =>
-                                  pinNotifier.value = !pinObscure,
+                              onPressed: () => pinNotifier.value = !pinObscure,
                               style: IconButton.styleFrom(
                                 minimumSize: const Size.square(48),
                               ),
@@ -179,8 +178,7 @@ class _ChangePinPageState extends State<ChangePinPage> {
                           suffixIcon: Focus(
                             descendantsAreFocusable: false,
                             child: IconButton(
-                              onPressed: () =>
-                                  pinNotifier.value = !pinObscure,
+                              onPressed: () => pinNotifier.value = !pinObscure,
                               style: IconButton.styleFrom(
                                 minimumSize: const Size.square(48),
                               ),
@@ -215,8 +213,7 @@ class _ChangePinPageState extends State<ChangePinPage> {
                           suffixIcon: Focus(
                             descendantsAreFocusable: false,
                             child: IconButton(
-                              onPressed: () =>
-                                  pinNotifier.value = !pinObscure,
+                              onPressed: () => pinNotifier.value = !pinObscure,
                               style: IconButton.styleFrom(
                                 minimumSize: const Size.square(48),
                               ),
@@ -231,7 +228,6 @@ class _ChangePinPageState extends State<ChangePinPage> {
                         );
                       },
                     ),
-                    
                     ValueListenableBuilder(
                       valueListenable: fieldValidNotifier,
                       builder: (_, isValid, __) {
@@ -239,8 +235,8 @@ class _ChangePinPageState extends State<ChangePinPage> {
                           onPressed: isValid
                               ? () {
                                   SnackbarHelper.showSnackBar(
-                                    AppStrings.changePinComplete,
-                                  );
+                                      // ignore: void_checks
+                                      AppStrings.changePinComplete,);
                                   pinController.clear();
                                   newPinController.clear();
                                   confirmPinController.clear();

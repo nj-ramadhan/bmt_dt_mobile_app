@@ -58,6 +58,8 @@ class AppStrings {
   static const String changeEmail = 'Ganti Email';
   static const String changeEmailComplete = 'Perubahan Email selesai!';
   static const String confirmEmail = 'Konfirmasi Email';
+  static const String pleaseReEnterEmail = 'Mohon isi ulang Email';
+  static const String emailNotMatched = 'Email tidak cocok!';
 
   static const String newPassword = 'Kata sandi yang baru';
   static const String password = 'Kata sandi';
@@ -112,6 +114,9 @@ class AppStrings {
 
   static const String profileAccount = 'Profil';
   static const String profileAccountSubtitle = 'Sesuaikan profil';
+  static const String profileAccountUpdate = 'Perbaharui Profile';
+  static const String profileAccountUpdateComplete =
+      'Selesai Perbaharui Profile';
 
   static const String depositTitle = 'Simpanan';
   static const String depositSubtitle = 'Mau tambah saldo?';
