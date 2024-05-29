@@ -84,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
       if (response.statusCode == 200) {
         final responseBody = json.decode(response.body);
         responseLoginRolePendidikan =
-            responseBody['role_pendidikan'].toString();
+        responseBody['role_pendidikan'].toString();
         responseLoginRoleKoperasi = responseBody['role_koperasi'].toString();
         responseLoginNoUser = responseBody['no_user'].toString();
         responseLoginToken = responseBody['token'].toString();

@@ -80,10 +80,6 @@ class _SplashScreenState extends State<SplashScreen> {
           responseDetailsAppLogo,
           responseDetailsAppLogoBar,
         );
-
-        print(apiDataAppLogo);
-        print(apiDataAppLogoBar);
-        print(apiDataAppNameString);
       } else {
         debugPrint('Request failed with status: ${response.statusCode}.');
       }
