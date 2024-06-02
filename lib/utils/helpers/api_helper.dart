@@ -119,127 +119,127 @@ class ApiHelper {
           "value": nama_lengkap,
           "contentType": "MANDATORY",
           "description": "VARCHAR(100) M",
-          "type": "text"
+          "type": "text",
         },
         {
           "key": "email",
           "value": email,
           "contentType": "MANDATORY",
           "description": "VARCHAR(100) M",
-          "type": "text"
+          "type": "text",
         },
         {
           "key": "password",
           "value": password,
           "contentType": "MANDATORY",
           "description": "VARCHAR(50) M",
-          "type": "text"
+          "type": "text",
         },
         {
           "key": "telepon",
           "value": telepon,
           "contentType": "MANDATORY",
           "description": "VARCHAR(25) M",
-          "type": "text"
+          "type": "text",
         },
         {
           "key": "jenis_kelamin",
           "value": jenis_kelamin,
           "contentType": "Mandatory",
           "description": "ENUM(\"L\",\"P\")",
-          "type": "text"
+          "type": "text",
         },
         {
           "key": "tanggal_lahir",
           "value": tanggal_lahir,
           "contentType": "Mandatory",
           "description": "YYYY-MM-DD",
-          "type": "text"
+          "type": "text",
         },
         {
           "key": "tempat_lahir",
           "value": tempat_lahir,
           "contentType": "Mandatory",
           "description": "varchar(50)",
-          "type": "text"
+          "type": "text",
         },
         {
           "key": "provinsi",
           "value": provinsi,
           "contentType": "Mandatory",
           "description": "int(4)",
-          "type": "text"
+          "type": "text",
         },
         {
           "key": "kabupaten_kota",
           "value": kabupaten_kota,
           "contentType": "Mandatory",
           "description": "int(6)",
-          "type": "text"
+          "type": "text",
         },
         {
           "key": "kecamatan",
           "value": kecamatan,
           "contentType": "Mandatory",
           "description": "int(9)",
-          "type": "text"
+          "type": "text",
         },
         {
           "key": "kelurahan",
           "value": kelurahan,
           "contentType": "Mandatory",
           "description": "int(12)",
-          "type": "text"
+          "type": "text",
         },
         {
           "key": "rw",
           "value": rw,
           "contentType": "Mandatory",
           "description": "int(4)",
-          "type": "text"
+          "type": "text",
         },
         {
           "key": "rt",
           "value": rt,
           "contentType": "Mandatory",
           "description": "int(5)",
-          "type": "text"
+          "type": "text",
         },
         {
           "key": "agama",
           "value": agama,
           "contentType": "Mandatory",
           "description": "VARCHAR(25)",
-          "type": "text"
+          "type": "text",
         },
         {
           "key": "status_perkawinan",
           "value": status_perkawinan,
           "contentType": "Mandatory",
           "description": "'BELUM KAWIN','KAWIN','CERAI HIDUP','CERAI MATI'",
-          "type": "text"
+          "type": "text",
         },
         {
           "key": "pekerjaan",
           "value": pekerjaan,
           "contentType": "Mandatory",
           "description": "VARCHAR(50)",
-          "type": "text"
+          "type": "text",
         },
         {
           "key": "kewarganegaraan",
           "value": kewarganegaraan,
           "contentType": "Mandatory",
           "description": "ENUM(\"WNI\",\"WNA\")",
-          "type": "text"
+          "type": "text",
         },
         {
           "key": "role_koperasi",
           "value": "A1",
           "type": "text",
-          "disabled": true
+          "disabled": true,
         }
-      ]
+      ],
     };
 
     try {
@@ -293,7 +293,7 @@ class ApiHelper {
           return DropdownItemsModel(
               // userId: map["userId"], id: map['id'], title: map["title"]);
               id: int.parse(map['id']),
-              title: map["name"]);
+              title: map["name"],);
         }).toList();
       }
     } on SocketException {
@@ -328,14 +328,14 @@ class ApiHelper {
           final map = e as Map<String, dynamic>;
           return DropdownItemsModel(
               // userId: map["userId"], id: map['id'], title: map["title"]);
-              id: int.parse(map['id']),
-              title: map["name"]);
+              id: int.parse(map['id'],),
+              title: map['name'],);
         }).toList();
       }
     } on SocketException {
-      throw Exception("Network Connectivity Error");
+      throw Exception('Network Connectivity Error');
     }
-    throw Exception("Fetch Data Error");
+    throw Exception('Fetch Data Error');
   }
 
   static Future<List<DropdownItemsModel>> getDistrict({
@@ -365,7 +365,7 @@ class ApiHelper {
           return DropdownItemsModel(
               // userId: map["userId"], id: map['id'], title: map["title"]);
               id: int.parse(map['id']),
-              title: map["name"]);
+              title: map["name"],);
         }).toList();
       }
     } on SocketException {
@@ -401,7 +401,7 @@ class ApiHelper {
           return DropdownItemsModel(
               // userId: map["userId"], id: map['id'], title: map["title"]);
               id: int.parse(map['id']),
-              title: map["name"]);
+              title: map["name"],);
         }).toList();
       }
     } on SocketException {
