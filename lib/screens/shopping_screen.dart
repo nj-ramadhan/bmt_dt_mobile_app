@@ -42,7 +42,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
   late List<Products> listProducts;
 
   Future<String> callAsyncFetch() =>
-      Future.delayed(const Duration(seconds: 2), () => 'wait');
+      Future.delayed(const Duration(milliseconds: 100), () => 'wait');
 
   Future<void> getProducts() async {
     const url =
@@ -196,7 +196,46 @@ class _ShoppingPageState extends State<ShoppingPage> {
               ),
             );
           } else {
-            return const CircularProgressIndicator();
+            return Container(
+                constraints: const BoxConstraints.expand(),
+                decoration: const BoxDecoration(
+                  color: AppColors.lightGreen,
+                  // image: DecorationImage(
+                  //     image: AssetImage('assets/images/background2.jpg'),
+                  //     fit: BoxFit.cover,),
+                ),
+                child: Scaffold(
+                    body: ListView(padding: EdgeInsets.zero, children: [
+                  GradientBackground(
+                    colors: const [Colors.transparent, Colors.transparent],
+                    children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.arrow_back),
+                            onPressed: () =>
+                                NavigationHelper.pushReplacementNamed(
+                              AppRoutes.home,
+                            ),
+                          ),
+                          const Text(
+                            AppStrings.shoppingTitle,
+                            style: AppTheme.titleLarge,
+                          ),
+                          Image.network(
+                            apiDataAppLogoBar,
+                            width: screenWidth * 0.25,
+                            fit: BoxFit.cover,
+                            alignment: Alignment.topCenter,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const CircularProgressIndicator(),
+                ])));
           }
         });
   }
