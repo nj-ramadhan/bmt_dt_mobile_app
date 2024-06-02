@@ -74,6 +74,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
       if (response.statusCode == 200) {
         final responseBody = json.decode(response.body);
+
         if (kDebugMode) {
           print(responseBody);
         }
@@ -83,6 +84,7 @@ class _SplashScreenState extends State<SplashScreen> {
             responseBody['data_app']['app_logo'].toString();
         responseDetailsAppLogoBar =
             responseBody['data_app']['app_logo_bar'].toString();
+
         updateDetailsApp(
           responseDetailsAppNameString,
           responseDetailsAppLogo,
@@ -96,6 +98,7 @@ class _SplashScreenState extends State<SplashScreen> {
         } else {
           debugPrint('Request failed with status: ${response.statusCode}.');
         }
+      }
     } catch (e) {
       debugPrint('Error: $e');
     }
