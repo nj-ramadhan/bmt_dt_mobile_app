@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:camera/camera.dart';
+// import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 import '../components/app_text_form_field.dart';
 import '../global_variables.dart';
 import '../resources/resources.dart';
-import '../screens/camera_id_screen.dart';
+// import '../screens/camera_id_screen.dart';
 import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/navigation_helper.dart';
 import '../utils/helpers/snackbar_helper.dart';
@@ -84,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
       if (response.statusCode == 200) {
         final responseBody = json.decode(response.body);
         responseLoginRolePendidikan =
-            responseBody['role_pendidikan'].toString();
+        responseBody['role_pendidikan'].toString();
         responseLoginRoleKoperasi = responseBody['role_koperasi'].toString();
         responseLoginNoUser = responseBody['no_user'].toString();
         responseLoginToken = responseBody['token'].toString();
@@ -244,7 +244,8 @@ class _LoginPageState extends State<LoginPage> {
       constraints: const BoxConstraints.expand(),
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/background1.jpg'),
+          // image: AssetImage('assets/images/background1.jpg'),
+          image: AssetImage('images/background1.jpg'),
           fit: BoxFit.contain,
         ),
       ),
@@ -393,11 +394,10 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         const SizedBox(width: 10),
                         TextButton(
-                          // onPressed: () =>
-                          //     NavigationHelper.pushReplacementNamed(
-                          //   AppRoutes.register,
-                          // ),
-                          // onPressed: () =>
+//                           onPressed: () =>
+//                               NavigationHelper.pushReplacementNamed(
+//                             AppRoutes.register,
+//                           ),
                           onPressed: () async {
                             await availableCameras().then((value) =>
                                 Navigator.push(
@@ -407,11 +407,6 @@ class _LoginPageState extends State<LoginPage> {
                                         builder: (_) =>
                                             CameraIDPage(cameras: value))));
                           },
-                          //   NavigationHelper.pushReplacementNamed(
-                          // AppRoutes.register,
-                          //   NavigationHelper.pushReplacementNamed(
-                          // AppRoutes.register,
-                          // ),
                           child: const Text(AppStrings.register),
                         ),
                       ],

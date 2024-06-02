@@ -90,13 +90,12 @@ class _SplashScreenState extends State<SplashScreen> {
         );
 
         if (kDebugMode) {
-          print(apiDataAppLogo);
-          print(apiDataAppLogoBar);
-          print(apiDataAppNameString);
+          debugPrint(apiDataAppLogo);
+          debugPrint(apiDataAppLogoBar);
+          debugPrint(apiDataAppNameString);
+        } else {
+          debugPrint('Request failed with status: ${response.statusCode}.');
         }
-      } else {
-        debugPrint('Request failed with status: ${response.statusCode}.');
-      }
     } catch (e) {
       debugPrint('Error: $e');
     }

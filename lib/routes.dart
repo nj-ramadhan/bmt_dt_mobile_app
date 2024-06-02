@@ -13,6 +13,7 @@ import 'screens/payment_screen.dart';
 import 'screens/profile_detail_screen.dart';
 import 'screens/profile_screen.dart';
 import 'screens/register_screen.dart';
+import 'screens/registration_success_screen.dart';
 import 'screens/saving_mandatory_screen.dart';
 import 'screens/saving_principal_screen.dart';
 import 'screens/saving_voluntary_screen.dart';
@@ -43,6 +44,9 @@ class Routes {
 
       case AppRoutes.register:
         return getRoute(widget: const RegisterPage());
+
+      case AppRoutes.registeration_success:
+        return getRoute(widget: const RegistrationSuccessPage());
 
       case AppRoutes.home:
         return getRoute(widget: Builder(

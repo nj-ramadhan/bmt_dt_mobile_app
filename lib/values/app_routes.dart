@@ -3,6 +3,7 @@ class AppRoutes {
 
   static const String login = 'login';
   static const String register = 'register';
+  static const String registeration_success = 'registeration_success';
   static const String camera_id = 'camera_id';
   static const String camera_photo = 'camera_photo';
   static const String home = 'home';
