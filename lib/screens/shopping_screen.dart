@@ -42,7 +42,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
   late List<Products> listProducts;
 
   Future<String> callAsyncFetch() =>
-      Future.delayed(const Duration(seconds: 1), () => 'wait');
+      Future.delayed(const Duration(milliseconds: 500), () => 'wait');
 
   Future<void> getProducts() async {
     const url =
@@ -125,20 +125,6 @@ class _ShoppingPageState extends State<ShoppingPage> {
                         ),
                       ],
                     ),
-                    const Padding(
-                        padding: EdgeInsets.all(20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 40,
-                            ),
-                            Text(
-                              AppStrings.shoppingTitle,
-                              style: AppTheme.titleLarge,
-                            ),
-                          ],
-                        )),
                     Padding(
                       padding: EdgeInsets.all(screenWidth * 0.02),
                       child: Column(
@@ -234,7 +220,13 @@ class _ShoppingPageState extends State<ShoppingPage> {
                       ),
                     ],
                   ),
-                  const CircularProgressIndicator(),
+                  Padding(
+                      padding: EdgeInsets.all(screenWidth * 0.02),
+                      child: const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CircularProgressIndicator(),
+                          ]))
                 ])));
           }
         });
