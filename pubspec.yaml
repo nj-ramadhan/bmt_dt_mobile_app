@@ -47,6 +47,8 @@ dependencies:
   http: ^1.2.1
   toast: ^0.3.0
   stacked_card_carousel: ^0.0.4
+  intl: ^0.17.0
+
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true

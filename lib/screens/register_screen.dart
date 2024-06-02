@@ -51,6 +51,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
   String? valueDownGender = null;
   String? valueDownStatusPerkawinan = null;
   String? valueDownCitizenship = null;
+  String valuebirthDate = "1999-02-01";
   final List<String> ListDownGender = ['L', 'P'];
   final List<String> ListDownStatusPerkawinan = [
     'BELUM KAWIN',
@@ -216,7 +217,31 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
 
   String _selectDateOnly(DateTime? newSelectedDate) {
     String selectedDateOnly =
-        '${_selectedDate.value.day}/${_selectedDate.value.month}/${_selectedDate.value.year}';
+        '${_selectedDate.value.year}-${_selectedDate.value.month}-${_selectedDate.value.day}';
+    return selectedDateOnly;
+  }
+
+  String _getMonthName(int month) {
+    const List<String> monthNames = [
+      'Januari',
+      'Februari',
+      'Maret',
+      'April',
+      'Mei',
+      'Juni',
+      'Juli',
+      'Agustus',
+      'September',
+      'Oktober',
+      'November',
+      'Desember'
+    ];
+    return monthNames[month - 1];
+  }
+
+  String _showDateOnly(DateTime? newSelectedDate) {
+    String selectedDateOnly =
+        '${_selectedDate.value.day} ${_getMonthName(_selectedDate.value.month)} ${_selectedDate.value.year}';
     return selectedDateOnly;
   }
 
@@ -269,7 +294,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                       labelText: AppStrings.id,
                       keyboardType: TextInputType.number,
                       textInputAction: TextInputAction.next,
-                      onChanged: (value) => _formKey.currentState?.validate(),
+                      // onChanged: (value) => _formKey.currentState?.validate(),
                       validator: (value) {
                         return value!.isEmpty
                             ? AppStrings.pleaseEnterId
@@ -284,7 +309,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                       labelText: AppStrings.name,
                       keyboardType: TextInputType.name,
                       textInputAction: TextInputAction.next,
-                      onChanged: (value) => _formKey.currentState?.validate(),
+                      // onChanged: (value) => _formKey.currentState?.validate(),
                       validator: (value) {
                         return value!.isEmpty
                             ? AppStrings.pleaseEnterName
@@ -299,7 +324,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                       labelText: AppStrings.phone,
                       keyboardType: TextInputType.phone,
                       textInputAction: TextInputAction.next,
-                      onChanged: (value) => _formKey.currentState?.validate(),
+                      // onChanged: (value) => _formKey.currentState?.validate(),
                       validator: (value) {
                         return value!.isEmpty
                             ? AppStrings.pleaseEnterPhone
@@ -314,7 +339,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                       controller: emailController,
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.emailAddress,
-                      onChanged: (_) => _formKey.currentState?.validate(),
+                      // onChanged: (_) => _formKey.currentState?.validate(),
                       validator: (value) {
                         return value!.isEmpty
                             ? AppStrings.pleaseEnterEmailAddress
@@ -332,7 +357,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                           labelText: AppStrings.password,
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.visiblePassword,
-                          onChanged: (_) => _formKey.currentState?.validate(),
+                          // onChanged: (_) => _formKey.currentState?.validate(),
                           validator: (value) {
                             return value!.isEmpty
                                 ? AppStrings.pleaseEnterPassword
@@ -376,7 +401,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                           obscureText: confirmPasswordObscure,
                           textInputAction: TextInputAction.done,
                           keyboardType: TextInputType.visiblePassword,
-                          onChanged: (_) => _formKey.currentState?.validate(),
+                          // onChanged: (_) => _formKey.currentState?.validate(),
                           validator: (value) {
                             return value!.isEmpty
                                 ? AppStrings.pleaseReEnterPassword
@@ -429,8 +454,9 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                     FilledButton(
                       onPressed: () {
                         _restorableDatePickerRouteFuture.present();
+                        valuebirthDate = _selectDateOnly(_selectedDate.value);
                       },
-                      child: Text(_selectDateOnly(_selectedDate.value)),
+                      child: Text(_showDateOnly(_selectedDate.value)),
                     ),
                     const SizedBox(
                       height: 20,
@@ -440,15 +466,13 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                       controller: birthPlaceController,
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.name,
-                      onChanged: (_) => _formKey.currentState?.validate(),
+                      // onChanged: (_) => _formKey.currentState?.validate(),
                       validator: (value) {
                         return value!.isEmpty
                             ? "Tolong Masukan Tempat Lahir"
                             : value.length < 4
                                 ? AppStrings.invalidName
                                 : null;
-
-                                
                       },
                     ),
                     AppDropdownFormField(
@@ -534,7 +558,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                       controller: RwController,
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
-                      onChanged: (_) => _formKey.currentState?.validate(),
+                      // onChanged: (_) => _formKey.currentState?.validate(),
                       validator: (value) {
                         return value!.isEmpty
                             ? "Masukan No RW"
@@ -548,7 +572,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                       controller: RtController,
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
-                      onChanged: (_) => _formKey.currentState?.validate(),
+                      // onChanged: (_) => _formKey.currentState?.validate(),
                       validator: (value) {
                         return value!.isEmpty
                             ? "Masukan No RT"
@@ -562,7 +586,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                       controller: ReligionController,
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.name,
-                      onChanged: (_) => _formKey.currentState?.validate(),
+                      // onChanged: (_) => _formKey.currentState?.validate(),
                       validator: (value) {
                         return value!.isEmpty
                             ? "masukan Agama"
@@ -576,7 +600,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                       labelText: AppStrings.address,
                       keyboardType: TextInputType.streetAddress,
                       textInputAction: TextInputAction.next,
-                      onChanged: (value) => _formKey.currentState?.validate(),
+                      // onChanged: (value) => _formKey.currentState?.validate(),
                       validator: (value) {
                         return value!.isEmpty
                             ? AppStrings.pleaseEnterAddress
@@ -591,11 +615,11 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                       labelText: AppStrings.motherName,
                       keyboardType: TextInputType.name,
                       textInputAction: TextInputAction.next,
-                      onChanged: (value) => _formKey.currentState?.validate(),
+                      // onChanged: (value) => _formKey.currentState?.validate(),
                       validator: (value) {
                         return value!.isEmpty
                             ? AppStrings.pleaseEnterMotherName
-                            : value.length < 15
+                            : value.length < 3
                                 ? AppStrings.invalidMotherName
                                 : null;
                       },
@@ -606,7 +630,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                       labelText: "Pekerjaan",
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.next,
-                      onChanged: (value) => _formKey.currentState?.validate(),
+                      // onChanged: (value) => _formKey.currentState?.validate(),
                       validator: (value) {
                         return value!.isEmpty
                             ? AppStrings.pleaseEnterCommunity
@@ -620,15 +644,53 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                       valueListenable: fieldValidNotifier,
                       builder: (_, isValid, __) {
                         return FilledButton(
-                          onPressed: isValid
-                              ? () {
-                                  SnackbarHelper.showSnackBar(
-                                    AppStrings.registrationComplete,
-                                  );
-                                  nameController.clear();
-                                  emailController.clear();
-                                  passwordController.clear();
-                                  confirmPasswordController.clear();
+                          onPressed: true
+                              ? () async {
+                                  valuebirthDate =
+                                      _selectDateOnly(_selectedDate.value);
+                                  if (_formKey.currentState != null &&
+                                      _formKey.currentState!.validate()) {
+                                    
+                                    final Map<String, dynamic> responRegister =
+                                        await ApiHelper.APIRegister(
+                                      nik: idController.text,
+                                      nama_lengkap: nameController.text,
+                                      email: emailController.text,
+                                      password: passwordController.text,
+                                      telepon: phoneController.text,
+                                      jenis_kelamin: valueDownGender.toString(),
+                                      tanggal_lahir: valuebirthDate,
+                                      address: "x",
+                                      tempat_lahir: birthPlaceController.text,
+                                      provinsi: valueDownProvince.toString(),
+                                      kabupaten_kota: valueDownCity.toString(),
+                                      kecamatan: valueDownDistrict.toString(),
+                                      kelurahan:
+                                          valueDownSubDistrict.toString(),
+                                      rw: RwController.text,
+                                      rt: RtController.text,
+                                      agama: ReligionController.text,
+                                      status_perkawinan:
+                                          valueDownStatusPerkawinan.toString(),
+                                      pekerjaan: communityChoiceController.text,
+                                      kewarganegaraan:
+                                          valueDownCitizenship.toString(),
+                                    );
+                                    print(responRegister['status'].toString());
+                                    if (responRegister['status'].toString() ==
+                                        "berhasil") {
+                                      NavigationHelper.pushReplacementNamed(
+                                        AppRoutes.registeration_success,
+                                      );
+                                    }
+                                    // nameController.clear();
+                                    // emailController.clear();
+                                    // passwordController.clear();
+                                    // confirmPasswordController.clear();
+                                    SnackbarHelper.showSnackBar(
+                                      AppStrings.registrationComplete,
+                                    );
+                                  }
                                 }
                               : null,
                           child: const Text(AppStrings.register),

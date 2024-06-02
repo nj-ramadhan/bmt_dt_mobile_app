@@ -56,7 +56,7 @@ class ApiHelper {
   //   return output;
   // }
 
-  Future<Map<String, dynamic>> APIRegister({
+  static Future<Map<String, dynamic>> APIRegister({
     required String address,
     required String nik,
     required String nama_lengkap,
@@ -76,11 +76,40 @@ class ApiHelper {
     required String status_perkawinan,
     required String pekerjaan,
     required String kewarganegaraan,
-    required String role_koperasi,
+    // required String role_koperasi,
   }) async {
     final url =
-        Uri.parse('https://example.com/api'); // Ganti dengan URL API yang benar
-    final headers = {"Content-Type": "application/json"};
+        Uri.parse('https://dkuapi.dkuindonesia.id/api/Authorization/register'); // Ganti dengan URL API yang benar
+    final  headers = {
+      'ClientID':
+          'jLdCPSe3816XRXk7+aCMc+Et0nk1y6\/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ\/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A\/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs\/WzXeZ9pQGOkHyX6IK\/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M\/fXTrjkHB\/v+1VFKgkGRFz0eIhDXZ3yp7e\/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n\/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3\/gKIXwL6NGFqzdeEy3xC\/Qr6',
+      'Content-Type': 'application/json',
+    };
+    // final body =  json.encode({
+    //   "mode": "formdata",
+    //   "formdata": [
+    //     {"nik" :"321312321312321321",
+    //     "nama_lengkap": "Riri Andiri Delia Sutarno",
+    //     "email": "irmanapriana@gmail.com",
+    //     "password" : "123456Aa@",
+    //     "telepon" : "081212678943",
+    //     "jenis_kelamin" : "P",
+    //     "tanggal_lahir" : "1994-03-02",
+    //     "tempat_lahir" : "Bandung",
+    //     "provinsi" : "12",
+    //     "kabupaten_kota":"1204",
+    //     "kecamatan" : "1204010",
+    //     "kelurahan" : "1204010003",
+    //     "rw":"06",
+    //     "rt":"07",
+    //     "agama": "islam",
+    //     "status_perkawinan":"KAWIN",
+    //     "pekerjaan":"Ibu Rumah Tangga",
+    //     "kewarganegaraan":"WNI",
+    //     "role_koperasi" : "A1"
+    //     }
+    //   ]
+    // });
     final body = {
       "mode": "formdata",
       "formdata": [
@@ -222,10 +251,11 @@ class ApiHelper {
         )
         .timeout(const Duration(seconds: 10)); // Timeout diatur menjadi 10 detik
     final data = json.decode(response.body);
-    if (data['status'].toString() == "Register account success") {
+    print(data);
+    if (response.statusCode == 200)  {
       print(data);
       print('Data berhasil dikirim');
-      return data as Map<String, dynamic>;
+      return {"status": "berhasil"};
     } else {
       print('Gagal mengirim data: ${response.statusCode}');
       return {"error": "Gagal mengirim data: ${response.statusCode}"};

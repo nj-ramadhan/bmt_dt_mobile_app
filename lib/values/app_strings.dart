@@ -45,9 +45,9 @@ class AppStrings {
   static const String pleaseEnterMotherName = 'Mohon isi nama ibu';
   static const String invalidMotherName = 'Nama Ibu tidak sesuai';
 
-  static const String community = 'Komunitas';
-  static const String pleaseEnterCommunity = 'Mohon isi komunitas';
-  static const String invalidCommunity = 'Komunitas tidak sesuai';
+  static const String community = 'Pekerjaan';
+  static const String pleaseEnterCommunity = 'Mohon isi Pekerjaan';
+  static const String invalidCommunity = 'Pekerjaan tidak sesuai';
 
   static const String email = 'Email';
   static const String pleaseEnterEmailAddress = 'Mohon isi alamat email';
