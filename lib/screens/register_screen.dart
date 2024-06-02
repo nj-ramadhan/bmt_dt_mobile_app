@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../components/app_text_form_field.dart';
+import '../components/app_drop_down_form_field.dart';
 import '../global_variables.dart';
 import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/navigation_helper.dart';
@@ -11,6 +12,8 @@ import '../values/app_regex.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
+import '../components/dropdown_V2.dart';
+import '../utils/helpers/api_helper.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key, this.restorationId});
@@ -32,12 +35,34 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
   late final TextEditingController communityChoiceController;
   late final TextEditingController passwordController;
   late final TextEditingController emailController;
+  late final TextEditingController birthPlaceController;
+  late final TextEditingController RwController;
+  late final TextEditingController RtController;
+  late final TextEditingController ReligionController;
   late final TextEditingController confirmPasswordController;
 
   final ValueNotifier<bool> passwordNotifier = ValueNotifier(true);
   final ValueNotifier<bool> confirmPasswordNotifier = ValueNotifier(true);
   final ValueNotifier<bool> fieldValidNotifier = ValueNotifier(false);
-
+  String? valueDownProvince = null;
+  String? valueDownCity = null;
+  String? valueDownDistrict = null;
+  String? valueDownSubDistrict = null;
+  String? valueDownGender = null;
+  String? valueDownStatusPerkawinan = null;
+  String? valueDownCitizenship = null;
+  final List<String> ListDownGender = ['L', 'P'];
+  final List<String> ListDownStatusPerkawinan = [
+    'BELUM KAWIN',
+    'KAWIN',
+    'CERAI HIDUP',
+    'CERAI MATI'
+  ];
+  final List<String> ListDownCitizenship = ['WNI', 'WNA'];
+  late Future<List<DropdownItemsModel>> _province; // Marked as 'late'
+  late Future<List<DropdownItemsModel>> _futureCity;
+  late Future<List<DropdownItemsModel>> _futureDistrict;
+  late Future<List<DropdownItemsModel>> _futureSubDistrict;
   void initializeControllers() {
     nameController = TextEditingController()..addListener(controllerListener);
     phoneController = TextEditingController()..addListener(controllerListener);
@@ -52,6 +77,12 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
     communityChoiceController = TextEditingController()
       ..addListener(controllerListener);
     emailController = TextEditingController()..addListener(controllerListener);
+    birthPlaceController = TextEditingController()
+      ..addListener(controllerListener);
+    RwController = TextEditingController()..addListener(controllerListener);
+    RtController = TextEditingController()..addListener(controllerListener);
+    ReligionController = TextEditingController()
+      ..addListener(controllerListener);
     passwordController = TextEditingController()
       ..addListener(controllerListener);
     confirmPasswordController = TextEditingController()
@@ -69,6 +100,10 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
     emailController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
+    birthPlaceController.dispose();
+    RwController.dispose();
+    RtController.dispose();
+    ReligionController.dispose();
   }
 
   void controllerListener() {
@@ -81,6 +116,10 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
     final email = emailController.text;
     final password = passwordController.text;
     final confirmPassword = confirmPasswordController.text;
+    final birthPlace = birthPlaceController.text;
+    final rw = RwController.text;
+    final rt = RtController.text;
+    final religion = ReligionController.text;
 
     if (name.isEmpty &&
         phone.isEmpty &&
@@ -90,6 +129,10 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
         community.isEmpty &&
         email.isEmpty &&
         password.isEmpty &&
+        birthPlace.isEmpty &&
+        rw.isEmpty &&
+        rt.isEmpty &&
+        religion.isEmpty &&
         confirmPassword.isEmpty) return;
 
     if (AppRegex.emailRegex.hasMatch(email) &&
@@ -105,6 +148,10 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
   void initState() {
     initializeControllers();
     super.initState();
+    _province = ApiHelper.getProvince();
+    _futureCity = ApiHelper.getCity(address: "12");
+    _futureDistrict = ApiHelper.getDistrict(address: "1204");
+    _futureSubDistrict = ApiHelper.getSubDistrict(address: "1204010");
   }
 
   @override
@@ -219,6 +266,21 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                   children: [
                     AppTextFormField(
                       autofocus: true,
+                      labelText: AppStrings.id,
+                      keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.next,
+                      onChanged: (value) => _formKey.currentState?.validate(),
+                      validator: (value) {
+                        return value!.isEmpty
+                            ? AppStrings.pleaseEnterId
+                            : value.length < 15
+                                ? AppStrings.invalidId
+                                : null;
+                      },
+                      controller: idController,
+                    ),
+                    AppTextFormField(
+                      autofocus: true,
                       labelText: AppStrings.name,
                       keyboardType: TextInputType.name,
                       textInputAction: TextInputAction.next,
@@ -246,76 +308,6 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                                 : null;
                       },
                       controller: phoneController,
-                    ),
-                    AppTextFormField(
-                      autofocus: true,
-                      labelText: AppStrings.id,
-                      keyboardType: TextInputType.number,
-                      textInputAction: TextInputAction.next,
-                      onChanged: (value) => _formKey.currentState?.validate(),
-                      validator: (value) {
-                        return value!.isEmpty
-                            ? AppStrings.pleaseEnterId
-                            : value.length < 15
-                                ? AppStrings.invalidId
-                                : null;
-                      },
-                      controller: idController,
-                    ),
-                    const Text(AppStrings.pleasePickbirthDate),
-                    FilledButton(
-                      onPressed: () {
-                        _restorableDatePickerRouteFuture.present();
-                      },
-                      child: Text(_selectDateOnly(_selectedDate.value)),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    AppTextFormField(
-                      autofocus: true,
-                      labelText: AppStrings.address,
-                      keyboardType: TextInputType.streetAddress,
-                      textInputAction: TextInputAction.next,
-                      onChanged: (value) => _formKey.currentState?.validate(),
-                      validator: (value) {
-                        return value!.isEmpty
-                            ? AppStrings.pleaseEnterAddress
-                            : value.length < 15
-                                ? AppStrings.invalidAddress
-                                : null;
-                      },
-                      controller: addressController,
-                    ),
-                    AppTextFormField(
-                      autofocus: true,
-                      labelText: AppStrings.motherName,
-                      keyboardType: TextInputType.name,
-                      textInputAction: TextInputAction.next,
-                      onChanged: (value) => _formKey.currentState?.validate(),
-                      validator: (value) {
-                        return value!.isEmpty
-                            ? AppStrings.pleaseEnterMotherName
-                            : value.length < 15
-                                ? AppStrings.invalidMotherName
-                                : null;
-                      },
-                      controller: motherNameController,
-                    ),
-                    AppTextFormField(
-                      autofocus: true,
-                      labelText: AppStrings.community,
-                      keyboardType: TextInputType.text,
-                      textInputAction: TextInputAction.next,
-                      onChanged: (value) => _formKey.currentState?.validate(),
-                      validator: (value) {
-                        return value!.isEmpty
-                            ? AppStrings.pleaseEnterCommunity
-                            : value.length < 15
-                                ? AppStrings.invalidCommunity
-                                : null;
-                      },
-                      controller: communityChoiceController,
                     ),
                     AppTextFormField(
                       labelText: AppStrings.email,
@@ -421,6 +413,208 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                           ),
                         );
                       },
+                    ),
+                    AppDropdownList(
+                      labelText: 'Kelamin',
+                      items: ListDownGender,
+                      value: valueDownGender,
+                      dropdownColor: Colors.blue[100],
+                      onChanged: (value) {
+                        setState(() {
+                          valueDownGender = value;
+                        });
+                      },
+                    ),
+                    const Text(AppStrings.pleasePickbirthDate),
+                    FilledButton(
+                      onPressed: () {
+                        _restorableDatePickerRouteFuture.present();
+                      },
+                      child: Text(_selectDateOnly(_selectedDate.value)),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    AppTextFormField(
+                      labelText: "Tempat Lahir",
+                      controller: birthPlaceController,
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.name,
+                      onChanged: (_) => _formKey.currentState?.validate(),
+                      validator: (value) {
+                        return value!.isEmpty
+                            ? "Tolong Masukan Tempat Lahir"
+                            : value.length < 4
+                                ? AppStrings.invalidName
+                                : null;
+
+                                
+                      },
+                    ),
+                    AppDropdownFormField(
+                      future: _province,
+                      labelText: 'Provinsi',
+                      value: valueDownProvince,
+                      dropdownColor: Colors.blue[100],
+                      onChanged: (value) {
+                        setState(() {
+                          valueDownCity = null;
+                          valueDownDistrict = null;
+                          valueDownSubDistrict = null;
+                          valueDownProvince = value;
+                          _futureCity = ApiHelper.getCity(
+                              address: valueDownProvince.toString());
+                        });
+                      },
+                    ),
+                    AppDropdownFormField(
+                      future: _futureCity,
+                      labelText: 'Kabupaten / Kota',
+                      value: valueDownCity,
+                      dropdownColor: Colors.blue[100],
+                      onChanged: (value) {
+                        setState(() {
+                          valueDownDistrict = null;
+                          valueDownSubDistrict = null;
+                          valueDownCity = value;
+                          _futureDistrict = ApiHelper.getDistrict(
+                              address: valueDownCity.toString());
+                        });
+                      },
+                    ),
+                    AppDropdownFormField(
+                      future: _futureDistrict,
+                      labelText: 'Kecamatan',
+                      value: valueDownDistrict,
+                      dropdownColor: Colors.blue[100],
+                      onChanged: (value) {
+                        setState(() {
+                          valueDownSubDistrict = null;
+                          valueDownDistrict = value;
+                          _futureSubDistrict = ApiHelper.getSubDistrict(
+                              address: valueDownDistrict.toString());
+                        });
+                      },
+                    ),
+                    AppDropdownFormField(
+                      future: _futureSubDistrict,
+                      labelText: 'Kelurahan',
+                      value: valueDownSubDistrict,
+                      dropdownColor: Colors.blue[100],
+                      onChanged: (value) {
+                        setState(() {
+                          valueDownSubDistrict = value;
+                        });
+                      },
+                    ),
+                    AppDropdownList(
+                      labelText: 'Status Perkawinan',
+                      items: ListDownStatusPerkawinan,
+                      value: valueDownStatusPerkawinan,
+                      dropdownColor: Colors.blue[100],
+                      onChanged: (value) {
+                        setState(() {
+                          valueDownStatusPerkawinan = value;
+                        });
+                      },
+                    ),
+                    AppDropdownList(
+                      labelText: 'Kewarganegaraan',
+                      items: ListDownCitizenship,
+                      value: valueDownCitizenship,
+                      dropdownColor: Colors.blue[100],
+                      onChanged: (value) {
+                        setState(() {
+                          valueDownCitizenship = value;
+                        });
+                      },
+                    ),
+                    AppTextFormField(
+                      labelText: "RW",
+                      controller: RwController,
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.number,
+                      onChanged: (_) => _formKey.currentState?.validate(),
+                      validator: (value) {
+                        return value!.isEmpty
+                            ? "Masukan No RW"
+                            : value.length < 0
+                                ? AppStrings.invalidName
+                                : null;
+                      },
+                    ),
+                    AppTextFormField(
+                      labelText: "RT",
+                      controller: RtController,
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.number,
+                      onChanged: (_) => _formKey.currentState?.validate(),
+                      validator: (value) {
+                        return value!.isEmpty
+                            ? "Masukan No RT"
+                            : value.length < 0
+                                ? AppStrings.invalidName
+                                : null;
+                      },
+                    ),
+                    AppTextFormField(
+                      labelText: "Agama",
+                      controller: ReligionController,
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.name,
+                      onChanged: (_) => _formKey.currentState?.validate(),
+                      validator: (value) {
+                        return value!.isEmpty
+                            ? "masukan Agama"
+                            : value.length < 0
+                                ? AppStrings.invalidName
+                                : null;
+                      },
+                    ),
+                    AppTextFormField(
+                      autofocus: true,
+                      labelText: AppStrings.address,
+                      keyboardType: TextInputType.streetAddress,
+                      textInputAction: TextInputAction.next,
+                      onChanged: (value) => _formKey.currentState?.validate(),
+                      validator: (value) {
+                        return value!.isEmpty
+                            ? AppStrings.pleaseEnterAddress
+                            : value.length < 15
+                                ? AppStrings.invalidAddress
+                                : null;
+                      },
+                      controller: addressController,
+                    ),
+                    AppTextFormField(
+                      autofocus: true,
+                      labelText: AppStrings.motherName,
+                      keyboardType: TextInputType.name,
+                      textInputAction: TextInputAction.next,
+                      onChanged: (value) => _formKey.currentState?.validate(),
+                      validator: (value) {
+                        return value!.isEmpty
+                            ? AppStrings.pleaseEnterMotherName
+                            : value.length < 15
+                                ? AppStrings.invalidMotherName
+                                : null;
+                      },
+                      controller: motherNameController,
+                    ),
+                    AppTextFormField(
+                      autofocus: true,
+                      labelText: "Pekerjaan",
+                      keyboardType: TextInputType.text,
+                      textInputAction: TextInputAction.next,
+                      onChanged: (value) => _formKey.currentState?.validate(),
+                      validator: (value) {
+                        return value!.isEmpty
+                            ? AppStrings.pleaseEnterCommunity
+                            : value.length < 15
+                                ? AppStrings.invalidCommunity
+                                : null;
+                      },
+                      controller: communityChoiceController,
                     ),
                     ValueListenableBuilder(
                       valueListenable: fieldValidNotifier,
