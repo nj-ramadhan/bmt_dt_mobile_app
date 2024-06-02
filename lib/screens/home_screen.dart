@@ -26,8 +26,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Container(
       constraints: const BoxConstraints.expand(),
       decoration: const BoxDecoration(
@@ -50,7 +50,8 @@ class _HomePageState extends State<HomePage> {
                     IconButton(
                       icon: const Icon(Icons.logout),
                       onPressed: () async {
-                        final result = await showDialog(
+                        // ignore: inference_failure_on_function_invocation
+                        await showDialog(
                           context: context,
                           builder: (context) {
                             return AlertDialog(
@@ -350,7 +351,8 @@ class _HomePageState extends State<HomePage> {
                             ),
                             shape: const CircleBorder(),
                             onPressed: () async {
-                              final result = await showDialog(
+                              // ignore: inference_failure_on_function_invocation
+                              await showDialog(
                                   context: context,
                                   builder: (context) {
                                     return AlertDialog(

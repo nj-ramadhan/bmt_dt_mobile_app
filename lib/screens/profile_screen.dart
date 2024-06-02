@@ -18,8 +18,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Container(
       constraints: const BoxConstraints.expand(),
       decoration: const BoxDecoration(
@@ -145,6 +144,78 @@ class _ProfilePageState extends State<ProfilePage> {
                       onTap: () {
                         NavigationHelper.pushReplacementNamed(
                           AppRoutes.change_password,
+                        );
+                      },
+                    ),
+                  ),
+                  Card(
+                    color: AppColors.lightGreen,
+                    child: InkWell(
+                      child: Padding(
+                        padding: EdgeInsets.all(screenWidth * 0.02),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Material(
+                              color: AppColors.primaryColor,
+                              shape: CircleBorder(),
+                              child: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Icon(
+                                  Icons.email_outlined,
+                                  size: 40,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              AppStrings.changeEmail,
+                            ),
+                            Icon(
+                              Icons.chevron_right,
+                            ),
+                          ],
+                        ),
+                      ),
+                      onTap: () {
+                        NavigationHelper.pushReplacementNamed(
+                          AppRoutes.change_email,
+                        );
+                      },
+                    ),
+                  ),
+                  Card(
+                    color: AppColors.lightGreen,
+                    child: InkWell(
+                      child: Padding(
+                        padding: EdgeInsets.all(screenWidth * 0.02),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Material(
+                              color: AppColors.primaryColor,
+                              shape: CircleBorder(),
+                              child: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Icon(
+                                  Icons.pin,
+                                  size: 40,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              AppStrings.changePin,
+                            ),
+                            Icon(
+                              Icons.chevron_right,
+                            ),
+                          ],
+                        ),
+                      ),
+                      onTap: () {
+                        NavigationHelper.pushReplacementNamed(
+                          AppRoutes.change_pin,
                         );
                       },
                     ),

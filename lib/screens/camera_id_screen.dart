@@ -34,6 +34,7 @@ class _CameraIDPageState extends State<CameraIDPage> {
     initCamera(widget.cameras![0]);
   }
 
+  // ignore: strict_raw_type
   Future takePicture() async {
     if (!_cameraController.value.isInitialized) {
       return null;
@@ -46,6 +47,7 @@ class _CameraIDPageState extends State<CameraIDPage> {
       XFile picture = await _cameraController.takePicture();
       await Navigator.push(
           context,
+          // ignore: inference_failure_on_instance_creation
           MaterialPageRoute(
               builder: (context) => PreviewIDPage(
                     picture: picture,
@@ -56,6 +58,7 @@ class _CameraIDPageState extends State<CameraIDPage> {
     }
   }
 
+  // ignore: strict_raw_type
   Future initCamera(CameraDescription cameraDescription) async {
     _cameraController =
         CameraController(cameraDescription, ResolutionPreset.high);

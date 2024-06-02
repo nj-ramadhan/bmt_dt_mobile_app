@@ -1,13 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
+import '../global_variables.dart';
 import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/navigation_helper.dart';
 import '../values/app_colors.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
-import '../global_variables.dart';
 
 class SavingVoluntaryPage extends StatefulWidget {
   const SavingVoluntaryPage({super.key});
@@ -26,8 +26,7 @@ class _SavingVoluntaryPageState extends State<SavingVoluntaryPage> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Container(
       constraints: const BoxConstraints.expand(),
       decoration: const BoxDecoration(

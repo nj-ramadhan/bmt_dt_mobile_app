@@ -28,7 +28,6 @@ class _DepositPageState extends State<DepositPage> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     return Container(
       constraints: const BoxConstraints.expand(),
       decoration: const BoxDecoration(
