@@ -12,26 +12,24 @@ String dropdownItemsModelToJson(List<DropdownItemsModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class DropdownItemsModel {
-  // int userId;
-  int id;
-  String title;
-
   DropdownItemsModel({
     // required this.userId,
     required this.id,
     required this.title,
   });
 
-  factory DropdownItemsModel.fromJson(Map<String, dynamic> json) =>
+  factory DropdownItemsModel.fromJson(Map<String, String> data) =>
       DropdownItemsModel(
-        // userId: json["userId"],
-        id: json["id"],
-        title: json["title"],
+        id: data['id'],
+        title: data['title'],
       );
+  // int userId;
+  int id;
+  String title;
 
   Map<String, dynamic> toJson() => {
         // "userId": userId,
-        "id": id,
-        "title": title,
+        'id': id,
+        'title': title,
       };
 }

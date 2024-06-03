@@ -27,17 +27,17 @@ class AppDropdownFormField extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 20),
             decoration: InputDecoration(
               labelText: labelText,
-              labelStyle: TextStyle(fontSize: 13, color: Colors.grey),
+              labelStyle: const TextStyle(fontSize: 13, color: Colors.grey),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   color: Colors.grey,
                   width: 1,
                 ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   color: Colors.grey,
                   width: 2,
                 ),
@@ -46,7 +46,7 @@ class AppDropdownFormField extends StatelessWidget {
             value: value,
             dropdownColor: dropdownColor,
             isExpanded: true,
-            hint: const Text("Pilih Salah Satu"),
+            hint: const Text('Pilih Salah Satu'),
             items: snapshot.data!.map((e) {
               return DropdownMenuItem<String>(
                 value: e.id.toString(),
@@ -56,7 +56,7 @@ class AppDropdownFormField extends StatelessWidget {
             onChanged: onChanged,
           );
         } else if (snapshot.hasError) {
-          return Text("Error: ${snapshot.error}");
+          return Text('Error: ${snapshot.error}');
         } else {
           return const CircularProgressIndicator();
         }
@@ -87,17 +87,17 @@ class AppDropdownList extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 20),
       decoration: InputDecoration(
         labelText: labelText,
-        labelStyle: TextStyle(fontSize: 13, color: Colors.grey),
+        labelStyle: const TextStyle(fontSize: 13, color: Colors.grey),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             color: Colors.grey,
             width: 1,
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             color: Colors.grey,
             width: 2,
           ),
@@ -106,7 +106,7 @@ class AppDropdownList extends StatelessWidget {
       value: value,
       dropdownColor: dropdownColor,
       isExpanded: true,
-      hint: const Text("Pilih Salah Satu"),
+      hint: const Text('Pilih Salah Satu'),
       items: items.map((String value) {
         return DropdownMenuItem<String>(
           value: value,
