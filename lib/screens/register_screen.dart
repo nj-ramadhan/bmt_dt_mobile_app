@@ -691,6 +691,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                                     );
                                   }
                                 }
+                              // ignore: dead_code
                               : null,
                           child: const Text(AppStrings.register),
                         );
