@@ -37,7 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   flutter_launcher_icons: ^0.13.1
   flutter_svg: ^2.0.10+1
-  very_good_analysis: ^5.1.0
+  # very_good_analysis: ^5.1.0
   qr_flutter: ^4.1.0
   carousel_slider: ^4.2.1
   package_info_plus: ^4.2.0

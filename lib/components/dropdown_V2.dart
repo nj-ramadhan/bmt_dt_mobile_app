@@ -18,10 +18,10 @@ class DropdownItemsModel {
     required this.title,
   });
 
-  factory DropdownItemsModel.fromJson(Map<String, String> data) =>
+  factory DropdownItemsModel.fromJson(Map<String, dynamic> x) =>
       DropdownItemsModel(
-        id: data['id'],
-        title: data['title'],
+        id: x['id'],
+        title: x['title'],
       );
   // int userId;
   int id;
