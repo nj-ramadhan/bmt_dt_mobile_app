@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'screens/change_password_screen.dart';
 import 'screens/change_email_screen.dart';
+import 'screens/transaction_detail_screen.dart';
 import 'screens/change_pin_screen.dart';
 import 'screens/checking_screen.dart';
 import 'screens/deposit_screen.dart';
@@ -9,6 +10,9 @@ import 'screens/funding_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/menu_screen.dart';
+import 'screens/add_client_screen.dart';
+import 'screens/input_account_screen.dart';
+import 'screens/input_amount_screen.dart';
 import 'screens/payment_screen.dart';
 import 'screens/profile_detail_screen.dart';
 import 'screens/profile_screen.dart';
@@ -54,7 +58,7 @@ class Routes {
             return const HomePage();
           },
         ));
-        
+
       case AppRoutes.splash:
         return getRoute(widget: const SplashScreen());
 
@@ -79,6 +83,18 @@ class Routes {
       case AppRoutes.deposit:
         return getRoute(widget: const DepositPage());
 
+      case AppRoutes.transaction_detail:
+        return getRoute(widget: const TransactionDetailPage());
+
+      case AppRoutes.add_client:
+        return getRoute(widget: const AddClientPage());
+
+      case AppRoutes.input_account:
+        return getRoute(widget: const InputAccountPage());
+
+      case AppRoutes.input_amount:
+        return getRoute(widget: const InputAmountPage());
+
       case AppRoutes.checking:
         return getRoute(widget: const CheckingPage());
 
@@ -102,7 +118,6 @@ class Routes {
 
       case AppRoutes.saving_voluntary:
         return getRoute(widget: const SavingVoluntaryPage());
-
 
       default:
         return getRoute(widget: const InvalidRoute());

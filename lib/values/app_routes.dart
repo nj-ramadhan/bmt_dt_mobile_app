@@ -13,10 +13,14 @@ class AppRoutes {
   static const String profile_detail = 'profile_detail';
   static const String change_password = 'change_password';
   static const String change_email = 'change_email';
-  static const String change_pin = 'change_pin'; 
+  static const String change_pin = 'change_pin';
   static const String deposit = 'deposit';
   static const String checking = 'checking';
   static const String shopping = 'shopping';
+  static const String transaction_detail = 'transaction_detail';
+  static const String add_client = 'add_client';
+  static const String input_account = 'input_account';
+  static const String input_amount = 'input_amount';
   static const String funding = 'funding';
   static const String payment = 'payment';
   static const String transfer = 'transfer';

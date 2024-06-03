@@ -3,8 +3,6 @@ import 'package:flutter/services.dart';
 
 import 'login_register_app.dart';
 
-
-
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
