@@ -9,6 +9,7 @@ import '../values/app_colors.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
+import '../utils/helpers/api_helper.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,6 +23,35 @@ class _HomePageState extends State<HomePage> {
     NavigationHelper.pushReplacementNamed(
       AppRoutes.profile,
     );
+  }
+
+  Map<int, Map<String, String>> dataMap = {};
+
+  Future<void> fetchData() async {
+    final data = await ApiHelper.getListRekening(LoginToken: apiLoginToken);
+    setState(() {
+      dataMap = data;
+      simpananSukarelaNumber= getSimpananSukarelaNumber(dataMap);
+    });
+  }
+String? getSimpananSukarelaNumber(Map<int, Map<String, String>> data) {
+  print("inilah data");
+  print(data);
+  for (var entry in data.entries) {
+    print(entry.value['name']);
+    if (entry.value['name'] == 'SIMPANAN SUKARELA') {
+      return entry.value['number'];
+    }
+  }
+  return null; // Return null if SIMPANAN SUKARELA is not found
+}
+String? simpananSukarelaNumber;
+  @override
+  void initState() {
+    fetchData();
+    print(dataMap);
+    
+    super.initState();
   }
 
   @override
@@ -109,15 +139,15 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Column(
                           mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'Nomor Akun: $apiLoginNoUser',
-                              style: AppTheme.bodySmall,
-                            ),
-                            Text(apiDataUserNamaLengkap,
+                            Text('Nama: $apiDataUserNamaLengkap',
                                 style: AppTheme.bodySmall),
-                            Text(apiDataAccountEmail, style: AppTheme.bodySmall)
+                            Text('No Telp: $apiDataAccountTelepon', style: AppTheme.bodySmall),
+                            Text(
+                              'Nomor Sirela: $simpananSukarelaNumber',
+                              style: AppTheme.bodySmall,
+                            )
                           ],
                         ),
                         SizedBox(
@@ -140,7 +170,7 @@ class _HomePageState extends State<HomePage> {
             ),
             CarouselSlider(
               options: CarouselOptions(height: screenHeight * 0.22),
-              items: [1, 2, 3].map((i) {
+              items: dataMap.keys.map((i) {
                 return Builder(
                   builder: (BuildContext context) {
                     return Container(
@@ -184,22 +214,22 @@ class _HomePageState extends State<HomePage> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          '${AppStrings.homeAccount} No. $i',
+                                          dataMap[i]?['name'] ?? '',
                                           style: AppTheme.bodySmall,
                                         ),
-                                        const Text(
-                                          '00.9.123.4.5',
+                                        Text(
+                                          dataMap[i]?['number'] ?? '',
                                           style: AppTheme.bodyMedium,
                                         ),
-                                        const Text(
-                                          'Rp. ******',
+                                        Text(
+                                          dataMap[i]?['amount'] ?? '',
                                           style: AppTheme.bodyMedium,
                                         ),
                                       ],
                                     ),
                                   ),
                                   QrImageView(
-                                    data: '1234567890',
+                                    data: dataMap[i]?['number'] ?? ''+'1234567890',
                                     size: screenHeight * 0.08,
                                   ),
                                 ],
