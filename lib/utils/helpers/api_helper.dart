@@ -55,7 +55,7 @@ class ApiHelper {
   //   // data = data['data'];
   //   return output;
   // }
-
+/*API untuk meregister user*/
   static Future<Map<String, dynamic>> APIRegister({
     required String address,
     required String nik,
