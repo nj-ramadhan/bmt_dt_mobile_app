@@ -4,12 +4,12 @@ import 'package:qr_flutter/qr_flutter.dart';
 
 import '../global_variables.dart';
 import '../utils/common_widgets/gradient_background.dart';
+import '../utils/helpers/api_helper.dart';
 import '../utils/helpers/navigation_helper.dart';
 import '../values/app_colors.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
-import '../utils/helpers/api_helper.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -127,7 +127,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(
-                screenWidth * 0.1,
+                screenWidth * 0.02,
                 0,
                 screenWidth * 0.02,
                 0,
@@ -155,7 +155,7 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                         SizedBox(
-                          width: screenWidth * 0.05,
+                          width: screenWidth * 0.02,
                         ),
                         Image(
                           image: const AssetImage('assets/images/user.png'),

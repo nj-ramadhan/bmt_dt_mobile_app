@@ -89,10 +89,13 @@ class AppStrings {
   static const String registerTitle = 'Daftar';
   static const String registerSubtitle = 'Buat akun baru';
 
-  static const String amountTransfer = 'Masukan Jumlah Transfer';
-  static const String selectAmountTransfer = 'Pilih Jumlah';
+  static const String amountTransfer = 'Masukan Nominal Transfer';
+  static const String selectAmountTransfer = 'Pilih Nominal Transfer';
   static const String differentAccountTransfer = 'Antar Rekening';
   static const String differentBankTransfer = 'Antar Bank';
+
+  static const String amountSaving = 'Masukan Nominal Simpanan';
+  static const String selectAmountSaving = 'Pilih Nominal Simpanan';
 
   static const String logoutConfirmation = 'Konfirmasi';
   static const String logoutConfirmationText = 'Kamu yakin mau Logout?';

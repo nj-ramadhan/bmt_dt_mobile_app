@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:camera/camera.dart';
+import 'package:flutter/foundation.dart';
+// import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
@@ -9,7 +10,7 @@ import 'package:http/http.dart' as http;
 import '../components/app_text_form_field.dart';
 import '../global_variables.dart';
 import '../resources/resources.dart';
-import '../screens/camera_id_screen.dart';
+// import '../screens/camera_id_screen.dart';
 import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/navigation_helper.dart';
 import '../utils/helpers/snackbar_helper.dart';
@@ -18,6 +19,10 @@ import '../values/app_regex.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
+
+late String responseDetailsAppLogo;
+late String responseDetailsAppLogoBar;
+late String responseDetailsAppNameString;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -57,6 +62,54 @@ class _LoginPageState extends State<LoginPage> {
   late String responseDetailsAccountEmail;
   late String responseDetailsAccountTelepon;
 
+  Future<void> detailLembaga() async {
+    const url =
+        'https://dkuapi.dkuindonesia.id/api/Credential/koperasi_details';
+    const headers = {
+      'ClientID':
+          'KnxNoQkPMMesAVR85tM/XdLG6Bruiabbx/8KmD3GyDnB4G8tCmKSnaUa4HMu+nCtRR1FaQK4uTTTiPu+m+8u83JrExoOE0L5AI5TEFHhhKH6pFq3PLqfqyKWXgmb4FFMX7Y2oZ0PtKjXhkWefB6S4/I3Oe0aTy9rHfC7uFTUeadmExtCcSRsBXUklgneVI9kGwkMSbVOUN06UsrGwYvJqu8GizUJ6NJH98cVaJ9mqdcgXhNoLVSv68LicRycfoYVf0T/IL5iXgHEoKYEBcfL5tzpZQ8g+D/njHYYaIsVl16LDUcWTrCxrChgodXTRCtFWqtsIW1OSbAAZU7LZZJGU/3iTqzGvBc6Irs10bvwQsAGbiNMTGJ5WyDGolSfp7c55ZYPgm+G82hin8qoICSCSndPJjbyVAkstdjjMbDUoqwwSuAOmEJVSvRLpx1P7+djYc+tNHAK1A269UTDwfv5B0nK6M5ZWRab2eGeNBQ5QXDsNZIhfNg1rqWaFwFtVzatnjk0vbSv+TFvSDqja/2+Qtr+hZR68hRKtGurmSqZoMwQ4g8pM4RhCv7bvne77Ku/uGcMbLBoep4WTnx+654eMA==',
+      'Content-Type': 'application/json',
+    };
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: headers,
+        // body: body,
+      );
+
+      if (response.statusCode == 200) {
+        final responseBody = json.decode(response.body);
+        print("didalam API");
+        print(responseBody);
+        if (kDebugMode) {
+          print(responseBody);
+        }
+        responseDetailsAppNameString =
+            responseBody['data_app']['app_name_string'].toString();
+        responseDetailsAppLogo =
+            responseBody['data_app']['app_logo'].toString();
+        responseDetailsAppLogoBar =
+            responseBody['data_app']['app_logo_bar'].toString();
+        updateDetailsApp(
+          responseDetailsAppNameString,
+          responseDetailsAppLogo,
+          responseDetailsAppLogoBar,
+        );
+
+        if (kDebugMode) {
+          debugPrint(responseDetailsAppLogo);
+          debugPrint(responseDetailsAppLogoBar);
+          debugPrint(responseDetailsAppNameString);
+        }
+      } else {
+        debugPrint('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      debugPrint('Error: $e');
+    }
+  }
+
   Future<void> createToken() async {
     const url = 'https://dkuapi.dkuindonesia.id/api/Authorization/create_token';
     const headers = {
@@ -84,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
       if (response.statusCode == 200) {
         final responseBody = json.decode(response.body);
         responseLoginRolePendidikan =
-        responseBody['role_pendidikan'].toString();
+            responseBody['role_pendidikan'].toString();
         responseLoginRoleKoperasi = responseBody['role_koperasi'].toString();
         responseLoginNoUser = responseBody['no_user'].toString();
         responseLoginToken = responseBody['token'].toString();
@@ -105,15 +158,17 @@ class _LoginPageState extends State<LoginPage> {
           passwordController.clear();
 
           SnackbarHelper.showSnackBar(
-              // ignore: void_checks
-              AppStrings.loggedIn,);
+            // ignore: void_checks
+            AppStrings.loggedIn,
+          );
           await NavigationHelper.pushReplacementNamed(
             AppRoutes.home,
           );
         } else {
           SnackbarHelper.showSnackBar(
-              // ignore: void_checks
-              responseLoginToken,);
+            // ignore: void_checks
+            responseLoginToken,
+          );
           debugPrint('API response: $responseBody.');
         }
       } else {
@@ -199,6 +254,11 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  Future<void> fetchData() async {
+    await detailLembaga();
+    setState(() {});
+  }
+
   void initializeControllers() {
     phoneController = TextEditingController()..addListener(controllerListener);
     passwordController = TextEditingController()
@@ -226,6 +286,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
+    fetchData();
     initializeControllers();
     super.initState();
   }
@@ -245,7 +306,7 @@ class _LoginPageState extends State<LoginPage> {
       decoration: const BoxDecoration(
         image: DecorationImage(
           // image: AssetImage('assets/images/background1.jpg'),
-          image: AssetImage('images/background1.jpg'),
+          image: AssetImage('assets/images/background1.jpg'),
           fit: BoxFit.contain,
         ),
       ),
@@ -267,6 +328,7 @@ class _LoginPageState extends State<LoginPage> {
                     // 'https://dkuapi.dkuindonesia.id/api/assets/uploads/app_logo_bar20240327031120.png',
                     Image.network(
                       apiDataAppLogoBar,
+                      // responseDetailsAppLogoBar,
                       width: screenWidth * 0.25,
                       fit: BoxFit.cover,
                       alignment: Alignment.topCenter,
@@ -286,12 +348,15 @@ class _LoginPageState extends State<LoginPage> {
             Image.network(
               // "https://dkuapi.dkuindonesia.id/api/assets/uploads/app_logo20240327031120.png",
               apiDataAppLogo,
+              // responseDetailsAppLogo,
               height: screenHeight * 0.3,
               fit: BoxFit.contain,
               alignment: Alignment.topCenter,
             ),
+
             Text(
               apiDataAppNameString,
+              // responseDetailsAppNameString,
               textAlign: TextAlign.center,
               style: AppTheme.bodyMedium.copyWith(color: Colors.black),
             ),
@@ -394,19 +459,19 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         const SizedBox(width: 10),
                         TextButton(
-//                           onPressed: () =>
-//                               NavigationHelper.pushReplacementNamed(
-//                             AppRoutes.register,
-//                           ),
-                          onPressed: () async {
-                            await availableCameras().then((value) =>
-                                Navigator.push(
-                                    context,
-                                    // ignore: inference_failure_on_instance_creation
-                                    MaterialPageRoute(
-                                        builder: (_) =>
-                                            CameraIDPage(cameras: value))));
-                          },
+                          onPressed: () =>
+                              NavigationHelper.pushReplacementNamed(
+                            AppRoutes.register,
+                          ),
+                          // onPressed: () async {
+                          //   await availableCameras().then((value) =>
+                          //       Navigator.push(
+                          //           context,
+                          //           // ignore: inference_failure_on_instance_creation
+                          //           MaterialPageRoute(
+                          //               builder: (_) =>
+                          //                   CameraIDPage(cameras: value))));
+                          // },
                           child: const Text(AppStrings.register),
                         ),
                       ],

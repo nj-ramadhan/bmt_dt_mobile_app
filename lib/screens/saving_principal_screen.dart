@@ -17,10 +17,51 @@ class SavingPrincipalPage extends StatefulWidget {
 }
 
 class _SavingPrincipalPageState extends State<SavingPrincipalPage> {
-  int amountTransfer = 0;
+  int amountSaving = 0;
+
+  final ValueNotifier<bool> amountNotifier = ValueNotifier(true);
+  final ValueNotifier<bool> fieldValidNotifier = ValueNotifier(false);
+
+  late final TextEditingController amountController;
+
+  void initializeControllers() {
+    amountController = TextEditingController()..addListener(controllerListener);
+  }
+
+  void disposeControllers() {
+    amountController.dispose();
+  }
+
+  void controllerListener() {
+    final amount = amountController.text;
+
+    if (amount.isEmpty) return;
+  }
+
+  @override
+  void initState() {
+    initializeControllers();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    disposeControllers();
+    super.dispose();
+  }
 
   void updateAmount(int amount) => setState(() {
-        amountTransfer = amount;
+        amountSaving = amount;
+        amountController.text = amountSaving.toString();
+        // Replace with your logic
+      });
+
+  void updateAmountText(String amount) => setState(() {
+        if (amount == '') {
+          amountSaving = 0;
+        } else {
+          amountSaving = int.parse(amount);
+        }
         // Replace with your logic
       });
 
@@ -67,28 +108,59 @@ class _SavingPrincipalPageState extends State<SavingPrincipalPage> {
               ],
             ),
             Padding(
-                padding: const EdgeInsets.all(20),
+                padding: EdgeInsets.all(screenWidth * 0.02),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Card(
+                    Card(
+                      color: AppColors.primaryColor,
                       child: SizedBox(
-                        height: 70,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Icon(Icons.currency_exchange),
-                            Text(AppStrings.amountTransfer),
-                          ],
+                        height: 100,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              const Material(
+                                color: AppColors.darkGreen,
+                                shape: CircleBorder(),
+                                child: Padding(
+                                  padding: EdgeInsets.all(15),
+                                  child: Text(
+                                    'Rp.',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Expanded(
+                                child: TextField(
+                                  decoration: const InputDecoration(
+                                      hintText: AppStrings.amountSaving,
+                                      fillColor: AppColors.lightGreen),
+                                  controller: amountController,
+                                  textInputAction: TextInputAction.done,
+                                  textAlign: TextAlign.end,
+                                  keyboardType: TextInputType.number,
+                                  onChanged: (_) =>
+                                      updateAmountText(amountController.text),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                    Text(
-                      'Rp. $amountTransfer',
-                      style: AppTheme.titleLarge,
+                    const SizedBox(
+                      height: 40,
                     ),
                     const Text(
-                      AppStrings.selectAmountTransfer,
+                      AppStrings.selectAmountSaving,
                       style: AppTheme.bodySmall,
                     ),
                   ],
@@ -111,7 +183,7 @@ class _SavingPrincipalPageState extends State<SavingPrincipalPage> {
                               Text(
                                 'Rp. $i',
                                 style: AppTheme.titleLarge,
-                              )
+                              ),
                             ],
                           ),
                         ),
@@ -122,25 +194,90 @@ class _SavingPrincipalPageState extends State<SavingPrincipalPage> {
               }).toList(),
             ),
             Padding(
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.all(screenWidth * 0.02),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  FilledButton.icon(
-                    icon: Icon(Icons.abc),
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
-                      AppRoutes.home,
+                  Card(
+                    color: AppColors.primaryColor,
+                    child: InkWell(
+                      child: const Padding(
+                        padding: EdgeInsets.all(20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Material(
+                              color: AppColors.darkGreen,
+                              shape: CircleBorder(),
+                              child: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Image(
+                                  image: AssetImage('assets/images/saving.png'),
+                                  height: 30,
+                                  alignment: Alignment.topCenter,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              AppStrings.differentAccountTransfer,
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                            Icon(
+                              Icons.chevron_right,
+                              color: Colors.white,
+                            ),
+                          ],
+                        ),
+                      ),
+                      onTap: () {
+                        NavigationHelper.pushReplacementNamed(
+                          AppRoutes.home,
+                        );
+                      },
                     ),
-                    label: const Text(AppStrings.differentAccountTransfer),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  FilledButton.icon(
-                    icon: Icon(Icons.abc),
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
-                      AppRoutes.home,
+                  Card(
+                    color: AppColors.primaryColor,
+                    child: InkWell(
+                      child: const Padding(
+                        padding: EdgeInsets.all(20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Material(
+                              color: AppColors.darkGreen,
+                              shape: CircleBorder(),
+                              child: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Image(
+                                  image:
+                                      AssetImage('assets/images/banking.png'),
+                                  height: 30,
+                                  alignment: Alignment.topCenter,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              AppStrings.differentBankTransfer,
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                            Icon(
+                              Icons.chevron_right,
+                              color: Colors.white,
+                            ),
+                          ],
+                        ),
+                      ),
+                      onTap: () {
+                        NavigationHelper.pushReplacementNamed(
+                          AppRoutes.home,
+                        );
+                      },
                     ),
-                    label: const Text(AppStrings.differentBankTransfer),
                   ),
                 ],
               ),
