@@ -50,18 +50,38 @@ class AppStrings {
   static const String invalidCommunity = 'Pekerjaan tidak sesuai';
 
   static const String email = 'Email';
+  static const String newEmail = 'Email yang baru';
   static const String pleaseEnterEmailAddress = 'Mohon isi alamat email';
+  static const String pleaseEnterNewEmailAddress =
+      'Mohon isi alamat email baru';
   static const String invalidEmailAddress = 'Alamat email tidak sesuai';
+  static const String changeEmail = 'Ganti Email';
+  static const String changeEmailComplete = 'Perubahan Email selesai!';
+  static const String confirmEmail = 'Konfirmasi Email';
+  static const String pleaseReEnterEmail = 'Mohon isi ulang Email';
+  static const String emailNotMatched = 'Email tidak cocok!';
 
   static const String newPassword = 'Kata sandi yang baru';
   static const String password = 'Kata sandi';
   static const String pleaseEnterPassword = 'Mohon isi kata sandi';
   static const String invalidPassword = 'Kata sandi tidak sesuai';
   static const String changePassword = 'Ubah Kata sandi?';
+  static const String changePasswordComplete = 'Perubahan kata sandi selesai!';
 
   static const String confirmPassword = 'Konfirmasi kata sandi';
   static const String pleaseReEnterPassword = 'Mohon isi ulang kata sandi';
   static const String passwordNotMatched = 'Kata sandi tidak cocok!';
+
+  static const String newPin = 'PIN yang baru';
+  static const String pin = 'PIN';
+  static const String pleaseEnterPin = 'Mohon isi PIN';
+  static const String invalidPin = 'PIN tidak sesuai';
+  static const String changePin = 'Ubah PIN?';
+  static const String changePinComplete = 'Perubahan PIN selesai!';
+
+  static const String confirmPin = 'Konfirmasi PIN';
+  static const String pleaseReEnterPin = 'Mohon isi ulang PIN';
+  static const String pinNotMatched = 'PIN tidak cocok!';
 
   static const String loginTitle = 'Masuk';
   static const String loginSubtitle = 'Masuk ke akun';
@@ -94,6 +114,9 @@ class AppStrings {
 
   static const String profileAccount = 'Profil';
   static const String profileAccountSubtitle = 'Sesuaikan profil';
+  static const String profileAccountUpdate = 'Perbaharui Profile';
+  static const String profileAccountUpdateComplete =
+      'Selesai Perbaharui Profile';
 
   static const String depositTitle = 'Simpanan';
   static const String depositSubtitle = 'Mau tambah saldo?';

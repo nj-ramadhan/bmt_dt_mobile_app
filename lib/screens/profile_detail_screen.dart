@@ -1,10 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import '../components/app_text_form_field.dart';
 import '../global_variables.dart';
 import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/navigation_helper.dart';
+import '../utils/helpers/snackbar_helper.dart';
 import '../values/app_colors.dart';
+import '../values/app_constants.dart';
+import '../values/app_regex.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
@@ -21,7 +27,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
 
   late final TextEditingController nameController;
   late final TextEditingController phoneController;
-  // late final TextEditingController idController;
+  late final TextEditingController idController;
   // late final DatePickerDialog birthDateController;
   // late final TextEditingController addressController;
   // late final TextEditingController motherNameController;
@@ -29,11 +35,13 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
   // late final TextEditingController passwordController;
   // late final TextEditingController emailController;
   // late final TextEditingController confirmPasswordController;
+  final ValueNotifier<bool> fieldValidNotifier = ValueNotifier(false);
+
 
   void initializeControllers() {
     nameController = TextEditingController()..addListener(controllerListener);
     phoneController = TextEditingController()..addListener(controllerListener);
-    // idController = TextEditingController()..addListener(controllerListener);
+    idController = TextEditingController()..addListener(controllerListener);
     // birthDateController = DatePickerDialog(
     //     firstDate: DateTime(1900, 1, 1, 23, 59),
     //     lastDate: DateTime(2100, 1, 1, 23, 59));
@@ -53,7 +61,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
   void disposeControllers() {
     nameController.dispose();
     phoneController.dispose();
-    // idController.dispose();
+    idController.dispose();
     // birthDateController.toString();
     // addressController.dispose();
     // motherNameController.dispose();
@@ -66,7 +74,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
   void controllerListener() {
     final name = nameController.text;
     final phone = phoneController.text;
-    // final id = idController.text;
+    final id = idController.text;
     // final address = addressController.text;
     // final mother = motherNameController.text;
     // final community = communityChoiceController.text;
@@ -74,19 +82,21 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
     // final password = passwordController.text;
     // final confirmPassword = confirmPasswordController.text;
 
-    if (name.isEmpty && phone.isEmpty
-        // id.isEmpty &&
-        // address.isEmpty &&
-        // mother.isEmpty &&
-        // community.isEmpty &&
-        // email.isEmpty &&
+    if (name.isEmpty
+            && phone.isEmpty
+            && id.isEmpty
+            // address.isEmpty &&
+            // mother.isEmpty &&
+            // community.isEmpty &&
+            // && email.isEmpty
         // password.isEmpty &&
         // confirmPassword.isEmpty
         ) return;
 
-    // if (AppRegex.emailRegex.hasMatch(email) &&
-    //     AppRegex.passwordRegex.hasMatch(password) &&
-    //     AppRegex.passwordRegex.hasMatch(confirmPassword)) {
+    // if (AppRegex.emailRegex.hasMatch(email)
+    //     //     && AppRegex.passwordRegex.hasMatch(password)
+    //     //     && AppRegex.passwordRegex.hasMatch(confirmPassword)
+    //     ) {
     //   fieldValidNotifier.value = true;
     // } else {
     //   fieldValidNotifier.value = false;
@@ -96,10 +106,11 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
   @override
   void initState() {
     initializeControllers();
-
     super.initState();
     nameController.text = apiDataUserNamaLengkap;
     phoneController.text = apiDataAccountTelepon;
+    idController.text = apiDataAccountNiK;
+    // emailController.text = apiDataAccountEmail;
   }
 
   @override
@@ -170,8 +181,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Container(
       constraints: const BoxConstraints.expand(),
       decoration: const BoxDecoration(
@@ -248,24 +258,24 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
                       },
                       controller: phoneController,
                     ),
-                    // AppTextFormField(
-                    //   autofocus: true,
-                    //   labelText: AppStrings.id,
-                    //   keyboardType: TextInputType.number,
-                    //   textInputAction: TextInputAction.next,
-                    //   onChanged: (value) => _formKey.currentState?.validate(),
-                    //   validator: (value) {
-                    //     return value!.isEmpty
-                    //         ? AppStrings.pleaseEnterId
-                    //         : value.length < 15
-                    //             ? AppStrings.invalidId
-                    //             : null;
-                    //   },
-                    //   controller: idController,
-                    // ),
-                    // const SizedBox(
-                    //   height: 20,
-                    // ),
+                    AppTextFormField(
+                      autofocus: true,
+                      labelText: AppStrings.id,
+                      keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.next,
+                      onChanged: (value) => _formKey.currentState?.validate(),
+                      validator: (value) {
+                        return value!.isEmpty
+                            ? AppStrings.pleaseEnterId
+                            : value.length < 15
+                                ? AppStrings.invalidId
+                                : null;
+                      },
+                      controller: idController,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     // AppTextFormField(
                     //   autofocus: true,
                     //   labelText: AppStrings.address,
@@ -416,25 +426,24 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
                     //     );
                     //   },
                     // ),
-                    // ValueListenableBuilder(
-                    //   valueListenable: fieldValidNotifier,
-                    //   builder: (_, isValid, __) {
-                    //     return FilledButton(
-                    //       onPressed: isValid
-                    //           ? () {
-                    //               SnackbarHelper.showSnackBar(
-                    //                 AppStrings.registrationComplete,
-                    //               );
-                    //               nameController.clear();
-                    //               emailController.clear();
-                    //               passwordController.clear();
-                    //               confirmPasswordController.clear();
-                    //             }
-                    //           : null,
-                    //       child: const Text(AppStrings.register),
-                    //     );
-                    //   },
-                    // ),
+                    ValueListenableBuilder(
+                      valueListenable: fieldValidNotifier,
+                      builder: (_, isValid, __) {
+                        return FilledButton(
+                          onPressed: isValid
+                              ? () {
+                                  SnackbarHelper.showSnackBar(
+                                    AppStrings.profileAccountUpdateComplete,
+                                  );
+                                  nameController.clear();
+                                  phoneController.clear();
+                                  idController.clear();
+                                }
+                              : null,
+                          child: const Text(AppStrings.profileAccountUpdate),
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),

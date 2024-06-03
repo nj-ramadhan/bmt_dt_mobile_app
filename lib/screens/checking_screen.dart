@@ -66,8 +66,7 @@ class _CheckingPageState extends State<CheckingPage> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Container(
       constraints: const BoxConstraints.expand(),
       decoration: const BoxDecoration(
@@ -128,13 +127,13 @@ class _CheckingPageState extends State<CheckingPage> {
                                     child: TextField(
                                       decoration: const InputDecoration(
                                           hintText: AppStrings.amountTransfer,
-                                          fillColor: AppColors.primaryColor),
+                                          fillColor: AppColors.primaryColor,),
                                       controller: amountController,
                                       textInputAction: TextInputAction.done,
                                       textAlign: TextAlign.end,
                                       keyboardType: TextInputType.number,
                                       onChanged: (_) => updateAmountText(
-                                          amountController.text),
+                                          amountController.text,),
                                     ),
                                   ),
                                   const SizedBox(

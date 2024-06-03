@@ -19,8 +19,7 @@ class PreviewIDPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Container(
       constraints: const BoxConstraints.expand(),
       decoration: const BoxDecoration(
@@ -75,12 +74,16 @@ class PreviewIDPage extends StatelessWidget {
                   // ),
                   // ),
                   onPressed: () async {
-                    await availableCameras().then((value) => Navigator.push(
+                    await availableCameras().then(
+                      (value) => Navigator.push(
                         context,
+                        // ignore: inference_failure_on_instance_creation
                         MaterialPageRoute(
-                            builder: (_) => CameraPhotoPage(cameras: value))));
+                          builder: (_) => CameraPhotoPage(cameras: value),
+                        ),
+                      ),
+                    );
                   },
-
                   child: const Text(AppStrings.cameraPhotoTitle),
                 ),
               ],
