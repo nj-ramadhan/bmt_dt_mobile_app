@@ -89,6 +89,8 @@ class AppStrings {
   static const String registerTitle = 'Daftar';
   static const String registerSubtitle = 'Buat akun baru';
 
+  static const String frontCode = 'Masukan Nomor Kamu';
+
   static const String amountTransfer = 'Masukan Nominal Transfer';
   static const String selectAmountTransfer = 'Pilih Nominal Transfer';
   static const String differentAccountTransfer = 'Antar Rekening';

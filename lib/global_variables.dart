@@ -64,6 +64,9 @@ String apiDataAppNameString = 'null';
 String apiDataAppLogo = 'null';
 String apiDataAppLogoBar = 'null';
 
+String apiDataProductType = 'null';
+String apiDataProductFrontFourNumber = 'null';
+
 void updateLoginVariables(
   String newApiRolePendidikan,
   String newApiRoleKoperasi,
@@ -188,9 +191,9 @@ void updateDetailsApp(
   // String newApiDataAppLembagaId,
   // String newApiDataAppBlocked,
   // String newApiDataAppStatus,
-  String newapiDataAppNameString, 
-  String newapiDataAppLogo, 
-  String newapiDataAppLogoBar, 
+  String newApiDataAppNameString,
+  String newApiDataAppLogo,
+  String newApiDataAppLogoBar,
 ) {
   // apiDataAppId = newApiDataAppId;
   // apiDataAppName = newApiDataAppName;
@@ -201,8 +204,26 @@ void updateDetailsApp(
   // apiDataAppLembagaId = newApiDataAppLembagaId;
   // apiDataAppBlocked = newApiDataAppBlocked;
   // apiDataAppStatus = newApiDataAppStatus;
-  
-  apiDataAppNameString  = newapiDataAppNameString;
-  apiDataAppLogo = newapiDataAppLogo;
-  apiDataAppLogoBar = newapiDataAppLogoBar;
+
+  apiDataAppNameString = newApiDataAppNameString;
+  apiDataAppLogo = newApiDataAppLogo;
+  apiDataAppLogoBar = newApiDataAppLogoBar;
+}
+
+void updateDetailProducts(
+  String newApiDataProductType,
+  String newApiDataProductFrontFourNumber,
+) {
+  // apiDataAppId = newApiDataAppId;
+  // apiDataAppName = newApiDataAppName;
+  // apiDataAppIp = newApiDataAppIp;
+  // apiDataAppVerify = newApiDataAppVerify;
+  // apiDataAppDomain = newApiDataAppDomain;
+  // apiDataAppAccessFrom = newApiDataAppAccessFrom;
+  // apiDataAppLembagaId = newApiDataAppLembagaId;
+  // apiDataAppBlocked = newApiDataAppBlocked;
+  // apiDataAppStatus = newApiDataAppStatus;
+
+  apiDataProductType = newApiDataProductType;
+  apiDataProductFrontFourNumber = newApiDataProductFrontFourNumber;
 }

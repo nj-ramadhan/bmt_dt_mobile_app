@@ -19,12 +19,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  void openProfileScreen(BuildContext context) {
-    NavigationHelper.pushReplacementNamed(
-      AppRoutes.profile,
-    );
-  }
-
+  String? simpananSukarelaNumber;
   Map<int, Map<String, String>> dataMap = {};
 
   Future<void> fetchData() async {
@@ -47,7 +42,12 @@ class _HomePageState extends State<HomePage> {
     return null; // Return null if SIMPANAN SUKARELA is not found
   }
 
-  String? simpananSukarelaNumber;
+  void openProfileScreen() {
+    NavigationHelper.pushReplacementNamed(
+      AppRoutes.profile,
+    );
+  }
+
   @override
   void initState() {
     fetchData();
@@ -133,44 +133,45 @@ class _HomePageState extends State<HomePage> {
                 0,
               ),
               child: InkWell(
-                child: Card(
-                  child: Padding(
-                    padding: EdgeInsets.all(screenWidth * 0.05),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Nama: $apiDataUserNamaLengkap',
-                                style: AppTheme.bodySmall),
-                            Text('No Telp: $apiDataAccountTelepon',
-                                style: AppTheme.bodySmall),
-                            Text(
-                              'Nomor Sirela: $simpananSukarelaNumber',
-                              style: AppTheme.bodySmall,
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          width: screenWidth * 0.02,
-                        ),
-                        Image(
-                          image: const AssetImage('assets/images/user.png'),
-                          width: screenWidth * 0.15,
-                          // height: 40,
-                          alignment: Alignment.topCenter,
-                        ),
-                      ],
+                  child: Card(
+                    child: Padding(
+                      padding: EdgeInsets.all(screenWidth * 0.05),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Nama: $apiDataUserNamaLengkap',
+                                  style: AppTheme.bodySmall),
+                              Text('No Telp: $apiDataAccountTelepon',
+                                  style: AppTheme.bodySmall),
+                              Text(
+                                'Nomor Sirela: $simpananSukarelaNumber',
+                                style: AppTheme.bodySmall,
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            width: screenWidth * 0.02,
+                          ),
+                          Image(
+                            image: const AssetImage('assets/images/user.png'),
+                            width: screenWidth * 0.15,
+                            // height: 40,
+                            alignment: Alignment.topCenter,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                onTap: () => NavigationHelper.pushReplacementNamed(
-                  AppRoutes.profile,
-                ),
-              ),
+                  onTap: openProfileScreen
+                  // onTap: () => NavigationHelper.pushReplacementNamed(
+                  //   AppRoutes.profile,
+                  // ),
+                  ),
             ),
             CarouselSlider(
               options: CarouselOptions(height: screenHeight * 0.22),

@@ -22,6 +22,7 @@ import 'screens/saving_mandatory_screen.dart';
 import 'screens/saving_principal_screen.dart';
 import 'screens/saving_voluntary_screen.dart';
 import 'screens/shopping_screen.dart';
+import 'screens/shopping_detail_list_screen.dart';
 import 'screens/transfer_screen.dart';
 import 'utils/common_widgets/invalid_route.dart';
 import 'values/app_routes.dart';
@@ -96,6 +97,9 @@ class Routes {
 
       case AppRoutes.shopping:
         return getRoute(widget: const ShoppingPage());
+
+      case AppRoutes.shopping_detail_list:
+        return getRoute(widget: const ShoppingDetailListPage());
 
       case AppRoutes.funding:
         return getRoute(widget: const FundingPage());
