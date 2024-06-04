@@ -196,7 +196,7 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
                             alignment: Alignment.topCenter,
                             errorBuilder: (BuildContext context,
                                 Object exception, StackTrace? stackTrace) {
-                              return const Text('😢');
+                              return const Text('icon');
                             },
                           ),
                         ),
