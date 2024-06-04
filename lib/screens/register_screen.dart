@@ -224,7 +224,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
           restorationId: 'date_picker_dialog',
           initialEntryMode: DatePickerEntryMode.calendarOnly,
           initialDate: DateTime.fromMillisecondsSinceEpoch(arguments! as int),
-          firstDate: DateTime(1990),
+          firstDate: DateTime(1940),
           lastDate: DateTime(2100),
         );
       },

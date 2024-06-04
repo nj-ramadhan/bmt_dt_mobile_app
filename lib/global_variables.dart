@@ -64,6 +64,11 @@ String apiDataAppNameString = 'null';
 String apiDataAppLogo = 'null';
 String apiDataAppLogoBar = 'null';
 
+String apiDataOwnSirelaId = 'null';
+String apiDataOwnSirelaAmount = 'null';
+String apiDataDestinationSirelaId = 'null';
+String apiDataDestinationSirelaName = 'null';
+
 void updateLoginVariables(
   String newApiRolePendidikan,
   String newApiRoleKoperasi,
@@ -188,9 +193,9 @@ void updateDetailsApp(
   // String newApiDataAppLembagaId,
   // String newApiDataAppBlocked,
   // String newApiDataAppStatus,
-  String newapiDataAppNameString, 
-  String newapiDataAppLogo, 
-  String newapiDataAppLogoBar, 
+  String newapiDataAppNameString,
+  String newapiDataAppLogo,
+  String newapiDataAppLogoBar,
 ) {
   // apiDataAppId = newApiDataAppId;
   // apiDataAppName = newApiDataAppName;
@@ -201,8 +206,38 @@ void updateDetailsApp(
   // apiDataAppLembagaId = newApiDataAppLembagaId;
   // apiDataAppBlocked = newApiDataAppBlocked;
   // apiDataAppStatus = newApiDataAppStatus;
-  
-  apiDataAppNameString  = newapiDataAppNameString;
+
+  apiDataAppNameString = newapiDataAppNameString;
   apiDataAppLogo = newapiDataAppLogo;
   apiDataAppLogoBar = newapiDataAppLogoBar;
+}
+
+void updateDetailsRek(
+  // String newApiDataAppId,
+  // String newApiDataAppName,
+  // String newApiDataAppIp,
+  // String newApiDataAppVerify,
+  // String newApiDataAppDomain,
+  // String newApiDataAppAccessFrom,
+  // String newApiDataAppLembagaId,
+  // String newApiDataAppBlocked,
+  // String newApiDataAppStatus,
+  String newapiDataOwnSirelaId,
+  String newapiDataOwnSirelaAmount,
+  String newapiDataDestinationSirelaId,
+  String newapiDataDestinationSirelaName,
+) {
+  // apiDataAppId = newApiDataAppId;
+  // apiDataAppName = newApiDataAppName;
+  // apiDataAppIp = newApiDataAppIp;
+  // apiDataAppVerify = newApiDataAppVerify;
+  // apiDataAppDomain = newApiDataAppDomain;
+  // apiDataAppAccessFrom = newApiDataAppAccessFrom;
+  // apiDataAppLembagaId = newApiDataAppLembagaId;
+  // apiDataAppBlocked = newApiDataAppBlocked;
+  // apiDataAppStatus = newApiDataAppStatus;
+  apiDataOwnSirelaId = newapiDataOwnSirelaId;
+  apiDataOwnSirelaAmount = newapiDataOwnSirelaAmount;
+  apiDataDestinationSirelaId = newapiDataDestinationSirelaId;
+  apiDataDestinationSirelaName = newapiDataDestinationSirelaName;
 }

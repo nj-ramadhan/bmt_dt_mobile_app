@@ -233,7 +233,7 @@ class _TransferPageState extends State<TransferPage> {
                       ),
                       onTap: () {
                         NavigationHelper.pushReplacementNamed(
-                          AppRoutes.home,
+                          AppRoutes.add_client,
                         );
                       },
                     ),

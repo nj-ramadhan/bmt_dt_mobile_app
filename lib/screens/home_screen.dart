@@ -41,6 +41,12 @@ class _HomePageState extends State<HomePage> {
     for (var entry in data.entries) {
       print(entry.value['name']);
       if (entry.value['name'] == 'SIMPANAN SUKARELA') {
+        updateDetailsRek(entry.value['number'].toString(),
+        entry.value['saldo_rp'].toString(),
+        apiDataDestinationSirelaId,
+        apiDataDestinationSirelaName,
+        
+        );
         return entry.value['number'];
       }
     }
