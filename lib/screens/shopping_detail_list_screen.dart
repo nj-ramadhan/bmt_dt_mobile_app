@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import '../global_variables.dart';
@@ -34,13 +35,13 @@ class _ShoppingDetailListPageState extends State<ShoppingDetailListPage> {
   }
 
   String? getListProvider(Map<int, Map<String, String>> data) {
-    print("inilah data");
-    print(data);
+    debugPrint('response: $data');
     for (var entry in data.entries) {
       print(entry.value['keyword_kode_depan_nomor']);
       if (entry.value['keyword_kode_depan_nomor'] == frontCodeNumber) {
         return entry.value['keyword_kode_depan_nomor'];
       }
+      debugPrint('response: $entry');
     }
     return null; // Return null if SIMPANAN SUKARELA is not found
   }
@@ -48,8 +49,6 @@ class _ShoppingDetailListPageState extends State<ShoppingDetailListPage> {
   @override
   void initState() {
     frontCodeNumber = '0857';
-    // fetchData();
-    // print(dataMap);
     initializeControllers();
 
     super.initState();
@@ -77,14 +76,15 @@ class _ShoppingDetailListPageState extends State<ShoppingDetailListPage> {
   }
 
   void updateFrontCode(String value) => setState(() {
-        frontCodeNumber = value;
-        frontCodeController.text = frontCodeNumber.toString();
+        frontCodeNumber = value.substring(0, 4);
+        debugPrint('response: $frontCodeNumber from $value');
         // Replace with your logic
       });
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Container(
       constraints: const BoxConstraints.expand(),
       decoration: const BoxDecoration(
@@ -129,44 +129,90 @@ class _ShoppingDetailListPageState extends State<ShoppingDetailListPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Card(
-                    color: AppColors.primaryColor,
-                    child: SizedBox(
-                      height: 100,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Expanded(
-                              child: TextField(
-                                decoration: const InputDecoration(
-                                    hintText: AppStrings.frontCode,
-                                    fillColor: AppColors.lightGreen),
-                                controller: frontCodeController,
-                                textInputAction: TextInputAction.done,
-                                textAlign: TextAlign.end,
-                                keyboardType: TextInputType.number,
-                                onChanged: (_) =>
-                                    updateFrontCode(frontCodeController.text),
+                  TextField(
+                    decoration: const InputDecoration(
+                        hintText: AppStrings.frontCode,
+                        fillColor: AppColors.lightGreen),
+                    controller: frontCodeController,
+                    textInputAction: TextInputAction.done,
+                    textAlign: TextAlign.end,
+                    keyboardType: TextInputType.number,
+                    // onChanged: (_) => updateFrontCode(frontCodeController.text),
+                  ),
+                  SizedBox(
+                    height: screenHeight * 0.02,
+                  ),
+                  FilledButton(
+                    onPressed: () {
+                      updateFrontCode(frontCodeController.text);
+                      fetchData();
+                    },
+                    child: Text('Cek'),
+                  ),
+                  SizedBox(
+                    height: screenHeight * 0.02,
+                  ),
+                  CarouselSlider(
+                    options: CarouselOptions(height: screenHeight * 0.22),
+                    items: dataMap.keys.map((i) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return Container(
+                            margin: EdgeInsets.symmetric(
+                                horizontal: screenWidth * 0.02),
+                            child: Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.circular(screenHeight * 0.02),
+                              ),
+                              elevation: 5,
+                              child: InkWell(
+                                child: Padding(
+                                  padding: EdgeInsets.all(screenWidth * 0.02),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Material(
+                                        color: AppColors.darkGreen,
+                                        shape: const CircleBorder(),
+                                        child: Padding(
+                                          padding: EdgeInsets.all(
+                                              screenWidth * 0.01),
+                                          child: Image.network(
+                                            dataMap[i]?['logo_kartu'] ?? '',
+                                            width: screenWidth * 0.15,
+                                            fit: BoxFit.cover,
+                                            alignment: Alignment.topCenter,
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        dataMap[i]?['produk_provider'] ?? '',
+                                        style: const TextStyle(
+                                          color: AppColors.darkGreen,
+                                          height: 7,
+                                        ),
+                                      ),
+                                      const Icon(
+                                        Icons.chevron_right,
+                                        color: AppColors.darkGreen,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                onTap: () {
+                                  // NavigationHelper.pushReplacementNamed(
+                                  //     // AppRoutes.shopping_detail_list,
+                                  //     );
+                                },
                               ),
                             ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            FilledButton(
-                              onPressed: () {
-                                frontCodeNumber = frontCodeController.text;
-                              },
-                              child: Text('Cek'),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 40,
+                          );
+                        },
+                      );
+                    }).toList(),
                   ),
                 ],
               ),
