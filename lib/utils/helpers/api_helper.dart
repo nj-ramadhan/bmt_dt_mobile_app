@@ -76,6 +76,7 @@ class ApiHelper {
     required String status_perkawinan,
     required String pekerjaan,
     required String kewarganegaraan,
+    required String referral_id,
     // required String role_koperasi,
   }) async {
     final url = Uri.parse(
@@ -231,6 +232,13 @@ class ApiHelper {
           "value": kewarganegaraan,
           "contentType": "Mandatory",
           "description": "ENUM(\"WNI\",\"WNA\")",
+          "type": "text"
+        },
+        {
+          "key": "referral_id",
+          "value": referral_id,
+          "contentType": "Mandatory",
+          "description": "masukan referral ID",
           "type": "text"
         },
         {
