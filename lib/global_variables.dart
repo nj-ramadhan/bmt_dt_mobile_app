@@ -64,8 +64,11 @@ String apiDataAppNameString = 'null';
 String apiDataAppLogo = 'null';
 String apiDataAppLogoBar = 'null';
 
-String apiDataProductType = 'null';
+String apiDataProductShoppingType = 'null';
+String apiDataProductProviderCode = 'null';
+String apiDataProductTransactionType = 'null';
 String apiDataProductFrontFourNumber = 'null';
+
 
 void updateLoginVariables(
   String newApiRolePendidikan,
@@ -211,7 +214,9 @@ void updateDetailsApp(
 }
 
 void updateDetailProducts(
-  String newApiDataProductType,
+  String newApiDataProductShoppingType,
+  String newApiDataProductProviderCode,
+  String newApiDataProductTransactionType,
   String newApiDataProductFrontFourNumber,
 ) {
   // apiDataAppId = newApiDataAppId;
@@ -224,6 +229,8 @@ void updateDetailProducts(
   // apiDataAppBlocked = newApiDataAppBlocked;
   // apiDataAppStatus = newApiDataAppStatus;
 
-  apiDataProductType = newApiDataProductType;
+  apiDataProductShoppingType = newApiDataProductShoppingType;
+  apiDataProductProviderCode = newApiDataProductProviderCode;
+  apiDataProductTransactionType = newApiDataProductTransactionType;
   apiDataProductFrontFourNumber = newApiDataProductFrontFourNumber;
 }

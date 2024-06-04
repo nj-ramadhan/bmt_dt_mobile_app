@@ -34,11 +34,6 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
   final ValueNotifier<bool> frontCodeNotifier = ValueNotifier(true);
   late TextEditingController frontCodeController;
 
-  NumberFormat formatter = NumberFormat.decimalPatternDigits(
-    locale: 'en_us',
-    decimalDigits: 0,
-  );
-
   Future<void> fetchDataProvider() async {
     final data = await ApiHelper.getListProvider(
         LoginToken: apiLoginToken, frontCode: frontCodeNumber);
@@ -51,7 +46,9 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
 
   Future<void> fetchDataProduct() async {
     final data = await ApiHelper.getListProduct(
-        LoginToken: apiLoginToken, providerCode: providerCodeNumber);
+        LoginToken: apiLoginToken,
+        providerCode: providerCodeNumber,
+        transactionType: apiDataProductTransactionType);
     setState(() {
       dataProduct = data;
 
@@ -60,30 +57,24 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
   }
 
   String? getListProvider(Map<int, Map<String, String>> data) {
-    debugPrint('response: list provider $data');
     for (var entry in data.entries) {
-      debugPrint(entry.value['keyword_kode_depan_nomor']);
       if (entry.value['keyword_kode_depan_nomor'] == frontCodeNumber) {
         return entry.value['keyword_kode_depan_nomor'];
       }
-      debugPrint('response: $entry');
     }
     return null; // Return null if SIMPANAN SUKARELA is not found
   }
 
   String? getListProduct(Map<int, Map<String, String>> data) {
-    debugPrint('response: list product $data');
     for (var entry in data.entries) {
-      debugPrint(entry.value['provider_code']);
       if (entry.value['provider_code'] == providerCodeNumber) {
         return entry.value['provider_code'];
       }
-      debugPrint('response: $entry');
     }
     return null; // Return null if SIMPANAN SUKARELA is not found
   }
 
-  String indonesianFormat(String data) {
+  String indonesianCurrencyFormat(String data) {
     int dataInt = int.parse(data);
     var dataFormatted =
         NumberFormat.currency(locale: 'id_ID', symbol: 'Rp. ', decimalDigits: 0)
@@ -123,12 +114,14 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
 
   void updateFrontCode(String value) => setState(() {
         frontCodeNumber = value.substring(0, 4);
+        apiDataProductFrontFourNumber = frontCodeNumber;
         debugPrint('response: $frontCodeNumber from $value');
         // Replace with your logic
       });
 
   void updateProviderCode(String value) => setState(() {
         providerCodeNumber = value;
+        apiDataProductProviderCode = providerCodeNumber;
         debugPrint('response: provider no $providerCodeNumber');
         // Replace with your logic
       });
@@ -228,7 +221,7 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
                       providerCodeNumber =
                           dataProvider[1]?['no_kode_provider'] ?? '';
                       providerLogo = dataProvider[1]?['logo_kartu'] ?? '';
-                      debugPrint('response: $providerCodeNumber $providerLogo');
+                      apiDataProductProviderCode = providerCodeNumber;
                       fetchDataProduct();
                     },
                     child: Text('Cek'),
@@ -257,9 +250,10 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
                                         style: AppTheme.bodySmall,
                                       ),
                                       Text(
-                                          indonesianFormat(dataProduct[i]
-                                                  ?['harga_jual_agen'] ??
-                                              ''),
+                                          indonesianCurrencyFormat(
+                                              dataProduct[i]
+                                                      ?['harga_jual_agen'] ??
+                                                  ''),
                                           // formatter.format(
                                           //   (dataProduct[i]
                                           //           ?['harga_jual_agen'] ??

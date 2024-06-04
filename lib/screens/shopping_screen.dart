@@ -74,7 +74,6 @@ class _ShoppingPageState extends State<ShoppingPage> {
       setState(() {
         listProducts = responseData.map(Products.fromJson).toList();
       });
-      debugPrint('response: $listProducts');
     } catch (e) {
       debugPrint('Error: $e');
     }
@@ -183,9 +182,13 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                   ),
                                 ),
                                 onTap: () {
+                                  apiDataProductTransactionType =
+                                      product.jenis_transaksi;
+                                  
                                   NavigationHelper.pushReplacementNamed(
                                     AppRoutes.shopping_provider_list,
                                   );
+                                  
                                 },
                               ),
                             ),
