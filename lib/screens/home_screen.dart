@@ -465,7 +465,7 @@ class _HomePageState extends State<HomePage> {
                               AppRoutes.saving_mandatory,
                             ),
                             child: const Icon(
-                              Icons.account_balance,
+                              Icons.atm_outlined,
                               // size: 40,
                             ),
                           ),
@@ -489,7 +489,7 @@ class _HomePageState extends State<HomePage> {
                               AppRoutes.saving_principal,
                             ),
                             child: const Icon(
-                              Icons.account_balance_wallet,
+                              Icons.star_border,
                               // size: 40,
                             ),
                           ),
@@ -513,7 +513,7 @@ class _HomePageState extends State<HomePage> {
                               AppRoutes.saving_voluntary,
                             ),
                             child: const Icon(
-                              Icons.savings,
+                              Icons.shopping_basket_sharp,
                               // size: 40,
                             ),
                           ),

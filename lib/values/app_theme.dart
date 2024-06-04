@@ -50,7 +50,7 @@ class AppTheme {
       focusedErrorBorder: textFormFieldBorder,
       enabledBorder: textFormFieldBorder,
       labelStyle: TextStyle(
-        fontSize: 12,
+        fontSize: 16,
         color: Colors.grey,
         fontWeight: FontWeight.normal,
       ),
