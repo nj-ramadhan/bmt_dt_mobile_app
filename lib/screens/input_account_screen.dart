@@ -29,7 +29,7 @@ class _InputAccountPageState extends State<InputAccountPage> {
             // Handle back action
           },
         ),
-        title: Text('Transfer ke BCA Syariah'),
+        title: Text('Transfer ke Sesama'),
         backgroundColor: Colors.green, // Change the color to match the second image
       ),
       body: Container(

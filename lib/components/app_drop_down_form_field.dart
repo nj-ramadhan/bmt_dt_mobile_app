@@ -8,6 +8,7 @@ class AppDropdownFormField extends StatelessWidget {
     this.value,
     this.onChanged,
     this.dropdownColor,
+    this.hint,
     super.key,
   });
 
@@ -16,7 +17,7 @@ class AppDropdownFormField extends StatelessWidget {
   final String? value;
   final void Function(String?)? onChanged;
   final Color? dropdownColor;
-
+  final String? hint;
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<DropdownItemsModel>>(
@@ -27,7 +28,7 @@ class AppDropdownFormField extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 20),
             decoration: InputDecoration(
               labelText: labelText,
-              labelStyle: const TextStyle(fontSize: 13, color: Colors.grey),
+              labelStyle: const TextStyle(fontSize: 16, color: Colors.grey),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
                 borderSide: const BorderSide(
@@ -46,7 +47,7 @@ class AppDropdownFormField extends StatelessWidget {
             value: value,
             dropdownColor: dropdownColor,
             isExpanded: true,
-            hint: const Text('Pilih Salah Satu'),
+            hint: Text(hint ?? 'Pilih Salah Satu'),
             items: snapshot.data!.map((e) {
               return DropdownMenuItem<String>(
                 value: e.id.toString(),
@@ -72,6 +73,7 @@ class AppDropdownList extends StatelessWidget {
     this.value,
     this.onChanged,
     this.dropdownColor,
+    this.hint,
     super.key,
   });
 
@@ -80,6 +82,7 @@ class AppDropdownList extends StatelessWidget {
   final String? value;
   final void Function(String?)? onChanged;
   final Color? dropdownColor;
+  final String? hint;
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +90,7 @@ class AppDropdownList extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 20),
       decoration: InputDecoration(
         labelText: labelText,
-        labelStyle: const TextStyle(fontSize: 13, color: Colors.grey),
+        labelStyle: const TextStyle(fontSize: 16, color: Colors.grey),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(
@@ -106,7 +109,7 @@ class AppDropdownList extends StatelessWidget {
       value: value,
       dropdownColor: dropdownColor,
       isExpanded: true,
-      hint: const Text('Pilih Salah Satu'),
+      hint: Text(hint ?? 'Pilih Salah Satu'),
       items: items.map((String value) {
         return DropdownMenuItem<String>(
           value: value,

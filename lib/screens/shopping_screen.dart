@@ -15,20 +15,20 @@ import '../values/app_strings.dart';
 import '../values/app_theme.dart';
 
 class Products {
-  Products(this.kode_bayar_ppob, this.nama_produk);
+  Products(this.id_list, this.nama_pembelian);
 
   factory Products.fromJson(dynamic json) {
     return Products(
-      json['kode_bayar_ppob'] as String,
-      json['nama_produk'] as String,
+      json['id_list'] as String,
+      json['nama_pembelian'] as String,
     );
   }
-  String kode_bayar_ppob;
-  String nama_produk;
+  String id_list;
+  String nama_pembelian;
 
   @override
   String toString() {
-    return '{ $kode_bayar_ppob, $nama_produk }';
+    return '{ $id_list, $nama_pembelian }';
   }
 }
 
@@ -46,7 +46,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
 
   Future<void> getProducts() async {
     const url =
-        'https://dkuapi.dkuindonesia.id/api/pulsa/get_produk_by_provider_code?provider_code=5&jenis_transaksi=3';
+        'https://dkuapi.dkuindonesia.id/api/table_wizard/crud_table_serverside_globaltable?act=list-dkui_mitra.t_list_pembelian';
     final headers = {
       'ClientID':
           'jLdCPSe3816XRXk7+aCMc+Et0nk1y6\/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ\/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A\/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs\/WzXeZ9pQGOkHyX6IK\/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M\/fXTrjkHB\/v+1VFKgkGRFz0eIhDXZ3yp7e\/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n\/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3\/gKIXwL6NGFqzdeEy3xC\/Qr6',
@@ -63,9 +63,10 @@ class _ShoppingPageState extends State<ShoppingPage> {
 
       final responseBody = json.decode(response.body);
       final responseData = responseBody['data'] as List;
-
-      listProducts = responseData.map(Products.fromJson).toList();
-
+      // listProducts = responseData.map(Products.fromJson).toList();
+      setState(() {
+        listProducts = responseData.map(Products.fromJson).toList();
+      });
       debugPrint('response: $listProducts');
     } catch (e) {
       debugPrint('Error: $e');
@@ -154,7 +155,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                       //   ),
                                       // ),
                                       Text(
-                                        list.nama_produk,
+                                        list.nama_pembelian,
                                         style: const TextStyle(
                                           color: Colors.white,
                                           height: 3,

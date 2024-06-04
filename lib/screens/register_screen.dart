@@ -44,6 +44,8 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
   final ValueNotifier<bool> passwordNotifier = ValueNotifier(true);
   final ValueNotifier<bool> confirmPasswordNotifier = ValueNotifier(true);
   final ValueNotifier<bool> fieldValidNotifier = ValueNotifier(false);
+  String? valueDownCommunity;
+  String? valueDownReligion;
   String? valueDownProvince;
   String? valueDownCity;
   String? valueDownDistrict;
@@ -58,6 +60,34 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
     'KAWIN',
     'CERAI HIDUP',
     'CERAI MATI'
+  ];
+  final List<String> listDownReligion = [
+    "Islam",
+"Kristen Protestan",
+"Kristen Katolik",
+"Hindu",
+"Buddha",
+"Konghucu",
+  ];
+  final List<String> listDownPekerjaan = [
+    'PNS',
+    'Pegawai Swasta',
+    'TNI/POLRI',
+    'Ibu Rumah Tangga',
+    'Wiraswasta',
+    'Pelajar/Mahasiswa',
+    'Pensiunan',
+    'Akunting/Keuangan',
+    'Customer Service',
+    'Engineering',
+    'Eksekutif',
+    'Administrasi umum',
+    'Komputer',
+    'Konsultan',
+    'Marketing',
+    'Pendidikan',
+    'Petani',
+    'Lain-Lain'
   ];
   final List<String> listDownCitizenship = ['WNI', 'WNA'];
   late Future<List<DropdownItemsModel>> _province; // Marked as 'late'
@@ -443,6 +473,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                       labelText: 'Kelamin',
                       items: listDownGender,
                       value: valueDownGender,
+                      hint: "Pilih Jenis Kelamin",
                       dropdownColor: Colors.blue[100],
                       onChanged: (value) {
                         setState(() {
@@ -479,6 +510,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                       future: _province,
                       labelText: 'Provinsi',
                       value: valueDownProvince,
+                      hint: "Pilih Provinsi",
                       dropdownColor: Colors.blue[100],
                       onChanged: (value) {
                         setState(() {
@@ -496,6 +528,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                       labelText: 'Kabupaten / Kota',
                       value: valueDownCity,
                       dropdownColor: Colors.blue[100],
+                      hint: "Pilih Kabupaten / Kota",
                       onChanged: (value) {
                         setState(() {
                           valueDownDistrict = null;
@@ -510,6 +543,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                       future: _futureDistrict,
                       labelText: 'Kecamatan',
                       value: valueDownDistrict,
+                      hint: "Pilih Kecamatan",
                       dropdownColor: Colors.blue[100],
                       onChanged: (value) {
                         setState(() {
@@ -523,6 +557,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                     AppDropdownFormField(
                       future: _futureSubDistrict,
                       labelText: 'Kelurahan',
+                      hint: "Pilih Kelurahan",
                       value: valueDownSubDistrict,
                       dropdownColor: Colors.blue[100],
                       onChanged: (value) {
@@ -534,6 +569,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                     AppDropdownList(
                       labelText: 'Status Perkawinan',
                       items: listDownStatusPerkawinan,
+                      hint: "Pilih Status Perkawinan",
                       value: valueDownStatusPerkawinan,
                       dropdownColor: Colors.blue[100],
                       onChanged: (value) {
@@ -546,6 +582,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                       labelText: 'Kewarganegaraan',
                       items: listDownCitizenship,
                       value: valueDownCitizenship,
+                      hint: "Pilih Kewarganegaraan",
                       dropdownColor: Colors.blue[100],
                       onChanged: (value) {
                         setState(() {
@@ -581,18 +618,16 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                                 : null;
                       },
                     ),
-                    AppTextFormField(
+                    AppDropdownList(
                       labelText: 'Agama',
-                      controller: religionController,
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.name,
-                      // onChanged: (_) => _formKey.currentState?.validate(),
-                      validator: (value) {
-                        return value!.isEmpty
-                            ? 'masukan Agama'
-                            : value.length < 0
-                                ? AppStrings.invalidName
-                                : null;
+                      items: listDownReligion,
+                      value: valueDownReligion,
+                      hint: "Pilih Agama",
+                      dropdownColor: Colors.blue[100],
+                      onChanged: (value) {
+                        setState(() {
+                          valueDownReligion = value;
+                        });
                       },
                     ),
                     AppTextFormField(
@@ -604,7 +639,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                       validator: (value) {
                         return value!.isEmpty
                             ? AppStrings.pleaseEnterAddress
-                            : value.length < 15
+                            : value.length < 4
                                 ? AppStrings.invalidAddress
                                 : null;
                       },
@@ -625,20 +660,17 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                       },
                       controller: motherNameController,
                     ),
-                    AppTextFormField(
-                      autofocus: true,
+                    AppDropdownList(
                       labelText: 'Pekerjaan',
-                      keyboardType: TextInputType.text,
-                      textInputAction: TextInputAction.next,
-                      // onChanged: (value) => _formKey.currentState?.validate(),
-                      validator: (value) {
-                        return value!.isEmpty
-                            ? AppStrings.pleaseEnterCommunity
-                            : value.length < 15
-                                ? AppStrings.invalidCommunity
-                                : null;
+                      items: listDownPekerjaan,
+                      value: valueDownCommunity,
+                      hint: "Pilih Pekerjaan",
+                      dropdownColor: Colors.blue[100],
+                      onChanged: (value) {
+                        setState(() {
+                          valueDownCommunity = value;
+                        });
                       },
-                      controller: communityChoiceController,
                     ),
                     ValueListenableBuilder(
                       valueListenable: fieldValidNotifier,
@@ -668,10 +700,10 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                                           valueDownSubDistrict.toString(),
                                       rw: rwController.text,
                                       rt: rtController.text,
-                                      agama: religionController.text,
+                                      agama: valueDownReligion.toString(),
                                       status_perkawinan:
                                           valueDownStatusPerkawinan.toString(),
-                                      pekerjaan: communityChoiceController.text,
+                                      pekerjaan: valueDownCommunity.toString(),
                                       kewarganegaraan:
                                           valueDownCitizenship.toString(),
                                     );
