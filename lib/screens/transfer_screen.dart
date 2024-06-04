@@ -108,63 +108,64 @@ class _TransferPageState extends State<TransferPage> {
               ],
             ),
             Padding(
-                padding: EdgeInsets.all(screenWidth * 0.02),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Card(
-                      color: AppColors.primaryColor,
-                      child: SizedBox(
-                        height: 100,
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              const Material(
-                                color: AppColors.darkGreen,
-                                shape: CircleBorder(),
-                                child: Padding(
-                                  padding: EdgeInsets.all(15),
-                                  child: Text(
-                                    'Rp.',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
+              padding: EdgeInsets.all(screenWidth * 0.02),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Card(
+                    color: AppColors.primaryColor,
+                    child: SizedBox(
+                      height: 100,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            const Material(
+                              color: AppColors.darkGreen,
+                              shape: CircleBorder(),
+                              child: Padding(
+                                padding: EdgeInsets.all(15),
+                                child: Text(
+                                  'Rp.',
+                                  style: TextStyle(color: Colors.white),
                                 ),
                               ),
-                              const SizedBox(
-                                width: 10,
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Expanded(
+                              child: TextField(
+                                decoration: const InputDecoration(
+                                    hintText: AppStrings.amountTransfer,
+                                    fillColor: AppColors.lightGreen),
+                                controller: amountController,
+                                textInputAction: TextInputAction.done,
+                                textAlign: TextAlign.end,
+                                keyboardType: TextInputType.number,
+                                onChanged: (_) =>
+                                    updateAmountText(amountController.text),
                               ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Expanded(
-                                child: TextField(
-                                  decoration: const InputDecoration(
-                                      hintText: AppStrings.amountTransfer,
-                                      fillColor: AppColors.lightGreen),
-                                  controller: amountController,
-                                  textInputAction: TextInputAction.done,
-                                  textAlign: TextAlign.end,
-                                  keyboardType: TextInputType.number,
-                                  onChanged: (_) =>
-                                      updateAmountText(amountController.text),
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    const Text(
-                      AppStrings.selectAmountTransfer,
-                      style: AppTheme.bodySmall,
-                    ),
-                  ],
-                )),
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  const Text(
+                    AppStrings.selectAmountTransfer,
+                    style: AppTheme.bodySmall,
+                  ),
+                ],
+              ),
+            ),
             CarouselSlider(
               options: CarouselOptions(height: 100),
               items: [50000, 75000, 100000].map((i) {

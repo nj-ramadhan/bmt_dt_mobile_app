@@ -16,7 +16,8 @@ class AppRoutes {
   static const String deposit = 'deposit';
   static const String checking = 'checking';
   static const String shopping = 'shopping';
-  static const String shopping_detail_list = 'shopping_detail_list';  
+  static const String shopping_provider_list = 'shopping_provider_list';
+  static const String shopping_confirm = 'shopping_confirm';
   static const String transaction_detail = 'transaction_detail';
   static const String add_client = 'add_client';
   static const String input_account = 'input_account';

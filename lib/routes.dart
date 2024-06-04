@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 
-import 'screens/change_password_screen.dart';
+import 'screens/add_client_screen.dart';
 import 'screens/change_email_screen.dart';
-import 'screens/transaction_detail_screen.dart';
+import 'screens/change_password_screen.dart';
 import 'screens/change_pin_screen.dart';
 import 'screens/checking_screen.dart';
 import 'screens/deposit_screen.dart';
 import 'screens/funding_screen.dart';
 import 'screens/home_screen.dart';
-import 'screens/login_screen.dart';
-import 'screens/menu_screen.dart';
-import 'screens/add_client_screen.dart';
 import 'screens/input_account_screen.dart';
 import 'screens/input_amount_screen.dart';
+import 'screens/login_screen.dart';
+import 'screens/menu_screen.dart';
 import 'screens/payment_screen.dart';
 import 'screens/profile_detail_screen.dart';
 import 'screens/profile_screen.dart';
@@ -21,8 +20,10 @@ import 'screens/registration_success_screen.dart';
 import 'screens/saving_mandatory_screen.dart';
 import 'screens/saving_principal_screen.dart';
 import 'screens/saving_voluntary_screen.dart';
+import 'screens/shopping_confirm_screen.dart';
+import 'screens/shopping_provider_list_screen.dart';
 import 'screens/shopping_screen.dart';
-import 'screens/shopping_detail_list_screen.dart';
+import 'screens/transaction_detail_screen.dart';
 import 'screens/transfer_screen.dart';
 import 'utils/common_widgets/invalid_route.dart';
 import 'values/app_routes.dart';
@@ -98,8 +99,11 @@ class Routes {
       case AppRoutes.shopping:
         return getRoute(widget: const ShoppingPage());
 
-      case AppRoutes.shopping_detail_list:
-        return getRoute(widget: const ShoppingDetailListPage());
+      case AppRoutes.shopping_provider_list:
+        return getRoute(widget: const ShoppingProviderListPage());
+
+      case AppRoutes.shopping_confirm:
+        return getRoute(widget: const ShoppingConfirmPage());
 
       case AppRoutes.funding:
         return getRoute(widget: const FundingPage());

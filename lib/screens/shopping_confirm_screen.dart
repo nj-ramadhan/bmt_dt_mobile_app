@@ -14,13 +14,13 @@ import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
 
-class ShoppingDetailListPage extends StatefulWidget {
-  const ShoppingDetailListPage({super.key});
+class ShoppingConfirmPage extends StatefulWidget {
+  const ShoppingConfirmPage({super.key});
   @override
-  State<ShoppingDetailListPage> createState() => _ShoppingDetailListPageState();
+  State<ShoppingConfirmPage> createState() => _ShoppingConfirmPageState();
 }
 
-class _ShoppingDetailListPageState extends State<ShoppingDetailListPage> {
+class _ShoppingConfirmPageState extends State<ShoppingConfirmPage> {
   late String frontCodeNumber;
   Map<int, Map<String, String>> dataMap = {};
   final ValueNotifier<bool> frontCodeNotifier = ValueNotifier(true);
@@ -152,67 +152,63 @@ class _ShoppingDetailListPageState extends State<ShoppingDetailListPage> {
                   SizedBox(
                     height: screenHeight * 0.02,
                   ),
-                  CarouselSlider(
-                    options: CarouselOptions(height: screenHeight * 0.22),
-                    items: dataMap.keys.map((i) {
-                      return Builder(
-                        builder: (BuildContext context) {
-                          return Container(
-                            margin: EdgeInsets.symmetric(
-                                horizontal: screenWidth * 0.02),
-                            child: Card(
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(screenHeight * 0.02),
-                              ),
-                              elevation: 5,
-                              child: InkWell(
-                                child: Padding(
-                                  padding: EdgeInsets.all(screenWidth * 0.02),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Material(
-                                        color: AppColors.darkGreen,
-                                        shape: const CircleBorder(),
-                                        child: Padding(
-                                          padding: EdgeInsets.all(
-                                              screenWidth * 0.01),
-                                          child: Image.network(
-                                            dataMap[i]?['logo_kartu'] ?? '',
-                                            width: screenWidth * 0.15,
-                                            fit: BoxFit.cover,
-                                            alignment: Alignment.topCenter,
-                                          ),
-                                        ),
+                  Column(
+                    children: [
+                      // dataMap.keys.map((i) {
+                      for (var i = 1; i <= dataMap.keys.length; i++)
+                        // debugPrint('response: $dataMap');
+
+                        Card(
+                          color: AppColors.primaryColor,
+                          child: InkWell(
+                            child: Padding(
+                              padding: EdgeInsets.all(screenWidth * 0.02),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Material(
+                                    color: AppColors.darkGreen,
+                                    shape: const CircleBorder(),
+                                    child: Padding(
+                                      padding:
+                                          EdgeInsets.all(screenWidth * 0.01),
+                                      child: Image.network(
+                                        dataMap[i]?['logo_kartu'] ?? '',
+                                        width: screenWidth * 0.15,
+                                        fit: BoxFit.cover,
+                                        alignment: Alignment.topCenter,
                                       ),
-                                      Text(
-                                        dataMap[i]?['produk_provider'] ?? '',
-                                        style: const TextStyle(
-                                          color: AppColors.darkGreen,
-                                          height: 7,
-                                        ),
-                                      ),
-                                      const Icon(
-                                        Icons.chevron_right,
-                                        color: AppColors.darkGreen,
-                                      ),
-                                    ],
+                                      // Image(
+                                      // image: ssetImage(
+                                      //     'assets/images/handphone.png'),
+                                      // height: 20,
+                                      // alignment: Alignment.topCenter,
+                                      // ),
+                                    ),
                                   ),
-                                ),
-                                onTap: () {
-                                  // NavigationHelper.pushReplacementNamed(
-                                  //     // AppRoutes.shopping_detail_list,
-                                  //     );
-                                },
+                                  Text(
+                                    dataMap[i]?['produk_provider'] ?? '',
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      height: 3,
+                                    ),
+                                  ),
+                                  const Icon(
+                                    Icons.chevron_right,
+                                    color: Colors.white,
+                                  ),
+                                ],
                               ),
                             ),
-                          );
-                        },
-                      );
-                    }).toList(),
+                            onTap: () {
+                              // NavigationHelper.pushReplacementNamed(
+                              //   AppRoutes.shopping_detail_list,
+                              // );
+                            },
+                          ),
+                        ),
+                    ],
                   ),
                 ],
               ),

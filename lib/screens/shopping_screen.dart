@@ -184,7 +184,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                 ),
                                 onTap: () {
                                   NavigationHelper.pushReplacementNamed(
-                                    AppRoutes.shopping_detail_list,
+                                    AppRoutes.shopping_provider_list,
                                   );
                                 },
                               ),
