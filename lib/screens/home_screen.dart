@@ -40,10 +40,12 @@ class _HomePageState extends State<HomePage> {
     print(data);
     for (var entry in data.entries) {
       print(entry.value['name']);
-      if (entry.value['name'] == 'SIMPANAN SUKARELA') {
+      print(entry.value['amount']);
+      if (entry.value['name'].toString() == 'SIMPANAN SUKARELA') {
+        print("data nya uang "+entry.value['amount'].toString());
         updateDetailsRek(
           entry.value['number'].toString(),
-        entry.value['saldo_rp'].toString(),
+        entry.value['amount'].toString(),
         apiDataDestinationSirelaId,
         apiDataDestinationSirelaName,
         apiDataSendaAmount,

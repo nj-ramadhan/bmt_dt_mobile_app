@@ -9,6 +9,7 @@ class AppRoutes {
   static const String home = 'home';
   static const String menu = 'menu';
   static const String profile = 'profile';
+  static const String transaction_sucess = 'profile';
   static const String profile_detail = 'profile_detail';
   static const String change_password = 'change_password';
   static const String change_email = 'change_email';
@@ -17,6 +18,7 @@ class AppRoutes {
   static const String checking = 'checking';
   static const String shopping = 'shopping';
   static const String transaction_detail = 'transaction_detail';
+  static const String transaction_sucess = 'transaction_sucess';
   static const String add_client = 'add_client';
   static const String input_account = 'input_account';
   static const String input_amount = 'input_amount';

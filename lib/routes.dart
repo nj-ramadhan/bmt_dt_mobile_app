@@ -20,6 +20,7 @@ import 'screens/registration_success_screen.dart';
 import 'screens/saving_mandatory_screen.dart';
 import 'screens/saving_principal_screen.dart';
 import 'screens/saving_voluntary_screen.dart';
+import 'screens/transfer_success_screen.dart';
 import 'screens/shopping_screen.dart';
 import 'screens/transaction_detail_screen.dart';
 import 'screens/transfer_screen.dart';
@@ -81,6 +82,9 @@ class Routes {
 
       case AppRoutes.transaction_detail:
         return getRoute(widget: const TransactionDetailPage());
+
+      case AppRoutes.transaction_sucess:
+        return getRoute(widget: const TransferSuccessPage());
 
       case AppRoutes.add_client:
         return getRoute(widget: const AddClientPage());

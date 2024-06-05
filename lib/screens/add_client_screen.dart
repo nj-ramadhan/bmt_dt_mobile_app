@@ -1,16 +1,10 @@
-// import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import '../global_variables.dart';
 import '../utils/helpers/api_helper.dart';
-// import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/database_helper.dart';
 import '../utils/helpers/navigation_helper.dart';
 import '../values/app_routes.dart';
-// import '../utils/helpers/navigation_helper.dart';
-// import '../values/app_colors.dart';
-// import '../values/app_strings.dart';
-// import '../values/app_theme.dart';
 
 class AddClientPage extends StatefulWidget {
   const AddClientPage({super.key});
@@ -21,7 +15,7 @@ class AddClientPage extends StatefulWidget {
 
 class _AddClientPageState extends State<AddClientPage> {
   final Color backgroundColor = Color(0xFFD5F5E3); // Adjust this color to match the exact color from the image.
-  
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -72,7 +66,8 @@ class _FavoriteAccountsPageState extends State<FavoriteAccountsPage> {
       _accounts = accounts;
     });
   }
- Future<String?> fetchAccountHolder(String accountNumber) async {
+
+  Future<String?> fetchAccountHolder(String accountNumber) async {
     // Simulasi panggilan API
     // Gantilah URL dan logika ini dengan panggilan API yang sesuai
     await Future.delayed(Duration(seconds: 1)); // Simulasi waktu tunggu API
@@ -92,6 +87,7 @@ class _FavoriteAccountsPageState extends State<FavoriteAccountsPage> {
       return null;
     }
   }
+
   void _showEditDialog(BuildContext context, Map<String, dynamic> account) {
     final TextEditingController _accountNumberController = TextEditingController(text: account['account_number']);
     final TextEditingController _accountHolderController = TextEditingController(text: account['account_holder']);
@@ -108,13 +104,6 @@ class _FavoriteAccountsPageState extends State<FavoriteAccountsPage> {
               controller: _accountNumberController,
               decoration: InputDecoration(
                 labelText: 'Account Number',
-                // suffixIcon: IconButton(
-                //   icon: Icon(Icons.search),
-                //   onPressed: () async {
-                //     String accountHolder = await ApiHelper.getAccountHolderSirela(idSirela: _accountNumberController.text,LoginToken: apiLoginToken) ?? 'Not Found';
-                //     _accountHolderController.text = accountHolder;
-                //   },
-                // ),
               ),
               readOnly: true,
             ),
@@ -171,7 +160,7 @@ class _FavoriteAccountsPageState extends State<FavoriteAccountsPage> {
     );
   }
 
-void _showAddDialog(BuildContext context) {
+  void _showAddDialog(BuildContext context) {
     final TextEditingController _accountNumberController = TextEditingController();
     final TextEditingController _accountHolderController = TextEditingController();
     final TextEditingController _accountAliasController = TextEditingController();
@@ -191,18 +180,21 @@ void _showAddDialog(BuildContext context) {
                 suffixIcon: IconButton(
                   icon: Icon(Icons.search),
                   onPressed: () async {
-                    String accountHolder = await ApiHelper.getAccountHolderSirela(idSirela: _accountNumberController.text,LoginToken: apiLoginToken);
-                    print("hasil $accountHolder" );
-                    if(accountHolder != 'error'){
-                    print("masuk kesini");
-
-                    _accountHolderController.text = accountHolder;
-                    }
-                    else{
-                    print("masuk kesini error");
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text("ID Sirela Tidak Ditemukan"),
-                  )); 
+                    String accountHolder = await ApiHelper.getAccountHolderSirela(
+                      idSirela: _accountNumberController.text,
+                      LoginToken: apiLoginToken,
+                    );
+                    print("hasil $accountHolder");
+                    if (accountHolder != 'error') {
+                      print("masuk kesini");
+                      setState(() {
+                        _accountHolderController.text = accountHolder;
+                      });
+                    } else {
+                      print("masuk kesini error");
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text("ID Sirela Tidak Ditemukan"),
+                      ));
                     }
                   },
                 ),
@@ -297,17 +289,17 @@ void _showAddDialog(BuildContext context) {
                   title: Text(account['account_holder']),
                   subtitle: Text('${account['account_number']} (${account['account_alias']})'),
                   onTap: () {
-
                     updateDetailsRek(
                       apiDataOwnSirelaId,
-                      apiDataOwnSirelaAmount,
+                      apiDataSendaAmount,
                       account['account_number'],
                       account['account_holder'],
                       account['account_holder'],
-                      apiDataSendaComment
+                      apiDataSendaComment,
                     );
                     NavigationHelper.pushReplacementNamed(
-                        AppRoutes.input_amount,);
+                      AppRoutes.input_amount,
+                    );
                   },
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -331,7 +323,8 @@ void _showAddDialog(BuildContext context) {
             child: ElevatedButton(
               onPressed: () {
                 NavigationHelper.pushReplacementNamed(
-                        AppRoutes.input_account ,);
+                  AppRoutes.input_account,
+                );
               },
               child: Text('Transfer Baru'),
               style: ElevatedButton.styleFrom(
@@ -344,16 +337,4 @@ void _showAddDialog(BuildContext context) {
       ),
     );
   }
-
-  // Widget _buildAccountItem(String title, String subtitle, String initials) {
-  //   return ListTile(
-  //     leading: CircleAvatar(
-  //       child: Text(initials, style: TextStyle(color: Colors.white)),
-  //       backgroundColor: Colors.green, // Use green color for avatar background
-  //     ),
-  //     title: Text(title, style: TextStyle(color: Colors.black)), // Black text color
-  //     subtitle: Text(subtitle, style: TextStyle(color: Colors.black)), // Black text color
-  //     onTap: () {},
-  //   );
-  // }
 }
