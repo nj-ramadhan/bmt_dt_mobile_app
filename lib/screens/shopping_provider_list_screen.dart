@@ -1,12 +1,9 @@
 // ignore_for_file: non_constant_identifier_names, avoid_dynamic_calls
 
 import 'dart:async';
-import 'package:intl/intl.dart';
 
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 
 import '../global_variables.dart';
 import '../utils/common_widgets/gradient_background.dart';
@@ -44,6 +41,7 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
       providerCodeNumber = dataProvider[1]?['no_provider'] ?? '';
       providerLogo = dataProvider[1]?['logo_kartu'] ?? '';
       updateProviderCode(providerCodeNumber);
+      fetchDataProduct();
     });
   }
 
@@ -159,7 +157,7 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
                       onPressed: () => NavigationHelper.pushReplacementNamed(
-                        AppRoutes.home,
+                        AppRoutes.shopping,
                       ),
                     ),
                     const Text(
@@ -225,7 +223,7 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
                   FilledButton(
                     onPressed: () {
                       fetchDataProvider();
-                      fetchDataProduct();
+                      // fetchDataProduct();
                     },
                     child: Text('Check'),
                   ),

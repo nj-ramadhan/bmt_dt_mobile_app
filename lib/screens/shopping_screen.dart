@@ -46,7 +46,7 @@ class ShoppingPage extends StatefulWidget {
 }
 
 class _ShoppingPageState extends State<ShoppingPage> {
-  late List<Products> listProducts;
+  late List<Products> listShopping;
 
   Future<String> callAsyncFetch() =>
       Future.delayed(const Duration(milliseconds: 500), () => 'wait');
@@ -70,9 +70,9 @@ class _ShoppingPageState extends State<ShoppingPage> {
 
       final responseBody = json.decode(response.body);
       final responseData = responseBody['data'] as List;
-      // listProducts = responseData.map(Products.fromJson).toList();
+      // listShopping = responseData.map(Products.fromJson).toList();
       setState(() {
-        listProducts = responseData.map(Products.fromJson).toList();
+        listShopping = responseData.map(Products.fromJson).toList();
       });
     } catch (e) {
       debugPrint('Error: $e');
@@ -137,7 +137,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          for (final product in listProducts)
+                          for (final product in listShopping)
                             Card(
                               color: AppColors.primaryColor,
                               child: InkWell(
@@ -184,7 +184,10 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                 onTap: () {
                                   apiDataProductTransactionType =
                                       product.jenis_transaksi;
-                                  debugPrint('response transaction type: $apiDataProductTransactionType');
+                                  apiDataProductKeyword =
+                                      product.keyword_kode_depan_nomor;
+                                  debugPrint(
+                                      'response shopping, transaction type: $apiDataProductTransactionType, keyword $apiDataProductKeyword');
                                   NavigationHelper.pushReplacementNamed(
                                     AppRoutes.shopping_provider_list,
                                   );

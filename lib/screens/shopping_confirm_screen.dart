@@ -2,8 +2,8 @@
 
 import 'dart:async';
 
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../global_variables.dart';
 import '../utils/common_widgets/gradient_background.dart';
@@ -52,6 +52,14 @@ class _ShoppingConfirmPageState extends State<ShoppingConfirmPage> {
     return null; // Return null if SIMPANAN SUKARELA is not found
   }
 
+  String indonesianCurrencyFormat(String data) {
+    int dataInt = int.parse(data);
+    var dataFormatted =
+        NumberFormat.currency(locale: 'id_ID', symbol: 'Rp. ', decimalDigits: 0)
+            .format(dataInt);
+    return dataFormatted.toString();
+  }
+
   @override
   void initState() {
     initializeControllers();
@@ -83,7 +91,9 @@ class _ShoppingConfirmPageState extends State<ShoppingConfirmPage> {
   void updatePinNumber(String value) => setState(() {
         pinNumber = value;
         apiDataProductPin = pinNumber;
+
         debugPrint('response: $pinNumber from $value');
+
         // Replace with your logic
       });
 
@@ -113,7 +123,7 @@ class _ShoppingConfirmPageState extends State<ShoppingConfirmPage> {
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
                       onPressed: () => NavigationHelper.pushReplacementNamed(
-                        AppRoutes.home,
+                        AppRoutes.shopping_provider_list,
                       ),
                     ),
                     const Text(
@@ -131,13 +141,34 @@ class _ShoppingConfirmPageState extends State<ShoppingConfirmPage> {
               ],
             ),
             Padding(
-              padding: EdgeInsets.all(screenWidth * 0.02),
+              padding: EdgeInsets.all(screenWidth * 0.05),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(apiDataProductName),
-                  Text(apiDataProductClientNumber),
-                  Text(apiDataProductPrice),
+                  Text(
+                    'Anda akan membeli paket',
+                    style: AppTheme.bodyMedium,
+                  ),
+                  Text(
+                    apiDataProductName,
+                    style: AppTheme.bodyLarge,
+                  ),
+                  Text(
+                    'Seharga',
+                    style: AppTheme.bodyMedium,
+                  ),
+                  Text(
+                    indonesianCurrencyFormat(apiDataProductPrice),
+                    style: AppTheme.bodyLarge,
+                  ),
+                  Text(
+                    'Nomor Tujuan',
+                    style: AppTheme.bodyMedium,
+                  ),
+                  Text(
+                    apiDataProductClientNumber,
+                    style: AppTheme.bodyLarge,
+                  ),
                   TextField(
                     decoration: const InputDecoration(
                         hintText: AppStrings.pin,
@@ -155,9 +186,6 @@ class _ShoppingConfirmPageState extends State<ShoppingConfirmPage> {
                     onPressed: () {
                       print("masuk tekan tombol");
                       postDataBuyProduct();
-                      SnackBar(
-                        content: Text(dataBuyProduct[1]?['message'] ?? ''),
-                      );
                     },
                     child: Text('Continue'),
                   ),

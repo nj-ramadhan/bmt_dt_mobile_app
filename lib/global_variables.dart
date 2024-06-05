@@ -64,6 +64,7 @@ String apiDataAppNameString = 'null';
 String apiDataAppLogo = 'null';
 String apiDataAppLogoBar = 'null';
 
+String apiDataProductKeyword = 'null';
 String apiDataProductShoppingType = 'null';
 String apiDataProductProviderCode = 'null';
 String apiDataProductTransactionType = 'null';
@@ -227,6 +228,7 @@ void updateDetailsApp(
 }
 
 void updateDetailProducts(
+  String newApiDataProductKeyword,
   String newApiDataProductShoppingType,
   String newApiDataProductProviderCode,
   String newApiDataProductTransactionType,
@@ -246,6 +248,7 @@ void updateDetailProducts(
   // apiDataAppBlocked = newApiDataAppBlocked;
   // apiDataAppStatus = newApiDataAppStatus;
 
+  apiDataProductKeyword = newApiDataProductKeyword;
   apiDataProductShoppingType = newApiDataProductShoppingType;
   apiDataProductProviderCode = newApiDataProductProviderCode;
   apiDataProductTransactionType = newApiDataProductTransactionType;
