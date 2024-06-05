@@ -92,7 +92,7 @@ class _ShoppingConfirmPageState extends State<ShoppingConfirmPage> {
         pinNumber = value;
         apiDataProductPin = pinNumber;
 
-        debugPrint('response: $pinNumber from $value');
+        debugPrint('response: $apiDataProductPin');
 
         // Replace with your logic
       });
