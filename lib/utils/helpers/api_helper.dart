@@ -578,39 +578,38 @@ class ApiHelper {
     throw Exception("Fetch Data Error");
   }
 
-  static Future<Map<int, Map<String, String>>> postBuyProduct(
-      {required String LoginToken,
-      required String pin,
-      required String codeProduct,
-      required String clientNumber,
-      required String methodPayment}) async {
-    final headers = {
-      'ClientID':
-          'jLdCPSe3816XRXk7+aCMc+Et0nk1y6/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs/WzXeZ9pQGOkHyX6IK/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M/fXTrjkHB/v+1VFKgkGRFz0eIhDXZ3yp7e/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3/gKIXwL6NGFqzdeEy3xC/Qr6',
-      'Authorization': 'Bearer $LoginToken',
-      'Content-Type': 'application/json',
-    };
+  static Future<Map<int, Map<String, String>>> postBuyProduct({
+  required String LoginToken,
+  required String pin,
+  required String codeProduct,
+  required String clientNumber,
+  required String methodPayment,
+}) async {
+  final String url = "https://dkuapi.dkuindonesia.id/api/Pulsa/beli_pulsa";
 
-    Map<String, dynamic> isi = {
-      'pin': pin,
-      'kode_p': codeProduct,
-      'm_bayar': methodPayment,
-      'no_tujuan': clientNumber,
-    };
-    final String url = "https://dkuapi.dkuindonesia.id/api/Pulsa/beli_pulsa";
+  final headers = {
+    'Authorization': 'Bearer $LoginToken',
+    'Content-Type': 'multipart/form-data',
+  };
 
-    try {
-      final response = await http.post(
-        Uri.parse(url),
-        headers: headers,
-        body: json.encode(isi),
-      );
-      final body = json.decode(response.body) as List;
+  try {
+    var request = http.MultipartRequest('POST', Uri.parse(url))
+      ..headers.addAll(headers)
+      ..fields['pin'] = pin
+      ..fields['kode_p'] = codeProduct
+      ..fields['m_bayar'] = methodPayment
+      ..fields['no_tujuan'] = clientNumber;
 
-      if (response.statusCode == 402) {
-        Map<int, Map<String, String>> dataMap = {};
-        for (int i = 0; i < body.length; i++) {
-          var item = body[i];
+    final response = await request.send();
+      print(response);
+
+    if (response.statusCode == 200 || response.statusCode == 402) {
+      final responseBody = await response.stream.bytesToString();
+      final data = json.decode(responseBody);
+      print(data);
+      Map<int, Map<String, String>> dataMap = {};
+        for (int i = 0; i < data.length; i++) {
+          var item = data[i];
           dataMap[i + 1] = {
             'status_trx': item['status_trx'] ?? '',
             'kd_trx': item['kd_trx'] ?? '',
@@ -618,12 +617,14 @@ class ApiHelper {
             'message': item['message'] ?? '',
           };
         }
-        print(dataMap);
         return dataMap;
-      }
-    } on SocketException {
-      throw Exception("Network Connectivity Error");
+
+    } else {
+      throw Exception("Failed to complete transaction: ${response.statusCode}");
     }
-    throw Exception("Fetch Data Error");
+  } catch (e) {
+    print('Error: $e');
+    throw Exception("Network Connectivity Error");
   }
+}
 }

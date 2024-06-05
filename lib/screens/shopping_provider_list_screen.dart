@@ -38,7 +38,7 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
       dataProvider = data;
       debugPrint('response list data provider: $dataProvider');
 
-      providerCodeNumber = dataProvider[1]?['no_kode_provider'] ?? '';
+      providerCodeNumber = dataProvider[1]?['no_provider'] ?? '';
       providerLogo = dataProvider[1]?['logo_kartu'] ?? '';
       updateProviderCode(providerCodeNumber);
       fetchDataProduct();

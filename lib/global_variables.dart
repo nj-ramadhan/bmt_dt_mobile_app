@@ -74,6 +74,16 @@ String apiDataProductCode = 'null';
 String apiDataProductPrice = 'null';
 String apiDataProductPin = 'null';
 
+
+String apiDataOwnSirelaId = 'null';
+String apiDataOwnSirelaAmount = 'null';
+String apiDataDestinationSirelaId = 'null';
+String apiDataDestinationSirelaName = 'null';
+String apiDataSendaAmount = "null";
+String apiDataSendaComment = "null";
+
+
+
 void updateLoginVariables(
   String newApiRolePendidikan,
   String newApiRoleKoperasi,
@@ -247,4 +257,38 @@ void updateDetailProducts(
   apiDataProductCode = newApiDataProductCode;
   apiDataProductPrice = newApiDataProductPrice;
   apiDataProductPin = newApiDataProductPin;
+}
+
+void updateDetailsRek(
+  // String newApiDataAppId,
+  // String newApiDataAppName,
+  // String newApiDataAppIp,
+  // String newApiDataAppVerify,
+  // String newApiDataAppDomain,
+  // String newApiDataAppAccessFrom,
+  // String newApiDataAppLembagaId,
+  // String newApiDataAppBlocked,
+  // String newApiDataAppStatus,
+  String newapiDataOwnSirelaId,
+  String newapiDataOwnSirelaAmount,
+  String newapiDataDestinationSirelaId,
+  String newapiDataDestinationSirelaName,
+  String newapiDataSendaAmount,
+  String newapiDataSendaComment,
+) {
+  // apiDataAppId = newApiDataAppId;
+  // apiDataAppName = newApiDataAppName;
+  // apiDataAppIp = newApiDataAppIp;
+  // apiDataAppVerify = newApiDataAppVerify;
+  // apiDataAppDomain = newApiDataAppDomain;
+  // apiDataAppAccessFrom = newApiDataAppAccessFrom;
+  // apiDataAppLembagaId = newApiDataAppLembagaId;
+  // apiDataAppBlocked = newApiDataAppBlocked;
+  // apiDataAppStatus = newApiDataAppStatus;
+  apiDataOwnSirelaId = newapiDataOwnSirelaId;
+  apiDataOwnSirelaAmount = newapiDataOwnSirelaAmount;
+  apiDataDestinationSirelaId = newapiDataDestinationSirelaId;
+  apiDataDestinationSirelaName = newapiDataDestinationSirelaName;
+  apiDataSendaAmount = newapiDataSendaAmount;
+  apiDataSendaComment= newapiDataSendaComment;
 }
