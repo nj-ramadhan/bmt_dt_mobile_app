@@ -69,6 +69,7 @@ String apiDataProductProviderCode = 'null';
 String apiDataProductTransactionType = 'null';
 String apiDataProductClientNumber = 'null';
 String apiDataProductName = 'null';
+String apiDataProductCode = 'null';
 String apiDataProductPrice = 'null';
 String apiDataProductPin = 'null';
 
@@ -220,6 +221,9 @@ void updateDetailProducts(
   String newApiDataProductProviderCode,
   String newApiDataProductTransactionType,
   String newApiDataProductClientNumber,
+  String newApiDataProductName,
+  String newApiDataProductCode,
+  String newApiDataProductPrice,
   String newApiDataProductPin,
 ) {
   // apiDataAppId = newApiDataAppId;
@@ -236,5 +240,8 @@ void updateDetailProducts(
   apiDataProductProviderCode = newApiDataProductProviderCode;
   apiDataProductTransactionType = newApiDataProductTransactionType;
   apiDataProductClientNumber = newApiDataProductClientNumber;
+  apiDataProductName = newApiDataProductName;
+  apiDataProductCode = newApiDataProductCode;
+  apiDataProductPrice = newApiDataProductPrice;
   apiDataProductPin = newApiDataProductPin;
 }

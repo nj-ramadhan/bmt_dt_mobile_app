@@ -39,8 +39,11 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
         LoginToken: apiLoginToken, frontCode: frontCodeNumber);
     setState(() {
       dataProvider = data;
+      debugPrint('response list data provider: $dataProvider');
 
-      getListProvider(data);
+      providerCodeNumber = dataProvider[1]?['no_kode_provider'] ?? '';
+      providerLogo = dataProvider[1]?['logo_kartu'] ?? '';
+      updateProviderCode(providerCodeNumber);
     });
   }
 
@@ -51,6 +54,7 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
         transactionType: apiDataProductTransactionType);
     setState(() {
       dataProduct = data;
+      debugPrint('response list data product: $dataProduct');
 
       getListProduct(data);
     });
@@ -58,9 +62,10 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
 
   String? getListProvider(Map<int, Map<String, String>> data) {
     for (var entry in data.entries) {
-      if (entry.value['keyword_kode_depan_nomor'] == frontCodeNumber) {
-        return entry.value['keyword_kode_depan_nomor'];
-      }
+      return entry.value['keyword_kode_depan_nomor'];
+      // if (entry.value['keyword_kode_depan_nomor'] == frontCodeNumber) {
+      //   return entry.value['keyword_kode_depan_nomor'];
+      // }
     }
     return null;
   }
@@ -116,14 +121,15 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
   void updateFrontCode(String value) => setState(() {
         frontCodeNumber = value.substring(0, 4);
         apiDataProductClientNumber = value;
-        debugPrint('response transaction type: $apiDataProductClientNumber');
+        debugPrint('response client number: $apiDataProductClientNumber');
         // Replace with your logic
       });
 
   void updateProviderCode(String value) => setState(() {
         providerCodeNumber = value;
         apiDataProductProviderCode = providerCodeNumber;
-        debugPrint('response transaction type: $apiDataProductProviderCode');
+        debugPrint('response provider code: $apiDataProductProviderCode');
+        debugPrint('response transaction type: $apiDataProductTransactionType');
         // Replace with your logic
       });
 
@@ -219,10 +225,6 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
                   FilledButton(
                     onPressed: () {
                       fetchDataProvider();
-                      providerCodeNumber =
-                          dataProvider[1]?['no_kode_provider'] ?? '';
-                      providerLogo = dataProvider[1]?['logo_kartu'] ?? '';
-                      updateProviderCode(providerCodeNumber);
                       fetchDataProduct();
                     },
                     child: Text('Check'),
@@ -277,6 +279,8 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
                                   dataProduct[i]?['nama_produk'] ?? '';
                               apiDataProductPrice =
                                   dataProduct[i]?['harga_jual_agen'] ?? '';
+                              apiDataProductCode =
+                                  dataProduct[i]?['kode_dku'] ?? '';
                               NavigationHelper.pushReplacementNamed(
                                 AppRoutes.shopping_confirm,
                               );

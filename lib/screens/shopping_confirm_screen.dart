@@ -29,11 +29,12 @@ class _ShoppingConfirmPageState extends State<ShoppingConfirmPage> {
     final data = await ApiHelper.postBuyProduct(
         LoginToken: apiLoginToken,
         pin: apiDataProductPin,
-        codePayment: apiDataProductProviderCode,
+        codeProduct: apiDataProductCode,
         clientNumber: apiDataProductClientNumber,
         methodPayment: 'id_su');
     setState(() {
       dataBuyProduct = data;
+      debugPrint('response post data buy: $dataBuyProduct');
 
       postBuyProduct(data);
     });
@@ -76,8 +77,8 @@ class _ShoppingConfirmPageState extends State<ShoppingConfirmPage> {
     super.dispose();
   }
 
-  void updateFrontCode(String value) => setState(() {
-        pinNumber = value.substring(0, 4);
+  void updatePinNumber(String value) => setState(() {
+        pinNumber = value;
         debugPrint('response: $pinNumber from $value');
         // Replace with your logic
       });
@@ -135,20 +136,23 @@ class _ShoppingConfirmPageState extends State<ShoppingConfirmPage> {
                   Text(apiDataProductPrice),
                   TextField(
                     decoration: const InputDecoration(
-                        hintText: AppStrings.frontCode,
+                        hintText: AppStrings.pin,
                         fillColor: AppColors.lightGreen),
                     controller: pinNumberController,
                     textInputAction: TextInputAction.done,
                     textAlign: TextAlign.end,
                     keyboardType: TextInputType.number,
-                    onChanged: (_) => updateFrontCode(pinNumberController.text),
+                    onChanged: (_) => updatePinNumber(pinNumberController.text),
                   ),
                   SizedBox(
                     height: screenHeight * 0.02,
                   ),
                   FilledButton(
                     onPressed: () {
-                      postDataBuyProduct;
+                      postDataBuyProduct();
+                      SnackBar(
+                        content: Text(dataBuyProduct[1]?['message'] ?? ''),
+                      );
                     },
                     child: Text('Continue'),
                   ),
