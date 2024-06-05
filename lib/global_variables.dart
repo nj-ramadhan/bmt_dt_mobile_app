@@ -74,15 +74,12 @@ String apiDataProductCode = 'null';
 String apiDataProductPrice = 'null';
 String apiDataProductPin = 'null';
 
-
 String apiDataOwnSirelaId = 'null';
 String apiDataOwnSirelaAmount = 'null';
 String apiDataDestinationSirelaId = 'null';
 String apiDataDestinationSirelaName = 'null';
 String apiDataSendaAmount = "null";
 String apiDataSendaComment = "null";
-
-
 
 void updateLoginVariables(
   String newApiRolePendidikan,
@@ -107,12 +104,12 @@ void updateDetails(
 }
 
 void updateDetailsUser(
-  // String newApiDataUserNIK,
+  String newApiDataUserNIK,
   String newApiDataUserNamaLengkap,
   // String newApiDataUserNamaPanggilan,
-  // String newApiDataUserTempatLahir,
+  String newApiDataUserTempatLahir,
   // String newApiDataUserTanggalLahir,
-  // String newApiDataUserJenisKelamin,
+  String newApiDataUserJenisKelamin,
   String newApiDataUserAlamatLengkap,
   // String newApiDataUserProvinsi,
   // String newApiDataUserKabupatenKota,
@@ -137,12 +134,12 @@ void updateDetailsUser(
   // String newApiDataUserIjazahFoto,
   // String newApiDataUserSkhunFoto,
 ) {
-  // apiDataUserNIK = newApiDataUserNIK;
+  apiDataUserNIK = newApiDataUserNIK;
   apiDataUserNamaLengkap = newApiDataUserNamaLengkap;
   // apiDataUserNamaPanggilan = newApiDataUserNamaPanggilan;
-  // apiDataUserTempatLahir = newApiDataUserTempatLahir;
+  apiDataUserTempatLahir = newApiDataUserTempatLahir;
   // apiDataUserTanggalLahir = newApiDataUserTanggalLahir;
-  // apiDataUserJenisKelamin = newApiDataUserJenisKelamin;
+  apiDataUserJenisKelamin = newApiDataUserJenisKelamin;
   apiDataUserAlamatLengkap = newApiDataUserAlamatLengkap;
   // apiDataUserProvinsi = newApiDataUserProvinsi;
   // apiDataUserKabupatenKota = newApiDataUserKabupatenKota;
@@ -290,5 +287,5 @@ void updateDetailsRek(
   apiDataDestinationSirelaId = newapiDataDestinationSirelaId;
   apiDataDestinationSirelaName = newapiDataDestinationSirelaName;
   apiDataSendaAmount = newapiDataSendaAmount;
-  apiDataSendaComment= newapiDataSendaComment;
+  apiDataSendaComment = newapiDataSendaComment;
 }

@@ -33,9 +33,17 @@ class AppStrings {
   static const String pleaseEnterId = 'Mohon isi nomor KTP';
   static const String invalidId = 'Nomor KTP tidak sesuai';
 
+  static const String gender = 'Jenis Kelamin';
+  static const String pleaseEnterGender = 'Mohon isi Jenis Kelamin';
+  static const String invalidGender = 'Jenis Kelamin tidak sesuai';
+
+  static const String birthPlace = 'Tempat Lahir';
+  static const String pleaseEnterBirthPlace = 'Mohon isi tempat lahir';
+  static const String invalidBirthPlace = 'Tempat lahir tidak sesuai';
+
   static const String birthDate = 'Tanggal Lahir';
-  static const String pleasePickbirthDate = 'Mohon pilih tanggal lahir';
-  static const String invalidbirthDate = 'Tanggal lahir tidak sesuai';
+  static const String pleasePickBirthDate = 'Mohon pilih tanggal lahir';
+  static const String invalidBirthDate = 'Tanggal lahir tidak sesuai';
 
   static const String address = 'Alamat';
   static const String pleaseEnterAddress = 'Mohon isi alamat sesuai KTP';

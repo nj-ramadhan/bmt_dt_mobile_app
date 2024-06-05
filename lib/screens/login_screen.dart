@@ -53,6 +53,8 @@ class _LoginPageState extends State<LoginPage> {
 
   late String responseDetailsUserNik;
   late String responseDetailsUserNamaLengkap;
+  late String responseDetailsUserJenisKelamin;
+  late String responseDetailsUserTempatLahir;
   late String responseDetailsUserTanggalLahir;
   late String responseDetailsUserAlamatLengkap;
   // late String responseDetailsUserHpOrtu;
@@ -198,11 +200,15 @@ class _LoginPageState extends State<LoginPage> {
       if (response.statusCode == 200) {
         final responseBody = json.decode(response.body);
         // responseDetailsUserNik =
-        //     responseBody['data_user_details']['nik'].toString();
+        responseBody['data_user_details']['nik'].toString();
         responseDetailsUserNamaLengkap =
             responseBody['data_user_details']['nama_lengkap'].toString();
         responseDetailsUserAlamatLengkap =
             responseBody['data_user_details']['alamat_lengkap'].toString();
+        responseDetailsUserJenisKelamin =
+            responseBody['data_user_details']['jenis_kelamin'].toString();
+        responseDetailsUserTempatLahir =
+            responseBody['data_user_details']['tempat_lahir'].toString();
         // dataDetailsAccount = responseBody['data_account_details'].toString();
 
         debugPrint('response details:$responseBody.toString()');
@@ -229,10 +235,11 @@ class _LoginPageState extends State<LoginPage> {
             'response details account email:$responseDetailsAccountEmail');
 
         updateDetailsUser(
-          responseDetailsUserNamaLengkap,
-          // responseDetailsUserTanggalLahir,
-          responseDetailsUserAlamatLengkap,
-        );
+            responseDetailsUserNik,
+            responseDetailsUserNamaLengkap,
+            responseDetailsUserTempatLahir,
+            responseDetailsUserJenisKelamin,
+            responseDetailsUserAlamatLengkap);
 
         updateDetailsAccount(
           responseDetailsAccountNoUser,

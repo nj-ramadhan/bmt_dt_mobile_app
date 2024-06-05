@@ -624,4 +624,57 @@ class ApiHelper {
       throw Exception("Network Connectivity Error");
     }
   }
+
+  static Future<Map<int, Map<String, String>>> postProfileUpdate({
+    required String LoginToken,
+    required String password,
+    required String fullName,
+    required String idNumber,
+    required String gender,
+    required String birthPlace,
+    File? photoId,
+    File? photoProfile,
+  }) async {
+    final String url =
+        "https://dkuapi.dkuindonesia.id/api/Authorization/update_profile";
+
+    final headers = {
+      'Authorization': 'Bearer $LoginToken',
+      'Content-Type': 'multipart/form-data',
+    };
+
+    try {
+      var request = http.MultipartRequest('POST', Uri.parse(url))
+        ..headers.addAll(headers)
+        ..fields['current_password'] = password
+        ..fields['nik'] = idNumber
+        ..fields['nama_lengkap'] = fullName
+        ..fields['jenis_kelamin'] = gender
+        ..fields['tempat_lahir'] = birthPlace;
+      // ..files['ktp_foto'] = photoId as http.MultipartFile
+      // ..files['foto'] = photoProfile as http.MultipartFile ;
+
+      debugPrint('debug: api: $photoProfile');
+
+      final response = await request.send();
+      debugPrint('debug: api: $response');
+
+      if (response.statusCode == 200 || response.statusCode == 401) {
+        final responseBody = await response.stream.bytesToString();
+        final data = json.decode(responseBody);
+        debugPrint('debug: data: $data');
+        Map<int, Map<String, String>> dataMap = {};
+        dataMap[0] = {
+          'message': data['message'] ?? 'Tidak ada perubahan data',
+        };
+        return dataMap;
+      } else {
+        throw Exception(
+            "Failed to complete transaction: ${response.statusCode}");
+      }
+    } catch (e) {
+      debugPrint('debug Error: $e');
+      throw Exception("Network Connectivity Error");
+    }
+  }
 }

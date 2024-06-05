@@ -26,7 +26,7 @@ class _ShoppingConfirmPageState extends State<ShoppingConfirmPage> {
   Map<int, Map<String, String>> dataBuyProduct = {};
   late TextEditingController pinNumberController;
 
-  Future<void> postDataBuyProduct() async {
+  Future<void> postBuyProduct() async {
     debugPrint("debug: masuk ke buy product");
     debugPrint(apiDataProductCode);
     debugPrint(apiDataProductClientNumber);
@@ -40,12 +40,12 @@ class _ShoppingConfirmPageState extends State<ShoppingConfirmPage> {
     dataBuyProduct = data;
     setState(() {
       dataBuyProduct = data;
-
-      postBuyProduct(data);
+      SnackbarHelper.showSnackBar(responseBuyProduct(dataBuyProduct));
+    
     });
   }
 
-  String? postBuyProduct(Map<int, Map<String, String>> data) {
+  String? responseBuyProduct(Map<int, Map<String, String>> data) {
     for (var entry in data.entries) {
       return entry.value['message'];
     }
@@ -193,8 +193,7 @@ class _ShoppingConfirmPageState extends State<ShoppingConfirmPage> {
                   ),
                   FilledButton(
                     onPressed: () {
-                      print("masuk tekan tombol");
-                      postDataBuyProduct();
+                      postBuyProduct();
 
                       var message = dataBuyProduct[0]?['message'] ??
                           'Transaksi tidak dapat diproses';
