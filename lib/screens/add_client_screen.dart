@@ -192,7 +192,18 @@ void _showAddDialog(BuildContext context) {
                   icon: Icon(Icons.search),
                   onPressed: () async {
                     String accountHolder = await ApiHelper.getAccountHolderSirela(idSirela: _accountNumberController.text,LoginToken: apiLoginToken);
+                    print("hasil $accountHolder" );
+                    if(accountHolder != 'error'){
+                    print("masuk kesini");
+
                     _accountHolderController.text = accountHolder;
+                    }
+                    else{
+                    print("masuk kesini error");
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text("ID Sirela Tidak Ditemukan"),
+                  )); 
+                    }
                   },
                 ),
               ),
@@ -292,9 +303,11 @@ void _showAddDialog(BuildContext context) {
                       apiDataOwnSirelaAmount,
                       account['account_number'],
                       account['account_holder'],
+                      account['account_holder'],
+                      apiDataSendaComment
                     );
                     NavigationHelper.pushReplacementNamed(
-                        AppRoutes.home,);
+                        AppRoutes.input_amount,);
                   },
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -316,7 +329,10 @@ void _showAddDialog(BuildContext context) {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                NavigationHelper.pushReplacementNamed(
+                        AppRoutes.input_account ,);
+              },
               child: Text('Transfer Baru'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green, // Using green for button

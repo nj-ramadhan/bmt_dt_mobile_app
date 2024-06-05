@@ -166,6 +166,14 @@ class _InputAmountPageState extends State<InputAmountPage> {
                 
               }
                 }
+                updateDetailsRek(
+                    apiDataOwnSirelaId,
+                    apiDataOwnSirelaAmount,
+                    apiDataDestinationSirelaId,
+                    apiDataDestinationSirelaName,
+                    _amountController.text,
+                    _commentController.text
+                  );
                 NavigationHelper.pushReplacementNamed(
                         AppRoutes.transaction_detail,);
               },

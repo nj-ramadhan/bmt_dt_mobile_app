@@ -65,15 +65,17 @@ class _InputAccountPageState extends State<InputAccountPage> {
                 String accountHolder = await ApiHelper.getAccountHolderSirela(
                         idSirela: _accountNumberController.text,
                         LoginToken: apiLoginToken);
-                if ( accountHolder== "error") {
+                if ( accountHolder!= "error") {
                   updateDetailsRek(
                     apiDataOwnSirelaId,
                     apiDataOwnSirelaAmount,
                     _accountNumberController.text,
                     accountHolder,
+                    apiDataSendaAmount,
+                    apiDataSendaComment
                   );
                   NavigationHelper.pushReplacementNamed(
-                    AppRoutes.home,
+                    AppRoutes.input_amount,
                   );
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(

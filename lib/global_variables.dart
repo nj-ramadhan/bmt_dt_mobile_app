@@ -68,6 +68,8 @@ String apiDataOwnSirelaId = 'null';
 String apiDataOwnSirelaAmount = 'null';
 String apiDataDestinationSirelaId = 'null';
 String apiDataDestinationSirelaName = 'null';
+String apiDataSendaAmount = "null";
+String apiDataSendaComment = "null";
 
 void updateLoginVariables(
   String newApiRolePendidikan,
@@ -226,6 +228,8 @@ void updateDetailsRek(
   String newapiDataOwnSirelaAmount,
   String newapiDataDestinationSirelaId,
   String newapiDataDestinationSirelaName,
+  String newapiDataSendaAmount,
+  String newapiDataSendaComment,
 ) {
   // apiDataAppId = newApiDataAppId;
   // apiDataAppName = newApiDataAppName;
@@ -240,4 +244,6 @@ void updateDetailsRek(
   apiDataOwnSirelaAmount = newapiDataOwnSirelaAmount;
   apiDataDestinationSirelaId = newapiDataDestinationSirelaId;
   apiDataDestinationSirelaName = newapiDataDestinationSirelaName;
+  apiDataSendaAmount = newapiDataSendaAmount;
+  apiDataSendaComment= newapiDataSendaComment;
 }

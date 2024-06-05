@@ -484,10 +484,88 @@ class ApiHelper {
         headers: headers,
         body: json.encode(isi),
       );
+      final data  =  json.decode(response.body);
+      if(data['status'].toString() == "200"){
+
+      print(data);
+      print(data['data']);
+      final listdata = data['data'];
+      print(listdata[0]['nama_lengkap'].toString());
+      return listdata[0]['nama_lengkap'].toString();
+      }
+      else{
+        print("Errorr 4999");
+        return "error";
+      }
+  } catch(e){
+    debugPrint('Error : $e');
+    return "error";
+  }
+           
+   
+  }
+
+
+  static Future<String> getTransferSirela(
+    {required String idSirela,
+    required String LoginToken,
+    required String nominal,
+    required String notes,
+    required String pin,
+    }
+
+  ) async {
+    final headers = {
+      'ClientID':
+          'jLdCPSe3816XRXk7+aCMc+Et0nk1y6/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs/WzXeZ9pQGOkHyX6IK/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M/fXTrjkHB/v+1VFKgkGRFz0eIhDXZ3yp7e/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3/gKIXwL6NGFqzdeEy3xC/Qr6',
+      'Authorization': 'Bearer $LoginToken',
+      'Content-Type': 'application/json',
+    };
+
+    final isi = {
+      "mode": "formdata",
+      "formdata": [
+        {"key": "nominal", "value": nominal, "type": "text"},
+        {
+          "key": "m_bayar",
+          "value": "sk-",
+          "contentType": "MANDATORY",
+          "description": "VARCHAR(100) M",
+          "type": "text"
+        },
+        {
+          "key": "notes",
+          "value": notes,
+          "contentType": "MANDATORY",
+          "description": "VARCHAR(100) M",
+          "type": "text"
+        },
+        {
+          "key": "pin",
+          "value": pin,
+          "contentType": "MANDATORY",
+          "description": "VARCHAR(100) M",
+          "type": "text"
+        },
+        
+      ]
+      
+    };
+
+    final String url =
+        "https://dkuapi.dkuindonesia.id/api/dku_bank/acc_trx/$idSirela";
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: headers,
+        body: json.encode(isi),
+      ).timeout(
+              const Duration(seconds: 10));
       final body = json.decode(response.body);
       
       if (response.statusCode == 200) {
-        return body['data']['nama_lengkap'].toString();
+        print("udah masuk ke respon");
+        return body['status_trx'].toString();
       }
     } on SocketException {
       return("error");
