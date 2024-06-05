@@ -62,14 +62,15 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
         return entry.value['keyword_kode_depan_nomor'];
       }
     }
-    return null; // Return null if SIMPANAN SUKARELA is not found
+    return null;
   }
 
   String? getListProduct(Map<int, Map<String, String>> data) {
     for (var entry in data.entries) {
-      if (entry.value['provider_code'] == providerCodeNumber) {
-        return entry.value['provider_code'];
-      }
+      return entry.value['provider_code'];
+      // if (entry.value['provider_code'] == providerCodeNumber) {
+      //   return entry.value['provider_code'];
+      // }
     }
     return null; // Return null if SIMPANAN SUKARELA is not found
   }
@@ -114,15 +115,15 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
 
   void updateFrontCode(String value) => setState(() {
         frontCodeNumber = value.substring(0, 4);
-        apiDataProductFrontFourNumber = frontCodeNumber;
-        debugPrint('response: $frontCodeNumber from $value');
+        apiDataProductClientNumber = value;
+        debugPrint('response transaction type: $apiDataProductClientNumber');
         // Replace with your logic
       });
 
   void updateProviderCode(String value) => setState(() {
         providerCodeNumber = value;
         apiDataProductProviderCode = providerCodeNumber;
-        debugPrint('response: provider no $providerCodeNumber');
+        debugPrint('response transaction type: $apiDataProductProviderCode');
         // Replace with your logic
       });
 
@@ -221,10 +222,10 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
                       providerCodeNumber =
                           dataProvider[1]?['no_kode_provider'] ?? '';
                       providerLogo = dataProvider[1]?['logo_kartu'] ?? '';
-                      apiDataProductProviderCode = providerCodeNumber;
+                      updateProviderCode(providerCodeNumber);
                       fetchDataProduct();
                     },
-                    child: Text('Cek'),
+                    child: Text('Check'),
                   ),
                   SizedBox(
                     height: screenHeight * 0.02,
@@ -272,6 +273,10 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
                               ),
                             ),
                             onTap: () {
+                              apiDataProductName =
+                                  dataProduct[i]?['nama_produk'] ?? '';
+                              apiDataProductPrice =
+                                  dataProduct[i]?['harga_jual_agen'] ?? '';
                               NavigationHelper.pushReplacementNamed(
                                 AppRoutes.shopping_confirm,
                               );

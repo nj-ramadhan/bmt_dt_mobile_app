@@ -184,11 +184,10 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                 onTap: () {
                                   apiDataProductTransactionType =
                                       product.jenis_transaksi;
-                                  
+                                  debugPrint('response transaction type: $apiDataProductTransactionType');
                                   NavigationHelper.pushReplacementNamed(
                                     AppRoutes.shopping_provider_list,
                                   );
-                                  
                                 },
                               ),
                             ),

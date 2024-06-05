@@ -21,52 +21,53 @@ class ShoppingConfirmPage extends StatefulWidget {
 }
 
 class _ShoppingConfirmPageState extends State<ShoppingConfirmPage> {
-  late String frontCodeNumber;
-  Map<int, Map<String, String>> dataMap = {};
-  final ValueNotifier<bool> frontCodeNotifier = ValueNotifier(true);
-  late TextEditingController frontCodeController;
+  late String pinNumber;
+  Map<int, Map<String, String>> dataBuyProduct = {};
+  late TextEditingController pinNumberController;
 
-  Future<void> fetchData() async {
-    final data = await ApiHelper.getListProvider(
-        LoginToken: apiLoginToken, frontCode: frontCodeNumber);
+  Future<void> postDataBuyProduct() async {
+    final data = await ApiHelper.postBuyProduct(
+        LoginToken: apiLoginToken,
+        pin: apiDataProductPin,
+        codePayment: apiDataProductProviderCode,
+        clientNumber: apiDataProductClientNumber,
+        methodPayment: 'id_su');
     setState(() {
-      dataMap = data;
+      dataBuyProduct = data;
+
+      postBuyProduct(data);
     });
   }
 
-  String? getListProvider(Map<int, Map<String, String>> data) {
-    debugPrint('response: $data');
+  String? postBuyProduct(Map<int, Map<String, String>> data) {
     for (var entry in data.entries) {
-      print(entry.value['keyword_kode_depan_nomor']);
-      if (entry.value['keyword_kode_depan_nomor'] == frontCodeNumber) {
-        return entry.value['keyword_kode_depan_nomor'];
+      if (entry.value['pin'] == apiDataProductPin) {
+        return entry.value['pin'];
       }
-      debugPrint('response: $entry');
     }
     return null; // Return null if SIMPANAN SUKARELA is not found
   }
 
   @override
   void initState() {
-    frontCodeNumber = '0857';
     initializeControllers();
 
     super.initState();
   }
 
   void initializeControllers() {
-    frontCodeController = TextEditingController()
+    pinNumberController = TextEditingController()
       ..addListener(controllerListener);
   }
 
   void disposeControllers() {
-    frontCodeController.dispose();
+    pinNumberController.dispose();
   }
 
   void controllerListener() {
-    final updatedFrontCode = frontCodeController.text;
+    final updatePinNumber = pinNumberController.text;
 
-    if (updatedFrontCode.isEmpty) return;
+    if (updatePinNumber.isEmpty) return;
   }
 
   @override
@@ -76,8 +77,8 @@ class _ShoppingConfirmPageState extends State<ShoppingConfirmPage> {
   }
 
   void updateFrontCode(String value) => setState(() {
-        frontCodeNumber = value.substring(0, 4);
-        debugPrint('response: $frontCodeNumber from $value');
+        pinNumber = value.substring(0, 4);
+        debugPrint('response: $pinNumber from $value');
         // Replace with your logic
       });
 
@@ -129,86 +130,27 @@ class _ShoppingConfirmPageState extends State<ShoppingConfirmPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Text(apiDataProductName),
+                  Text(apiDataProductClientNumber),
+                  Text(apiDataProductPrice),
                   TextField(
                     decoration: const InputDecoration(
                         hintText: AppStrings.frontCode,
                         fillColor: AppColors.lightGreen),
-                    controller: frontCodeController,
+                    controller: pinNumberController,
                     textInputAction: TextInputAction.done,
                     textAlign: TextAlign.end,
                     keyboardType: TextInputType.number,
-                    // onChanged: (_) => updateFrontCode(frontCodeController.text),
+                    onChanged: (_) => updateFrontCode(pinNumberController.text),
                   ),
                   SizedBox(
                     height: screenHeight * 0.02,
                   ),
                   FilledButton(
                     onPressed: () {
-                      updateFrontCode(frontCodeController.text);
-                      fetchData();
+                      postDataBuyProduct;
                     },
-                    child: Text('Cek'),
-                  ),
-                  SizedBox(
-                    height: screenHeight * 0.02,
-                  ),
-                  Column(
-                    children: [
-                      // dataMap.keys.map((i) {
-                      for (var i = 1; i <= dataMap.keys.length; i++)
-                        // debugPrint('response: $dataMap');
-
-                        Card(
-                          color: AppColors.primaryColor,
-                          child: InkWell(
-                            child: Padding(
-                              padding: EdgeInsets.all(screenWidth * 0.02),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Material(
-                                    color: AppColors.darkGreen,
-                                    shape: const CircleBorder(),
-                                    child: Padding(
-                                      padding:
-                                          EdgeInsets.all(screenWidth * 0.01),
-                                      child: Image.network(
-                                        dataMap[i]?['logo_kartu'] ?? '',
-                                        width: screenWidth * 0.15,
-                                        fit: BoxFit.cover,
-                                        alignment: Alignment.topCenter,
-                                      ),
-                                      // Image(
-                                      // image: ssetImage(
-                                      //     'assets/images/handphone.png'),
-                                      // height: 20,
-                                      // alignment: Alignment.topCenter,
-                                      // ),
-                                    ),
-                                  ),
-                                  Text(
-                                    dataMap[i]?['produk_provider'] ?? '',
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      height: 3,
-                                    ),
-                                  ),
-                                  const Icon(
-                                    Icons.chevron_right,
-                                    color: Colors.white,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            onTap: () {
-                              // NavigationHelper.pushReplacementNamed(
-                              //   AppRoutes.shopping_detail_list,
-                              // );
-                            },
-                          ),
-                        ),
-                    ],
+                    child: Text('Continue'),
                   ),
                 ],
               ),
