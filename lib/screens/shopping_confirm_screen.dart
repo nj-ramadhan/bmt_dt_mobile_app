@@ -26,12 +26,15 @@ class _ShoppingConfirmPageState extends State<ShoppingConfirmPage> {
   late TextEditingController pinNumberController;
 
   Future<void> postDataBuyProduct() async {
+    debugPrint("masuk ke buy product");
+    debugPrint(apiDataProductCode);
+    debugPrint(apiDataProductClientNumber);
     final data = await ApiHelper.postBuyProduct(
         LoginToken: apiLoginToken,
         pin: apiDataProductPin,
         codeProduct: apiDataProductCode,
         clientNumber: apiDataProductClientNumber,
-        methodPayment: 'id_su');
+        methodPayment: 'id_su-$apiDataOwnSirelaId');
     setState(() {
       dataBuyProduct = data;
       debugPrint('response post data buy: $dataBuyProduct');
@@ -79,6 +82,7 @@ class _ShoppingConfirmPageState extends State<ShoppingConfirmPage> {
 
   void updatePinNumber(String value) => setState(() {
         pinNumber = value;
+        apiDataProductPin = pinNumber;
         debugPrint('response: $pinNumber from $value');
         // Replace with your logic
       });
@@ -149,6 +153,7 @@ class _ShoppingConfirmPageState extends State<ShoppingConfirmPage> {
                   ),
                   FilledButton(
                     onPressed: () {
+                      print("masuk tekan tombol");
                       postDataBuyProduct();
                       SnackBar(
                         content: Text(dataBuyProduct[1]?['message'] ?? ''),
