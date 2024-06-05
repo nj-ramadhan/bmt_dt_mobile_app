@@ -88,6 +88,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return FutureBuilder<String>(
         future: callAsyncFetch(),
         builder: (context, AsyncSnapshot<String> snapshot) {
@@ -102,7 +103,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
               ),
               child: Scaffold(
                 body: ListView(
-                  padding: EdgeInsets.zero,
+                  padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
                   children: [
                     GradientBackground(
                       colors: const [Colors.transparent, Colors.transparent],

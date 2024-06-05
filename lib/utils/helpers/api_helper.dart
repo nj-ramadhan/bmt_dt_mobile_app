@@ -579,52 +579,49 @@ class ApiHelper {
   }
 
   static Future<Map<int, Map<String, String>>> postBuyProduct({
-  required String LoginToken,
-  required String pin,
-  required String codeProduct,
-  required String clientNumber,
-  required String methodPayment,
-}) async {
-  final String url = "https://dkuapi.dkuindonesia.id/api/Pulsa/beli_pulsa";
+    required String LoginToken,
+    required String pin,
+    required String codeProduct,
+    required String clientNumber,
+    required String methodPayment,
+  }) async {
+    final String url = "https://dkuapi.dkuindonesia.id/api/Pulsa/beli_pulsa";
 
-  final headers = {
-    'Authorization': 'Bearer $LoginToken',
-    'Content-Type': 'multipart/form-data',
-  };
+    final headers = {
+      'Authorization': 'Bearer $LoginToken',
+      'Content-Type': 'multipart/form-data',
+    };
 
-  try {
-    var request = http.MultipartRequest('POST', Uri.parse(url))
-      ..headers.addAll(headers)
-      ..fields['pin'] = pin
-      ..fields['kode_p'] = codeProduct
-      ..fields['m_bayar'] = methodPayment
-      ..fields['no_tujuan'] = clientNumber;
+    try {
+      var request = http.MultipartRequest('POST', Uri.parse(url))
+        ..headers.addAll(headers)
+        ..fields['pin'] = pin
+        ..fields['kode_p'] = codeProduct
+        ..fields['m_bayar'] = methodPayment
+        ..fields['no_tujuan'] = clientNumber;
 
-    final response = await request.send();
-      print(response);
+      final response = await request.send();
+      debugPrint('debug: api: $response');
 
-    if (response.statusCode == 200 || response.statusCode == 402) {
-      final responseBody = await response.stream.bytesToString();
-      final data = json.decode(responseBody);
-      print(data);
-      Map<int, Map<String, String>> dataMap = {};
-        for (int i = 0; i < data.length; i++) {
-          var item = data[i];
-          dataMap[i + 1] = {
-            'status_trx': item['status_trx'] ?? '',
-            'kd_trx': item['kd_trx'] ?? '',
-            'customerRefCode': item['customerRefCode'] ?? '',
-            'message': item['message'] ?? '',
-          };
-        }
+      if (response.statusCode == 200 || response.statusCode == 402) {
+        final responseBody = await response.stream.bytesToString();
+        final data = json.decode(responseBody);
+        debugPrint('debug: data: $data');
+        Map<int, Map<String, String>> dataMap = {};
+        dataMap[0] = {
+          'status_trx': data['status_trx'] ?? '',
+          'kd_trx': data['kd_trx'] ?? '',
+          'customerRefCode': data['customerRefCode'] ?? '',
+          'message': data['message'] ?? '',
+        };
         return dataMap;
-
-    } else {
-      throw Exception("Failed to complete transaction: ${response.statusCode}");
+      } else {
+        throw Exception(
+            "Failed to complete transaction: ${response.statusCode}");
+      }
+    } catch (e) {
+      debugPrint('debug Error: $e');
+      throw Exception("Network Connectivity Error");
     }
-  } catch (e) {
-    print('Error: $e');
-    throw Exception("Network Connectivity Error");
   }
-}
 }

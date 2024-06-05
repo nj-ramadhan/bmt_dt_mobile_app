@@ -9,6 +9,7 @@ import '../global_variables.dart';
 import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/api_helper.dart';
 import '../utils/helpers/navigation_helper.dart';
+import '../utils/helpers/snackbar_helper.dart';
 import '../values/app_colors.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
@@ -26,7 +27,7 @@ class _ShoppingConfirmPageState extends State<ShoppingConfirmPage> {
   late TextEditingController pinNumberController;
 
   Future<void> postDataBuyProduct() async {
-    debugPrint("masuk ke buy product");
+    debugPrint("debug: masuk ke buy product");
     debugPrint(apiDataProductCode);
     debugPrint(apiDataProductClientNumber);
     final data = await ApiHelper.postBuyProduct(
@@ -35,9 +36,10 @@ class _ShoppingConfirmPageState extends State<ShoppingConfirmPage> {
         codeProduct: apiDataProductCode,
         clientNumber: apiDataProductClientNumber,
         methodPayment: 'id_su-$apiDataOwnSirelaId');
+
+    dataBuyProduct = data;
     setState(() {
       dataBuyProduct = data;
-      debugPrint('response post data buy: $dataBuyProduct');
 
       postBuyProduct(data);
     });
@@ -45,9 +47,7 @@ class _ShoppingConfirmPageState extends State<ShoppingConfirmPage> {
 
   String? postBuyProduct(Map<int, Map<String, String>> data) {
     for (var entry in data.entries) {
-      if (entry.value['pin'] == apiDataProductPin) {
-        return entry.value['pin'];
-      }
+      return entry.value['message'];
     }
     return null; // Return null if SIMPANAN SUKARELA is not found
   }
@@ -107,11 +107,11 @@ class _ShoppingConfirmPageState extends State<ShoppingConfirmPage> {
         color: AppColors.lightGreen,
         // image: DecorationImage(
         //     image: AssetImage('assets/images/background2.jpg'),
-        //     fit: BoxFit.cover,),
+        //     fit: BoxFit.cover),
       ),
       child: Scaffold(
         body: ListView(
-          padding: EdgeInsets.zero,
+          padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
           children: [
             GradientBackground(
               colors: const [Colors.transparent, Colors.transparent],
@@ -147,27 +147,36 @@ class _ShoppingConfirmPageState extends State<ShoppingConfirmPage> {
                 children: [
                   Text(
                     'Anda akan membeli paket',
-                    style: AppTheme.bodyMedium,
+                    style: AppTheme.bodySmall,
                   ),
                   Text(
                     apiDataProductName,
                     style: AppTheme.bodyLarge,
                   ),
+                  SizedBox(
+                    height: screenHeight * 0.02,
+                  ),
                   Text(
                     'Seharga',
-                    style: AppTheme.bodyMedium,
+                    style: AppTheme.bodySmall,
                   ),
                   Text(
                     indonesianCurrencyFormat(apiDataProductPrice),
                     style: AppTheme.bodyLarge,
                   ),
+                  SizedBox(
+                    height: screenHeight * 0.02,
+                  ),
                   Text(
                     'Nomor Tujuan',
-                    style: AppTheme.bodyMedium,
+                    style: AppTheme.bodySmall,
                   ),
                   Text(
                     apiDataProductClientNumber,
                     style: AppTheme.bodyLarge,
+                  ),
+                  SizedBox(
+                    height: screenHeight * 0.05,
                   ),
                   TextField(
                     decoration: const InputDecoration(
@@ -186,6 +195,13 @@ class _ShoppingConfirmPageState extends State<ShoppingConfirmPage> {
                     onPressed: () {
                       print("masuk tekan tombol");
                       postDataBuyProduct();
+
+                      var message = dataBuyProduct[0]?['message'] ??
+                          'Transaksi tidak dapat diproses';
+                      SnackbarHelper.showSnackBar(message);
+                      NavigationHelper.pushReplacementNamed(
+                        AppRoutes.home,
+                      );
                     },
                     child: Text('Continue'),
                   ),
