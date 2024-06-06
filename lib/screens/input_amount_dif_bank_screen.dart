@@ -4,14 +4,14 @@ import '../global_variables.dart';
 import '../utils/helpers/database_helper.dart';
 import '../utils/helpers/navigation_helper.dart';
 import '../values/app_routes.dart';
-class InputAmountPage extends StatefulWidget {
-  const InputAmountPage({super.key});
+class InputAmountDifBankPage extends StatefulWidget {
+  const InputAmountDifBankPage({super.key});
 
   @override
-  State<InputAmountPage> createState() => _InputAmountPageState();
+  State<InputAmountDifBankPage> createState() => _InputAmountDifBankPageState();
 }
 
-class _InputAmountPageState extends State<InputAmountPage> {
+class _InputAmountDifBankPageState extends State<InputAmountDifBankPage> {
   final TextEditingController _amountController = TextEditingController();
   final TextEditingController _commentController = TextEditingController();
   final DatabaseHelper db = DatabaseHelper.instance;
@@ -25,7 +25,7 @@ class _InputAmountPageState extends State<InputAmountPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Transfer ke Sesama'),
+        title: Text('Transfer ke Bank Lain'),
         backgroundColor: Colors.green, // Reference color from second image
       ),
       body: Container(
@@ -91,7 +91,7 @@ class _InputAmountPageState extends State<InputAmountPage> {
                       Icon(Icons.account_balance, color: Colors.white),
                       SizedBox(width: 8),
                       Text(
-                        '$apiDataDestinationSirelaName',
+                        '$apiDataBank - $apiDataDestinationSirelaName',
                         style: TextStyle(color: Colors.white),
                       ),
                       SizedBox(width: 8),
@@ -183,7 +183,7 @@ class _InputAmountPageState extends State<InputAmountPage> {
                     apiDataMetodeTransfer
                   );
                 NavigationHelper.pushReplacementNamed(
-                        AppRoutes.transaction_detail,);
+                        AppRoutes.transaction_detail_dif_Bank,);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor:

@@ -64,6 +64,7 @@ String apiDataAppNameString = 'null';
 String apiDataAppLogo = 'null';
 String apiDataAppLogoBar = 'null';
 
+
 String apiDataProductKeyword = 'null';
 String apiDataProductShoppingType = 'null';
 String apiDataProductProviderCode = 'null';
@@ -80,6 +81,12 @@ String apiDataDestinationSirelaId = 'null';
 String apiDataDestinationSirelaName = 'null';
 String apiDataSendaAmount = "null";
 String apiDataSendaComment = "null";
+
+String apiDataKodeTrx = "null";
+
+String apiDataMetodeTransfer = "null";
+String apiDataKodeBank = "null";
+String apiDataBank = "null";
 
 void updateLoginVariables(
   String newApiRolePendidikan,
@@ -205,9 +212,10 @@ void updateDetailsApp(
   // String newApiDataAppLembagaId,
   // String newApiDataAppBlocked,
   // String newApiDataAppStatus,
-  String newApiDataAppNameString,
-  String newApiDataAppLogo,
-  String newApiDataAppLogoBar,
+
+  String newapiDataAppNameString,
+  String newapiDataAppLogo,
+  String newapiDataAppLogoBar,
 ) {
   // apiDataAppId = newApiDataAppId;
   // apiDataAppName = newApiDataAppName;
@@ -282,10 +290,44 @@ void updateDetailsRek(
   // apiDataAppLembagaId = newApiDataAppLembagaId;
   // apiDataAppBlocked = newApiDataAppBlocked;
   // apiDataAppStatus = newApiDataAppStatus;
+
+
+  apiDataAppNameString = newapiDataAppNameString;
+  apiDataAppLogo = newapiDataAppLogo;
+  apiDataAppLogoBar = newapiDataAppLogoBar;
+  
   apiDataOwnSirelaId = newapiDataOwnSirelaId;
   apiDataOwnSirelaAmount = newapiDataOwnSirelaAmount;
   apiDataDestinationSirelaId = newapiDataDestinationSirelaId;
   apiDataDestinationSirelaName = newapiDataDestinationSirelaName;
   apiDataSendaAmount = newapiDataSendaAmount;
   apiDataSendaComment = newapiDataSendaComment;
+
+}
+
+void updateDetailsRek(
+  String newapiDataOwnSirelaId,
+  String newapiDataOwnSirelaAmount,
+  String newapiDataDestinationSirelaId,
+  String newapiDataDestinationSirelaName,
+  String newapiDataSendaAmount,
+  String newapiDataSendaComment,
+  String newapiDataKodeTrx,
+  String newapiDataMetodeTransfer,
+) {
+  apiDataOwnSirelaId = newapiDataOwnSirelaId;
+  apiDataOwnSirelaAmount = newapiDataOwnSirelaAmount;
+  apiDataDestinationSirelaId = newapiDataDestinationSirelaId;
+  apiDataDestinationSirelaName = newapiDataDestinationSirelaName;
+  apiDataSendaAmount = newapiDataSendaAmount;
+  apiDataSendaComment = newapiDataSendaComment;
+  apiDataKodeTrx = newapiDataKodeTrx;
+  apiDataMetodeTransfer = newapiDataMetodeTransfer;
+}
+
+void updateDifBank(String newapiDataMetodeTransfer, String newapiDataKodeBank,
+    String newapiDataBank) {
+  apiDataMetodeTransfer = newapiDataMetodeTransfer;
+  apiDataKodeBank = newapiDataKodeBank;
+  apiDataBank = newapiDataBank;
 }

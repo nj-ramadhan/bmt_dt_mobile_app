@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 
+import '../components/app_drop_down_form_field.dart';
+import '../components/dropdown_V2.dart';
 import '../global_variables.dart';
 import '../utils/helpers/api_helper.dart';
 import '../utils/helpers/database_helper.dart';
 import '../utils/helpers/navigation_helper.dart';
 import '../values/app_routes.dart';
 
-class AddClientPage extends StatefulWidget {
-  const AddClientPage({super.key});
+class AddClientPageDifBank extends StatefulWidget {
+  const AddClientPageDifBank({super.key});
 
   @override
-  State<AddClientPage> createState() => _AddClientPageState();
+  State<AddClientPageDifBank> createState() => _AddClientPageDifBankState();
 }
 
-class _AddClientPageState extends State<AddClientPage> {
-  final Color backgroundColor = Color(0xFFD5F5E3); // Adjust this color to match the exact color from the image.
+class _AddClientPageDifBankState extends State<AddClientPageDifBank> {
+  final Color backgroundColor = Color(
+      0xFFD5F5E3); // Adjust this color to match the exact color from the image.
 
   @override
   Widget build(BuildContext context) {
@@ -43,12 +46,24 @@ class FavoriteAccountsPage extends StatefulWidget {
 class _FavoriteAccountsPageState extends State<FavoriteAccountsPage> {
   final TextEditingController _searchController = TextEditingController();
   final DatabaseHelper db = DatabaseHelper.instance;
-
-  String _table = 'same_bank';
+  late String _table;
+  
   List<Map<String, dynamic>> _accounts = [];
 
   @override
   void initState() {
+    if(apiDataMetodeTransfer=="TO"){
+    _table = 'different_bank_TO';
+
+    }
+    else if(apiDataMetodeTransfer == "BIFAST"){
+
+    _table = 'different_bank_BIFAST';
+    }
+    else{
+    _table = 'different_bank_RTGS';
+
+    }
     super.initState();
     _fetchAccounts();
   }
@@ -67,31 +82,13 @@ class _FavoriteAccountsPageState extends State<FavoriteAccountsPage> {
     });
   }
 
-  Future<String?> fetchAccountHolder(String accountNumber) async {
-    // Simulasi panggilan API
-    // Gantilah URL dan logika ini dengan panggilan API yang sesuai
-    await Future.delayed(Duration(seconds: 1)); // Simulasi waktu tunggu API
-    if (accountNumber == "0011777711") {
-      return "BAZNAS";
-    } else if (accountNumber == "0011555510") {
-      return "BAZNAS";
-    } else if (accountNumber == "0011210077") {
-      return "Inisiatif Zakat Indonesia";
-    } else if (accountNumber == "0011210044") {
-      return "Inisiatif Zakat Indonesia";
-    } else if (accountNumber == "0016000066") {
-      return "LAZ Baitul Maal Hidayatullah";
-    } else if (accountNumber == "0011002002") {
-      return "LAZIS Dewan Da'wah";
-    } else {
-      return null;
-    }
-  }
-
   void _showEditDialog(BuildContext context, Map<String, dynamic> account) {
-    final TextEditingController _accountNumberController = TextEditingController(text: account['account_number']);
-    final TextEditingController _accountHolderController = TextEditingController(text: account['account_holder']);
-    final TextEditingController _accountAliasController = TextEditingController(text: account['account_alias']);
+    final TextEditingController _accountNumberController =
+        TextEditingController(text: account['account_number']);
+    final TextEditingController _accountHolderController =
+        TextEditingController(text: account['account_holder']);
+    final TextEditingController _accountAliasController =
+        TextEditingController(text: account['account_alias']);
 
     showDialog(
       context: context,
@@ -121,7 +118,8 @@ class _FavoriteAccountsPageState extends State<FavoriteAccountsPage> {
         actions: [
           TextButton(
             onPressed: () async {
-              await db.updateAccount(_table, _accountNumberController.text, _accountHolderController.text, _accountAliasController.text);
+              await db.updateAccount(_table, _accountNumberController.text,
+                  _accountHolderController.text, _accountAliasController.text);
               _fetchAccounts();
               Navigator.of(context).pop();
             },
@@ -161,10 +159,28 @@ class _FavoriteAccountsPageState extends State<FavoriteAccountsPage> {
   }
 
   void _showAddDialog(BuildContext context) {
-    final TextEditingController _accountNumberController = TextEditingController();
-    final TextEditingController _accountHolderController = TextEditingController();
-    final TextEditingController _accountAliasController = TextEditingController();
+    final TextEditingController _accountNumberController =
+        TextEditingController();
+    final TextEditingController _accountHolderController =
+        TextEditingController();
+    final TextEditingController _accountAliasController =
+        TextEditingController();
+    late Future<List<DropdownItemsStringIdModel>> _listBank;
+    if(apiDataMetodeTransfer=="TO"){
+    _listBank = ApiHelper.getListBankTO(LoginToken: apiLoginToken);
 
+    }
+    else if(apiDataMetodeTransfer == "BIFAST"){
+    _listBank = ApiHelper.getListBankBIFAST(LoginToken: apiLoginToken);
+
+    }
+    else{
+    _listBank = ApiHelper.getListBankRTGS(LoginToken: apiLoginToken);
+
+    }
+    
+    String? valueDownBank;
+    String? valueDownCodeBank;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -172,6 +188,23 @@ class _FavoriteAccountsPageState extends State<FavoriteAccountsPage> {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            AppDropdownFormBank(
+              future: _listBank,
+              labelText: 'Bank',
+              value: valueDownCodeBank,
+              hint: "Pilih Bank",
+              dropdownColor: Colors.blue[100],
+              onChanged: (value) {
+                setState(() {
+                  valueDownCodeBank = value;
+                });
+              },
+              onItemSelected: (title) {
+                print('Selected bank title: $valueDownBank $title');
+                valueDownBank = title;
+                // Lakukan sesuatu dengan title bank yang dipilih
+              },
+            ),
             TextField(
               keyboardType: TextInputType.number,
               controller: _accountNumberController,
@@ -180,10 +213,14 @@ class _FavoriteAccountsPageState extends State<FavoriteAccountsPage> {
                 suffixIcon: IconButton(
                   icon: Icon(Icons.search),
                   onPressed: () async {
-                    String accountHolder = await ApiHelper.getAccountHolderSirela(
-                      idSirela: _accountNumberController.text,
-                      LoginToken: apiLoginToken,
+                    String accountHolder =
+                        await ApiHelper.getAccountHolderDifBank(
+                      apiLoginToken,
+                      _accountNumberController.text,
+                      valueDownCodeBank.toString(),
+                      apiDataMetodeTransfer,
                     );
+
                     print("hasil $accountHolder");
                     if (accountHolder != 'error') {
                       print("masuk kesini");
@@ -199,7 +236,9 @@ class _FavoriteAccountsPageState extends State<FavoriteAccountsPage> {
                   },
                 ),
               ),
+              enabled:( valueDownBank != null),
             ),
+            
             TextField(
               controller: _accountHolderController,
               decoration: InputDecoration(labelText: 'Account Holder'),
@@ -218,8 +257,10 @@ class _FavoriteAccountsPageState extends State<FavoriteAccountsPage> {
               String accountHolder = _accountHolderController.text;
               String accountAlias = _accountAliasController.text;
 
-              if (accountNumber.isNotEmpty && accountHolder.isNotEmpty && accountAlias.isNotEmpty) {
-                int result = await db.addAccount(_table, accountNumber, accountHolder, accountAlias);
+              if (accountNumber.isNotEmpty &&
+                  accountHolder.isNotEmpty ) {
+                int result = await db.addAccountDifBank(_table, accountNumber,
+                    accountHolder, accountAlias, valueDownBank.toString(),valueDownCodeBank.toString());
                 if (result != -1) {
                   _fetchAccounts();
                   Navigator.of(context).pop();
@@ -245,10 +286,12 @@ class _FavoriteAccountsPageState extends State<FavoriteAccountsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Transfer ke Sesama'),
-        backgroundColor: Color(0xFFD0F0C0), // Specific green color from your image
+        title: Text('Transfer Antar Bank'),
+        backgroundColor:
+            Color(0xFFD0F0C0), // Specific green color from your image
       ),
-      backgroundColor: Color(0xFFD0F0C0), // Specific green color from your image
+      backgroundColor:
+          Color(0xFFD0F0C0), // Specific green color from your image
       body: Column(
         children: [
           Padding(
@@ -286,21 +329,23 @@ class _FavoriteAccountsPageState extends State<FavoriteAccountsPage> {
                   leading: CircleAvatar(
                     child: Text(account['account_holder'][0]),
                   ),
-                  title: Text(account['account_holder']),
-                  subtitle: Text('${account['account_number']} (${account['account_alias']})'),
+                  title: Text(
+                      '${account['account_holder']}-${account['account_bank']}'),
+                  subtitle: Text(
+                      '${account['account_number']} (${account['account_alias']})'),
                   onTap: () {
                     updateDetailsRek(
-                      apiDataOwnSirelaId,
-                      apiDataSendaAmount,
-                      account['account_number'],
-                      account['account_holder'],
-                      account['account_holder'],
-                      apiDataSendaComment,
-                      apiDataKodeTrx,
-                      apiDataMetodeTransfer
-                    );
+                        apiDataOwnSirelaId,
+                        apiDataSendaAmount,
+                        account['account_number'],
+                        account['account_holder'],
+                        account['account_holder'],
+                        apiDataSendaComment,
+                        apiDataKodeTrx,
+                        apiDataMetodeTransfer);
+                      updateDifBank(apiDataMetodeTransfer,account['account_code_bank'],account['account_bank']);
                     NavigationHelper.pushReplacementNamed(
-                      AppRoutes.input_amount,
+                      AppRoutes.input_amount_dif_bank,
                     );
                   },
                   trailing: Row(
@@ -312,7 +357,8 @@ class _FavoriteAccountsPageState extends State<FavoriteAccountsPage> {
                       ),
                       IconButton(
                         icon: Icon(Icons.delete),
-                        onPressed: () => _showDeleteDialog(context, account['account_number']),
+                        onPressed: () => _showDeleteDialog(
+                            context, account['account_number']),
                       ),
                     ],
                   ),
@@ -325,13 +371,14 @@ class _FavoriteAccountsPageState extends State<FavoriteAccountsPage> {
             child: ElevatedButton(
               onPressed: () {
                 NavigationHelper.pushReplacementNamed(
-                  AppRoutes.input_account,
+                  AppRoutes.input_account_dif_bank,
                 );
               },
               child: Text('Transfer Baru'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green, // Using green for button
-                minimumSize: Size(double.infinity, 50), // Make button full-width
+                minimumSize:
+                    Size(double.infinity, 50), // Make button full-width
               ),
             ),
           ),

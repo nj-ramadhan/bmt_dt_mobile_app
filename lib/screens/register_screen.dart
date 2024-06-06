@@ -40,6 +40,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
   late final TextEditingController rtController;
   late final TextEditingController religionController;
   late final TextEditingController confirmPasswordController;
+  late final TextEditingController referalController;
 
   final ValueNotifier<bool> passwordNotifier = ValueNotifier(true);
   final ValueNotifier<bool> confirmPasswordNotifier = ValueNotifier(true);
@@ -98,6 +99,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
     nameController = TextEditingController()..addListener(controllerListener);
     phoneController = TextEditingController()..addListener(controllerListener);
     idController = TextEditingController()..addListener(controllerListener);
+    referalController = TextEditingController()..addListener(controllerListener);
     birthDateController = DatePickerDialog(
         firstDate: DateTime(1900, 1, 1, 23, 59),
         lastDate: DateTime(2100, 1, 1, 23, 59));
@@ -135,6 +137,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
     rwController.dispose();
     rtController.dispose();
     religionController.dispose();
+    referalController.dispose();
   }
 
   void controllerListener() {
@@ -151,6 +154,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
     final rw = rwController.text;
     final rt = rtController.text;
     final religion = religionController.text;
+    final referal = referalController.text;
 
     if (name.isEmpty &&
         phone.isEmpty &&
@@ -163,6 +167,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
         birthPlace.isEmpty &&
         rw.isEmpty &&
         rt.isEmpty &&
+        referal.isEmpty &&
         religion.isEmpty &&
         confirmPassword.isEmpty) return;
 
@@ -219,7 +224,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
           restorationId: 'date_picker_dialog',
           initialEntryMode: DatePickerEntryMode.calendarOnly,
           initialDate: DateTime.fromMillisecondsSinceEpoch(arguments! as int),
-          firstDate: DateTime(1990),
+          firstDate: DateTime(1940),
           lastDate: DateTime(2100),
         );
       },
@@ -672,6 +677,20 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                         });
                       },
                     ),
+                    AppTextFormField(
+                      labelText: 'No Referal',
+                      controller: referalController,
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.number,
+                      // onChanged: (_) => _formKey.currentState?.validate(),
+                      validator: (value) {
+                        return value!.isEmpty
+                            ? 'Masukan No RT'
+                            : value.length < 0
+                                ? AppStrings.invalidName
+                                : null;
+                      },
+                    ),
                     ValueListenableBuilder(
                       valueListenable: fieldValidNotifier,
                       builder: (_, isValid, __) {
@@ -688,6 +707,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                                       nama_lengkap: nameController.text,
                                       email: emailController.text,
                                       password: passwordController.text,
+                                      referral_id: referalController.text,
                                       telepon: phoneController.text,
                                       jenis_kelamin: valueDownGender.toString(),
                                       tanggal_lahir: valuebirthDate,
