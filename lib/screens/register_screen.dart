@@ -64,11 +64,11 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
   ];
   final List<String> listDownReligion = [
     "Islam",
-"Kristen Protestan",
-"Kristen Katolik",
-"Hindu",
-"Buddha",
-"Konghucu",
+    "Kristen Protestan",
+    "Kristen Katolik",
+    "Hindu",
+    "Buddha",
+    "Konghucu",
   ];
   final List<String> listDownPekerjaan = [
     'PNS',
@@ -486,7 +486,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                         });
                       },
                     ),
-                    const Text(AppStrings.pleasePickbirthDate),
+                    const Text(AppStrings.pleasePickBirthDate),
                     FilledButton(
                       onPressed: () {
                         _restorableDatePickerRouteFuture.present();

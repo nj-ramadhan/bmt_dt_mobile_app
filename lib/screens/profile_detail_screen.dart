@@ -1,4 +1,9 @@
 import 'dart:convert';
+import 'package:path/path.dart';
+import 'package:async/async.dart';
+import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -6,6 +11,7 @@ import 'package:http/http.dart' as http;
 import '../components/app_text_form_field.dart';
 import '../global_variables.dart';
 import '../utils/common_widgets/gradient_background.dart';
+import '../utils/helpers/api_helper.dart';
 import '../utils/helpers/navigation_helper.dart';
 import '../utils/helpers/snackbar_helper.dart';
 import '../values/app_colors.dart';
@@ -24,24 +30,80 @@ class ProfileDetailPage extends StatefulWidget {
 
 class _ProfileDetailPageState extends State<ProfileDetailPage> {
   final _formKey = GlobalKey<FormState>();
+  Map<int, Map<String, String>> dataProfile = {};
 
-  late final TextEditingController nameController;
-  late final TextEditingController phoneController;
   late final TextEditingController idController;
+  late final TextEditingController nameController;
+  late final TextEditingController genderController;
+  late final TextEditingController birthPlaceController;
+
   // late final DatePickerDialog birthDateController;
   // late final TextEditingController addressController;
   // late final TextEditingController motherNameController;
   // late final TextEditingController communityChoiceController;
   // late final TextEditingController passwordController;
   // late final TextEditingController emailController;
-  // late final TextEditingController confirmPasswordController;
+  late final TextEditingController passwordController;
   final ValueNotifier<bool> fieldValidNotifier = ValueNotifier(false);
+  final ValueNotifier<bool> passwordNotifier = ValueNotifier(false);
 
+  var _image;
+  final picker = ImagePicker();
+
+  Future<void> postUpdate() async {
+    debugPrint("debug: masuk ke api");
+    final data = await ApiHelper.postProfileUpdate(
+        LoginToken: apiLoginToken,
+        password: passwordController.text,
+        idNumber: idController.text,
+        fullName: nameController.text,
+        gender: genderController.text,
+        birthPlace: birthPlaceController.text,
+        photoProfile: _image);
+
+    dataProfile = data;
+    setState(() {
+      dataProfile = data;
+      SnackbarHelper.showSnackBar(responseUpdate(dataProfile));
+    });
+  }
+
+  String? responseUpdate(Map<int, Map<String, String>> data) {
+    for (var entry in data.entries) {
+      return entry.value['message'];
+    }
+    return null;
+  }
+
+  //Image Picker function to get image from gallery
+  Future getImageFromGallery() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      }
+    });
+  }
+
+  //Image Picker function to get image from camera
+  Future getImageFromCamera() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      }
+    });
+  }
 
   void initializeControllers() {
-    nameController = TextEditingController()..addListener(controllerListener);
-    phoneController = TextEditingController()..addListener(controllerListener);
     idController = TextEditingController()..addListener(controllerListener);
+    nameController = TextEditingController()..addListener(controllerListener);
+    genderController = TextEditingController()..addListener(controllerListener);
+    birthPlaceController = TextEditingController()
+      ..addListener(controllerListener);
+
     // birthDateController = DatePickerDialog(
     //     firstDate: DateTime(1900, 1, 1, 23, 59),
     //     lastDate: DateTime(2100, 1, 1, 23, 59));
@@ -52,16 +114,18 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
     // communityChoiceController = TextEditingController()
     //   ..addListener(controllerListener);
     // emailController = TextEditingController()..addListener(controllerListener);
-    // passwordController = TextEditingController()
-    //   ..addListener(controllerListener);
+    passwordController = TextEditingController()
+      ..addListener(controllerListener);
     // confirmPasswordController = TextEditingController()
     //   ..addListener(controllerListener);
   }
 
   void disposeControllers() {
-    nameController.dispose();
-    phoneController.dispose();
     idController.dispose();
+    nameController.dispose();
+    genderController.dispose();
+    birthPlaceController.dispose();
+
     // birthDateController.toString();
     // addressController.dispose();
     // motherNameController.dispose();
@@ -72,9 +136,12 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
   }
 
   void controllerListener() {
-    final name = nameController.text;
-    final phone = phoneController.text;
     final id = idController.text;
+    final name = nameController.text;
+    final gender = genderController.text;
+    final birthPlace = birthPlaceController.text;
+    final password = passwordController.text;
+
     // final address = addressController.text;
     // final mother = motherNameController.text;
     // final community = communityChoiceController.text;
@@ -82,35 +149,48 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
     // final password = passwordController.text;
     // final confirmPassword = confirmPasswordController.text;
 
-    if (name.isEmpty
-            && phone.isEmpty
-            && id.isEmpty
+    if (id.isEmpty &&
+            name.isEmpty &&
+            gender.isEmpty &&
+            birthPlace.isEmpty &&
             // address.isEmpty &&
             // mother.isEmpty &&
             // community.isEmpty &&
             // && email.isEmpty
-        // password.isEmpty &&
+            password.isEmpty
         // confirmPassword.isEmpty
         ) return;
 
-    // if (AppRegex.emailRegex.hasMatch(email)
-    //     //     && AppRegex.passwordRegex.hasMatch(password)
-    //     //     && AppRegex.passwordRegex.hasMatch(confirmPassword)
-    //     ) {
-    //   fieldValidNotifier.value = true;
-    // } else {
-    //   fieldValidNotifier.value = false;
-    // }
+    if (id.isNotEmpty &&
+            name.isNotEmpty &&
+            gender.isNotEmpty &&
+            birthPlace.isNotEmpty
+        // AppRegex.emailRegex.hasMatch(email)
+        // && AppRegex.passwordRegex.hasMatch(password)
+        //     && AppRegex.passwordRegex.hasMatch(confirmPassword)
+        ) {
+      fieldValidNotifier.value = true;
+    } else {
+      fieldValidNotifier.value = false;
+    }
+
+    if (AppRegex.passwordRegex.hasMatch(password)
+        //     && AppRegex.passwordRegex.hasMatch(confirmPassword)
+        ) {
+      passwordNotifier.value = true;
+    } else {
+      passwordNotifier.value = false;
+    }
   }
 
   @override
   void initState() {
     initializeControllers();
     super.initState();
-    nameController.text = apiDataUserNamaLengkap;
-    phoneController.text = apiDataAccountTelepon;
     idController.text = apiDataAccountNiK;
-    // emailController.text = apiDataAccountEmail;
+    nameController.text = apiDataUserNamaLengkap;
+    genderController.text = apiDataUserJenisKelamin;
+    birthPlaceController.text = apiDataUserTempatLahir;
   }
 
   @override
@@ -182,6 +262,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Container(
       constraints: const BoxConstraints.expand(),
       decoration: const BoxDecoration(
@@ -192,7 +273,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
       ),
       child: Scaffold(
         body: ListView(
-          padding: EdgeInsets.zero,
+          padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
           children: [
             GradientBackground(
               colors: const [Colors.transparent, Colors.transparent],
@@ -230,6 +311,21 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
                   children: [
                     AppTextFormField(
                       autofocus: true,
+                      labelText: AppStrings.id,
+                      keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.next,
+                      onChanged: (value) => _formKey.currentState?.validate(),
+                      validator: (value) {
+                        return value!.isEmpty
+                            ? AppStrings.pleaseEnterId
+                            : value.length < 15
+                                ? AppStrings.invalidId
+                                : null;
+                      },
+                      controller: idController,
+                    ),
+                    AppTextFormField(
+                      autofocus: true,
                       labelText: AppStrings.name,
                       keyboardType: TextInputType.name,
                       textInputAction: TextInputAction.next,
@@ -245,33 +341,53 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
                     ),
                     AppTextFormField(
                       autofocus: true,
-                      labelText: AppStrings.phone,
-                      keyboardType: TextInputType.phone,
+                      labelText: AppStrings.gender,
+                      keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.next,
                       onChanged: (value) => _formKey.currentState?.validate(),
                       validator: (value) {
                         return value!.isEmpty
-                            ? AppStrings.pleaseEnterPhone
-                            : value.length < 11
-                                ? AppStrings.invalidPhone
+                            ? AppStrings.pleaseEnterGender
+                            : value.length < 1
+                                ? AppStrings.invalidGender
                                 : null;
                       },
-                      controller: phoneController,
+                      controller: genderController,
                     ),
                     AppTextFormField(
                       autofocus: true,
-                      labelText: AppStrings.id,
-                      keyboardType: TextInputType.number,
+                      labelText: AppStrings.birthDate,
+                      keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.next,
                       onChanged: (value) => _formKey.currentState?.validate(),
                       validator: (value) {
                         return value!.isEmpty
-                            ? AppStrings.pleaseEnterId
-                            : value.length < 15
-                                ? AppStrings.invalidId
+                            ? AppStrings.pleaseEnterBirthPlace
+                            : value.length < 1
+                                ? AppStrings.invalidBirthPlace
                                 : null;
                       },
-                      controller: idController,
+                      controller: birthPlaceController,
+                    ),
+
+                    Text('Update Profile Photo'),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButton(
+                            onPressed: getImageFromCamera,
+                            child: Text('Open Camera')),
+                        TextButton(
+                            onPressed: getImageFromGallery,
+                            child: Text('Select from Gallery')),
+                      ],
+                    ),
+
+                    Center(
+                      // ignore: unnecessary_null_comparison
+                      child: _image == null
+                          ? Text('No Image selected')
+                          : Image.file(_image),
                     ),
                     const SizedBox(
                       height: 20,
@@ -335,50 +451,50 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
                     //             : AppStrings.invalidEmailAddress;
                     //   },
                     // ),
-                    // ValueListenableBuilder<bool>(
-                    //   valueListenable: passwordNotifier,
-                    //   builder: (_, passwordObscure, __) {
-                    //     return AppTextFormField(
-                    //       obscureText: passwordObscure,
-                    //       controller: passwordController,
-                    //       labelText: AppStrings.password,
-                    //       textInputAction: TextInputAction.next,
-                    //       keyboardType: TextInputType.visiblePassword,
-                    //       onChanged: (_) => _formKey.currentState?.validate(),
-                    //       validator: (value) {
-                    //         return value!.isEmpty
-                    //             ? AppStrings.pleaseEnterPassword
-                    //             : AppConstants.passwordRegex.hasMatch(value)
-                    //                 ? null
-                    //                 : AppStrings.invalidPassword;
-                    //       },
-                    //       suffixIcon: Focus(
-                    //         /// If false,
-                    //         ///
-                    //         /// disable focus for all of this node's descendants
-                    //         descendantsAreFocusable: false,
+                    ValueListenableBuilder<bool>(
+                      valueListenable: passwordNotifier,
+                      builder: (_, passwordObscure, __) {
+                        return AppTextFormField(
+                          obscureText: passwordObscure,
+                          controller: passwordController,
+                          labelText: AppStrings.password,
+                          textInputAction: TextInputAction.next,
+                          keyboardType: TextInputType.visiblePassword,
+                          onChanged: (_) => _formKey.currentState?.validate(),
+                          validator: (value) {
+                            return value!.isEmpty
+                                ? AppStrings.pleaseEnterPassword
+                                : AppConstants.passwordRegex.hasMatch(value)
+                                    ? null
+                                    : AppStrings.invalidPassword;
+                          },
+                          suffixIcon: Focus(
+                            /// If false,
+                            ///
+                            /// disable focus for all of this node's descendants
+                            descendantsAreFocusable: false,
 
-                    //         /// If false,
-                    //         ///
-                    //         /// make this widget's descendants un-traversable.
-                    //         // descendantsAreTraversable: false,
-                    //         child: IconButton(
-                    //           onPressed: () =>
-                    //               passwordNotifier.value = !passwordObscure,
-                    //           style: IconButton.styleFrom(
-                    //             minimumSize: const Size.square(48),
-                    //           ),
-                    //           icon: Icon(
-                    //             passwordObscure
-                    //                 ? Icons.visibility_off_outlined
-                    //                 : Icons.visibility_outlined,
-                    //             color: Colors.black,
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     );
-                    //   },
-                    // ),
+                            /// If false,
+                            ///
+                            /// make this widget's descendants un-traversable.
+                            // descendantsAreTraversable: false,
+                            child: IconButton(
+                              onPressed: () =>
+                                  passwordNotifier.value = !passwordObscure,
+                              style: IconButton.styleFrom(
+                                minimumSize: const Size.square(48),
+                              ),
+                              icon: Icon(
+                                passwordObscure
+                                    ? Icons.visibility_off_outlined
+                                    : Icons.visibility_outlined,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
                     // ValueListenableBuilder(
                     //   valueListenable: confirmPasswordNotifier,
                     //   builder: (_, confirmPasswordObscure, __) {
@@ -426,18 +542,14 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
                     //     );
                     //   },
                     // ),
+
                     ValueListenableBuilder(
                       valueListenable: fieldValidNotifier,
                       builder: (_, isValid, __) {
                         return FilledButton(
                           onPressed: isValid
                               ? () {
-                                  SnackbarHelper.showSnackBar(
-                                    AppStrings.profileAccountUpdateComplete,
-                                  );
-                                  nameController.clear();
-                                  phoneController.clear();
-                                  idController.clear();
+                                  postUpdate();
                                 }
                               : null,
                           child: const Text(AppStrings.profileAccountUpdate),

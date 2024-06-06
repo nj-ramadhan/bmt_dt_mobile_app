@@ -125,6 +125,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Container(
       constraints: const BoxConstraints.expand(),
       decoration: const BoxDecoration(
@@ -135,7 +136,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
       ),
       child: Scaffold(
         body: ListView(
-          padding: EdgeInsets.zero,
+          padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
           children: [
             GradientBackground(
               colors: const [Colors.transparent, Colors.transparent],

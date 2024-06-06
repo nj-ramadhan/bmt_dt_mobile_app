@@ -77,6 +77,7 @@ class _ChangePinPageState extends State<ChangePinPage> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Container(
       constraints: const BoxConstraints.expand(),
       decoration: const BoxDecoration(
@@ -87,7 +88,7 @@ class _ChangePinPageState extends State<ChangePinPage> {
       ),
       child: Scaffold(
         body: ListView(
-          padding: EdgeInsets.zero,
+          padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
           children: [
             GradientBackground(
               colors: const [Colors.transparent, Colors.transparent],
@@ -235,8 +236,9 @@ class _ChangePinPageState extends State<ChangePinPage> {
                           onPressed: isValid
                               ? () {
                                   SnackbarHelper.showSnackBar(
-                                      // ignore: void_checks
-                                      AppStrings.changePinComplete,);
+                                    // ignore: void_checks
+                                    AppStrings.changePinComplete,
+                                  );
                                   pinController.clear();
                                   newPinController.clear();
                                   confirmPinController.clear();

@@ -64,12 +64,24 @@ String apiDataAppNameString = 'null';
 String apiDataAppLogo = 'null';
 String apiDataAppLogoBar = 'null';
 
+
+String apiDataProductKeyword = 'null';
+String apiDataProductShoppingType = 'null';
+String apiDataProductProviderCode = 'null';
+String apiDataProductTransactionType = 'null';
+String apiDataProductClientNumber = 'null';
+String apiDataProductName = 'null';
+String apiDataProductCode = 'null';
+String apiDataProductPrice = 'null';
+String apiDataProductPin = 'null';
+
 String apiDataOwnSirelaId = 'null';
 String apiDataOwnSirelaAmount = 'null';
 String apiDataDestinationSirelaId = 'null';
 String apiDataDestinationSirelaName = 'null';
 String apiDataSendaAmount = "null";
 String apiDataSendaComment = "null";
+
 String apiDataKodeTrx = "null";
 
 String apiDataMetodeTransfer = "null";
@@ -99,12 +111,12 @@ void updateDetails(
 }
 
 void updateDetailsUser(
-  // String newApiDataUserNIK,
+  String newApiDataUserNIK,
   String newApiDataUserNamaLengkap,
   // String newApiDataUserNamaPanggilan,
-  // String newApiDataUserTempatLahir,
+  String newApiDataUserTempatLahir,
   // String newApiDataUserTanggalLahir,
-  // String newApiDataUserJenisKelamin,
+  String newApiDataUserJenisKelamin,
   String newApiDataUserAlamatLengkap,
   // String newApiDataUserProvinsi,
   // String newApiDataUserKabupatenKota,
@@ -129,12 +141,12 @@ void updateDetailsUser(
   // String newApiDataUserIjazahFoto,
   // String newApiDataUserSkhunFoto,
 ) {
-  // apiDataUserNIK = newApiDataUserNIK;
+  apiDataUserNIK = newApiDataUserNIK;
   apiDataUserNamaLengkap = newApiDataUserNamaLengkap;
   // apiDataUserNamaPanggilan = newApiDataUserNamaPanggilan;
-  // apiDataUserTempatLahir = newApiDataUserTempatLahir;
+  apiDataUserTempatLahir = newApiDataUserTempatLahir;
   // apiDataUserTanggalLahir = newApiDataUserTanggalLahir;
-  // apiDataUserJenisKelamin = newApiDataUserJenisKelamin;
+  apiDataUserJenisKelamin = newApiDataUserJenisKelamin;
   apiDataUserAlamatLengkap = newApiDataUserAlamatLengkap;
   // apiDataUserProvinsi = newApiDataUserProvinsi;
   // apiDataUserKabupatenKota = newApiDataUserKabupatenKota;
@@ -200,6 +212,7 @@ void updateDetailsApp(
   // String newApiDataAppLembagaId,
   // String newApiDataAppBlocked,
   // String newApiDataAppStatus,
+
   String newapiDataAppNameString,
   String newapiDataAppLogo,
   String newapiDataAppLogoBar,
@@ -214,9 +227,82 @@ void updateDetailsApp(
   // apiDataAppBlocked = newApiDataAppBlocked;
   // apiDataAppStatus = newApiDataAppStatus;
 
+  apiDataAppNameString = newApiDataAppNameString;
+  apiDataAppLogo = newApiDataAppLogo;
+  apiDataAppLogoBar = newApiDataAppLogoBar;
+}
+
+void updateDetailProducts(
+  String newApiDataProductKeyword,
+  String newApiDataProductShoppingType,
+  String newApiDataProductProviderCode,
+  String newApiDataProductTransactionType,
+  String newApiDataProductClientNumber,
+  String newApiDataProductName,
+  String newApiDataProductCode,
+  String newApiDataProductPrice,
+  String newApiDataProductPin,
+) {
+  // apiDataAppId = newApiDataAppId;
+  // apiDataAppName = newApiDataAppName;
+  // apiDataAppIp = newApiDataAppIp;
+  // apiDataAppVerify = newApiDataAppVerify;
+  // apiDataAppDomain = newApiDataAppDomain;
+  // apiDataAppAccessFrom = newApiDataAppAccessFrom;
+  // apiDataAppLembagaId = newApiDataAppLembagaId;
+  // apiDataAppBlocked = newApiDataAppBlocked;
+  // apiDataAppStatus = newApiDataAppStatus;
+
+  apiDataProductKeyword = newApiDataProductKeyword;
+  apiDataProductShoppingType = newApiDataProductShoppingType;
+  apiDataProductProviderCode = newApiDataProductProviderCode;
+  apiDataProductTransactionType = newApiDataProductTransactionType;
+  apiDataProductClientNumber = newApiDataProductClientNumber;
+  apiDataProductName = newApiDataProductName;
+  apiDataProductCode = newApiDataProductCode;
+  apiDataProductPrice = newApiDataProductPrice;
+  apiDataProductPin = newApiDataProductPin;
+}
+
+void updateDetailsRek(
+  // String newApiDataAppId,
+  // String newApiDataAppName,
+  // String newApiDataAppIp,
+  // String newApiDataAppVerify,
+  // String newApiDataAppDomain,
+  // String newApiDataAppAccessFrom,
+  // String newApiDataAppLembagaId,
+  // String newApiDataAppBlocked,
+  // String newApiDataAppStatus,
+  String newapiDataOwnSirelaId,
+  String newapiDataOwnSirelaAmount,
+  String newapiDataDestinationSirelaId,
+  String newapiDataDestinationSirelaName,
+  String newapiDataSendaAmount,
+  String newapiDataSendaComment,
+) {
+  // apiDataAppId = newApiDataAppId;
+  // apiDataAppName = newApiDataAppName;
+  // apiDataAppIp = newApiDataAppIp;
+  // apiDataAppVerify = newApiDataAppVerify;
+  // apiDataAppDomain = newApiDataAppDomain;
+  // apiDataAppAccessFrom = newApiDataAppAccessFrom;
+  // apiDataAppLembagaId = newApiDataAppLembagaId;
+  // apiDataAppBlocked = newApiDataAppBlocked;
+  // apiDataAppStatus = newApiDataAppStatus;
+
+
   apiDataAppNameString = newapiDataAppNameString;
   apiDataAppLogo = newapiDataAppLogo;
   apiDataAppLogoBar = newapiDataAppLogoBar;
+  
+  apiDataOwnSirelaId = newapiDataOwnSirelaId;
+  apiDataOwnSirelaAmount = newapiDataOwnSirelaAmount;
+  apiDataDestinationSirelaId = newapiDataDestinationSirelaId;
+  apiDataDestinationSirelaName = newapiDataDestinationSirelaName;
+  apiDataSendaAmount = newapiDataSendaAmount;
+  apiDataSendaComment = newapiDataSendaComment;
+
 }
 
 void updateDetailsRek(

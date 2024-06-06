@@ -15,20 +15,27 @@ import '../values/app_strings.dart';
 import '../values/app_theme.dart';
 
 class Products {
-  Products(this.id_list, this.nama_pembelian);
+  Products(this.id_list, this.nama_pembelian, this.jenis_transaksi, this.icon,
+      this.keyword_kode_depan_nomor);
 
   factory Products.fromJson(dynamic json) {
     return Products(
       json['id_list'] as String,
       json['nama_pembelian'] as String,
+      json['jenis_transaksi'] as String,
+      json['icon'] as String,
+      json['keyword_kode_depan_nomor'] as String,
     );
   }
   String id_list;
   String nama_pembelian;
+  String jenis_transaksi;
+  String icon;
+  String keyword_kode_depan_nomor;
 
   @override
   String toString() {
-    return '{ $id_list, $nama_pembelian }';
+    return '{ $id_list, $nama_pembelian, $id_list, $nama_pembelian, $keyword_kode_depan_nomor }';
   }
 }
 
@@ -39,7 +46,7 @@ class ShoppingPage extends StatefulWidget {
 }
 
 class _ShoppingPageState extends State<ShoppingPage> {
-  late List<Products> listProducts;
+  late List<Products> listShopping;
 
   Future<String> callAsyncFetch() =>
       Future.delayed(const Duration(milliseconds: 500), () => 'wait');
@@ -63,11 +70,10 @@ class _ShoppingPageState extends State<ShoppingPage> {
 
       final responseBody = json.decode(response.body);
       final responseData = responseBody['data'] as List;
-      // listProducts = responseData.map(Products.fromJson).toList();
+      // listShopping = responseData.map(Products.fromJson).toList();
       setState(() {
-        listProducts = responseData.map(Products.fromJson).toList();
+        listShopping = responseData.map(Products.fromJson).toList();
       });
-      debugPrint('response: $listProducts');
     } catch (e) {
       debugPrint('Error: $e');
     }
@@ -82,6 +88,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return FutureBuilder<String>(
         future: callAsyncFetch(),
         builder: (context, AsyncSnapshot<String> snapshot) {
@@ -96,7 +103,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
               ),
               child: Scaffold(
                 body: ListView(
-                  padding: EdgeInsets.zero,
+                  padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
                   children: [
                     GradientBackground(
                       colors: const [Colors.transparent, Colors.transparent],
@@ -131,7 +138,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          for (final list in listProducts)
+                          for (final product in listShopping)
                             Card(
                               color: AppColors.primaryColor,
                               child: InkWell(
@@ -141,21 +148,28 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      // Material(
-                                      //   color: AppColors.darkGreen,
-                                      //   shape: const CircleBorder(),
-                                      //   child: Padding(
-                                      //     padding: EdgeInsets.all(screenWidth * 0.01),
-                                      //     child: const Image(
-                                      //       image: AssetImage(
-                                      //           'assets/images/handphone.png'),
-                                      //       height: 20,
-                                      //       alignment: Alignment.topCenter,
-                                      //     ),
-                                      //   ),
-                                      // ),
+                                      Material(
+                                        color: AppColors.darkGreen,
+                                        shape: const CircleBorder(),
+                                        child: Padding(
+                                          padding: EdgeInsets.all(
+                                              screenWidth * 0.01),
+                                          child: Image.network(
+                                            product.icon,
+                                            width: screenWidth * 0.15,
+                                            fit: BoxFit.cover,
+                                            alignment: Alignment.topCenter,
+                                          ),
+                                          // Image(
+                                          // image: ssetImage(
+                                          //     'assets/images/handphone.png'),
+                                          // height: 20,
+                                          // alignment: Alignment.topCenter,
+                                          // ),
+                                        ),
+                                      ),
                                       Text(
-                                        list.nama_pembelian,
+                                        product.nama_pembelian,
                                         style: const TextStyle(
                                           color: Colors.white,
                                           height: 3,
@@ -169,8 +183,14 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                   ),
                                 ),
                                 onTap: () {
+                                  apiDataProductTransactionType =
+                                      product.jenis_transaksi;
+                                  apiDataProductKeyword =
+                                      product.keyword_kode_depan_nomor;
+                                  debugPrint(
+                                      'response shopping, transaction type: $apiDataProductTransactionType, keyword $apiDataProductKeyword');
                                   NavigationHelper.pushReplacementNamed(
-                                    AppRoutes.home,
+                                    AppRoutes.shopping_provider_list,
                                   );
                                 },
                               ),

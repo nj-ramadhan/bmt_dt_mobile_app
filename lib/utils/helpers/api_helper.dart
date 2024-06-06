@@ -459,6 +459,7 @@ class ApiHelper {
     throw Exception("Fetch Data Error");
   }
 
+
   
   static Future<String> getAccountHolderSirela(
     {required String idSirela,
@@ -472,6 +473,7 @@ class ApiHelper {
       'Authorization': 'Bearer $LoginToken',
       'Content-Type': 'application/json',
     };
+
 
     final isi = {
     };
@@ -591,6 +593,7 @@ class ApiHelper {
       'Content-Type': 'application/json',
     };
 
+
     Map<String, dynamic> isi = {};
     final String url =
         "https://dkuapi.dkuindonesia.id/api/dku_bank/kode_bank_to?return=TRUE";
@@ -610,6 +613,7 @@ class ApiHelper {
               id: map['kode_bank'],
               title: map["nama_bank"]);
         }).toList();
+
       }
     } on SocketException {
       throw Exception("Network Connectivity Error");
@@ -617,18 +621,19 @@ class ApiHelper {
     throw Exception("Fetch Data Error");
   }
 
-
   static Future<List<DropdownItemsStringIdModel>> getListBankBIFAST(
     {
     required String LoginToken,
     }
   ) async {
+
     final headers = {
       'ClientID':
           'jLdCPSe3816XRXk7+aCMc+Et0nk1y6/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs/WzXeZ9pQGOkHyX6IK/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M/fXTrjkHB/v+1VFKgkGRFz0eIhDXZ3yp7e/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3/gKIXwL6NGFqzdeEy3xC/Qr6',
       'Authorization': 'Bearer $LoginToken',
       'Content-Type': 'application/json',
     };
+
 
     Map<String, dynamic> isi = {};
     final String url =
@@ -649,6 +654,7 @@ class ApiHelper {
               id: map['kode_bank'],
               title: map["nama_bank"]);
         }).toList();
+
       }
     } on SocketException {
       throw Exception("Network Connectivity Error");
@@ -694,10 +700,4 @@ class ApiHelper {
     }
     throw Exception("Fetch Data Error");
   }
-
-
- 
-
-
-
 }
