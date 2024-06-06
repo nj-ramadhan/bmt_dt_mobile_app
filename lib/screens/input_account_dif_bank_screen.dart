@@ -4,20 +4,45 @@ import '../global_variables.dart';
 import '../utils/helpers/navigation_helper.dart';
 import '../values/app_routes.dart';
 
-class InputAccountPage extends StatefulWidget {
-  const InputAccountPage({super.key});
+import '../components/app_drop_down_form_field.dart';
+import '../components/dropdown_V2.dart';
+
+class InputAccountDifBankPage extends StatefulWidget {
+  const InputAccountDifBankPage({super.key});
 
   @override
-  State<InputAccountPage> createState() => _InputAccountPageState();
+  State<InputAccountDifBankPage> createState() => _InputAccountDifBankPageState();
 }
 
-class _InputAccountPageState extends State<InputAccountPage> {
+class _InputAccountDifBankPageState extends State<InputAccountDifBankPage> {
   final Color backgroundColor = Color(
       0xFFD5F5E3); // Adjust this color to match the exact color from the image.
   final TextEditingController _accountNumberController =
       TextEditingController();
 
   String accountHolder = "";
+// late String _table;
+late Future<List<DropdownItemsStringIdModel>> _listBank;
+String? valueDownBank;
+    String? valueDownCodeBank;
+  void initState() {
+
+    if(apiDataMetodeTransfer=="TO"){
+    // _table = 'different_bank_TO';
+    _listBank = ApiHelper.getListBankTO(LoginToken: apiLoginToken);
+
+    }
+    else if(apiDataMetodeTransfer == "BIFAST"){
+      _listBank = ApiHelper.getListBankBIFAST(LoginToken: apiLoginToken);
+    // _table = 'different_bank_BIFAST';
+    }
+    else{
+      _listBank = ApiHelper.getListBankRTGS(LoginToken: apiLoginToken);
+    // _table = 'different_bank_RTGS';
+
+    }
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +62,24 @@ class _InputAccountPageState extends State<InputAccountPage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: <Widget>[
+
+            AppDropdownFormBank(
+              future: _listBank,
+              labelText: 'Bank',
+              value: valueDownBank,
+              hint: "Pilih Bank",
+              dropdownColor: Colors.blue[100],
+              onChanged: (value) {
+                setState(() {
+                  valueDownBank = value;
+                });
+              },
+              onItemSelected: (title) {
+                valueDownCodeBank = title;
+                print('Selected bank title: $valueDownBank $title $valueDownCodeBank');
+                // Lakukan sesuatu dengan title bank yang dipilih
+              },
+            ),
             Text(
               'Masukkan Nomor Rekening Tujuan',
               style: TextStyle(fontSize: 16.0),
@@ -58,13 +101,19 @@ class _InputAccountPageState extends State<InputAccountPage> {
                 ),
               ),
               keyboardType: TextInputType.number,
+              enabled: (valueDownBank != null),
             ),
             Spacer(),
             ElevatedButton(
               onPressed: () async {
-                String accountHolder = await ApiHelper.getAccountHolderSirela(
-                        idSirela: _accountNumberController.text,
-                        LoginToken: apiLoginToken);
+                String accountHolder =
+                        await ApiHelper.getAccountHolderDifBank(
+                      apiLoginToken,
+                      _accountNumberController.text,
+                      valueDownBank.toString(),
+                      apiDataMetodeTransfer,
+                    );
+                    print("data account holder $accountHolder");
                 if ( accountHolder!= "error") {
                   updateDetailsRek(
                     apiDataOwnSirelaId,
@@ -76,8 +125,10 @@ class _InputAccountPageState extends State<InputAccountPage> {
                     apiDataKodeTrx,
                     apiDataMetodeTransfer
                   );
+                  updateDifBank(apiDataMetodeTransfer,valueDownBank.toString(),valueDownCodeBank.toString());
+                    
                   NavigationHelper.pushReplacementNamed(
-                    AppRoutes.input_amount,
+                    AppRoutes.input_amount_dif_bank,
                   );
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(

@@ -70,6 +70,11 @@ String apiDataDestinationSirelaId = 'null';
 String apiDataDestinationSirelaName = 'null';
 String apiDataSendaAmount = "null";
 String apiDataSendaComment = "null";
+String apiDataKodeTrx = "null";
+
+String apiDataMetodeTransfer = "null";
+String apiDataKodeBank = "null";
+String apiDataBank = "null";
 
 void updateLoginVariables(
   String newApiRolePendidikan,
@@ -215,35 +220,28 @@ void updateDetailsApp(
 }
 
 void updateDetailsRek(
-  // String newApiDataAppId,
-  // String newApiDataAppName,
-  // String newApiDataAppIp,
-  // String newApiDataAppVerify,
-  // String newApiDataAppDomain,
-  // String newApiDataAppAccessFrom,
-  // String newApiDataAppLembagaId,
-  // String newApiDataAppBlocked,
-  // String newApiDataAppStatus,
   String newapiDataOwnSirelaId,
   String newapiDataOwnSirelaAmount,
   String newapiDataDestinationSirelaId,
   String newapiDataDestinationSirelaName,
   String newapiDataSendaAmount,
   String newapiDataSendaComment,
+  String newapiDataKodeTrx,
+  String newapiDataMetodeTransfer,
 ) {
-  // apiDataAppId = newApiDataAppId;
-  // apiDataAppName = newApiDataAppName;
-  // apiDataAppIp = newApiDataAppIp;
-  // apiDataAppVerify = newApiDataAppVerify;
-  // apiDataAppDomain = newApiDataAppDomain;
-  // apiDataAppAccessFrom = newApiDataAppAccessFrom;
-  // apiDataAppLembagaId = newApiDataAppLembagaId;
-  // apiDataAppBlocked = newApiDataAppBlocked;
-  // apiDataAppStatus = newApiDataAppStatus;
   apiDataOwnSirelaId = newapiDataOwnSirelaId;
   apiDataOwnSirelaAmount = newapiDataOwnSirelaAmount;
   apiDataDestinationSirelaId = newapiDataDestinationSirelaId;
   apiDataDestinationSirelaName = newapiDataDestinationSirelaName;
   apiDataSendaAmount = newapiDataSendaAmount;
-  apiDataSendaComment= newapiDataSendaComment;
+  apiDataSendaComment = newapiDataSendaComment;
+  apiDataKodeTrx = newapiDataKodeTrx;
+  apiDataMetodeTransfer = newapiDataMetodeTransfer;
+}
+
+void updateDifBank(String newapiDataMetodeTransfer, String newapiDataKodeBank,
+    String newapiDataBank) {
+  apiDataMetodeTransfer = newapiDataMetodeTransfer;
+  apiDataKodeBank = newapiDataKodeBank;
+  apiDataBank = newapiDataBank;
 }

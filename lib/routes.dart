@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'screens/add_client_screen.dart';
+import 'screens/add_client_screen_dif_bank.dart';
 import 'screens/change_email_screen.dart';
 import 'screens/change_password_screen.dart';
 import 'screens/change_pin_screen.dart';
@@ -8,8 +9,10 @@ import 'screens/checking_screen.dart';
 import 'screens/deposit_screen.dart';
 import 'screens/funding_screen.dart';
 import 'screens/home_screen.dart';
+import 'screens/input_account_dif_bank_screen.dart';
 import 'screens/input_account_screen.dart';
 import 'screens/input_amount_screen.dart';
+import 'screens/input_amount_dif_bank_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/menu_screen.dart';
 import 'screens/payment_screen.dart';
@@ -20,10 +23,12 @@ import 'screens/registration_success_screen.dart';
 import 'screens/saving_mandatory_screen.dart';
 import 'screens/saving_principal_screen.dart';
 import 'screens/saving_voluntary_screen.dart';
-import 'screens/transfer_success_screen.dart';
 import 'screens/shopping_screen.dart';
 import 'screens/transaction_detail_screen.dart';
+import 'screens/transaction_detail_dif_bank_screen.dart';
+import 'screens/transfer_metode_screen.dart';
 import 'screens/transfer_screen.dart';
+import 'screens/transfer_success_screen.dart';
 import 'utils/common_widgets/invalid_route.dart';
 import 'values/app_routes.dart';
 
@@ -83,17 +88,32 @@ class Routes {
       case AppRoutes.transaction_detail:
         return getRoute(widget: const TransactionDetailPage());
 
+      case AppRoutes.transaction_detail_dif_Bank:
+        return getRoute(widget: const TransactionDetailDifBankPage());
+
       case AppRoutes.transaction_sucess:
         return getRoute(widget: const TransferSuccessPage());
 
       case AppRoutes.add_client:
         return getRoute(widget: const AddClientPage());
 
+      case AppRoutes.transfer_metode:
+        return getRoute(widget: const TransferMetodePage());
+
+      case AppRoutes.add_client_dif_bank:
+        return getRoute(widget: const AddClientPageDifBank());
+
       case AppRoutes.input_account:
         return getRoute(widget: const InputAccountPage());
 
+      case AppRoutes.input_account_dif_bank:
+        return getRoute(widget: const InputAccountDifBankPage());
+
       case AppRoutes.input_amount:
         return getRoute(widget: const InputAmountPage());
+
+      case AppRoutes.input_amount_dif_bank:
+        return getRoute(widget: const InputAmountDifBankPage());
 
       case AppRoutes.checking:
         return getRoute(widget: const CheckingPage());

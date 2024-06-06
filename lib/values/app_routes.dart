@@ -9,7 +9,6 @@ class AppRoutes {
   static const String home = 'home';
   static const String menu = 'menu';
   static const String profile = 'profile';
-  static const String transaction_sucess = 'profile';
   static const String profile_detail = 'profile_detail';
   static const String change_password = 'change_password';
   static const String change_email = 'change_email';
@@ -18,10 +17,15 @@ class AppRoutes {
   static const String checking = 'checking';
   static const String shopping = 'shopping';
   static const String transaction_detail = 'transaction_detail';
+  static const String transaction_detail_dif_Bank = 'transaction_detail_dif_Bank';
   static const String transaction_sucess = 'transaction_sucess';
+  static const String transfer_metode = 'transfer_metode';
   static const String add_client = 'add_client';
+  static const String add_client_dif_bank = 'add_client_dif_bank';
   static const String input_account = 'input_account';
+  static const String input_account_dif_bank = 'InputAccountDifBankPage';
   static const String input_amount = 'input_amount';
+  static const String input_amount_dif_bank = 'input_amount_dif_bank';
   static const String funding = 'funding';
   static const String payment = 'payment';
   static const String transfer = 'transfer';

@@ -9,14 +9,14 @@ import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
 
-class TransferPage extends StatefulWidget {
-  const TransferPage({super.key});
+class TransferMetodePage extends StatefulWidget {
+  const TransferMetodePage({super.key});
 
   @override
-  State<TransferPage> createState() => _TransferPageState();
+  State<TransferMetodePage> createState() => _TransferMetodePageState();
 }
 
-class _TransferPageState extends State<TransferPage> {
+class _TransferMetodePageState extends State<TransferMetodePage> {
   int amountTransfer = 0;
 
   final ValueNotifier<bool> amountNotifier = ValueNotifier(true);
@@ -108,92 +108,6 @@ class _TransferPageState extends State<TransferPage> {
               ],
             ),
             Padding(
-                padding: EdgeInsets.all(screenWidth * 0.02),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Card(
-                      color: AppColors.primaryColor,
-                      child: SizedBox(
-                        height: 100,
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              const Material(
-                                color: AppColors.darkGreen,
-                                shape: CircleBorder(),
-                                child: Padding(
-                                  padding: EdgeInsets.all(15),
-                                  child: Text(
-                                    'Rp.',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Expanded(
-                                child: TextField(
-                                  decoration: const InputDecoration(
-                                      hintText: AppStrings.amountTransfer,
-                                      fillColor: AppColors.lightGreen),
-                                  controller: amountController,
-                                  textInputAction: TextInputAction.done,
-                                  textAlign: TextAlign.end,
-                                  keyboardType: TextInputType.number,
-                                  onChanged: (_) =>
-                                      updateAmountText(amountController.text),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    const Text(
-                      AppStrings.selectAmountTransfer,
-                      style: AppTheme.bodySmall,
-                    ),
-                  ],
-                )),
-            CarouselSlider(
-              options: CarouselOptions(height: 100),
-              items: [50000, 75000, 100000].map((i) {
-                return Builder(
-                  builder: (BuildContext context) {
-                    return SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: Card(
-                        child: InkWell(
-                          onTap: () {
-                            updateAmount(i);
-                          },
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Rp. $i',
-                                style: AppTheme.titleLarge,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                );
-              }).toList(),
-            ),
-            Padding(
               padding: EdgeInsets.all(screenWidth * 0.02),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -219,7 +133,7 @@ class _TransferPageState extends State<TransferPage> {
                               ),
                             ),
                             Text(
-                              AppStrings.differentAccountTransfer,
+                              "Transfer Online",
                               style: TextStyle(
                                 color: Colors.white,
                               ),
@@ -232,6 +146,16 @@ class _TransferPageState extends State<TransferPage> {
                         ),
                       ),
                       onTap: () {
+                        updateDetailsRek(
+                          apiDataOwnSirelaId,
+                          apiDataOwnSirelaAmount,
+                          apiDataDestinationSirelaId,
+                          apiDataDestinationSirelaName,
+                          apiDataSendaAmount,
+                          apiDataSendaComment,
+                          apiDataKodeTrx,
+                          "TO",
+                        );
                         NavigationHelper.pushReplacementNamed(
                           AppRoutes.add_client,
                         );
@@ -260,7 +184,7 @@ class _TransferPageState extends State<TransferPage> {
                               ),
                             ),
                             Text(
-                              AppStrings.differentBankTransfer,
+                              "BIFast",
                               style: TextStyle(
                                 color: Colors.white,
                               ),
@@ -273,8 +197,69 @@ class _TransferPageState extends State<TransferPage> {
                         ),
                       ),
                       onTap: () {
+                        updateDetailsRek(
+                          apiDataOwnSirelaId,
+                          apiDataOwnSirelaAmount,
+                          apiDataDestinationSirelaId,
+                          apiDataDestinationSirelaName,
+                          apiDataSendaAmount,
+                          apiDataSendaComment,
+                          apiDataKodeTrx,
+                          "BIFAST",
+                        );
                         NavigationHelper.pushReplacementNamed(
-                          AppRoutes.transfer_metode,
+                          AppRoutes.add_client_dif_bank,
+                        );
+                      },
+                    ),
+                  ),
+                  Card(
+                    color: AppColors.primaryColor,
+                    child: InkWell(
+                      child: const Padding(
+                        padding: EdgeInsets.all(20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Material(
+                              color: AppColors.darkGreen,
+                              shape: CircleBorder(),
+                              child: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Image(
+                                  image:
+                                      AssetImage('assets/images/banking.png'),
+                                  height: 30,
+                                  alignment: Alignment.topCenter,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              "RTGS",
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                            Icon(
+                              Icons.chevron_right,
+                              color: Colors.white,
+                            ),
+                          ],
+                        ),
+                      ),
+                      onTap: () {
+                        updateDetailsRek(
+                          apiDataOwnSirelaId,
+                          apiDataOwnSirelaAmount,
+                          apiDataDestinationSirelaId,
+                          apiDataDestinationSirelaName,
+                          apiDataSendaAmount,
+                          apiDataSendaComment,
+                          apiDataKodeTrx,
+                          "RTGS",
+                        );
+                        NavigationHelper.pushReplacementNamed(
+                          AppRoutes.add_client_dif_bank,
                         );
                       },
                     ),

@@ -504,16 +504,85 @@ class ApiHelper {
            
    
   }
-
-
-  static Future<String> getTransferSirela(
-    {required String idSirela,
-    required String LoginToken,
-    required String nominal,
-    required String notes,
-    required String pin,
+  static Future<String> getAccountHolderDifBank(
+    String token,String idDestination,String codeBank,String metodeTransfer
+  ) async {
+  const String url = 'https://dkuapi.dkuindonesia.id/api/Dku_bank/cek_rekening_tujuan';
+  print("+"+metodeTransfer+"+"+idDestination+"+"+codeBank);
+    try {
+      var response = await http.post(
+        Uri.parse(url),
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: {
+          'jenis_transfer': metodeTransfer,
+          'kode_bank_tujuan': codeBank,
+          'rek_tujuan': idDestination,
+          'bifast_nominal': '500.00',
+          'bifast_tujuan_transaksi': '99',
+        },
+      );
+       final data = json.decode(response.body);
+        print('Response data: ${response.body}');
+        // final data = json.decode(response.body);
+      if (response.statusCode == 200) {
+        // Request was successful
+        print('Response data: ${response.body}');
+        return data['beneficiaryAccountName'].toString();
+      } else {
+        // Request failed
+        print('Request failed with status: ${response.statusCode}');
+        return 'errorr';
+      }
+    } catch (e) {
+      // Handle any errors
+      print('Error: $e');
+      return 'error';
     }
+  }
+  
 
+
+
+
+  static Future<Map<String,dynamic>> getTransferSirela(
+    String token,String idSirela,String nominalTopUp,String notes,String pin,String idSirelaDestination
+    ) async {
+    final url = Uri.https('dkuapi.dkuindonesia.id', '/api/dku_bank/credit_transfer/$idSirelaDestination');
+// https://dkuapi.dkuindonesia.id/api/dku_bank/credit_transfer/36055
+    final headers = {
+      'Authorization': 'Bearer $token',
+      'Content-Type': 'application/x-www-form-urlencoded',
+    };
+    print("ID Sirela $idSirela");
+    final body = {
+      'm_bayar': "sk-$idSirela",
+      'nominal_top_up': nominalTopUp,
+      'notes': notes,
+      'pin': pin,
+    };
+
+    final response = await http.post(url, headers: headers, body: body);
+    print(json.decode(response.body) );
+    final data = json.decode(response.body);
+    if (response.statusCode == 200) {
+      print('Transfer successful');
+      return data;
+    } else {
+      print('Failed to transfer: ${response.body}');
+      return {"error":"data error"};
+    }
+  }
+
+
+
+
+  static Future<List<DropdownItemsStringIdModel>> getListBankTO(
+    {
+    required String LoginToken,
+    }
   ) async {
     final headers = {
       'ClientID':
@@ -522,54 +591,113 @@ class ApiHelper {
       'Content-Type': 'application/json',
     };
 
-    final isi = {
-      "mode": "formdata",
-      "formdata": [
-        {"key": "nominal", "value": nominal, "type": "text"},
-        {
-          "key": "m_bayar",
-          "value": "sk-",
-          "contentType": "MANDATORY",
-          "description": "VARCHAR(100) M",
-          "type": "text"
-        },
-        {
-          "key": "notes",
-          "value": notes,
-          "contentType": "MANDATORY",
-          "description": "VARCHAR(100) M",
-          "type": "text"
-        },
-        {
-          "key": "pin",
-          "value": pin,
-          "contentType": "MANDATORY",
-          "description": "VARCHAR(100) M",
-          "type": "text"
-        },
-        
-      ]
-      
-    };
-
+    Map<String, dynamic> isi = {};
     final String url =
-        "https://dkuapi.dkuindonesia.id/api/dku_bank/acc_trx/$idSirela";
+        "https://dkuapi.dkuindonesia.id/api/dku_bank/kode_bank_to?return=TRUE";
     try {
       final response = await http.post(
         Uri.parse(url),
         headers: headers,
         body: json.encode(isi),
-      ).timeout(
-              const Duration(seconds: 10));
-      final body = json.decode(response.body);
-      
+      );
+      final body = json.decode(response.body)['data'] as List;
+      print("isi body");
       if (response.statusCode == 200) {
-        print("udah masuk ke respon");
-        return body['status_trx'].toString();
+        return body.map((e) {
+          final map = e as Map<String, dynamic>;
+          return DropdownItemsStringIdModel(
+              // userId: map["userId"], id: map['id'], title: map["title"]);
+              id: map['kode_bank'],
+              title: map["nama_bank"]);
+        }).toList();
       }
     } on SocketException {
-      return("error");
+      throw Exception("Network Connectivity Error");
     }
-    return("error");
+    throw Exception("Fetch Data Error");
   }
+
+
+  static Future<List<DropdownItemsStringIdModel>> getListBankBIFAST(
+    {
+    required String LoginToken,
+    }
+  ) async {
+    final headers = {
+      'ClientID':
+          'jLdCPSe3816XRXk7+aCMc+Et0nk1y6/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs/WzXeZ9pQGOkHyX6IK/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M/fXTrjkHB/v+1VFKgkGRFz0eIhDXZ3yp7e/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3/gKIXwL6NGFqzdeEy3xC/Qr6',
+      'Authorization': 'Bearer $LoginToken',
+      'Content-Type': 'application/json',
+    };
+
+    Map<String, dynamic> isi = {};
+    final String url =
+        "https://dkuapi.dkuindonesia.id/api/dku_bank/kode_bank_bifast?return=TRUE";
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: headers,
+        body: json.encode(isi),
+      );
+      final body = json.decode(response.body)['data'] as List;
+      print("isi body");
+      if (response.statusCode == 200) {
+        return body.map((e) {
+          final map = e as Map<String, dynamic>;
+          return DropdownItemsStringIdModel(
+              // userId: map["userId"], id: map['id'], title: map["title"]);
+              id: map['kode_bank'],
+              title: map["nama_bank"]);
+        }).toList();
+      }
+    } on SocketException {
+      throw Exception("Network Connectivity Error");
+    }
+    throw Exception("Fetch Data Error");
+  }
+
+
+  static Future<List<DropdownItemsStringIdModel>> getListBankRTGS(
+    {
+    required String LoginToken,
+    }
+  ) async {
+    final headers = {
+      'ClientID':
+          'jLdCPSe3816XRXk7+aCMc+Et0nk1y6/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs/WzXeZ9pQGOkHyX6IK/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M/fXTrjkHB/v+1VFKgkGRFz0eIhDXZ3yp7e/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3/gKIXwL6NGFqzdeEy3xC/Qr6',
+      'Authorization': 'Bearer $LoginToken',
+      'Content-Type': 'application/json',
+    };
+
+    Map<String, dynamic> isi = {};
+    final String url =
+        "https://dkuapi.dkuindonesia.id/api/dku_bank/kode_bank_rtgs?return=TRUE";
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: headers,
+        body: json.encode(isi),
+      );
+      final body = json.decode(response.body)['data'] as List;
+      print("isi body");
+      if (response.statusCode == 200) {
+        return body.map((e) {
+          final map = e as Map<String, dynamic>;
+          return DropdownItemsStringIdModel(
+              // userId: map["userId"], id: map['id'], title: map["title"]);
+              id: map['kode_bank'],
+              title: map["nama_bank"]);
+        }).toList();
+      }
+    } on SocketException {
+      throw Exception("Network Connectivity Error");
+    }
+    throw Exception("Fetch Data Error");
+  }
+
+
+ 
+
+
+
 }

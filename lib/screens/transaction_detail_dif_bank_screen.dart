@@ -10,14 +10,14 @@ import '../values/app_strings.dart';
 import '../values/app_theme.dart';
 import '../utils/helpers/api_helper.dart';
 
-class TransactionDetailPage extends StatefulWidget {
-  const TransactionDetailPage({super.key});
+class TransactionDetailDifBankPage extends StatefulWidget {
+  const TransactionDetailDifBankPage({super.key});
 
   @override
-  State<TransactionDetailPage> createState() => _TransactionDetailPageState();
+  State<TransactionDetailDifBankPage> createState() => _TransactionDetailDifBankPageState();
 }
 
-class _TransactionDetailPageState extends State<TransactionDetailPage> {
+class _TransactionDetailDifBankPageState extends State<TransactionDetailDifBankPage> {
   final Color backgroundColor = Color(
       0xFFD5F5E3); // Adjust this color to match the exact color from the image.
 
@@ -51,7 +51,7 @@ class _TransactionDetailPageState extends State<TransactionDetailPage> {
               icon: Icons.account_balance,
               title: 'Rekening Tujuan',
               accountNumber: '$apiDataDestinationSirelaId',
-              name: '$apiDataDestinationSirelaName',
+              name: '$apiDataBank - $apiDataDestinationSirelaName',
             ),
             SizedBox(height: 16),
             TransferInfoCard(),

@@ -50,6 +50,8 @@ class _HomePageState extends State<HomePage> {
         apiDataDestinationSirelaName,
         apiDataSendaAmount,
         apiDataSendaComment,
+        apiDataKodeTrx,
+        apiDataMetodeTransfer
         
         );
         return entry.value['number'];

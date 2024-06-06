@@ -36,10 +36,36 @@ class DatabaseHelper {
     ''');
 
     await db.execute('''
-    CREATE TABLE different_bank (
+    CREATE TABLE different_bank_TO (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       account_number TEXT NOT NULL UNIQUE,
       account_holder TEXT NOT NULL,
+      account_bank TEXT NOT NULL,
+      account_code_bank TEXT NOT NULL,
+      account_alias TEXT
+    )
+    ''');
+
+    
+    await db.execute('''
+    CREATE TABLE different_bank_BIFAST (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      account_number TEXT NOT NULL UNIQUE,
+      account_holder TEXT NOT NULL,
+      account_bank TEXT NOT NULL,
+      account_code_bank TEXT NOT NULL,
+      account_alias TEXT
+    )
+    ''');
+
+
+    await db.execute('''
+    CREATE TABLE different_bank_RTGS (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      account_number TEXT NOT NULL UNIQUE,
+      account_holder TEXT NOT NULL,
+      account_bank TEXT NOT NULL,
+      account_code_bank TEXT NOT NULL,
       account_alias TEXT
     )
     ''');
@@ -60,6 +86,23 @@ class DatabaseHelper {
       'account_number': accountNumber,
       'account_holder': accountHolder,
       'account_alias': accountAlias
+    };
+
+    try {
+      return await db.insert(table, data);
+    } catch (e) {
+      return -1; // if there's a conflict (duplicate entry)
+    }
+  }
+
+  Future<int> addAccountDifBank(String table, String accountNumber, String accountHolder, String accountAlias,String account_bank,String account_code_bank) async {
+    final db = await instance.database;
+    final data = {
+      'account_number': accountNumber,
+      'account_holder': accountHolder,
+      'account_alias': accountAlias,
+      'account_bank': account_bank,
+      'account_code_bank': account_code_bank,
     };
 
     try {

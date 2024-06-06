@@ -13,7 +13,7 @@ void main() {
   );
   // WidgetsFlutterBinding.ensureInitialized();
   // initApp().then((_) {
-  //   SystemChrome.setSystemUIOverlayStyle(
+  //   SystemChrome.setSy stemUIOverlayStyle(
   //     const SystemUiOverlayStyle(statusBarIconBrightness: Brightness.light),
   //   );
   //   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
