@@ -213,9 +213,9 @@ void updateDetailsApp(
   // String newApiDataAppBlocked,
   // String newApiDataAppStatus,
 
-  String newapiDataAppNameString,
-  String newapiDataAppLogo,
-  String newapiDataAppLogoBar,
+  String newApiDataAppNameString,
+  String newApiDataAppLogo,
+  String newApiDataAppLogoBar,
 ) {
   // apiDataAppId = newApiDataAppId;
   // apiDataAppName = newApiDataAppName;
@@ -262,47 +262,6 @@ void updateDetailProducts(
   apiDataProductCode = newApiDataProductCode;
   apiDataProductPrice = newApiDataProductPrice;
   apiDataProductPin = newApiDataProductPin;
-}
-
-void updateDetailsRek(
-  // String newApiDataAppId,
-  // String newApiDataAppName,
-  // String newApiDataAppIp,
-  // String newApiDataAppVerify,
-  // String newApiDataAppDomain,
-  // String newApiDataAppAccessFrom,
-  // String newApiDataAppLembagaId,
-  // String newApiDataAppBlocked,
-  // String newApiDataAppStatus,
-  String newapiDataOwnSirelaId,
-  String newapiDataOwnSirelaAmount,
-  String newapiDataDestinationSirelaId,
-  String newapiDataDestinationSirelaName,
-  String newapiDataSendaAmount,
-  String newapiDataSendaComment,
-) {
-  // apiDataAppId = newApiDataAppId;
-  // apiDataAppName = newApiDataAppName;
-  // apiDataAppIp = newApiDataAppIp;
-  // apiDataAppVerify = newApiDataAppVerify;
-  // apiDataAppDomain = newApiDataAppDomain;
-  // apiDataAppAccessFrom = newApiDataAppAccessFrom;
-  // apiDataAppLembagaId = newApiDataAppLembagaId;
-  // apiDataAppBlocked = newApiDataAppBlocked;
-  // apiDataAppStatus = newApiDataAppStatus;
-
-
-  apiDataAppNameString = newapiDataAppNameString;
-  apiDataAppLogo = newapiDataAppLogo;
-  apiDataAppLogoBar = newapiDataAppLogoBar;
-  
-  apiDataOwnSirelaId = newapiDataOwnSirelaId;
-  apiDataOwnSirelaAmount = newapiDataOwnSirelaAmount;
-  apiDataDestinationSirelaId = newapiDataDestinationSirelaId;
-  apiDataDestinationSirelaName = newapiDataDestinationSirelaName;
-  apiDataSendaAmount = newapiDataSendaAmount;
-  apiDataSendaComment = newapiDataSendaComment;
-
 }
 
 void updateDetailsRek(

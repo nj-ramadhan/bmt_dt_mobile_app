@@ -148,6 +148,8 @@ class AppStrings {
 
   static const String transferTitle = 'Transfer';
   static const String transferSubtitle = 'Mau melakukan pengiriman uang?';
+  static const String transferMethodTitle = 'Metode Transfer';
+  static const String transferReceiptTitle = 'Transfer Receipt';
 
   static const String favouriteTitle = 'Favorit';
   static const String favouriteSubtitle = 'Menu Favorit';

@@ -459,14 +459,10 @@ class ApiHelper {
     throw Exception("Fetch Data Error");
   }
 
-
-  
-  static Future<String> getAccountHolderSirela(
-    {required String idSirela,
+  static Future<String> getAccountHolderSirela({
+    required String idSirela,
     required String LoginToken,
-    }
-
-  ) async {
+  }) async {
     final headers = {
       'ClientID':
           'jLdCPSe3816XRXk7+aCMc+Et0nk1y6/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs/WzXeZ9pQGOkHyX6IK/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M/fXTrjkHB/v+1VFKgkGRFz0eIhDXZ3yp7e/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3/gKIXwL6NGFqzdeEy3xC/Qr6',
@@ -474,9 +470,7 @@ class ApiHelper {
       'Content-Type': 'application/json',
     };
 
-
-    final isi = {
-    };
+    final isi = {};
 
     final String url =
         "https://dkuapi.dkuindonesia.id/api/dku_bank/inquiry_account/$idSirela";
@@ -486,31 +480,28 @@ class ApiHelper {
         headers: headers,
         body: json.encode(isi),
       );
-      final data  =  json.decode(response.body);
-      if(data['status'].toString() == "200"){
-
-      print(data);
-      print(data['data']);
-      final listdata = data['data'];
-      print(listdata[0]['nama_lengkap'].toString());
-      return listdata[0]['nama_lengkap'].toString();
-      }
-      else{
+      final data = json.decode(response.body);
+      if (data['status'].toString() == "200") {
+        print(data);
+        print(data['data']);
+        final listdata = data['data'];
+        print(listdata[0]['nama_lengkap'].toString());
+        return listdata[0]['nama_lengkap'].toString();
+      } else {
         print("Errorr 4999");
         return "error";
       }
-  } catch(e){
-    debugPrint('Error : $e');
-    return "error";
+    } catch (e) {
+      debugPrint('Error : $e');
+      return "error";
+    }
   }
-           
-   
-  }
-  static Future<String> getAccountHolderDifBank(
-    String token,String idDestination,String codeBank,String metodeTransfer
-  ) async {
-  const String url = 'https://dkuapi.dkuindonesia.id/api/Dku_bank/cek_rekening_tujuan';
-  print("+"+metodeTransfer+"+"+idDestination+"+"+codeBank);
+
+  static Future<String> getAccountHolderDifBank(String token,
+      String idDestination, String codeBank, String metodeTransfer) async {
+    const String url =
+        'https://dkuapi.dkuindonesia.id/api/Dku_bank/cek_rekening_tujuan';
+    print("+" + metodeTransfer + "+" + idDestination + "+" + codeBank);
     try {
       var response = await http.post(
         Uri.parse(url),
@@ -526,9 +517,9 @@ class ApiHelper {
           'bifast_tujuan_transaksi': '99',
         },
       );
-       final data = json.decode(response.body);
-        print('Response data: ${response.body}');
-        // final data = json.decode(response.body);
+      final data = json.decode(response.body);
+      print('Response data: ${response.body}');
+      // final data = json.decode(response.body);
       if (response.statusCode == 200) {
         // Request was successful
         print('Response data: ${response.body}');
@@ -544,15 +535,16 @@ class ApiHelper {
       return 'error';
     }
   }
-  
 
-
-
-
-  static Future<Map<String,dynamic>> getTransferSirela(
-    String token,String idSirela,String nominalTopUp,String notes,String pin,String idSirelaDestination
-    ) async {
-    final url = Uri.https('dkuapi.dkuindonesia.id', '/api/dku_bank/credit_transfer/$idSirelaDestination');
+  static Future<Map<String, dynamic>> getTransferSirela(
+      String token,
+      String idSirela,
+      String nominalTopUp,
+      String notes,
+      String pin,
+      String idSirelaDestination) async {
+    final url = Uri.https('dkuapi.dkuindonesia.id',
+        '/api/dku_bank/credit_transfer/$idSirelaDestination');
 // https://dkuapi.dkuindonesia.id/api/dku_bank/credit_transfer/36055
     final headers = {
       'Authorization': 'Bearer $token',
@@ -567,32 +559,26 @@ class ApiHelper {
     };
 
     final response = await http.post(url, headers: headers, body: body);
-    print(json.decode(response.body) );
+    print(json.decode(response.body));
     final data = json.decode(response.body);
     if (response.statusCode == 200) {
       print('Transfer successful');
       return data;
     } else {
       print('Failed to transfer: ${response.body}');
-      return {"error":"data error"};
+      return {"error": "data error"};
     }
   }
 
-
-
-
-  static Future<List<DropdownItemsStringIdModel>> getListBankTO(
-    {
+  static Future<List<DropdownItemsStringIdModel>> getListBankTO({
     required String LoginToken,
-    }
-  ) async {
+  }) async {
     final headers = {
       'ClientID':
           'jLdCPSe3816XRXk7+aCMc+Et0nk1y6/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs/WzXeZ9pQGOkHyX6IK/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M/fXTrjkHB/v+1VFKgkGRFz0eIhDXZ3yp7e/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3/gKIXwL6NGFqzdeEy3xC/Qr6',
       'Authorization': 'Bearer $LoginToken',
       'Content-Type': 'application/json',
     };
-
 
     Map<String, dynamic> isi = {};
     final String url =
@@ -613,7 +599,6 @@ class ApiHelper {
               id: map['kode_bank'],
               title: map["nama_bank"]);
         }).toList();
-
       }
     } on SocketException {
       throw Exception("Network Connectivity Error");
@@ -621,19 +606,15 @@ class ApiHelper {
     throw Exception("Fetch Data Error");
   }
 
-  static Future<List<DropdownItemsStringIdModel>> getListBankBIFAST(
-    {
+  static Future<List<DropdownItemsStringIdModel>> getListBankBIFAST({
     required String LoginToken,
-    }
-  ) async {
-
+  }) async {
     final headers = {
       'ClientID':
           'jLdCPSe3816XRXk7+aCMc+Et0nk1y6/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs/WzXeZ9pQGOkHyX6IK/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M/fXTrjkHB/v+1VFKgkGRFz0eIhDXZ3yp7e/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3/gKIXwL6NGFqzdeEy3xC/Qr6',
       'Authorization': 'Bearer $LoginToken',
       'Content-Type': 'application/json',
     };
-
 
     Map<String, dynamic> isi = {};
     final String url =
@@ -654,7 +635,6 @@ class ApiHelper {
               id: map['kode_bank'],
               title: map["nama_bank"]);
         }).toList();
-
       }
     } on SocketException {
       throw Exception("Network Connectivity Error");
@@ -662,12 +642,9 @@ class ApiHelper {
     throw Exception("Fetch Data Error");
   }
 
-
-  static Future<List<DropdownItemsStringIdModel>> getListBankRTGS(
-    {
+  static Future<List<DropdownItemsStringIdModel>> getListBankRTGS({
     required String LoginToken,
-    }
-  ) async {
+  }) async {
     final headers = {
       'ClientID':
           'jLdCPSe3816XRXk7+aCMc+Et0nk1y6/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs/WzXeZ9pQGOkHyX6IK/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M/fXTrjkHB/v+1VFKgkGRFz0eIhDXZ3yp7e/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3/gKIXwL6NGFqzdeEy3xC/Qr6',
@@ -699,5 +676,192 @@ class ApiHelper {
       throw Exception("Network Connectivity Error");
     }
     throw Exception("Fetch Data Error");
+  }
+
+  static Future<Map<int, Map<String, String>>> getListProvider(
+      {required String LoginToken, required String frontCode}) async {
+    final headers = {
+      'ClientID':
+          'jLdCPSe3816XRXk7+aCMc+Et0nk1y6/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs/WzXeZ9pQGOkHyX6IK/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M/fXTrjkHB/v+1VFKgkGRFz0eIhDXZ3yp7e/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3/gKIXwL6NGFqzdeEy3xC/Qr6',
+      'Authorization': 'Bearer $LoginToken',
+      'Content-Type': 'application/json',
+    };
+
+    final String url =
+        "https://dkuapi.dkuindonesia.id/api/table_wizard/crud_table_serverside_globaltable?act=list-dkui_mitra.t_provider_kode&category_name=a.kode_depan_nomor&category_value=$frontCode";
+
+    try {
+      final response = await http.get(
+        Uri.parse(url),
+        headers: headers,
+      );
+      final body = json.decode(response.body)['data'] as List;
+
+      if (response.statusCode == 200) {
+        Map<int, Map<String, String>> dataMap = {};
+        for (int i = 0; i < body.length; i++) {
+          var item = body[i];
+          dataMap[i + 1] = {
+            'no_kode_provider': item['no_kode_provider'] ?? '',
+            'no_provider': item['no_provider'] ?? '',
+            'produk_provider': item['produk_provider'] ?? '',
+            'logo_kartu': item['logo_kartu'] ?? '',
+            'keyword_kode_depan_nomor': item['keyword_kode_depan_nomor'] ?? '',
+          };
+        }
+        print(dataMap);
+        return dataMap;
+      }
+    } on SocketException {
+      throw Exception("Network Connectivity Error");
+    }
+    throw Exception("Fetch Data Error");
+  }
+
+  static Future<Map<int, Map<String, String>>> getListProduct(
+      {required String LoginToken,
+      required String providerCode,
+      required String transactionType}) async {
+    final headers = {
+      'ClientID':
+          'jLdCPSe3816XRXk7+aCMc+Et0nk1y6/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs/WzXeZ9pQGOkHyX6IK/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M/fXTrjkHB/v+1VFKgkGRFz0eIhDXZ3yp7e/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3/gKIXwL6NGFqzdeEy3xC/Qr6',
+      'Authorization': 'Bearer $LoginToken',
+      'Content-Type': 'application/json',
+    };
+
+    final String url =
+        "https://dkuapi.dkuindonesia.id/api/pulsa/get_produk_by_provider_code?provider_code=$providerCode&jenis_transaksi=$transactionType";
+
+    try {
+      final response = await http.get(
+        Uri.parse(url),
+        headers: headers,
+      );
+      final body = json.decode(response.body)['data'] as List;
+
+      if (response.statusCode == 200) {
+        Map<int, Map<String, String>> dataMap = {};
+        for (int i = 0; i < body.length; i++) {
+          var item = body[i];
+          dataMap[i + 1] = {
+            'kode_bayar_ppob': item['kode_bayar_ppob'] ?? '',
+            'kode_dku': item['kode_dku'] ?? '',
+            'jenis_transaksi_ppob': item['jenis_transaksi_ppob'] ?? '',
+            'sub_jenis_transaksi_ppob': item['sub_jenis_transaksi_ppob'] ?? '',
+            'provider': item['provider'] ?? '',
+            'nama_produk': item['nama_produk'] ?? '',
+            'status_ketersediaan': item['status_ketersediaan'] ?? '',
+            'harga_jual_eceran': item['harga_jual_eceran'] ?? '',
+            'harga_jual_agen': item['harga_jual_agen'] ?? '',
+          };
+        }
+        print(dataMap);
+        return dataMap;
+      }
+    } on SocketException {
+      throw Exception("Network Connectivity Error");
+    }
+    throw Exception("Fetch Data Error");
+  }
+
+  static Future<Map<int, Map<String, String>>> postBuyProduct({
+    required String LoginToken,
+    required String pin,
+    required String codeProduct,
+    required String clientNumber,
+    required String methodPayment,
+  }) async {
+    final String url = "https://dkuapi.dkuindonesia.id/api/Pulsa/beli_pulsa";
+
+    final headers = {
+      'Authorization': 'Bearer $LoginToken',
+      'Content-Type': 'multipart/form-data',
+    };
+
+    try {
+      var request = http.MultipartRequest('POST', Uri.parse(url))
+        ..headers.addAll(headers)
+        ..fields['pin'] = pin
+        ..fields['kode_p'] = codeProduct
+        ..fields['m_bayar'] = methodPayment
+        ..fields['no_tujuan'] = clientNumber;
+
+      final response = await request.send();
+      print(response);
+
+      if (response.statusCode == 200 || response.statusCode == 402) {
+        final responseBody = await response.stream.bytesToString();
+        final data = json.decode(responseBody);
+        print(data);
+        Map<int, Map<String, String>> dataMap = {};
+        for (int i = 0; i < data.length; i++) {
+          var item = data[i];
+          dataMap[i + 1] = {
+            'status_trx': item['status_trx'] ?? '',
+            'kd_trx': item['kd_trx'] ?? '',
+            'customerRefCode': item['customerRefCode'] ?? '',
+            'message': item['message'] ?? '',
+          };
+        }
+        return dataMap;
+      } else {
+        throw Exception(
+            "Failed to complete transaction: ${response.statusCode}");
+      }
+    } catch (e) {
+      print('Error: $e');
+      throw Exception("Network Connectivity Error");
+    }
+  }
+
+  static Future<Map<int, Map<String, String>>> postProfileUpdate({
+    required String LoginToken,
+    required String password,
+    required String idNumber,
+    required String fullName,
+    required String gender,
+    required String birthPlace,
+    File? photoProfile,
+  }) async {
+    final String url =
+        "https://dkuapi.dkuindonesia.id/api/Authorization/update_profile";
+
+    final headers = {
+      'Authorization': 'Bearer $LoginToken',
+      'Content-Type': 'multipart/form-data',
+    };
+
+    try {
+      var request = http.MultipartRequest('POST', Uri.parse(url))
+        ..headers.addAll(headers)
+        ..fields['current_password'] = password
+        ..fields['nik'] = idNumber
+        ..fields['nama_lengkap'] = fullName
+        ..fields['jenis_kelamin'] = gender
+        ..fields['tempat_lahir'] = birthPlace;
+
+      final response = await request.send();
+      print(response);
+
+      if (response.statusCode == 200 || response.statusCode == 402) {
+        final responseBody = await response.stream.bytesToString();
+        final data = json.decode(responseBody);
+        print(data);
+        Map<int, Map<String, String>> dataMap = {};
+        for (int i = 0; i < data.length; i++) {
+          var item = data[i];
+          dataMap[i + 1] = {
+            'message': item['message'] ?? '',
+          };
+        }
+        return dataMap;
+      } else {
+        throw Exception(
+            "Failed to complete transaction: ${response.statusCode}");
+      }
+    } catch (e) {
+      print('Error: $e');
+      throw Exception("Network Connectivity Error");
+    }
   }
 }

@@ -19,63 +19,108 @@ class TransferSuccessPage extends StatefulWidget {
 class _TransferSuccessPageState extends State<TransferSuccessPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Transfer Receipt'),
-        backgroundColor: Colors.green,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Card(
-              child: Padding(
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    return Container(
+        constraints: const BoxConstraints.expand(),
+        decoration: const BoxDecoration(
+          color: AppColors.lightGreen,
+          // image: DecorationImage(
+          //     image: AssetImage('assets/images/background2.jpg'),
+          //     fit: BoxFit.cover),
+        ),
+        child: Scaffold(
+            body: ListView(
+                padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
+                children: [
+              GradientBackground(
+                colors: const [Colors.transparent, Colors.transparent],
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.arrow_back),
+                        onPressed: () => NavigationHelper.pushReplacementNamed(
+                          AppRoutes.home,
+                        ),
+                      ),
+                      const Text(
+                        AppStrings.transferReceiptTitle,
+                        style: AppTheme.titleLarge,
+                      ),
+                      Image.network(
+                        apiDataAppLogoBar,
+                        width: screenWidth * 0.25,
+                        fit: BoxFit.cover,
+                        alignment: Alignment.topCenter,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Transfer Receipt', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-                    Divider(color: Colors.black),
-                    Text('Kode Transaksi:', style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text('$apiDataKodeTrx'),
-                    SizedBox(height: 8),
-                    Text('Rekening Sumber:', style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text("Id pengirim $apiDataOwnSirelaId"),
-                    Text("Nama Penerima $apiDataUserNamaLengkap"),
-                    SizedBox(height: 8),
-                    Text('Rekening Tujuan:', style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text("Id Penerima $apiDataDestinationSirelaId"),
-                    Text("Nama Penerima $apiDataDestinationSirelaName"),
-                    SizedBox(height: 8),
-                    Text('Nominal:', style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text('Rp $apiDataSendaAmount'),
-                    SizedBox(height: 8),
-                    Text('Berita:', style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text(apiDataSendaComment),
-                    SizedBox(height: 8),
-                    Text('Tanggal Transfer:', style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text('Sekarang'),
+                    Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Transfer Receipt',
+                                style: TextStyle(
+                                    fontSize: 24, fontWeight: FontWeight.bold)),
+                            Divider(color: Colors.black),
+                            Text('Kode Transaksi:',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text('$apiDataKodeTrx'),
+                            SizedBox(height: 8),
+                            Text('Rekening Sumber:',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text("Id pengirim $apiDataOwnSirelaId"),
+                            Text("Nama Penerima $apiDataUserNamaLengkap"),
+                            SizedBox(height: 8),
+                            Text('Rekening Tujuan:',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text("Id Penerima $apiDataDestinationSirelaId"),
+                            Text("Nama Penerima $apiDataDestinationSirelaName"),
+                            SizedBox(height: 8),
+                            Text('Nominal:',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text('Rp $apiDataSendaAmount'),
+                            SizedBox(height: 8),
+                            Text('Berita:',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text(apiDataSendaComment),
+                            SizedBox(height: 8),
+                            Text('Tanggal Transfer:',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text('Sekarang'),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Spacer(),
+                    ElevatedButton(
+                      onPressed: () {
+                        NavigationHelper.pushReplacementNamed(
+                          AppRoutes.home,
+                        );
+                      },
+                      child: Text('Back to Home'),
+                      style: ElevatedButton.styleFrom(
+                        minimumSize:
+                            Size(double.infinity, 50), // Make button full-width
+                        backgroundColor: Colors.green,
+                      ),
+                    ),
                   ],
                 ),
               ),
-            ),
-            Spacer(),
-            ElevatedButton(
-              onPressed: () {
-                NavigationHelper.pushReplacementNamed(
-                  AppRoutes.home,
-                );
-              },
-              child: Text('Back to Home'),
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(double.infinity, 50), // Make button full-width
-                backgroundColor: Colors.green,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+            ])));
   }
 }

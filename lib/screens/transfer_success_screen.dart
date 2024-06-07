@@ -19,12 +19,48 @@ class TransferSuccessPage extends StatefulWidget {
 class _TransferSuccessPageState extends State<TransferSuccessPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Transfer Receipt'),
-        backgroundColor: Colors.green,
-      ),
-      body: Padding(
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    return Container(
+        constraints: const BoxConstraints.expand(),
+        decoration: const BoxDecoration(
+          color: AppColors.lightGreen,
+          // image: DecorationImage(
+          //     image: AssetImage('assets/images/background2.jpg'),
+          //     fit: BoxFit.cover),
+        ),
+        child: Scaffold(
+            body: ListView(
+                padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
+                children: [
+              GradientBackground(
+                colors: const [Colors.transparent, Colors.transparent],
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.arrow_back),
+                        onPressed: () => NavigationHelper.pushReplacementNamed(
+                          AppRoutes.home,
+                        ),
+                      ),
+                      const Text(
+                        AppStrings.transferReceiptTitle,
+                        style: AppTheme.titleLarge,
+                      ),
+                      Image.network(
+                        apiDataAppLogoBar,
+                        width: screenWidth * 0.25,
+                        fit: BoxFit.cover,
+                        alignment: Alignment.topCenter,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,6 +112,6 @@ class _TransferSuccessPageState extends State<TransferSuccessPage> {
           ],
         ),
       ),
-    );
+    ])));
   }
 }
