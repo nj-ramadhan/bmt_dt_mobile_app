@@ -167,9 +167,10 @@ class _LoginPageState extends State<LoginPage> {
         Uri.parse(url),
         headers: headers,
       );
-
+      final responseBody = json.decode(response.body);
+print(responseBody);
       if (response.statusCode == 200) {
-        final responseBody = json.decode(response.body);
+        // final responseBody = json.decode(response.body);
         responseDetailsUserNik =
             responseBody['data_user_details']['nik'].toString();
         responseDetailsUserNamaLengkap =
@@ -181,17 +182,10 @@ class _LoginPageState extends State<LoginPage> {
         responseDetailsUserTempatLahir =
             responseBody['data_user_details']['tempat_lahir'].toString();
 
-        debugPrint('response details:$responseBody');
-        debugPrint(
-            'response details user nama:$responseDetailsUserNamaLengkap');
+        // debugPrint('response details:$responseBody');
+        // debugPrint(
+        //     'response details user nama: $responseDetailsUserNamaLengkap');
 
-        updateDetailsUser(
-          responseDetailsUserNik,
-          responseDetailsUserNamaLengkap,
-          responseDetailsUserTempatLahir,
-          responseDetailsUserJenisKelamin,
-          responseDetailsUserAlamatLengkap,
-        );
 
         responseDetailsAccountNoUser =
             responseBody['data_account_details']['no_user'].toString();
@@ -202,13 +196,20 @@ class _LoginPageState extends State<LoginPage> {
 
         debugPrint(
             'response details account email:$responseDetailsAccountEmail');
+        updateDetailsUser(
+          responseDetailsUserNik,
+          responseDetailsUserNamaLengkap,
+          responseDetailsUserTempatLahir,
+          responseDetailsUserJenisKelamin,
+          responseDetailsUserAlamatLengkap,
+        );
 
         updateDetailsAccount(
           responseDetailsAccountNoUser,
           responseDetailsAccountEmail,
           responseDetailsAccountTelepon,
         );
-
+        debugPrint("nama user $apiDataUserNamaLengkap");
         if (responseBody.toString().length <= 100) {
           responseDetailsStatus = responseBody['status'].toString();
           debugPrint('Request failed with status: $responseDetailsStatus');

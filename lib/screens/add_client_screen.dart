@@ -18,34 +18,6 @@ class AddClientPage extends StatefulWidget {
 }
 
 class _AddClientPageState extends State<AddClientPage> {
-//   final Color backgroundColor = Color(
-//       0xFFD5F5E3); // Adjust this color to match the exact color from the image.
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       theme: ThemeData(
-//         primaryColor: Color(0xFFD0F0C0), // Specific green color from your image
-//         colorScheme: ColorScheme.fromSwatch().copyWith(
-//           secondary: Colors.greenAccent, // Accent color if needed
-//           primary: Color(0xFFD0F0C0), // Primary color
-//         ),
-//         textTheme: TextTheme(
-//           bodyLarge: TextStyle(color: Colors.black), // Black text color
-//           bodyMedium: TextStyle(color: Colors.black), // Black text color
-//         ),
-//       ),
-//       home: FavoriteAccountsPage(),
-//     );
-//   }
-// }
-
-// class FavoriteAccountsPage extends StatefulWidget {
-//   @override
-//   _FavoriteAccountsPageState createState() => _FavoriteAccountsPageState();
-// }
-
-// class _FavoriteAccountsPageState extends State<FavoriteAccountsPage> {
   final TextEditingController _searchController = TextEditingController();
   final DatabaseHelper db = DatabaseHelper.instance;
 
@@ -70,27 +42,6 @@ class _AddClientPageState extends State<AddClientPage> {
     setState(() {
       _accounts = accounts;
     });
-  }
-
-  Future<String?> fetchAccountHolder(String accountNumber) async {
-    // Simulasi panggilan API
-    // Gantilah URL dan logika ini dengan panggilan API yang sesuai
-    await Future.delayed(Duration(seconds: 1)); // Simulasi waktu tunggu API
-    if (accountNumber == "0011777711") {
-      return "BAZNAS";
-    } else if (accountNumber == "0011555510") {
-      return "BAZNAS";
-    } else if (accountNumber == "0011210077") {
-      return "Inisiatif Zakat Indonesia";
-    } else if (accountNumber == "0011210044") {
-      return "Inisiatif Zakat Indonesia";
-    } else if (accountNumber == "0016000066") {
-      return "LAZ Baitul Maal Hidayatullah";
-    } else if (accountNumber == "0011002002") {
-      return "LAZIS Dewan Da'wah";
-    } else {
-      return null;
-    }
   }
 
   void _showEditDialog(BuildContext context, Map<String, dynamic> account) {
@@ -197,14 +148,11 @@ class _AddClientPageState extends State<AddClientPage> {
                       idSirela: _accountNumberController.text,
                       loginToken: apiLoginToken,
                     );
-                    print("hasil $accountHolder");
                     if (accountHolder != 'error') {
-                      print("masuk kesini");
                       setState(() {
                         _accountHolderController.text = accountHolder;
                       });
                     } else {
-                      print("masuk kesini error");
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text("ID Sirela Tidak Ditemukan"),
                       ));
@@ -261,148 +209,130 @@ class _AddClientPageState extends State<AddClientPage> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    late Map<String, dynamic> account;
-    late int index = _accounts.length;
-    account = _accounts[index];
 
     return Container(
-        constraints: const BoxConstraints.expand(),
-        decoration: const BoxDecoration(
-          color: AppColors.lightGreen,
-          // image: DecorationImage(
-          //     image: AssetImage('assets/images/background2.jpg'),
-          //     fit: BoxFit.cover),
-        ),
-        child: Scaffold(
-          body: ListView(
-            padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
-            children: [
-              GradientBackground(
-                colors: const [Colors.transparent, Colors.transparent],
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.arrow_back),
-                        onPressed: () => NavigationHelper.pushReplacementNamed(
-                          AppRoutes.transfer,
-                        ),
-                      ),
-                      const Text(
-                        AppStrings.transferToOtherClient,
-                        style: AppTheme.titleLarge,
-                      ),
-                      Image.network(
-                        apiDataAppLogoBar,
-                        width: screenWidth * 0.25,
-                        fit: BoxFit.cover,
-                        alignment: Alignment.topCenter,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
+      constraints: const BoxConstraints.expand(),
+      decoration: const BoxDecoration(
+        color: AppColors.lightGreen,
+      ),
+      child: Scaffold(
+        body: Column(
+          children: [
+            GradientBackground(
+              colors: const [Colors.transparent, Colors.transparent],
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
-                      child: TextField(
-                        controller: _searchController,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.search),
-                          hintText: 'Cari...',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
-                        style:
-                            TextStyle(color: Colors.black), // Black text color
-                        onChanged: _searchAccounts,
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back),
+                      onPressed: () => NavigationHelper.pushReplacementNamed(
+                        AppRoutes.transfer,
                       ),
                     ),
-                    SizedBox(width: 8.0),
-                    TextButton(
-                      onPressed: () => _showAddDialog(context),
-                      child:
-                          Text('Tambah', style: TextStyle(color: Colors.black)),
+                    const Text(
+                      AppStrings.transferToOtherClient,
+                      style: AppTheme.titleLarge,
+                    ),
+                    Image.network(
+                      apiDataAppLogoBar,
+                      width: screenWidth * 0.25,
+                      fit: BoxFit.cover,
+                      alignment: Alignment.topCenter,
                     ),
                   ],
                 ),
-              ),
-
-              // Expanded(
-              //   child: ListView.builder(
-              //     itemCount: _accounts.length,
-              //     itemBuilder: (context, index) {
-              // final account = _accounts[index];
-              //       return ListTile(
-              //         leading: CircleAvatar(
-              //           child:
-              Text(account['account_holder'][0]),
-              //         ),
-              //         title:
-              Text(account['account_holder']),
-              //         subtitle:
-              Text(
-                  '${account['account_number']} (${account['account_alias']})'),
-              //         onTap: () {
-              IconButton(
-                icon: Icon(Icons.delete),
-                onPressed: () {
-                  updateDetailsRek(
-                      apiDataOwnSirelaId,
-                      apiDataSendaAmount,
-                      account['account_number'],
-                      account['account_holder'],
-                      account['account_holder'],
-                      apiDataSendaComment,
-                      apiDataKodeTrx,
-                      apiDataMetodeTransfer);
-                  NavigationHelper.pushReplacementNamed(
-                    AppRoutes.input_amount,
-                  );
-                },
-              ),
-              //         trailing:
-              Row(
-                mainAxisSize: MainAxisSize.min,
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
                 children: [
-                  IconButton(
-                    icon: Icon(Icons.edit),
-                    onPressed: () => _showEditDialog(context, account),
+                  Expanded(
+                    child: TextField(
+                      controller: _searchController,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.search),
+                        hintText: 'Cari...',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                      ),
+                      style: TextStyle(color: Colors.black),
+                      onChanged: _searchAccounts,
+                    ),
                   ),
-                  IconButton(
-                    icon: Icon(Icons.delete),
-                    onPressed: () =>
-                        _showDeleteDialog(context, account['account_number']),
+                  SizedBox(width: 8.0),
+                  TextButton(
+                    onPressed: () => _showAddDialog(context),
+                    child: Text('Tambah', style: TextStyle(color: Colors.black)),
                   ),
                 ],
               ),
-              //       );
-              //     },
-              //   ),
-              // ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    NavigationHelper.pushReplacementNamed(
-                      AppRoutes.input_account,
-                    );
-                  },
-                  child: Text('Transfer Baru'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green, // Using green for button
-                    minimumSize:
-                        Size(double.infinity, 50), // Make button full-width
-                  ),
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: _accounts.length,
+                itemBuilder: (context, index) {
+                  final account = _accounts[index];
+                  return ListTile(
+                    leading: CircleAvatar(
+                      child: Text(account['account_holder'][0]),
+                    ),
+                    title: Text(account['account_holder']),
+                    subtitle: Text(
+                        '${account['account_number']} (${account['account_alias']})'),
+                    onTap: () {
+                      updateDetailsRek(
+                        apiDataOwnSirelaId,
+                        apiDataSendaAmount,
+                        account['account_number'],
+                        account['account_holder'],
+                        account['account_holder'],
+                        apiDataSendaComment,
+                        apiDataKodeTrx,
+                        apiDataMetodeTransfer,
+                      );
+                      NavigationHelper.pushReplacementNamed(
+                        AppRoutes.input_amount,
+                      );
+                    },
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.edit),
+                          onPressed: () => _showEditDialog(context, account),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.delete),
+                          onPressed: () => _showDeleteDialog(
+                              context, account['account_number']),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  NavigationHelper.pushReplacementNamed(
+                    AppRoutes.input_account,
+                  );
+                },
+                child: Text('Transfer Baru'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  minimumSize: Size(double.infinity, 50),
                 ),
               ),
-            ],
-          ),
-        ));
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
