@@ -25,9 +25,6 @@ class _CheckingPageState extends State<CheckingPage> with RestorationMixin {
   late DatePickerDialog endDateController;
   String valueDateBegin = DateTime.now().toString();
   String valueDateFinish = DateTime.now().toString();
-  late String transactionCode;
-  late String transactionTitle;
-  late String transactionAmount;
 
   String indonesianCurrencyFormat(String data) {
     int dataInt = int.parse(data);
@@ -46,10 +43,6 @@ class _CheckingPageState extends State<CheckingPage> with RestorationMixin {
     setState(() {
       dataTransaction = data;
       debugPrint('response list data transaksi: $dataTransaction');
-
-      transactionCode = dataTransaction[1]?['kd_trx'] ?? '';
-      transactionTitle = dataTransaction[1]?['trx_title'] ?? '';
-      transactionAmount = dataTransaction[1]?['nominal_bayar'] ?? '';
     });
   }
 
@@ -70,9 +63,6 @@ class _CheckingPageState extends State<CheckingPage> with RestorationMixin {
 
   @override
   void initState() {
-    transactionCode = '';
-    transactionTitle = '';
-    transactionAmount = '';
     initializeControllers();
     super.initState();
   }
@@ -365,13 +355,14 @@ class _CheckingPageState extends State<CheckingPage> with RestorationMixin {
                                     Column(
                                       children: [
                                         Text(
-                                          'Kode Transaksi : $transactionCode',
+                                          dataTransaction[i]?['trx_code'] ?? '',
                                           style: AppTheme.bodySmall,
                                         ),
                                         Container(
                                           width: screenWidth * 0.7,
                                           child: Text(
-                                            '$transactionTitle',
+                                            dataTransaction[i]?['trx_title'] ??
+                                                '',
                                             style: AppTheme.bodyTiny,
                                             textAlign: TextAlign.center,
                                             maxLines: 3,
@@ -379,7 +370,9 @@ class _CheckingPageState extends State<CheckingPage> with RestorationMixin {
                                         ),
                                         Text(
                                             indonesianCurrencyFormat(
-                                                transactionAmount),
+                                                dataTransaction[i]
+                                                        ?['nominal_bayar'] ??
+                                                    ''),
                                             style: AppTheme.bodyMedium),
                                       ],
                                     ),
