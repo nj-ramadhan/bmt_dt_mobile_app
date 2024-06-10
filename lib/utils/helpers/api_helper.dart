@@ -470,29 +470,35 @@ class ApiHelper {
       'Content-Type': 'application/json',
     };
 
-    final isi = {};
-
     final String url =
         "https://dkuapi.dkuindonesia.id/api/dku_bank/inquiry_account/$idSirela";
+
     try {
-      final response = await http.post(
+      final response = await http.get(
         Uri.parse(url),
         headers: headers,
-        body: json.encode(isi),
       );
+
+      // Print the raw response for debugging
+      print('Response body: ${response.body}');
       final data = json.decode(response.body);
+
+      // Validate the JSON format
+      if (data is! Map<String, dynamic> || !data.containsKey('status')) {
+        throw FormatException('Invalid JSON format');
+      }
+
       if (data['status'].toString() == "200") {
-        print(data);
-        print(data['data']);
         final listdata = data['data'];
-        print(listdata[0]['nama_lengkap'].toString());
-        return listdata[0]['nama_lengkap'].toString();
+        if (listdata is List && listdata.isNotEmpty) {
+          return listdata[0]['nama_lengkap'].toString();
+        }
+        return "error";
       } else {
-        print("Errorr 4999");
         return "error";
       }
     } catch (e) {
-      debugPrint('Error : $e');
+      debugPrint('Error: $e');
       return "error";
     }
   }
