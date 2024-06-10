@@ -159,7 +159,7 @@ class _HomePageState extends State<HomePage> {
                               Text('No Telp: $apiDataAccountTelepon',
                                   style: AppTheme.bodySmall),
                               Text(
-                                'Nomor Sirela: $simpananSukarelaNumber',
+                                'Nomor Sirela: $apiDataOwnSirelaId',
                                 style: AppTheme.bodySmall,
                               )
                             ],
