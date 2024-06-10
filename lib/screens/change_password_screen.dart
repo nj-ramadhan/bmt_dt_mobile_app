@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 import '../components/app_text_form_field.dart';
 import '../global_variables.dart';
@@ -170,15 +167,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                                     : AppStrings.invalidPassword;
                           },
                           suffixIcon: Focus(
-                            /// If false,
-                            ///
-                            /// disable focus for all of this node's descendants
                             descendantsAreFocusable: false,
-
-                            /// If false,
-                            ///
-                            /// make this widget's descendants un-traversable.
-                            // descendantsAreTraversable: false,
                             child: IconButton(
                               onPressed: () =>
                                   passwordNotifier.value = !passwordObscure,
@@ -214,15 +203,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                                     : AppStrings.invalidPassword;
                           },
                           suffixIcon: Focus(
-                            /// If false,
-                            ///
-                            /// disable focus for all of this node's descendants
                             descendantsAreFocusable: false,
-
-                            /// If false,
-                            ///
-                            /// make this widget's descendants un-traversable.
-                            // descendantsAreTraversable: false,
                             child: IconButton(
                               onPressed: () =>
                                   newPasswordNotifier.value = !passwordObscure,
@@ -261,15 +242,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                                     : AppStrings.invalidPassword;
                           },
                           suffixIcon: Focus(
-                            /// If false,
-                            ///
-                            /// disable focus for all of this node's descendants.
                             descendantsAreFocusable: false,
-
-                            /// If false,
-                            ///
-                            /// make this widget's descendants un-traversable.
-                            // descendantsAreTraversable: false,
                             child: IconButton(
                               onPressed: () => confirmPasswordNotifier.value =
                                   !confirmPasswordObscure,

@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 import '../components/app_text_form_field.dart';
 import '../global_variables.dart';
@@ -78,8 +75,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
     }
 
     if (AppRegex.emailRegex.hasMatch(email) &&
-        AppRegex.emailRegex.hasMatch(newEmail) &&
-        AppRegex.emailRegex.hasMatch(pin)) {
+        AppRegex.emailRegex.hasMatch(newEmail)) {
       fieldValidNotifier.value = true;
     } else {
       fieldValidNotifier.value = false;
@@ -177,16 +173,39 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
                                 : AppStrings.invalidEmailAddress;
                       },
                     ),
-                    AppTextFormField(
-                      labelText: AppStrings.pin,
-                      controller: pinController,
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.number,
-                      onChanged: (_) => _formKey.currentState?.validate(),
-                      validator: (value) {
-                        return value!.isEmpty
-                            ? AppStrings.pleaseEnterPin
-                            : AppStrings.invalidPin;
+                    ValueListenableBuilder<bool>(
+                      valueListenable: pinNotifier,
+                      builder: (_, pinObscure, __) {
+                        return AppTextFormField(
+                          obscureText: pinObscure,
+                          controller: pinController,
+                          labelText: AppStrings.pin,
+                          textInputAction: TextInputAction.next,
+                          keyboardType: TextInputType.number,
+                          onChanged: (_) => _formKey.currentState?.validate(),
+                          validator: (value) {
+                            return value!.isEmpty
+                                ? AppStrings.pleaseEnterPin
+                                : AppConstants.pinRegex.hasMatch(value)
+                                    ? null
+                                    : AppStrings.invalidPin;
+                          },
+                          suffixIcon: Focus(
+                            descendantsAreFocusable: false,
+                            child: IconButton(
+                              onPressed: () => pinNotifier.value = !pinObscure,
+                              style: IconButton.styleFrom(
+                                minimumSize: const Size.square(48),
+                              ),
+                              icon: Icon(
+                                pinObscure
+                                    ? Icons.visibility_off_outlined
+                                    : Icons.visibility_outlined,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        );
                       },
                     ),
                     ValueListenableBuilder(
@@ -196,9 +215,6 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
                           onPressed: isValid
                               ? () {
                                   fetchEmailUpdate();
-                                  emailController.clear();
-                                  newEmailController.clear();
-                                  pinController.clear();
                                 }
                               : null,
                           child: const Text(AppStrings.changeEmail),

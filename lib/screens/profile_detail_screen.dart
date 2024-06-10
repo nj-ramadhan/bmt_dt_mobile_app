@@ -151,7 +151,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
     return Container(
       constraints: const BoxConstraints.expand(),
       decoration: const BoxDecoration(
-        color: Colors.transparent,
+        color: AppColors.lightGreen,
         image: DecorationImage(
             image: AssetImage('assets/images/background1.jpg'),
             fit: BoxFit.cover),

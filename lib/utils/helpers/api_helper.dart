@@ -903,7 +903,7 @@ class ApiHelper {
     required String pin,
   }) async {
     final String url =
-        "https://dkuapi.dkuindonesia.id/api/Authorization/update_password";
+        "https://dkuapi.dkuindonesia.id/api/Authorization/verify_update_email";
 
     final headers = {
       'Authorization': 'Bearer $loginToken',

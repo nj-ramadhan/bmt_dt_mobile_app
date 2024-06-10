@@ -17,4 +17,8 @@ class AppConstants {
     // r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$#!%*?&_])[A-Za-z\d@#$!%*?&_].{7,}$',
     r'^(?=.*[a-z])(?=.*\d)[A-Za-z\d@#$!%*?&_].{7,}$',
   );
+
+  static final RegExp pinRegex = RegExp(
+    r'^(\d{6,})',
+  );
 }
