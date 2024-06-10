@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
-import '../utils/helpers/api_helper.dart';
+
 import '../global_variables.dart';
+import '../utils/common_widgets/gradient_background.dart';
+import '../utils/helpers/api_helper.dart';
 import '../utils/helpers/navigation_helper.dart';
+import '../values/app_colors.dart';
 import '../values/app_routes.dart';
+import '../values/app_strings.dart';
+import '../values/app_theme.dart';
 
 class InputAccountPage extends StatefulWidget {
   const InputAccountPage({super.key});
@@ -20,19 +25,47 @@ class _InputAccountPageState extends State<InputAccountPage> {
   String accountHolder = "";
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            // Handle back action
-          },
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    return Container(
+        constraints: const BoxConstraints.expand(),
+        decoration: const BoxDecoration(
+          color: AppColors.lightGreen,
+          // image: DecorationImage(
+          //     image: AssetImage('assets/images/background2.jpg'),
+          //     fit: BoxFit.cover),
         ),
-        title: Text('Transfer ke Sesama'),
-        backgroundColor:
-            Colors.green, // Change the color to match the second image
-      ),
-      body: Container(
+        child: Scaffold(
+          body: ListView(
+            padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
+            children: [
+              GradientBackground(
+                colors: const [Colors.transparent, Colors.transparent],
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.arrow_back),
+                        onPressed: () => NavigationHelper.pushReplacementNamed(
+                          AppRoutes.transfer,
+                        ),
+                      ),
+                      const Text(
+                        AppStrings.transferToOtherClient,
+                        style: AppTheme.titleLarge,
+                      ),
+                      Image.network(
+                        apiDataAppLogoBar,
+                        width: screenWidth * 0.25,
+                        fit: BoxFit.cover,
+                        alignment: Alignment.topCenter,
+                      ),
+                    ],
+                  ),
+                ],
+              ),Container(
         color: Color(0xFFD5F5E3), // Set the background color
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -64,7 +97,7 @@ class _InputAccountPageState extends State<InputAccountPage> {
               onPressed: () async {
                 String accountHolder = await ApiHelper.getAccountHolderSirela(
                         idSirela: _accountNumberController.text,
-                        LoginToken: apiLoginToken);
+                        loginToken: apiLoginToken);
                 if ( accountHolder!= "error") {
                   updateDetailsRek(
                     apiDataOwnSirelaId,
@@ -103,6 +136,6 @@ class _InputAccountPageState extends State<InputAccountPage> {
           ],
         ),
       ),
-    );
+    ])));
   }
 }

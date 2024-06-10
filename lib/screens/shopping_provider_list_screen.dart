@@ -33,7 +33,7 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
 
   Future<void> fetchDataProvider() async {
     final data = await ApiHelper.getListProvider(
-        LoginToken: apiLoginToken, frontCode: frontCodeNumber);
+        loginToken: apiLoginToken, frontCode: frontCodeNumber);
     setState(() {
       dataProvider = data;
       debugPrint('response list data provider: $dataProvider');
@@ -47,36 +47,36 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
 
   Future<void> fetchDataProduct() async {
     final data = await ApiHelper.getListProduct(
-        LoginToken: apiLoginToken,
+        loginToken: apiLoginToken,
         providerCode: providerCodeNumber,
         transactionType: apiDataProductTransactionType);
     setState(() {
       dataProduct = data;
       debugPrint('response list data product: $dataProduct');
 
-      getListProduct(data);
+      // getListProduct(data);
     });
   }
 
-  String? getListProvider(Map<int, Map<String, String>> data) {
-    for (var entry in data.entries) {
-      return entry.value['keyword_kode_depan_nomor'];
-      // if (entry.value['keyword_kode_depan_nomor'] == frontCodeNumber) {
-      //   return entry.value['keyword_kode_depan_nomor'];
-      // }
-    }
-    return null;
-  }
+  // String? getListProvider(Map<int, Map<String, String>> data) {
+  //   for (var entry in data.entries) {
+  //     return entry.value['keyword_kode_depan_nomor'];
+  //     // if (entry.value['keyword_kode_depan_nomor'] == frontCodeNumber) {
+  //     //   return entry.value['keyword_kode_depan_nomor'];
+  //     // }
+  //   }
+  //   return null;
+  // }
 
-  String? getListProduct(Map<int, Map<String, String>> data) {
-    for (var entry in data.entries) {
-      return entry.value['provider_code'];
-      // if (entry.value['provider_code'] == providerCodeNumber) {
-      //   return entry.value['provider_code'];
-      // }
-    }
-    return null; // Return null if SIMPANAN SUKARELA is not found
-  }
+  // String? getListProduct(Map<int, Map<String, String>> data) {
+  //   for (var entry in data.entries) {
+  //     return entry.value['provider_code'];
+  //     // if (entry.value['provider_code'] == providerCodeNumber) {
+  //     //   return entry.value['provider_code'];
+  //     // }
+  //   }
+  //   return null; // Return null if SIMPANAN SUKARELA is not found
+  // }
 
   String indonesianCurrencyFormat(String data) {
     int dataInt = int.parse(data);

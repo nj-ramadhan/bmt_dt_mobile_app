@@ -49,7 +49,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
   late List<Products> listShopping;
 
   Future<String> callAsyncFetch() =>
-      Future.delayed(const Duration(milliseconds: 500), () => 'wait');
+      Future.delayed(const Duration(milliseconds: 800), () => 'wait');
 
   Future<void> getProducts() async {
     const url =

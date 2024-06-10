@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'screens/add_client_screen.dart';
 
-import 'screens/add_client_screen_dif_bank.dart';
+import 'screens/add_client_dif_bank_screen.dart';
 
 import 'screens/change_email_screen.dart';
 import 'screens/change_password_screen.dart';
@@ -109,7 +109,7 @@ class Routes {
         return getRoute(widget: const TransferMetodePage());
 
       case AppRoutes.add_client_dif_bank:
-        return getRoute(widget: const AddClientPageDifBank());
+        return getRoute(widget: const AddClientDifBankPage());
 
       case AppRoutes.input_account:
         return getRoute(widget: const InputAccountPage());

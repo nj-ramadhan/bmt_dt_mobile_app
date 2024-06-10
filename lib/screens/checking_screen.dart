@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 import '../global_variables.dart';
 import '../utils/common_widgets/gradient_background.dart';
+import '../utils/helpers/api_helper.dart';
 import '../utils/helpers/navigation_helper.dart';
 import '../values/app_colors.dart';
 import '../values/app_routes.dart';
@@ -21,49 +23,46 @@ class CheckingPage extends StatefulWidget {
 }
 
 class _CheckingPageState extends State<CheckingPage> with RestorationMixin {
-  late final DatePickerDialog beginDateController;
-  late final DatePickerDialog endDateController;
-  String valueBeginDate = '2024-01-01';
-  String valueEndDate = '2024-01-01';
+  Map<int, Map<String, String>> dataTransaction = {};
+  late DatePickerDialog beginDateController;
+  late DatePickerDialog endDateController;
+  String valueDateBegin = DateTime.now().toString();
+  String valueDateFinish = DateTime.now().toString();
+  late String transactionCode;
+  late String transactionTitle;
+  late String transactionAmount;
 
-  Future<void> getCheckingHistory() async {
-    final dateBegin = valueBeginDate;
-    final dateEnd = valueEndDate;
+  String indonesianCurrencyFormat(String data) {
+    int dataInt = int.parse(data);
+    var dataFormatted =
+        NumberFormat.currency(locale: 'id_ID', symbol: 'Rp. ', decimalDigits: 0)
+            .format(dataInt);
+    return dataFormatted.toString();
+  }
 
-    final url =
-        'https://dkuapi.dkuindonesia.id/api/Pulsa/get_trectrans?from_date=$dateBegin&to_date=$dateEnd&start=0&length=10';
-    final headers = {
-      'ClientID':
-          'jLdCPSe3816XRXk7+aCMc+Et0nk1y6\/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ\/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A\/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs\/WzXeZ9pQGOkHyX6IK\/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M\/fXTrjkHB\/v+1VFKgkGRFz0eIhDXZ3yp7e\/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n\/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3\/gKIXwL6NGFqzdeEy3xC\/Qr6',
-      'Authorization': 'Bearer $apiLoginToken',
-      'Content-Type': 'application/json',
-    };
-    debugPrint('response: $url');
+  Future<void> fetchCheckingHistory() async {
+    final data = await ApiHelper.getListTransaction(
+        loginToken: apiLoginToken,
+        dateBegin: valueDateBegin,
+        dateFinish: valueDateFinish);
+    debugPrint('date begin: $valueDateBegin, date finish: $valueDateFinish');
+    setState(() {
+      dataTransaction = data;
+      debugPrint('response list data transaksi: $dataTransaction');
 
-    try {
-      final response = await http.post(
-        Uri.parse(url),
-        headers: headers,
-      );
-
-      final responseBody = json.decode(response.body);
-      final message = responseBody['message'].toString();
-      // debugPrint('response: $headers');
-      // debugPrint('response: $body');
-      // debugPrint('response: $responseBody');
-      debugPrint('response: $message');
-    } catch (e) {
-      debugPrint('Error: $e');
-    }
+      transactionCode = dataTransaction[1]?['kd_trx'] ?? '';
+      transactionTitle = dataTransaction[1]?['trx_title'] ?? '';
+      transactionAmount = dataTransaction[1]?['nominal_bayar'] ?? '';
+    });
   }
 
   void initializeControllers() {
     beginDateController = DatePickerDialog(
-        firstDate: DateTime(1900, 1, 1, 23, 59),
+        firstDate: DateTime(2024, 1, 1, 23, 59),
         lastDate: DateTime(2100, 1, 1, 23, 59));
 
     endDateController = DatePickerDialog(
-        firstDate: DateTime(1900, 1, 1, 23, 59),
+        firstDate: DateTime(2024, 1, 1, 23, 59),
         lastDate: DateTime(2100, 1, 1, 23, 59));
   }
 
@@ -72,14 +71,11 @@ class _CheckingPageState extends State<CheckingPage> with RestorationMixin {
     endDateController.toString();
   }
 
-  // void controllerListener() {
-  //   final begin = beginDateController..text;
-
-  //   if (amount.isEmpty) return;
-  // }
-
   @override
   void initState() {
+    transactionCode = '';
+    transactionTitle = '';
+    transactionAmount = '';
     initializeControllers();
     super.initState();
   }
@@ -94,9 +90,9 @@ class _CheckingPageState extends State<CheckingPage> with RestorationMixin {
   String? get restorationId => widget.restorationId;
 
   final RestorableDateTime _selectedBeginDate =
-      RestorableDateTime(DateTime(1990, 1, 1));
+      RestorableDateTime(DateTime.now());
   final RestorableDateTime _selectedEndDate =
-      RestorableDateTime(DateTime(1990, 1, 1));
+      RestorableDateTime(DateTime.now());
 
   late final RestorableRouteFuture<DateTime?>
       _restorableBeginDatePickerRouteFuture = RestorableRouteFuture<DateTime?>(
@@ -132,7 +128,7 @@ class _CheckingPageState extends State<CheckingPage> with RestorationMixin {
           restorationId: 'date_picker_dialog',
           initialEntryMode: DatePickerEntryMode.calendarOnly,
           initialDate: DateTime.fromMillisecondsSinceEpoch(arguments! as int),
-          firstDate: DateTime(1990),
+          firstDate: DateTime(2024),
           lastDate: DateTime(2100),
         );
       },
@@ -266,7 +262,7 @@ class _CheckingPageState extends State<CheckingPage> with RestorationMixin {
                     Card(
                       color: AppColors.lightGreen,
                       child: SizedBox(
-                        height: 300,
+                        height: 220,
                         child: Column(
                           children: [
                             Padding(
@@ -280,7 +276,7 @@ class _CheckingPageState extends State<CheckingPage> with RestorationMixin {
                                       onPressed: () {
                                         _restorableBeginDatePickerRouteFuture
                                             .present();
-                                        valueBeginDate = _selectBeginDateOnly(
+                                        valueDateBegin = _selectBeginDateOnly(
                                           _selectedBeginDate.value,
                                         );
                                       },
@@ -289,19 +285,6 @@ class _CheckingPageState extends State<CheckingPage> with RestorationMixin {
                                             _selectedBeginDate.value),
                                       ),
                                     ),
-                                    // TextField(
-                                    //                   decoration: const InputDecoration(
-                                    //                     hintText: AppStrings.amountTransfer,
-                                    //                     fillColor: AppColors.primaryColor,
-                                    //                   ),
-                                    //                   controller: beginDateController,
-                                    //                   textInputAction: TextInputAction.done,
-                                    //                   textAlign: TextAlign.end,
-                                    //                   keyboardType: TextInputType.number,
-                                    //                   onChanged: (_) => updateAmountText(
-                                    //                     amountController.text,
-                                    //                   ),
-                                    //                 ),
                                   ),
                                   const SizedBox(
                                     width: 10,
@@ -329,7 +312,7 @@ class _CheckingPageState extends State<CheckingPage> with RestorationMixin {
                                       onPressed: () {
                                         _restorableEndDatePickerRouteFuture
                                             .present();
-                                        valueEndDate = _selectEndDateOnly(
+                                        valueDateFinish = _selectEndDateOnly(
                                           _selectedEndDate.value,
                                         );
                                       },
@@ -338,17 +321,6 @@ class _CheckingPageState extends State<CheckingPage> with RestorationMixin {
                                             _selectedEndDate.value),
                                       ),
                                     ),
-                                    // TextField(
-                                    //   decoration: const InputDecoration(
-                                    //       hintText: AppStrings.amountTransfer,
-                                    //       fillColor: AppColors.primaryColor),
-                                    //   controller: amountController,
-                                    //   textInputAction: TextInputAction.done,
-                                    //   textAlign: TextAlign.end,
-                                    //   keyboardType: TextInputType.number,
-                                    //   onChanged: (_) => updateAmountText(
-                                    //       amountController.text),
-                                    // ),
                                   ),
                                   const SizedBox(
                                     width: 10,
@@ -368,13 +340,73 @@ class _CheckingPageState extends State<CheckingPage> with RestorationMixin {
                             Padding(
                               padding: EdgeInsets.all(screenWidth * 0.02),
                               child: FilledButton(
-                                onPressed: getCheckingHistory,
+                                onPressed: fetchCheckingHistory,
                                 child: const Text(AppStrings.checkingProcees),
                               ),
                             ),
                           ],
                         ),
                       ),
+                    ),
+                    SizedBox(
+                      height: screenHeight * 0.02,
+                    ),
+                    Column(
+                      children: [
+                        // dataProvider.keys.map((i) {
+                        for (var i = 1; i <= dataTransaction.keys.length; i++)
+                          // debugPrint('response: $dataProvider');
+                          Card(
+                            color: AppColors.lightGreen,
+                            child: InkWell(
+                              child: Padding(
+                                padding: EdgeInsets.all(screenWidth * 0.02),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Text(
+                                          'Kode Transaksi : $transactionCode',
+                                          style: AppTheme.bodySmall,
+                                        ),
+                                        Container(
+                                          width: screenWidth * 0.7,
+                                          child: Text(
+                                            '$transactionTitle',
+                                            style: AppTheme.bodyTiny,
+                                            textAlign: TextAlign.center,
+                                            maxLines: 3,
+                                          ),
+                                        ),
+                                        Text(
+                                            indonesianCurrencyFormat(
+                                                transactionAmount),
+                                            style: AppTheme.bodyMedium),
+                                      ],
+                                    ),
+                                    const Icon(
+                                      Icons.chevron_right,
+                                      color: Colors.green,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              onTap: () {
+                                // apiDataProductName =
+                                //     dataProduct[i]?['nama_produk'] ?? '';
+                                // apiDataProductPrice =
+                                //     dataProduct[i]?['harga_jual_agen'] ?? '';
+                                // apiDataProductCode =
+                                //     dataProduct[i]?['kode_dku'] ?? '';
+                                // NavigationHelper.pushReplacementNamed(
+                                //   AppRoutes.shopping_confirm,
+                                // );
+                              },
+                            ),
+                          ),
+                      ],
                     ),
                   ],
                 )),

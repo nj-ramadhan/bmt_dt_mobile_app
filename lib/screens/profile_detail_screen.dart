@@ -53,7 +53,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
   Future<void> postUpdate() async {
     debugPrint("debug: masuk ke api");
     final data = await ApiHelper.postProfileUpdate(
-        LoginToken: apiLoginToken,
+        loginToken: apiLoginToken,
         password: passwordController.text,
         idNumber: idController.text,
         fullName: nameController.text,

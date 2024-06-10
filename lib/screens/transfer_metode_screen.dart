@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import '../global_variables.dart';
@@ -91,7 +90,7 @@ class _TransferMetodePageState extends State<TransferMetodePage> {
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
                       onPressed: () => NavigationHelper.pushReplacementNamed(
-                        AppRoutes.home,
+                        AppRoutes.transfer,
                       ),
                     ),
                     const Text(

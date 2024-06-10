@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import '../global_variables.dart';
@@ -61,57 +60,66 @@ class _TransferSuccessPageState extends State<TransferSuccessPage> {
                 ],
               ),
               Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Card(
-              child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Transfer Receipt', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-                    Divider(color: Colors.black),
-                    Text('Kode Transaksi:', style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text('$apiDataKodeTrx'),
-                    SizedBox(height: 8),
-                    Text('Rekening Sumber:', style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text("Id pengirim $apiDataOwnSirelaId"),
-                    Text("Nama Penerima $apiDataUserNamaLengkap"),
-                    SizedBox(height: 8),
-                    Text('Rekening Tujuan:', style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text("Id Penerima $apiDataDestinationSirelaId"),
-                    Text("Nama Penerima $apiDataDestinationSirelaName"),
-                    SizedBox(height: 8),
-                    Text('Nominal:', style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text('Rp $apiDataSendaAmount'),
-                    SizedBox(height: 8),
-                    Text('Berita:', style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text(apiDataSendaComment),
-                    SizedBox(height: 8),
-                    Text('Tanggal Transfer:', style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text('Sekarang'),
+                    Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Transfer Receipt',
+                                style: TextStyle(
+                                    fontSize: 24, fontWeight: FontWeight.bold)),
+                            Divider(color: Colors.black),
+                            Text('Kode Transaksi:',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text('$apiDataKodeTrx'),
+                            SizedBox(height: 8),
+                            Text('Rekening Sumber:',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text("Id pengirim $apiDataOwnSirelaId"),
+                            Text("Nama Penerima $apiDataUserNamaLengkap"),
+                            SizedBox(height: 8),
+                            Text('Rekening Tujuan:',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text("Id Penerima $apiDataDestinationSirelaId"),
+                            Text("Nama Penerima $apiDataDestinationSirelaName"),
+                            SizedBox(height: 8),
+                            Text('Nominal:',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text('Rp $apiDataSendaAmount'),
+                            SizedBox(height: 8),
+                            Text('Berita:',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text(apiDataSendaComment),
+                            SizedBox(height: 8),
+                            Text('Tanggal Transfer:',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text('Sekarang'),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Spacer(),
+                    ElevatedButton(
+                      onPressed: () {
+                        NavigationHelper.pushReplacementNamed(
+                          AppRoutes.home,
+                        );
+                      },
+                      child: Text('Back to Home'),
+                      style: ElevatedButton.styleFrom(
+                        minimumSize:
+                            Size(double.infinity, 50), // Make button full-width
+                        backgroundColor: Colors.green,
+                      ),
+                    ),
                   ],
                 ),
               ),
-            ),
-            Spacer(),
-            ElevatedButton(
-              onPressed: () {
-                NavigationHelper.pushReplacementNamed(
-                  AppRoutes.home,
-                );
-              },
-              child: Text('Back to Home'),
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(double.infinity, 50), // Make button full-width
-                backgroundColor: Colors.green,
-              ),
-            ),
-          ],
-        ),
-      ),
-    ])));
+            ])));
   }
 }

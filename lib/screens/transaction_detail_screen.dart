@@ -23,84 +23,113 @@ class _TransactionDetailPageState extends State<TransactionDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: backgroundColor,
-        title:
-            Text('Konfirmasi Transfer', style: TextStyle(color: Colors.black)),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {
-            // Implement back navigation
-          },
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    return Container(
+        constraints: const BoxConstraints.expand(),
+        decoration: const BoxDecoration(
+          color: AppColors.lightGreen,
+          // image: DecorationImage(
+          //     image: AssetImage('assets/images/background2.jpg'),
+          //     fit: BoxFit.cover),
         ),
-      ),
-      body: Container(
-        color: backgroundColor,
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TransferDetailCard(
-              icon: Icons.credit_card,
-              title: 'Rekening Sumber',
-              accountNumber: '$apiDataOwnSirelaId',
-              balance: 'Rp $apiDataSendaAmount',
-            ),
-            SizedBox(height: 16),
-            TransferDetailCard(
-              icon: Icons.account_balance,
-              title: 'Rekening Tujuan',
-              accountNumber: '$apiDataDestinationSirelaId',
-              name: '$apiDataDestinationSirelaName',
-            ),
-            SizedBox(height: 16),
-            TransferInfoCard(),
-            Spacer(),
-            ConfirmationButton(
-              onConfirm: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return MPinPopup(
-                      onPinSubmitted: (String pin) async {
-                        Map<String, dynamic> statusTransfer =
-                            await ApiHelper.getTransferSirela(
-                                apiLoginToken,
-                                apiDataOwnSirelaId,
-                                apiDataSendaAmount,
-                                apiDataSendaComment,
-                                pin,
-                                apiDataDestinationSirelaId);
-                        if (statusTransfer['status_trx'].toString() ==
-                            'BERHASIL DIKIRIM') {
-                          //menuju halaman
-                          updateDetailsRek(
-                              apiDataOwnSirelaId,
-                              apiDataOwnSirelaAmount,
-                              apiDataDestinationSirelaId,
-                              apiDataDestinationSirelaName,
-                              apiDataSendaAmount,
-                              apiDataSendaComment,
-                              statusTransfer['kd_trx'].toString(),
-                              apiDataMetodeTransfer);
-                          NavigationHelper.pushReplacementNamed(
-                            AppRoutes.transaction_sucess,
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Incorrect PIN')),
-                          );
-                        }
+        child: Scaffold(
+            body: ListView(
+                padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
+                children: [
+              GradientBackground(
+                colors: const [Colors.transparent, Colors.transparent],
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.arrow_back),
+                        onPressed: () => NavigationHelper.pushReplacementNamed(
+                          AppRoutes.transfer,
+                        ),
+                      ),
+                      const Text(
+                        AppStrings.transferToOtherClient,
+                        style: AppTheme.titleLarge,
+                      ),
+                      Image.network(
+                        apiDataAppLogoBar,
+                        width: screenWidth * 0.25,
+                        fit: BoxFit.cover,
+                        alignment: Alignment.topCenter,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Container(
+                color: backgroundColor,
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    TransferDetailCard(
+                      icon: Icons.credit_card,
+                      title: 'Rekening Sumber',
+                      accountNumber: '$apiDataOwnSirelaId',
+                      balance: 'Rp $apiDataSendaAmount',
+                    ),
+                    SizedBox(height: 16),
+                    TransferDetailCard(
+                      icon: Icons.account_balance,
+                      title: 'Rekening Tujuan',
+                      accountNumber: '$apiDataDestinationSirelaId',
+                      name: '$apiDataDestinationSirelaName',
+                    ),
+                    SizedBox(height: 16),
+                    TransferInfoCard(),
+                    Spacer(),
+                    ConfirmationButton(
+                      onConfirm: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return MPinPopup(
+                              onPinSubmitted: (String pin) async {
+                                Map<String, dynamic> statusTransfer =
+                                    await ApiHelper.getTransferSirela(
+                                        apiLoginToken,
+                                        apiDataOwnSirelaId,
+                                        apiDataSendaAmount,
+                                        apiDataSendaComment,
+                                        pin,
+                                        apiDataDestinationSirelaId);
+                                if (statusTransfer['status_trx'].toString() ==
+                                    'BERHASIL DIKIRIM') {
+                                  //menuju halaman
+                                  updateDetailsRek(
+                                      apiDataOwnSirelaId,
+                                      apiDataOwnSirelaAmount,
+                                      apiDataDestinationSirelaId,
+                                      apiDataDestinationSirelaName,
+                                      apiDataSendaAmount,
+                                      apiDataSendaComment,
+                                      statusTransfer['kd_trx'].toString(),
+                                      apiDataMetodeTransfer);
+                                  NavigationHelper.pushReplacementNamed(
+                                    AppRoutes.transaction_sucess,
+                                  );
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text('Incorrect PIN')),
+                                  );
+                                }
+                              },
+                            );
+                          },
+                        );
                       },
-                    );
-                  },
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-    );
+                    ),
+                  ],
+                ),
+              ),
+            ])));
   }
 }
 

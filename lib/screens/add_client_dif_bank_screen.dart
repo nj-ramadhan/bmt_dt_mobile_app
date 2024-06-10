@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../components/app_drop_down_form_field.dart';
+import '../components/dropdown_V2.dart';
 import '../global_variables.dart';
 import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/api_helper.dart';
@@ -10,37 +12,37 @@ import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
 
-class AddClientPage extends StatefulWidget {
-  const AddClientPage({super.key});
+class AddClientDifBankPage extends StatefulWidget {
+  const AddClientDifBankPage({super.key});
 
   @override
-  State<AddClientPage> createState() => _AddClientPageState();
+  State<AddClientDifBankPage> createState() => _AddClientDifBankPageState();
 }
 
-class _AddClientPageState extends State<AddClientPage> {
-//   final Color backgroundColor = Color(
-//       0xFFD5F5E3); // Adjust this color to match the exact color from the image.
+class _AddClientDifBankPageState extends State<AddClientDifBankPage> {
+// //   final Color backgroundColor = Color(
+// //       0xFFD5F5E3); // Adjust this color to match the exact color from the image.
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       theme: ThemeData(
-//         primaryColor: Color(0xFFD0F0C0), // Specific green color from your image
-//         colorScheme: ColorScheme.fromSwatch().copyWith(
-//           secondary: Colors.greenAccent, // Accent color if needed
-//           primary: Color(0xFFD0F0C0), // Primary color
-//         ),
-//         textTheme: TextTheme(
-//           bodyLarge: TextStyle(color: Colors.black), // Black text color
-//           bodyMedium: TextStyle(color: Colors.black), // Black text color
-//         ),
-//       ),
-//       home: FavoriteAccountsPage(),
-//     );
-//   }
-// }
+// //   @override
+// //   Widget build(BuildContext context) {
+// //     return MaterialApp(
+// //       theme: ThemeData(
+// //         primaryColor: Color(0xFFD0F0C0), // Specific green color from your image
+// //         colorScheme: ColorScheme.fromSwatch().copyWith(
+// //           secondary: Colors.greenAccent, // Accent color if needed
+// //           primary: Color(0xFFD0F0C0), // Primary color
+// //         ),
+// //         textTheme: TextTheme(
+// //           bodyLarge: TextStyle(color: Colors.black), // Black text color
+// //           bodyMedium: TextStyle(color: Colors.black), // Black text color
+// //         ),
+// //       ),
+// //       home: FavoriteAccountsPage(),
+// //     );
+// //   }
+// // }
 
-// class FavoriteAccountsPage extends StatefulWidget {
+// // class FavoriteAccountsPage extends StatefulWidget {
 //   @override
 //   _FavoriteAccountsPageState createState() => _FavoriteAccountsPageState();
 // }
@@ -48,12 +50,19 @@ class _AddClientPageState extends State<AddClientPage> {
 // class _FavoriteAccountsPageState extends State<FavoriteAccountsPage> {
   final TextEditingController _searchController = TextEditingController();
   final DatabaseHelper db = DatabaseHelper.instance;
+  late String _table;
 
-  String _table = 'same_bank';
   List<Map<String, dynamic>> _accounts = [];
 
   @override
   void initState() {
+    if (apiDataMetodeTransfer == "TO") {
+      _table = 'different_bank_TO';
+    } else if (apiDataMetodeTransfer == "BIFAST") {
+      _table = 'different_bank_BIFAST';
+    } else {
+      _table = 'different_bank_RTGS';
+    }
     super.initState();
     _fetchAccounts();
   }
@@ -70,27 +79,6 @@ class _AddClientPageState extends State<AddClientPage> {
     setState(() {
       _accounts = accounts;
     });
-  }
-
-  Future<String?> fetchAccountHolder(String accountNumber) async {
-    // Simulasi panggilan API
-    // Gantilah URL dan logika ini dengan panggilan API yang sesuai
-    await Future.delayed(Duration(seconds: 1)); // Simulasi waktu tunggu API
-    if (accountNumber == "0011777711") {
-      return "BAZNAS";
-    } else if (accountNumber == "0011555510") {
-      return "BAZNAS";
-    } else if (accountNumber == "0011210077") {
-      return "Inisiatif Zakat Indonesia";
-    } else if (accountNumber == "0011210044") {
-      return "Inisiatif Zakat Indonesia";
-    } else if (accountNumber == "0016000066") {
-      return "LAZ Baitul Maal Hidayatullah";
-    } else if (accountNumber == "0011002002") {
-      return "LAZIS Dewan Da'wah";
-    } else {
-      return null;
-    }
   }
 
   void _showEditDialog(BuildContext context, Map<String, dynamic> account) {
@@ -176,7 +164,17 @@ class _AddClientPageState extends State<AddClientPage> {
         TextEditingController();
     final TextEditingController _accountAliasController =
         TextEditingController();
+    late Future<List<DropdownItemsStringIdModel>> _listBank;
+    if (apiDataMetodeTransfer == "TO") {
+      _listBank = ApiHelper.getListBankTO(loginToken: apiLoginToken);
+    } else if (apiDataMetodeTransfer == "BIFAST") {
+      _listBank = ApiHelper.getListBankBIFAST(loginToken: apiLoginToken);
+    } else {
+      _listBank = ApiHelper.getListBankRTGS(loginToken: apiLoginToken);
+    }
 
+    String? valueDownBank;
+    String? valueDownCodeBank;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -184,6 +182,23 @@ class _AddClientPageState extends State<AddClientPage> {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            AppDropdownFormBank(
+              future: _listBank,
+              labelText: 'Bank',
+              value: valueDownCodeBank,
+              hint: "Pilih Bank",
+              dropdownColor: Colors.blue[100],
+              onChanged: (value) {
+                setState(() {
+                  valueDownCodeBank = value;
+                });
+              },
+              onItemSelected: (title) {
+                print('Selected bank title: $valueDownBank $title');
+                valueDownBank = title;
+                // Lakukan sesuatu dengan title bank yang dipilih
+              },
+            ),
             TextField(
               keyboardType: TextInputType.number,
               controller: _accountNumberController,
@@ -193,10 +208,13 @@ class _AddClientPageState extends State<AddClientPage> {
                   icon: Icon(Icons.search),
                   onPressed: () async {
                     String accountHolder =
-                        await ApiHelper.getAccountHolderSirela(
-                      idSirela: _accountNumberController.text,
-                      loginToken: apiLoginToken,
+                        await ApiHelper.getAccountHolderDifBank(
+                      apiLoginToken,
+                      _accountNumberController.text,
+                      valueDownCodeBank.toString(),
+                      apiDataMetodeTransfer,
                     );
+
                     print("hasil $accountHolder");
                     if (accountHolder != 'error') {
                       print("masuk kesini");
@@ -212,6 +230,7 @@ class _AddClientPageState extends State<AddClientPage> {
                   },
                 ),
               ),
+              enabled: (valueDownBank != null),
             ),
             TextField(
               controller: _accountHolderController,
@@ -231,11 +250,14 @@ class _AddClientPageState extends State<AddClientPage> {
               String accountHolder = _accountHolderController.text;
               String accountAlias = _accountAliasController.text;
 
-              if (accountNumber.isNotEmpty &&
-                  accountHolder.isNotEmpty &&
-                  accountAlias.isNotEmpty) {
-                int result = await db.addAccount(
-                    _table, accountNumber, accountHolder, accountAlias);
+              if (accountNumber.isNotEmpty && accountHolder.isNotEmpty) {
+                int result = await db.addAccountDifBank(
+                    _table,
+                    accountNumber,
+                    accountHolder,
+                    accountAlias,
+                    valueDownBank.toString(),
+                    valueDownCodeBank.toString());
                 if (result != -1) {
                   _fetchAccounts();
                   Navigator.of(context).pop();
@@ -261,10 +283,6 @@ class _AddClientPageState extends State<AddClientPage> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    late Map<String, dynamic> account;
-    late int index = _accounts.length;
-    account = _accounts[index];
-
     return Container(
         constraints: const BoxConstraints.expand(),
         decoration: const BoxDecoration(
@@ -287,11 +305,11 @@ class _AddClientPageState extends State<AddClientPage> {
                       IconButton(
                         icon: const Icon(Icons.arrow_back),
                         onPressed: () => NavigationHelper.pushReplacementNamed(
-                          AppRoutes.transfer,
+                          AppRoutes.home,
                         ),
                       ),
                       const Text(
-                        AppStrings.transferToOtherClient,
+                        AppStrings.transferToOtherBank,
                         style: AppTheme.titleLarge,
                       ),
                       Image.network(
@@ -332,55 +350,51 @@ class _AddClientPageState extends State<AddClientPage> {
                   ],
                 ),
               ),
-
               // Expanded(
               //   child: ListView.builder(
               //     itemCount: _accounts.length,
               //     itemBuilder: (context, index) {
-              // final account = _accounts[index];
+              //       final account = _accounts[index];
               //       return ListTile(
               //         leading: CircleAvatar(
-              //           child:
-              Text(account['account_holder'][0]),
+              //           child: Text(account['account_holder'][0]),
               //         ),
-              //         title:
-              Text(account['account_holder']),
-              //         subtitle:
-              Text(
-                  '${account['account_number']} (${account['account_alias']})'),
+              //         title: Text(
+              //             '${account['account_holder']}-${account['account_bank']}'),
+              //         subtitle: Text(
+              //             '${account['account_number']} (${account['account_alias']})'),
               //         onTap: () {
-              IconButton(
-                icon: Icon(Icons.delete),
-                onPressed: () {
-                  updateDetailsRek(
-                      apiDataOwnSirelaId,
-                      apiDataSendaAmount,
-                      account['account_number'],
-                      account['account_holder'],
-                      account['account_holder'],
-                      apiDataSendaComment,
-                      apiDataKodeTrx,
-                      apiDataMetodeTransfer);
-                  NavigationHelper.pushReplacementNamed(
-                    AppRoutes.input_amount,
-                  );
-                },
-              ),
-              //         trailing:
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.edit),
-                    onPressed: () => _showEditDialog(context, account),
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.delete),
-                    onPressed: () =>
-                        _showDeleteDialog(context, account['account_number']),
-                  ),
-                ],
-              ),
+              //           updateDetailsRek(
+              //               apiDataOwnSirelaId,
+              //               apiDataSendaAmount,
+              //               account['account_number'],
+              //               account['account_holder'],
+              //               account['account_holder'],
+              //               apiDataSendaComment,
+              //               apiDataKodeTrx,
+              //               apiDataMetodeTransfer);
+              //           updateDifBank(
+              //               apiDataMetodeTransfer,
+              //               account['account_code_bank'],
+              //               account['account_bank']);
+              //           NavigationHelper.pushReplacementNamed(
+              //             AppRoutes.input_amount_dif_bank,
+              //           );
+              //         },
+              //         trailing: Row(
+              //           mainAxisSize: MainAxisSize.min,
+              //           children: [
+              //             IconButton(
+              //               icon: Icon(Icons.edit),
+              //               onPressed: () => _showEditDialog(context, account),
+              //             ),
+              //             IconButton(
+              //               icon: Icon(Icons.delete),
+              //               onPressed: () => _showDeleteDialog(
+              //                   context, account['account_number']),
+              //             ),
+              //           ],
+              //         ),
               //       );
               //     },
               //   ),
@@ -390,7 +404,7 @@ class _AddClientPageState extends State<AddClientPage> {
                 child: ElevatedButton(
                   onPressed: () {
                     NavigationHelper.pushReplacementNamed(
-                      AppRoutes.input_account,
+                      AppRoutes.input_account_dif_bank,
                     );
                   },
                   child: Text('Transfer Baru'),

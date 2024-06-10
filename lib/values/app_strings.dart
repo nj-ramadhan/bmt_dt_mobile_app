@@ -149,6 +149,8 @@ class AppStrings {
   static const String transferTitle = 'Transfer';
   static const String transferSubtitle = 'Mau melakukan pengiriman uang?';
   static const String transferMethodTitle = 'Metode Transfer';
+  static const String transferToOtherClient = 'Antar Rekening';
+  static const String transferToOtherBank = 'Antar Bank';
   static const String transferReceiptTitle = 'Transfer Receipt';
 
   static const String favouriteTitle = 'Favorit';

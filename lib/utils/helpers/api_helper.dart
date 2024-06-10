@@ -420,12 +420,12 @@ class ApiHelper {
   }
 
   static Future<Map<int, Map<String, String>>> getListRekening({
-    required String LoginToken,
+    required String loginToken,
   }) async {
     final headers = {
       'ClientID':
           'jLdCPSe3816XRXk7+aCMc+Et0nk1y6/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs/WzXeZ9pQGOkHyX6IK/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M/fXTrjkHB/v+1VFKgkGRFz0eIhDXZ3yp7e/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3/gKIXwL6NGFqzdeEy3xC/Qr6',
-      'Authorization': 'Bearer $LoginToken',
+      'Authorization': 'Bearer $loginToken',
       'Content-Type': 'application/json',
     };
 
@@ -461,12 +461,12 @@ class ApiHelper {
 
   static Future<String> getAccountHolderSirela({
     required String idSirela,
-    required String LoginToken,
+    required String loginToken,
   }) async {
     final headers = {
       'ClientID':
           'jLdCPSe3816XRXk7+aCMc+Et0nk1y6/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs/WzXeZ9pQGOkHyX6IK/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M/fXTrjkHB/v+1VFKgkGRFz0eIhDXZ3yp7e/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3/gKIXwL6NGFqzdeEy3xC/Qr6',
-      'Authorization': 'Bearer $LoginToken',
+      'Authorization': 'Bearer $loginToken',
       'Content-Type': 'application/json',
     };
 
@@ -571,12 +571,12 @@ class ApiHelper {
   }
 
   static Future<List<DropdownItemsStringIdModel>> getListBankTO({
-    required String LoginToken,
+    required String loginToken,
   }) async {
     final headers = {
       'ClientID':
           'jLdCPSe3816XRXk7+aCMc+Et0nk1y6/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs/WzXeZ9pQGOkHyX6IK/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M/fXTrjkHB/v+1VFKgkGRFz0eIhDXZ3yp7e/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3/gKIXwL6NGFqzdeEy3xC/Qr6',
-      'Authorization': 'Bearer $LoginToken',
+      'Authorization': 'Bearer $loginToken',
       'Content-Type': 'application/json',
     };
 
@@ -607,12 +607,12 @@ class ApiHelper {
   }
 
   static Future<List<DropdownItemsStringIdModel>> getListBankBIFAST({
-    required String LoginToken,
+    required String loginToken,
   }) async {
     final headers = {
       'ClientID':
           'jLdCPSe3816XRXk7+aCMc+Et0nk1y6/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs/WzXeZ9pQGOkHyX6IK/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M/fXTrjkHB/v+1VFKgkGRFz0eIhDXZ3yp7e/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3/gKIXwL6NGFqzdeEy3xC/Qr6',
-      'Authorization': 'Bearer $LoginToken',
+      'Authorization': 'Bearer $loginToken',
       'Content-Type': 'application/json',
     };
 
@@ -643,12 +643,12 @@ class ApiHelper {
   }
 
   static Future<List<DropdownItemsStringIdModel>> getListBankRTGS({
-    required String LoginToken,
+    required String loginToken,
   }) async {
     final headers = {
       'ClientID':
           'jLdCPSe3816XRXk7+aCMc+Et0nk1y6/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs/WzXeZ9pQGOkHyX6IK/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M/fXTrjkHB/v+1VFKgkGRFz0eIhDXZ3yp7e/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3/gKIXwL6NGFqzdeEy3xC/Qr6',
-      'Authorization': 'Bearer $LoginToken',
+      'Authorization': 'Bearer $loginToken',
       'Content-Type': 'application/json',
     };
 
@@ -679,11 +679,11 @@ class ApiHelper {
   }
 
   static Future<Map<int, Map<String, String>>> getListProvider(
-      {required String LoginToken, required String frontCode}) async {
+      {required String loginToken, required String frontCode}) async {
     final headers = {
       'ClientID':
           'jLdCPSe3816XRXk7+aCMc+Et0nk1y6/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs/WzXeZ9pQGOkHyX6IK/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M/fXTrjkHB/v+1VFKgkGRFz0eIhDXZ3yp7e/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3/gKIXwL6NGFqzdeEy3xC/Qr6',
-      'Authorization': 'Bearer $LoginToken',
+      'Authorization': 'Bearer $loginToken',
       'Content-Type': 'application/json',
     };
 
@@ -719,13 +719,13 @@ class ApiHelper {
   }
 
   static Future<Map<int, Map<String, String>>> getListProduct(
-      {required String LoginToken,
+      {required String loginToken,
       required String providerCode,
       required String transactionType}) async {
     final headers = {
       'ClientID':
           'jLdCPSe3816XRXk7+aCMc+Et0nk1y6/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs/WzXeZ9pQGOkHyX6IK/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M/fXTrjkHB/v+1VFKgkGRFz0eIhDXZ3yp7e/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3/gKIXwL6NGFqzdeEy3xC/Qr6',
-      'Authorization': 'Bearer $LoginToken',
+      'Authorization': 'Bearer $loginToken',
       'Content-Type': 'application/json',
     };
 
@@ -765,7 +765,7 @@ class ApiHelper {
   }
 
   static Future<Map<int, Map<String, String>>> postBuyProduct({
-    required String LoginToken,
+    required String loginToken,
     required String pin,
     required String codeProduct,
     required String clientNumber,
@@ -774,7 +774,7 @@ class ApiHelper {
     final String url = "https://dkuapi.dkuindonesia.id/api/Pulsa/beli_pulsa";
 
     final headers = {
-      'Authorization': 'Bearer $LoginToken',
+      'Authorization': 'Bearer $loginToken',
       'Content-Type': 'multipart/form-data',
     };
 
@@ -794,7 +794,7 @@ class ApiHelper {
         final data = json.decode(responseBody);
         print(data);
         Map<int, Map<String, String>> dataMap = {};
-        for (int i = 0; i < data.length; i++) {
+        for (int i = 0; i < data; i++) {
           var item = data[i];
           dataMap[i + 1] = {
             'status_trx': item['status_trx'] ?? '',
@@ -815,7 +815,7 @@ class ApiHelper {
   }
 
   static Future<Map<int, Map<String, String>>> postProfileUpdate({
-    required String LoginToken,
+    required String loginToken,
     required String password,
     required String idNumber,
     required String fullName,
@@ -827,7 +827,7 @@ class ApiHelper {
         "https://dkuapi.dkuindonesia.id/api/Authorization/update_profile";
 
     final headers = {
-      'Authorization': 'Bearer $LoginToken',
+      'Authorization': 'Bearer $loginToken',
       'Content-Type': 'multipart/form-data',
     };
 
@@ -848,7 +848,7 @@ class ApiHelper {
         final data = json.decode(responseBody);
         print(data);
         Map<int, Map<String, String>> dataMap = {};
-        for (int i = 0; i < data.length; i++) {
+        for (int i = 0; i < data; i++) {
           var item = data[i];
           dataMap[i + 1] = {
             'message': item['message'] ?? '',
@@ -863,5 +863,126 @@ class ApiHelper {
       print('Error: $e');
       throw Exception("Network Connectivity Error");
     }
+  }
+
+  static Future<Map<int, Map<String, String>>> getListTransaction(
+      {required String loginToken,
+      required String dateBegin,
+      required String dateFinish}) async {
+    final headers = {
+      'ClientID':
+          'jLdCPSe3816XRXk7+aCMc+Et0nk1y6/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs/WzXeZ9pQGOkHyX6IK/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M/fXTrjkHB/v+1VFKgkGRFz0eIhDXZ3yp7e/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3/gKIXwL6NGFqzdeEy3xC/Qr6',
+      'Authorization': 'Bearer $loginToken',
+      'Content-Type': 'application/json',
+    };
+
+    final String url =
+        "https://dkuapi.dkuindonesia.id/api/Pulsa/get_trectrans?from_date=$dateBegin&to_date=$dateFinish&start=0&length=10";
+
+    try {
+      final response = await http.get(
+        Uri.parse(url),
+        headers: headers,
+      );
+      final body = json.decode(response.body)['data'] as List;
+
+      if (response.statusCode == 200) {
+        Map<int, Map<String, String>> dataMap = {};
+        for (int i = 0; i < body.length; i++) {
+          var item = body[i];
+          dataMap[i + 1] = {
+            'id': item['id'] ?? '',
+            'kd_trx': item['kd_trx'] ?? '',
+            'refund_kd_trx': item['refund_kd_trx'] ?? '',
+            'customerRefCode': item['customerRefCode'] ?? '',
+            'trx_title': item['trx_title'] ?? '',
+            'kd_tujuan1': item['kd_tujuan1'] ?? '',
+            'kd_bank_tujuan1': item['kd_bank_tujuan1'] ?? '',
+            'metode_tujuan': item['metode_tujuan'] ?? '',
+            'no_user_tujuan1': item['no_user_tujuan1'] ?? '',
+            'kd_bayar1': item['kd_bayar1'] ?? '',
+            'kd_bank_bayar1': item['kd_bank_bayar1'] ?? '',
+            'metode_bayar': item['metode_bayar'] ?? '',
+            'no_user_bayar1': item['no_user_bayar1'] ?? '',
+            'adm_bayar': item['adm_bayar'] ?? '',
+            'nominal_bayar': item['nominal_bayar'] ?? '',
+            'nominal_modal': item['nominal_modal'] ?? '',
+            'detail_bayar': item['detail_bayar'] ?? '',
+            'status': item['status'] ?? '',
+            'keterangan': item['keterangan'] ?? '',
+            'upload_bukti_tf': item['upload_bukti_tf'] ?? '',
+            'no_user_maker1': item['no_user_maker1'] ?? '',
+            'waktu_order': item['waktu_order'] ?? '',
+            'waktu_bayar': item['waktu_bayar'] ?? '',
+            'waktu_berhasil_terkirim': item['waktu_berhasil_terkirim'] ?? '',
+            'who_update': item['who_update'] ?? '',
+          };
+        }
+        print(dataMap);
+        return dataMap;
+      }
+    } on SocketException {
+      throw Exception("Network Connectivity Error");
+    }
+    throw Exception("Fetch Data Error");
+  }
+
+  static Future<Map<int, Map<String, String>>> postDetailLembaga() async {
+    final headers = {
+      'ClientID':
+          'jLdCPSe3816XRXk7+aCMc+Et0nk1y6/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs/WzXeZ9pQGOkHyX6IK/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M/fXTrjkHB/v+1VFKgkGRFz0eIhDXZ3yp7e/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3/gKIXwL6NGFqzdeEy3xC/Qr6',
+      'Content-Type': 'application/json',
+    };
+    final String url =
+        "https://dkuapi.dkuindonesia.id/api/Credential/koperasi_details";
+
+    try {
+      var request = http.MultipartRequest('POST', Uri.parse(url))
+        ..headers.addAll(headers);
+
+      final response = await request.send();
+      // print(response);
+
+      // final response = await http.post(
+      //   Uri.parse(url),
+      //   headers: headers,
+      // );
+      if (response.statusCode == 200) {
+        final responseBody = await response.stream.bytesToString();
+        final data = json.decode(responseBody);
+        //   print(data);
+        // final body = json.decode(response.body)['data_app'] as List;
+        Map<int, Map<String, String>> dataMap = {};
+        for (int i = 0; i < data; i++) {
+          var item = data[i];
+          dataMap[i + 1] = {
+            'app_name_string': item['data_app']['app_name_string'] ?? '',
+            'app_logo': item['data_app']['app_logo'] ?? '',
+            'app_logo_bar': item['data_app']['app_logo_bar'] ?? '',
+          };
+        }
+        return dataMap;
+      } else {
+        throw Exception(
+            "Failed to complete transaction: ${response.statusCode}");
+      }
+
+      // if (response.statusCode == 200) {
+      //   Map<int, Map<String, String>> dataMap = {};
+      //   for (int i = 0; i < body.length; i++) {
+      //     var item = body[i];
+      //     dataMap[i + 1] = {
+      //       'app_name_string': item['app_name_string'] ?? '',
+      //       'app_logo': item['app_logo'] ?? '',
+      //       'app_logo_bar': item['app_logo_bar'] ?? '',
+      //     };
+      //   }
+      //   print(dataMap);
+      //   return dataMap;
+      // }
+    } on SocketException {
+      throw Exception("Network Connectivity Error");
+    }
+    throw Exception("Fetch Data Error");
   }
 }

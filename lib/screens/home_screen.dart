@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
   Map<int, Map<String, String>> dataMap = {};
 
   Future<void> fetchData() async {
-    final data = await ApiHelper.getListRekening(LoginToken: apiLoginToken);
+    final data = await ApiHelper.getListRekening(loginToken: apiLoginToken);
     setState(() {
       dataMap = data;
       simpananSukarelaNumber = getSimpananSukarelaNumber(dataMap);
@@ -31,25 +31,21 @@ class _HomePageState extends State<HomePage> {
   }
 
   String? getSimpananSukarelaNumber(Map<int, Map<String, String>> data) {
-    print("inilah data");
     print(data);
     for (var entry in data.entries) {
       print(entry.value['name']);
-
       print(entry.value['amount']);
       if (entry.value['name'].toString() == 'SIMPANAN SUKARELA') {
-        print("data nya uang "+entry.value['amount'].toString());
+        print("data nya uang " + entry.value['amount'].toString());
         updateDetailsRek(
-          entry.value['number'].toString(),
-        entry.value['amount'].toString(),
-        apiDataDestinationSirelaId,
-        apiDataDestinationSirelaName,
-        apiDataSendaAmount,
-        apiDataSendaComment,
-        apiDataKodeTrx,
-        apiDataMetodeTransfer
-       
-        );
+            entry.value['number'].toString(),
+            entry.value['amount'].toString(),
+            apiDataDestinationSirelaId,
+            apiDataDestinationSirelaName,
+            apiDataSendaAmount,
+            apiDataSendaComment,
+            apiDataKodeTrx,
+            apiDataMetodeTransfer);
         return entry.value['number'];
       }
     }

@@ -12,6 +12,7 @@ import '../global_variables.dart';
 import '../resources/resources.dart';
 // import '../screens/camera_id_screen.dart';
 import '../utils/common_widgets/gradient_background.dart';
+import '../utils/helpers/api_helper.dart';
 import '../utils/helpers/navigation_helper.dart';
 import '../utils/helpers/snackbar_helper.dart';
 import '../values/app_constants.dart';
@@ -19,10 +20,6 @@ import '../values/app_regex.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
-
-late String responseDetailsAppLogo;
-late String responseDetailsAppLogoBar;
-late String responseDetailsAppNameString;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -32,6 +29,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  Map<int, Map<String, String>> dataDetailLembaga = {};
   final _formKey = GlobalKey<FormState>();
 
   final ValueNotifier<bool> passwordNotifier = ValueNotifier(true);
@@ -63,6 +61,29 @@ class _LoginPageState extends State<LoginPage> {
   late String responseDetailsAccountNoUser;
   late String responseDetailsAccountEmail;
   late String responseDetailsAccountTelepon;
+
+  late String responseDetailsAppNameString;
+  late String responseDetailsAppLogo;
+  late String responseDetailsAppLogoBar;
+
+  Future<void> fetchDetailLembaga() async {
+    final data = await ApiHelper.postDetailLembaga();
+    setState(() {
+      dataDetailLembaga = data;
+      debugPrint('response data detail lembaga: $dataDetailLembaga');
+
+      responseDetailsAppNameString =
+          dataDetailLembaga[1]?['app_name_string'] ?? '';
+      responseDetailsAppLogo = dataDetailLembaga[1]?['app_logo'] ?? '';
+      responseDetailsAppLogoBar = dataDetailLembaga[1]?['app_logo_bar'] ?? '';
+
+      updateDetailsApp(
+        responseDetailsAppNameString,
+        responseDetailsAppLogo,
+        responseDetailsAppLogoBar,
+      );
+    });
+  }
 
   Future<void> detailLembaga() async {
     const url =
@@ -153,7 +174,7 @@ class _LoginPageState extends State<LoginPage> {
           responseLoginRefreshToken,
         );
 
-        await getDetails();
+        getDetails();
 
         if (responseLoginToken.length >= 100) {
           phoneController.clear();
@@ -235,11 +256,12 @@ class _LoginPageState extends State<LoginPage> {
             'response details account email:$responseDetailsAccountEmail');
 
         updateDetailsUser(
-            responseDetailsUserNik,
-            responseDetailsUserNamaLengkap,
-            responseDetailsUserTempatLahir,
-            responseDetailsUserJenisKelamin,
-            responseDetailsUserAlamatLengkap);
+          responseDetailsUserNik,
+          responseDetailsUserNamaLengkap,
+          responseDetailsUserTempatLahir,
+          responseDetailsUserJenisKelamin,
+          responseDetailsUserAlamatLengkap,
+        );
 
         updateDetailsAccount(
           responseDetailsAccountNoUser,
@@ -339,6 +361,10 @@ class _LoginPageState extends State<LoginPage> {
                       width: screenWidth * 0.25,
                       fit: BoxFit.cover,
                       alignment: Alignment.topCenter,
+                      errorBuilder: (BuildContext context, Object exception,
+                          StackTrace? stackTrace) {
+                        return const Text('icon');
+                      },
                     ),
                     // Image(
                     //   image: const AssetImage('assets/icon/icon_text.png'),
@@ -359,6 +385,10 @@ class _LoginPageState extends State<LoginPage> {
               height: screenHeight * 0.3,
               fit: BoxFit.contain,
               alignment: Alignment.topCenter,
+              errorBuilder: (BuildContext context, Object exception,
+                  StackTrace? stackTrace) {
+                return const Text('icon');
+              },
             ),
 
             Text(
@@ -368,7 +398,7 @@ class _LoginPageState extends State<LoginPage> {
               style: AppTheme.bodyMedium.copyWith(color: Colors.black),
             ),
             Text(
-              "Mobile",
+              "MOBILE",
               textAlign: TextAlign.center,
               style: AppTheme.bodySmall.copyWith(color: Colors.black),
             ),
@@ -489,7 +519,7 @@ class _LoginPageState extends State<LoginPage> {
                       style: AppTheme.bodySmall.copyWith(color: Colors.grey),
                     ),
                     Text(
-                      '1.0.0',
+                      '1.24.6',
                       style: AppTheme.bodySmall.copyWith(color: Colors.grey),
                     ),
                   ],
