@@ -1,12 +1,7 @@
-import 'dart:convert';
-import 'package:path/path.dart';
-import 'package:async/async.dart';
 import 'dart:io';
-import 'package:http/http.dart' as http;
-import 'package:image_picker/image_picker.dart';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 
 import '../components/app_text_form_field.dart';
 import '../global_variables.dart';
@@ -30,19 +25,12 @@ class ProfileDetailPage extends StatefulWidget {
 
 class _ProfileDetailPageState extends State<ProfileDetailPage> {
   final _formKey = GlobalKey<FormState>();
-  Map<int, Map<String, String>> dataProfile = {};
+  Map<String, String> dataProfile = {};
 
   late final TextEditingController idController;
   late final TextEditingController nameController;
   late final TextEditingController genderController;
   late final TextEditingController birthPlaceController;
-
-  // late final DatePickerDialog birthDateController;
-  // late final TextEditingController addressController;
-  // late final TextEditingController motherNameController;
-  // late final TextEditingController communityChoiceController;
-  // late final TextEditingController passwordController;
-  // late final TextEditingController emailController;
   late final TextEditingController passwordController;
   final ValueNotifier<bool> fieldValidNotifier = ValueNotifier(false);
   final ValueNotifier<bool> passwordNotifier = ValueNotifier(false);
@@ -50,7 +38,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
   var _image;
   final picker = ImagePicker();
 
-  Future<void> postUpdate() async {
+  Future<void> fetchProfileUpdate() async {
     debugPrint("debug: masuk ke api");
     final data = await ApiHelper.postProfileUpdate(
         loginToken: apiLoginToken,
@@ -64,15 +52,12 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
     dataProfile = data;
     setState(() {
       dataProfile = data;
-      SnackbarHelper.showSnackBar(responseUpdate(dataProfile));
+      SnackbarHelper.showSnackBar(responseProfileUpdate(dataProfile));
     });
   }
 
-  String? responseUpdate(Map<int, Map<String, String>> data) {
-    for (var entry in data.entries) {
-      return entry.value['message'];
-    }
-    return null;
+  String? responseProfileUpdate(Map<String, String> data) {
+    return data['message'];
   }
 
   //Image Picker function to get image from gallery
@@ -103,21 +88,8 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
     genderController = TextEditingController()..addListener(controllerListener);
     birthPlaceController = TextEditingController()
       ..addListener(controllerListener);
-
-    // birthDateController = DatePickerDialog(
-    //     firstDate: DateTime(1900, 1, 1, 23, 59),
-    //     lastDate: DateTime(2100, 1, 1, 23, 59));
-    // addressController = TextEditingController()
-    //   ..addListener(controllerListener);
-    // motherNameController = TextEditingController()
-    //   ..addListener(controllerListener);
-    // communityChoiceController = TextEditingController()
-    //   ..addListener(controllerListener);
-    // emailController = TextEditingController()..addListener(controllerListener);
     passwordController = TextEditingController()
       ..addListener(controllerListener);
-    // confirmPasswordController = TextEditingController()
-    //   ..addListener(controllerListener);
   }
 
   void disposeControllers() {
@@ -125,14 +97,6 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
     nameController.dispose();
     genderController.dispose();
     birthPlaceController.dispose();
-
-    // birthDateController.toString();
-    // addressController.dispose();
-    // motherNameController.dispose();
-    // communityChoiceController.dispose();
-    // emailController.dispose();
-    // passwordController.dispose();
-    // confirmPasswordController.dispose();
   }
 
   void controllerListener() {
@@ -141,42 +105,22 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
     final gender = genderController.text;
     final birthPlace = birthPlaceController.text;
     final password = passwordController.text;
-
-    // final address = addressController.text;
-    // final mother = motherNameController.text;
-    // final community = communityChoiceController.text;
-    // final email = emailController.text;
-    // final password = passwordController.text;
-    // final confirmPassword = confirmPasswordController.text;
-
     if (id.isEmpty &&
-            name.isEmpty &&
-            gender.isEmpty &&
-            birthPlace.isEmpty &&
-            // address.isEmpty &&
-            // mother.isEmpty &&
-            // community.isEmpty &&
-            // && email.isEmpty
-            password.isEmpty
-        // confirmPassword.isEmpty
-        ) return;
+        name.isEmpty &&
+        gender.isEmpty &&
+        birthPlace.isEmpty &&
+        password.isEmpty) return;
 
     if (id.isNotEmpty &&
-            name.isNotEmpty &&
-            gender.isNotEmpty &&
-            birthPlace.isNotEmpty
-        // AppRegex.emailRegex.hasMatch(email)
-        // && AppRegex.passwordRegex.hasMatch(password)
-        //     && AppRegex.passwordRegex.hasMatch(confirmPassword)
-        ) {
+        name.isNotEmpty &&
+        gender.isNotEmpty &&
+        birthPlace.isNotEmpty) {
       fieldValidNotifier.value = true;
     } else {
       fieldValidNotifier.value = false;
     }
 
-    if (AppRegex.passwordRegex.hasMatch(password)
-        //     && AppRegex.passwordRegex.hasMatch(confirmPassword)
-        ) {
+    if (AppRegex.passwordRegex.hasMatch(password)) {
       passwordNotifier.value = true;
     } else {
       passwordNotifier.value = false;
@@ -186,11 +130,12 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
   @override
   void initState() {
     initializeControllers();
-    super.initState();
-    idController.text = apiDataAccountNiK;
+    idController.text = apiDataUserNIK;
     nameController.text = apiDataUserNamaLengkap;
     genderController.text = apiDataUserJenisKelamin;
     birthPlaceController.text = apiDataUserTempatLahir;
+
+    super.initState();
   }
 
   @override
@@ -199,66 +144,6 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
     super.dispose();
   }
 
-  // @override
-  // String? get restorationId => widget.restorationId;
-
-  // final RestorableDateTime _selectedDate =
-  //     RestorableDateTime(DateTime(1990, 1, 1));
-  // late final RestorableRouteFuture<DateTime?> _restorableDatePickerRouteFuture =
-  //     RestorableRouteFuture<DateTime?>(
-  //   onComplete: _selectDate,
-  //   onPresent: (NavigatorState navigator, Object? arguments) {
-  //     return navigator.restorablePush(
-  //       _datePickerRoute,
-  //       arguments: _selectedDate.value.millisecondsSinceEpoch,
-  //     );
-  //   },
-  // );
-
-  // @pragma('vm:entry-point')
-  // static Route<DateTime> _datePickerRoute(
-  //   BuildContext context,
-  //   Object? arguments,
-  // ) {
-  //   return DialogRoute<DateTime>(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return DatePickerDialog(
-  //         restorationId: 'date_picker_dialog',
-  //         initialEntryMode: DatePickerEntryMode.calendarOnly,
-  //         initialDate: DateTime.fromMillisecondsSinceEpoch(arguments! as int),
-  //         firstDate: DateTime(1990),
-  //         lastDate: DateTime(2100),
-  //       );
-  //     },
-  //   );
-  // }
-
-  // @override
-  // void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
-  //   registerForRestoration(_selectedDate, 'selected_date');
-  //   registerForRestoration(
-  //       _restorableDatePickerRouteFuture, 'date_picker_route_future');
-  // }
-
-  // void _selectDate(DateTime? newSelectedDate) {
-  //   if (newSelectedDate != null) {
-  //     setState(() {
-  //       _selectedDate.value = newSelectedDate;
-  //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-  //         content: Text(
-  //             'Tanggal Lahir: ${_selectedDate.value.day}/${_selectedDate.value.month}/${_selectedDate.value.year} dipilih'),
-  //       ));
-  //     });
-  //   }
-  // }
-
-  // String _selectDateOnly(DateTime? newSelectedDate) {
-  //   String selectedDateOnly =
-  //       '${_selectedDate.value.day}/${_selectedDate.value.month}/${_selectedDate.value.year}';
-  //   return selectedDateOnly;
-  // }
-
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -266,10 +151,10 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
     return Container(
       constraints: const BoxConstraints.expand(),
       decoration: const BoxDecoration(
-        color: AppColors.lightGreen,
-        // image: DecorationImage(
-        // image: AssetImage('assets/images/background1.jpg'),
-        // fit: BoxFit.cover),
+        color: Colors.transparent,
+        image: DecorationImage(
+            image: AssetImage('assets/images/background1.jpg'),
+            fit: BoxFit.cover),
       ),
       child: Scaffold(
         body: ListView(
@@ -356,7 +241,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
                     ),
                     AppTextFormField(
                       autofocus: true,
-                      labelText: AppStrings.birthDate,
+                      labelText: AppStrings.birthPlace,
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.next,
                       onChanged: (value) => _formKey.currentState?.validate(),
@@ -369,7 +254,6 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
                       },
                       controller: birthPlaceController,
                     ),
-
                     Text('Update Profile Photo'),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -382,7 +266,6 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
                             child: Text('Select from Gallery')),
                       ],
                     ),
-
                     Center(
                       // ignore: unnecessary_null_comparison
                       child: _image == null
@@ -392,65 +275,6 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    // AppTextFormField(
-                    //   autofocus: true,
-                    //   labelText: AppStrings.address,
-                    //   keyboardType: TextInputType.streetAddress,
-                    //   textInputAction: TextInputAction.next,
-                    //   onChanged: (value) => _formKey.currentState?.validate(),
-                    //   validator: (value) {
-                    //     return value!.isEmpty
-                    //         ? AppStrings.pleaseEnterAddress
-                    //         : value.length < 15
-                    //             ? AppStrings.invalidAddress
-                    //             : null;
-                    //   },
-                    //   controller: addressController,
-                    // ),
-                    // AppTextFormField(
-                    //   autofocus: true,
-                    //   labelText: AppStrings.motherName,
-                    //   keyboardType: TextInputType.name,
-                    //   textInputAction: TextInputAction.next,
-                    //   onChanged: (value) => _formKey.currentState?.validate(),
-                    //   validator: (value) {
-                    //     return value!.isEmpty
-                    //         ? AppStrings.pleaseEnterMotherName
-                    //         : value.length < 15
-                    //             ? AppStrings.invalidMotherName
-                    //             : null;
-                    //   },
-                    //   controller: motherNameController,
-                    // ),
-                    // AppTextFormField(
-                    //   autofocus: true,
-                    //   labelText: AppStrings.community,
-                    //   keyboardType: TextInputType.text,
-                    //   textInputAction: TextInputAction.next,
-                    //   onChanged: (value) => _formKey.currentState?.validate(),
-                    //   validator: (value) {
-                    //     return value!.isEmpty
-                    //         ? AppStrings.pleaseEnterCommunity
-                    //         : value.length < 15
-                    //             ? AppStrings.invalidCommunity
-                    //             : null;
-                    //   },
-                    //   controller: communityChoiceController,
-                    // ),
-                    // AppTextFormField(
-                    //   labelText: AppStrings.email,
-                    //   controller: emailController,
-                    //   textInputAction: TextInputAction.next,
-                    //   keyboardType: TextInputType.emailAddress,
-                    //   onChanged: (_) => _formKey.currentState?.validate(),
-                    //   validator: (value) {
-                    //     return value!.isEmpty
-                    //         ? AppStrings.pleaseEnterEmailAddress
-                    //         : AppConstants.emailRegex.hasMatch(value)
-                    //             ? null
-                    //             : AppStrings.invalidEmailAddress;
-                    //   },
-                    // ),
                     ValueListenableBuilder<bool>(
                       valueListenable: passwordNotifier,
                       builder: (_, passwordObscure, __) {
@@ -469,15 +293,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
                                     : AppStrings.invalidPassword;
                           },
                           suffixIcon: Focus(
-                            /// If false,
-                            ///
-                            /// disable focus for all of this node's descendants
                             descendantsAreFocusable: false,
-
-                            /// If false,
-                            ///
-                            /// make this widget's descendants un-traversable.
-                            // descendantsAreTraversable: false,
                             child: IconButton(
                               onPressed: () =>
                                   passwordNotifier.value = !passwordObscure,
@@ -495,61 +311,13 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
                         );
                       },
                     ),
-                    // ValueListenableBuilder(
-                    //   valueListenable: confirmPasswordNotifier,
-                    //   builder: (_, confirmPasswordObscure, __) {
-                    //     return AppTextFormField(
-                    //       labelText: AppStrings.confirmPassword,
-                    //       controller: confirmPasswordController,
-                    //       obscureText: confirmPasswordObscure,
-                    //       textInputAction: TextInputAction.done,
-                    //       keyboardType: TextInputType.visiblePassword,
-                    //       onChanged: (_) => _formKey.currentState?.validate(),
-                    //       validator: (value) {
-                    //         return value!.isEmpty
-                    //             ? AppStrings.pleaseReEnterPassword
-                    //             : AppConstants.passwordRegex.hasMatch(value)
-                    //                 ? passwordController.text ==
-                    //                         confirmPasswordController.text
-                    //                     ? null
-                    //                     : AppStrings.passwordNotMatched
-                    //                 : AppStrings.invalidPassword;
-                    //       },
-                    //       suffixIcon: Focus(
-                    //         /// If false,
-                    //         ///
-                    //         /// disable focus for all of this node's descendants.
-                    //         descendantsAreFocusable: false,
-
-                    //         /// If false,
-                    //         ///
-                    //         /// make this widget's descendants un-traversable.
-                    //         // descendantsAreTraversable: false,
-                    //         child: IconButton(
-                    //           onPressed: () => confirmPasswordNotifier.value =
-                    //               !confirmPasswordObscure,
-                    //           style: IconButton.styleFrom(
-                    //             minimumSize: const Size.square(48),
-                    //           ),
-                    //           icon: Icon(
-                    //             confirmPasswordObscure
-                    //                 ? Icons.visibility_off_outlined
-                    //                 : Icons.visibility_outlined,
-                    //             color: Colors.black,
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     );
-                    //   },
-                    // ),
-
                     ValueListenableBuilder(
                       valueListenable: fieldValidNotifier,
                       builder: (_, isValid, __) {
                         return FilledButton(
                           onPressed: isValid
                               ? () {
-                                  postUpdate();
+                                  fetchProfileUpdate();
                                 }
                               : null,
                           child: const Text(AppStrings.profileAccountUpdate),

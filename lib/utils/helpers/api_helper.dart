@@ -764,7 +764,7 @@ class ApiHelper {
     throw Exception("Fetch Data Error");
   }
 
-  static Future<Map<int, Map<String, String>>> postBuyProduct({
+  static Future<Map<String, String>> postBuyProduct({
     required String loginToken,
     required String pin,
     required String codeProduct,
@@ -791,18 +791,14 @@ class ApiHelper {
 
       if (response.statusCode == 200 || response.statusCode == 402) {
         final responseBody = await response.stream.bytesToString();
-        final data = json.decode(responseBody);
-        print(data);
-        Map<int, Map<String, String>> dataMap = {};
-        for (int i = 0; i < data; i++) {
-          var item = data[i];
-          dataMap[i + 1] = {
-            'status_trx': item['status_trx'] ?? '',
-            'kd_trx': item['kd_trx'] ?? '',
-            'customerRefCode': item['customerRefCode'] ?? '',
-            'message': item['message'] ?? '',
-          };
-        }
+        final data = json.decode(responseBody) as Map;
+        Map<String, String> dataMap = {};
+        dataMap = {
+          'status_trx': data['status_trx'] ?? '',
+          'kd_trx': data['kd_trx'] ?? '',
+          'customerRefCode': data['customerRefCode'] ?? '',
+          'message': data['message'] ?? '',
+        };
         return dataMap;
       } else {
         throw Exception(
@@ -814,7 +810,7 @@ class ApiHelper {
     }
   }
 
-  static Future<Map<int, Map<String, String>>> postProfileUpdate({
+  static Future<Map<String, String>> postProfileUpdate({
     required String loginToken,
     required String password,
     required String idNumber,
@@ -841,19 +837,94 @@ class ApiHelper {
         ..fields['tempat_lahir'] = birthPlace;
 
       final response = await request.send();
-      print(response);
-
       if (response.statusCode == 200 || response.statusCode == 402) {
         final responseBody = await response.stream.bytesToString();
-        final data = json.decode(responseBody);
+        final data = json.decode(responseBody) as Map;
         print(data);
-        Map<int, Map<String, String>> dataMap = {};
-        for (int i = 0; i < data; i++) {
-          var item = data[i];
-          dataMap[i + 1] = {
-            'message': item['message'] ?? '',
-          };
-        }
+        Map<String, String> dataMap = {};
+        dataMap = {
+          'message': data['message1'] ?? data['message'],
+        };
+        return dataMap;
+      } else {
+        throw Exception(
+            "Failed to complete transaction: ${response.statusCode}");
+      }
+    } catch (e) {
+      print('Error: $e');
+      throw Exception("Network Connectivity Error");
+    }
+  }
+
+  static Future<Map<String, String>> postPasswordUpdate({
+    required String loginToken,
+    required String oldPassword,
+    required String newPassword,
+    required String confirmPassword,
+  }) async {
+    final String url =
+        "https://dkuapi.dkuindonesia.id/api/Authorization/update_password";
+
+    final headers = {
+      'Authorization': 'Bearer $loginToken',
+      'Content-Type': 'multipart/form-data',
+    };
+
+    try {
+      var request = http.MultipartRequest('POST', Uri.parse(url))
+        ..headers.addAll(headers)
+        ..fields['old_password'] = oldPassword
+        ..fields['new_password'] = newPassword
+        ..fields['confirm_password'] = confirmPassword;
+
+      final response = await request.send();
+      if (response.statusCode == 200 || response.statusCode == 400) {
+        final responseBody = await response.stream.bytesToString();
+        final data = json.decode(responseBody) as Map;
+        print(data);
+        Map<String, String> dataMap = {};
+        dataMap = {
+          'message': data['message'],
+        };
+        return dataMap;
+      } else {
+        throw Exception(
+            "Failed to complete transaction: ${response.statusCode}");
+      }
+    } catch (e) {
+      print('Error: $e');
+      throw Exception("Network Connectivity Error");
+    }
+  }
+
+  static Future<Map<String, String>> postEmailUpdate({
+    required String loginToken,
+    required String newEmail,
+    required String pin,
+  }) async {
+    final String url =
+        "https://dkuapi.dkuindonesia.id/api/Authorization/update_password";
+
+    final headers = {
+      'Authorization': 'Bearer $loginToken',
+      'Content-Type': 'multipart/form-data',
+    };
+
+    try {
+      var request = http.MultipartRequest('POST', Uri.parse(url))
+        ..headers.addAll(headers)
+        ..fields['new_email'] = newEmail
+        ..fields['pin'] = pin;
+
+      final response = await request.send();
+      if (response.statusCode == 200 || response.statusCode == 400) {
+        final responseBody = await response.stream.bytesToString();
+        final data = json.decode(responseBody) as Map;
+        print(data);
+        Map<String, String> dataMap = {};
+        dataMap = {
+          'message': data['message'],
+        };
         return dataMap;
       } else {
         throw Exception(
@@ -927,7 +998,7 @@ class ApiHelper {
     throw Exception("Fetch Data Error");
   }
 
-  static Future<Map<int, Map<String, String>>> postDetailLembaga() async {
+  static Future<Map<String, String>> postDetailLembaga() async {
     final headers = {
       'ClientID':
           'jLdCPSe3816XRXk7+aCMc+Et0nk1y6/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs/WzXeZ9pQGOkHyX6IK/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M/fXTrjkHB/v+1VFKgkGRFz0eIhDXZ3yp7e/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3/gKIXwL6NGFqzdeEy3xC/Qr6',
@@ -941,48 +1012,24 @@ class ApiHelper {
         ..headers.addAll(headers);
 
       final response = await request.send();
-      // print(response);
-
-      // final response = await http.post(
-      //   Uri.parse(url),
-      //   headers: headers,
-      // );
       if (response.statusCode == 200) {
         final responseBody = await response.stream.bytesToString();
-        final data = json.decode(responseBody);
-        //   print(data);
-        // final body = json.decode(response.body)['data_app'] as List;
-        Map<int, Map<String, String>> dataMap = {};
-        for (int i = 0; i < data; i++) {
-          var item = data[i];
-          dataMap[i + 1] = {
-            'app_name_string': item['data_app']['app_name_string'] ?? '',
-            'app_logo': item['data_app']['app_logo'] ?? '',
-            'app_logo_bar': item['data_app']['app_logo_bar'] ?? '',
-          };
-        }
+        final data = json.decode(responseBody)['data_app'] as Map;
+
+        Map<String, String> dataMap = {};
+        dataMap = {
+          'app_name_string': data['app_name_string'] ?? '',
+          'app_logo': data['app_logo'] ?? '',
+          'app_logo_bar': data['app_logo_bar'] ?? '',
+        };
         return dataMap;
       } else {
         throw Exception(
             "Failed to complete transaction: ${response.statusCode}");
       }
-
-      // if (response.statusCode == 200) {
-      //   Map<int, Map<String, String>> dataMap = {};
-      //   for (int i = 0; i < body.length; i++) {
-      //     var item = body[i];
-      //     dataMap[i + 1] = {
-      //       'app_name_string': item['app_name_string'] ?? '',
-      //       'app_logo': item['app_logo'] ?? '',
-      //       'app_logo_bar': item['app_logo_bar'] ?? '',
-      //     };
-      //   }
-      //   print(dataMap);
-      //   return dataMap;
-      // }
-    } on SocketException {
+    } catch (e) {
+      print('Error: $e');
       throw Exception("Network Connectivity Error");
     }
-    throw Exception("Fetch Data Error");
   }
 }

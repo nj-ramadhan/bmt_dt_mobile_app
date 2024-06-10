@@ -23,10 +23,10 @@ class ShoppingConfirmPage extends StatefulWidget {
 
 class _ShoppingConfirmPageState extends State<ShoppingConfirmPage> {
   late String pinNumber;
-  Map<int, Map<String, String>> dataBuyProduct = {};
+  Map<String, String> dataBuyProduct = {};
   late TextEditingController pinNumberController;
 
-  Future<void> postBuyProduct() async {
+  Future<void> fetchDataBuyProduct() async {
     debugPrint("debug: masuk ke buy product");
     debugPrint(apiDataProductCode);
     debugPrint(apiDataProductClientNumber);
@@ -36,21 +36,15 @@ class _ShoppingConfirmPageState extends State<ShoppingConfirmPage> {
         codeProduct: apiDataProductCode,
         clientNumber: apiDataProductClientNumber,
         methodPayment: 'id_su-$apiDataOwnSirelaId');
-
-    dataBuyProduct = data;
     setState(() {
       dataBuyProduct = data;
       SnackbarHelper.showSnackBar(responseBuyProduct(dataBuyProduct));
-    
     });
   }
 
-  String? responseBuyProduct(Map<int, Map<String, String>> data) {
-    for (var entry in data.entries) {
-      return entry.value['message'];
-    }
-    return null; // Return null if SIMPANAN SUKARELA is not found
-  }
+  String? responseBuyProduct(Map<String, String> data) {
+    return data['message'] ?? null;
+  } // Return null if SIMPANAN SUKARELA is not found
 
   String indonesianCurrencyFormat(String data) {
     int dataInt = int.parse(data);
@@ -193,14 +187,7 @@ class _ShoppingConfirmPageState extends State<ShoppingConfirmPage> {
                   ),
                   FilledButton(
                     onPressed: () {
-                      postBuyProduct();
-
-                      var message = dataBuyProduct[0]?['message'] ??
-                          'Transaksi tidak dapat diproses';
-                      SnackbarHelper.showSnackBar(message);
-                      NavigationHelper.pushReplacementNamed(
-                        AppRoutes.home,
-                      );
+                      fetchDataBuyProduct();
                     },
                     child: Text('Continue'),
                   ),

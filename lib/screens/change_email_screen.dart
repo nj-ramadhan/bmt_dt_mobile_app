@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import '../components/app_text_form_field.dart';
 import '../global_variables.dart';
 import '../utils/common_widgets/gradient_background.dart';
+import '../utils/helpers/api_helper.dart';
 import '../utils/helpers/navigation_helper.dart';
 import '../utils/helpers/snackbar_helper.dart';
 import '../values/app_colors.dart';
@@ -24,85 +25,61 @@ class ChangeEmailPage extends StatefulWidget {
 
 class _ChangeEmailPageState extends State<ChangeEmailPage> {
   final _formKey = GlobalKey<FormState>();
+  Map<String, String> dataEmail = {};
 
   late final TextEditingController emailController;
   late final TextEditingController newEmailController;
-  late final TextEditingController confirmEmailController;
+  late final TextEditingController pinController;
 
   final ValueNotifier<bool> emailNotifier = ValueNotifier(true);
   final ValueNotifier<bool> newEmailNotifier = ValueNotifier(true);
-  final ValueNotifier<bool> confirmEmailNotifier = ValueNotifier(true);
+  final ValueNotifier<bool> pinNotifier = ValueNotifier(true);
   final ValueNotifier<bool> fieldValidNotifier = ValueNotifier(false);
 
-  Future<void> updateEmail() async {
-    const url =
-        'https://dkuapi.dkuindonesia.id/api/Authorization/update_password';
-    final headers = {
-      'ClientID':
-          'jLdCPSe3816XRXk7+aCMc+Et0nk1y6\/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ\/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A\/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs\/WzXeZ9pQGOkHyX6IK\/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M\/fXTrjkHB\/v+1VFKgkGRFz0eIhDXZ3yp7e\/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n\/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3\/gKIXwL6NGFqzdeEy3xC\/Qr6',
-      'Authorization': 'Bearer $apiLoginToken',
-      'Content-Type': 'application/json',
-    };
+  Future<void> fetchEmailUpdate() async {
+    debugPrint("debug: masuk ke api");
+    final data = await ApiHelper.postEmailUpdate(
+      loginToken: apiLoginToken,
+      newEmail: newEmailController.text,
+      pin: pinController.text,
+    );
 
-    final body = json.encode({
-      'old_email': emailController.text,
-      'new_email': newEmailController.text,
-      // 'confirm_email': confirmEmailController.text,
+    dataEmail = data;
+    setState(() {
+      dataEmail = data;
+      SnackbarHelper.showSnackBar(responseEmailUpdate(dataEmail));
     });
+  }
 
-    try {
-      final response = await http.post(
-        Uri.parse(url),
-        headers: headers,
-        body: body,
-      );
-
-      final responseBody = json.decode(response.body);
-      final message = responseBody['message'].toString();
-      // debugPrint('response: $headers');
-      // debugPrint('response: $body');
-      // debugPrint('response: $responseBody');
-      debugPrint('response: $message');
-
-      SnackbarHelper.showSnackBar(
-        message,
-      );
-
-      emailController.clear();
-      newEmailController.clear();
-      confirmEmailController.clear();
-    } catch (e) {
-      debugPrint('Error: $e');
-    }
+  String? responseEmailUpdate(Map<String, String> data) {
+    return data['message'];
   }
 
   void initializeControllers() {
     emailController = TextEditingController()..addListener(controllerListener);
     newEmailController = TextEditingController()
       ..addListener(controllerListener);
-    confirmEmailController = TextEditingController()
-      ..addListener(controllerListener);
+    pinController = TextEditingController()..addListener(controllerListener);
   }
 
   void disposeControllers() {
     emailController.dispose();
     newEmailController.dispose();
-    confirmEmailController.dispose();
+    pinController.dispose();
   }
 
   void controllerListener() {
     final email = emailController.text;
     final newEmail = newEmailController.text;
-    final confirmEmail = confirmEmailController.text;
+    final pin = pinController.text;
 
-    if (email.isEmpty && newEmail.isEmpty && confirmEmail.isEmpty) {
+    if (email.isEmpty && newEmail.isEmpty && pin.isEmpty) {
       return;
     }
 
     if (AppRegex.emailRegex.hasMatch(email) &&
         AppRegex.emailRegex.hasMatch(newEmail) &&
-        AppRegex.emailRegex.hasMatch(confirmEmail) &&
-        newEmail == confirmEmail) {
+        AppRegex.emailRegex.hasMatch(pin)) {
       fieldValidNotifier.value = true;
     } else {
       fieldValidNotifier.value = false;
@@ -112,8 +89,8 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
   @override
   void initState() {
     initializeControllers();
-    super.initState();
     emailController.text = apiDataAccountEmail;
+    super.initState();
   }
 
   @override
@@ -130,9 +107,9 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
       constraints: const BoxConstraints.expand(),
       decoration: const BoxDecoration(
         color: AppColors.lightGreen,
-        // image: DecorationImage(
-        //     image: AssetImage('assets/images/background1.jpg'),
-        //     fit: BoxFit.cover),
+        image: DecorationImage(
+            image: AssetImage('assets/images/background1.jpg'),
+            fit: BoxFit.cover),
       ),
       child: Scaffold(
         body: ListView(
@@ -201,20 +178,15 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
                       },
                     ),
                     AppTextFormField(
-                      labelText: AppStrings.confirmEmail,
-                      controller: confirmEmailController,
+                      labelText: AppStrings.pin,
+                      controller: pinController,
                       textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.emailAddress,
+                      keyboardType: TextInputType.number,
                       onChanged: (_) => _formKey.currentState?.validate(),
                       validator: (value) {
                         return value!.isEmpty
-                            ? AppStrings.pleaseReEnterEmail
-                            : AppConstants.emailRegex.hasMatch(value)
-                                ? newEmailController.text ==
-                                        confirmEmailController.text
-                                    ? null
-                                    : AppStrings.emailNotMatched
-                                : AppStrings.invalidEmailAddress;
+                            ? AppStrings.pleaseEnterPin
+                            : AppStrings.invalidPin;
                       },
                     ),
                     ValueListenableBuilder(
@@ -223,13 +195,10 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
                         return FilledButton(
                           onPressed: isValid
                               ? () {
-                                  updateEmail();
-                                  // SnackbarHelper.showSnackBar(
-                                  //   AppStrings.changeEmailComplete,
-                                  // );
+                                  fetchEmailUpdate();
                                   emailController.clear();
                                   newEmailController.clear();
-                                  confirmEmailController.clear();
+                                  pinController.clear();
                                 }
                               : null,
                           child: const Text(AppStrings.changeEmail),

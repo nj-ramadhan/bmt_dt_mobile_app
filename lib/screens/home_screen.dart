@@ -62,7 +62,6 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     fetchData();
     print(dataMap);
-
     super.initState();
   }
 
@@ -148,7 +147,7 @@ class _HomePageState extends State<HomePage> {
                       padding: EdgeInsets.all(screenWidth * 0.05),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Column(
                             mainAxisSize: MainAxisSize.min,

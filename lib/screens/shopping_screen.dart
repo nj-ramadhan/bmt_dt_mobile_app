@@ -159,6 +159,11 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                             width: screenWidth * 0.15,
                                             fit: BoxFit.cover,
                                             alignment: Alignment.topCenter,
+                                            errorBuilder: (BuildContext context,
+                                                Object exception,
+                                                StackTrace? stackTrace) {
+                                              return const Text('icon');
+                                            },
                                           ),
                                           // Image(
                                           // image: ssetImage(

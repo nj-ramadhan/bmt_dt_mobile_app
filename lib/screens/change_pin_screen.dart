@@ -207,9 +207,7 @@ class _ChangePinPageState extends State<ChangePinPage> {
                           validator: (value) {
                             return value!.isEmpty
                                 ? AppStrings.pleaseEnterPin
-                                : AppConstants.passwordRegex.hasMatch(value)
-                                    ? null
-                                    : AppStrings.invalidPin;
+                                : AppStrings.invalidPin;
                           },
                           suffixIcon: Focus(
                             descendantsAreFocusable: false,

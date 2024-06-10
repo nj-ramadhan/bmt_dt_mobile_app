@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 // import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -29,7 +28,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  Map<int, Map<String, String>> dataDetailLembaga = {};
+  Map<String, String> dataDetailLembaga = {};
   final _formKey = GlobalKey<FormState>();
 
   final ValueNotifier<bool> passwordNotifier = ValueNotifier(true);
@@ -72,10 +71,9 @@ class _LoginPageState extends State<LoginPage> {
       dataDetailLembaga = data;
       debugPrint('response data detail lembaga: $dataDetailLembaga');
 
-      responseDetailsAppNameString =
-          dataDetailLembaga[1]?['app_name_string'] ?? '';
-      responseDetailsAppLogo = dataDetailLembaga[1]?['app_logo'] ?? '';
-      responseDetailsAppLogoBar = dataDetailLembaga[1]?['app_logo_bar'] ?? '';
+      responseDetailsAppNameString = dataDetailLembaga['app_name_string'] ?? '';
+      responseDetailsAppLogo = dataDetailLembaga['app_logo'] ?? '';
+      responseDetailsAppLogoBar = dataDetailLembaga['app_logo_bar'] ?? '';
 
       updateDetailsApp(
         responseDetailsAppNameString,
@@ -83,54 +81,6 @@ class _LoginPageState extends State<LoginPage> {
         responseDetailsAppLogoBar,
       );
     });
-  }
-
-  Future<void> detailLembaga() async {
-    const url =
-        'https://dkuapi.dkuindonesia.id/api/Credential/koperasi_details';
-    const headers = {
-      'ClientID':
-          'KnxNoQkPMMesAVR85tM/XdLG6Bruiabbx/8KmD3GyDnB4G8tCmKSnaUa4HMu+nCtRR1FaQK4uTTTiPu+m+8u83JrExoOE0L5AI5TEFHhhKH6pFq3PLqfqyKWXgmb4FFMX7Y2oZ0PtKjXhkWefB6S4/I3Oe0aTy9rHfC7uFTUeadmExtCcSRsBXUklgneVI9kGwkMSbVOUN06UsrGwYvJqu8GizUJ6NJH98cVaJ9mqdcgXhNoLVSv68LicRycfoYVf0T/IL5iXgHEoKYEBcfL5tzpZQ8g+D/njHYYaIsVl16LDUcWTrCxrChgodXTRCtFWqtsIW1OSbAAZU7LZZJGU/3iTqzGvBc6Irs10bvwQsAGbiNMTGJ5WyDGolSfp7c55ZYPgm+G82hin8qoICSCSndPJjbyVAkstdjjMbDUoqwwSuAOmEJVSvRLpx1P7+djYc+tNHAK1A269UTDwfv5B0nK6M5ZWRab2eGeNBQ5QXDsNZIhfNg1rqWaFwFtVzatnjk0vbSv+TFvSDqja/2+Qtr+hZR68hRKtGurmSqZoMwQ4g8pM4RhCv7bvne77Ku/uGcMbLBoep4WTnx+654eMA==',
-      'Content-Type': 'application/json',
-    };
-
-    try {
-      final response = await http.post(
-        Uri.parse(url),
-        headers: headers,
-        // body: body,
-      );
-
-      if (response.statusCode == 200) {
-        final responseBody = json.decode(response.body);
-        print("didalam API");
-        print(responseBody);
-        if (kDebugMode) {
-          print(responseBody);
-        }
-        responseDetailsAppNameString =
-            responseBody['data_app']['app_name_string'].toString();
-        responseDetailsAppLogo =
-            responseBody['data_app']['app_logo'].toString();
-        responseDetailsAppLogoBar =
-            responseBody['data_app']['app_logo_bar'].toString();
-        updateDetailsApp(
-          responseDetailsAppNameString,
-          responseDetailsAppLogo,
-          responseDetailsAppLogoBar,
-        );
-
-        if (kDebugMode) {
-          debugPrint(responseDetailsAppLogo);
-          debugPrint(responseDetailsAppLogoBar);
-          debugPrint(responseDetailsAppNameString);
-        }
-      } else {
-        debugPrint('Request failed with status: ${response.statusCode}.');
-      }
-    } catch (e) {
-      debugPrint('Error: $e');
-    }
   }
 
   Future<void> createToken() async {
@@ -220,8 +170,8 @@ class _LoginPageState extends State<LoginPage> {
 
       if (response.statusCode == 200) {
         final responseBody = json.decode(response.body);
-        // responseDetailsUserNik =
-        responseBody['data_user_details']['nik'].toString();
+        responseDetailsUserNik =
+            responseBody['data_user_details']['nik'].toString();
         responseDetailsUserNamaLengkap =
             responseBody['data_user_details']['nama_lengkap'].toString();
         responseDetailsUserAlamatLengkap =
@@ -230,30 +180,10 @@ class _LoginPageState extends State<LoginPage> {
             responseBody['data_user_details']['jenis_kelamin'].toString();
         responseDetailsUserTempatLahir =
             responseBody['data_user_details']['tempat_lahir'].toString();
-        // dataDetailsAccount = responseBody['data_account_details'].toString();
 
-        debugPrint('response details:$responseBody.toString()');
+        debugPrint('response details:$responseBody');
         debugPrint(
             'response details user nama:$responseDetailsUserNamaLengkap');
-
-        // final jsonDetailsUser = json.encode(dataDetailsUser);
-        // final dataUser = json.decode(jsonDetailsUser);
-        // responseDetailsUserNik = dataUser['nik'].toString();
-        // responseDetailsUserNamaLengkap = dataUser['nama_lengkap'].toString();
-        // // responseDetailsUserTanggalLahir = dataUser['tanggal_lahir'].toString();
-        // responseDetailsUserAlamatLengkap =
-        //     dataUser['alamat_lengkap'].toString();
-
-        // final jsonDetailsAccount = json.encode(dataDetailsAccount);
-        // final dataAccount = json.decode(jsonDetailsAccount);
-        responseDetailsAccountNoUser =
-            responseBody['data_account_details']['no_user'].toString();
-        responseDetailsAccountEmail =
-            responseBody['data_account_details']['email'].toString();
-        responseDetailsAccountTelepon =
-            responseBody['data_account_details']['telepon'].toString();
-        debugPrint(
-            'response details account email:$responseDetailsAccountEmail');
 
         updateDetailsUser(
           responseDetailsUserNik,
@@ -262,6 +192,16 @@ class _LoginPageState extends State<LoginPage> {
           responseDetailsUserJenisKelamin,
           responseDetailsUserAlamatLengkap,
         );
+
+        responseDetailsAccountNoUser =
+            responseBody['data_account_details']['no_user'].toString();
+        responseDetailsAccountEmail =
+            responseBody['data_account_details']['email'].toString();
+        responseDetailsAccountTelepon =
+            responseBody['data_account_details']['telepon'].toString();
+
+        debugPrint(
+            'response details account email:$responseDetailsAccountEmail');
 
         updateDetailsAccount(
           responseDetailsAccountNoUser,
@@ -284,7 +224,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> fetchData() async {
-    await detailLembaga();
+    await fetchDetailLembaga();
     setState(() {});
   }
 
@@ -331,12 +271,11 @@ class _LoginPageState extends State<LoginPage> {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     return Container(
-      constraints: const BoxConstraints.expand(),
-      decoration: const BoxDecoration(
+      // constraints: const BoxConstraints.expand(),
+      decoration: BoxDecoration(
         image: DecorationImage(
-          // image: AssetImage('assets/images/background1.jpg'),
-          image: AssetImage('assets/images/background1.jpg'),
-          fit: BoxFit.contain,
+          image: AssetImage(Images.background1),
+          fit: BoxFit.cover,
         ),
       ),
       child: Scaffold(
@@ -354,10 +293,8 @@ class _LoginPageState extends State<LoginPage> {
                       AppStrings.signInToYourNAccount,
                       style: AppTheme.titleLarge,
                     ),
-                    // 'https://dkuapi.dkuindonesia.id/api/assets/uploads/app_logo_bar20240327031120.png',
                     Image.network(
                       apiDataAppLogoBar,
-                      // responseDetailsAppLogoBar,
                       width: screenWidth * 0.25,
                       fit: BoxFit.cover,
                       alignment: Alignment.topCenter,
@@ -366,23 +303,14 @@ class _LoginPageState extends State<LoginPage> {
                         return const Text('icon');
                       },
                     ),
-                    // Image(
-                    //   image: const AssetImage('assets/icon/icon_text.png'),
-                    //   width: screenWidth * 0.25,
-                    //   fit: BoxFit.cover,
-                    //   alignment: Alignment.topCenter,
-                    // ),
                   ],
                 ),
               ],
             ),
             const SizedBox(height: 20),
-
             Image.network(
-              // "https://dkuapi.dkuindonesia.id/api/assets/uploads/app_logo20240327031120.png",
               apiDataAppLogo,
-              // responseDetailsAppLogo,
-              height: screenHeight * 0.3,
+              height: screenHeight * 0.25,
               fit: BoxFit.contain,
               alignment: Alignment.topCenter,
               errorBuilder: (BuildContext context, Object exception,
@@ -390,10 +318,8 @@ class _LoginPageState extends State<LoginPage> {
                 return const Text('icon');
               },
             ),
-
             Text(
               apiDataAppNameString,
-              // responseDetailsAppNameString,
               textAlign: TextAlign.center,
               style: AppTheme.bodyMedium.copyWith(color: Colors.black),
             ),
@@ -402,13 +328,6 @@ class _LoginPageState extends State<LoginPage> {
               textAlign: TextAlign.center,
               style: AppTheme.bodySmall.copyWith(color: Colors.black),
             ),
-
-            // Image(
-            //   image: const AssetImage('assets/icon/icon.png'),
-            //   height: screenHeight * 0.3,
-            //   fit: BoxFit.contain,
-            //   alignment: Alignment.topCenter,
-            // ),
             Form(
               key: _formKey,
               child: Padding(

@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import '../components/app_text_form_field.dart';
 import '../global_variables.dart';
 import '../utils/common_widgets/gradient_background.dart';
+import '../utils/helpers/api_helper.dart';
 import '../utils/helpers/navigation_helper.dart';
 import '../utils/helpers/snackbar_helper.dart';
 import '../values/app_colors.dart';
@@ -24,6 +25,7 @@ class ChangePasswordPage extends StatefulWidget {
 
 class _ChangePasswordPageState extends State<ChangePasswordPage> {
   final _formKey = GlobalKey<FormState>();
+  Map<String, String> dataPassword = {};
 
   late final TextEditingController passwordController;
   late final TextEditingController newPasswordController;
@@ -34,46 +36,24 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   final ValueNotifier<bool> confirmPasswordNotifier = ValueNotifier(true);
   final ValueNotifier<bool> fieldValidNotifier = ValueNotifier(false);
 
-  Future<void> updatePassword() async {
-    const url =
-        'https://dkuapi.dkuindonesia.id/api/Authorization/update_password';
-    final headers = {
-      'ClientID':
-          'jLdCPSe3816XRXk7+aCMc+Et0nk1y6\/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ\/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A\/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs\/WzXeZ9pQGOkHyX6IK\/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M\/fXTrjkHB\/v+1VFKgkGRFz0eIhDXZ3yp7e\/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n\/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3\/gKIXwL6NGFqzdeEy3xC\/Qr6',
-      'Authorization': 'Bearer $apiLoginToken',
-      'Content-Type': 'application/json',
-    };
+  Future<void> fetchPasswordUpdate() async {
+    debugPrint("debug: masuk ke api");
+    final data = await ApiHelper.postPasswordUpdate(
+      loginToken: apiLoginToken,
+      oldPassword: passwordController.text,
+      newPassword: newPasswordController.text,
+      confirmPassword: confirmPasswordController.text,
+    );
 
-    final body = json.encode({
-      'old_password': passwordController.text,
-      'new_password': newPasswordController.text,
-      'confirm_password': confirmPasswordController.text,
+    dataPassword = data;
+    setState(() {
+      dataPassword = data;
+      SnackbarHelper.showSnackBar(responsePasswordUpdate(dataPassword));
     });
+  }
 
-    try {
-      final response = await http.post(
-        Uri.parse(url),
-        headers: headers,
-        body: body,
-      );
-
-      final responseBody = json.decode(response.body);
-      final message = responseBody['message'].toString();
-      // debugPrint('response: $headers');
-      // debugPrint('response: $body');
-      // debugPrint('response: $responseBody');
-      debugPrint('response: $message');
-
-      SnackbarHelper.showSnackBar(
-        message,
-      );
-
-      passwordController.clear();
-      newPasswordController.clear();
-      confirmPasswordController.clear();
-    } catch (e) {
-      debugPrint('Error: $e');
-    }
+  String? responsePasswordUpdate(Map<String, String> data) {
+    return data['message'];
   }
 
   void initializeControllers() {
@@ -311,7 +291,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                       valueListenable: fieldValidNotifier,
                       builder: (_, isValid, __) {
                         return FilledButton(
-                          onPressed: isValid ? updatePassword : null,
+                          onPressed: isValid ? fetchPasswordUpdate : null,
                           child: const Text(AppStrings.changePassword),
                         );
                       },
