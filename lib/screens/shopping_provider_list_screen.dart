@@ -58,6 +58,20 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
     });
   }
 
+  void updateFrontCode(String value) => setState(() {
+        if (apiDataProductTransactionType == '3') {
+          frontCodeNumber = 'PLN';
+        } else if (apiDataProductTransactionType == '5') {
+          frontCodeNumber = apiDataProductKeyword;
+        } else {
+          frontCodeNumber = value.substring(0, 4);
+        }
+        apiDataProductClientNumber = value;
+        debugPrint(
+            'response client number: $apiDataProductClientNumber, front code: $frontCodeNumber, transaction type: $apiDataProductTransactionType, product code: $apiDataProductCode');
+        // Replace with your logic
+      });
+
   String indonesianCurrencyFormat(String data) {
     int dataInt = int.parse(data);
     var dataFormatted =
@@ -95,45 +109,6 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
     disposeControllers();
     super.dispose();
   }
-
-  void updateFrontCode(String value) => setState(() {
-        frontCodeNumber = value.substring(0, 4);
-        if (apiDataProductTransactionType == '3') {
-          frontCodeNumber = 'PLN';
-        }
-        if (apiDataProductTransactionType == '5') {
-          if (apiDataProductCode == '6') {
-            frontCodeNumber = 'DANA';
-          }
-          if (apiDataProductCode == '7') {
-            frontCodeNumber = 'GOPAY';
-          }
-          if (apiDataProductCode == '8') {
-            frontCodeNumber = 'GOPAY_DRIVER';
-          }
-          if (apiDataProductCode == '9') {
-            frontCodeNumber = 'GRAB';
-          }
-          if (apiDataProductCode == '10') {
-            frontCodeNumber = 'LINK_AJA';
-          }
-          if (apiDataProductCode == '11') {
-            frontCodeNumber = 'I_SAKU';
-          }
-          if (apiDataProductCode == '12') {
-            frontCodeNumber = 'MITRA_BUKALAPAK';
-          }
-          if (apiDataProductCode == '13') {
-            frontCodeNumber = 'OVO';
-          }
-          if (apiDataProductCode == '14') {
-            frontCodeNumber = 'SHOPEE_PAY';
-          }
-        }
-        apiDataProductClientNumber = value;
-        debugPrint('response client number: $apiDataProductClientNumber');
-        // Replace with your logic
-      });
 
   void updateProviderCode(String value) => setState(() {
         providerCodeNumber = value;
@@ -290,7 +265,7 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
                               apiDataProductPrice =
                                   dataProduct[i]?['harga_jual_agen'] ?? '';
                               apiDataProductCode =
-                                  dataProduct[i]?['kode_dku'] ?? '';
+                                  dataProvider[1]?['no_provider'] ?? '';
                               NavigationHelper.pushReplacementNamed(
                                 AppRoutes.shopping_confirm,
                               );

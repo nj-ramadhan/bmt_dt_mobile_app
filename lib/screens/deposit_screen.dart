@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import '../global_variables.dart';
 import '../utils/common_widgets/gradient_background.dart';
+import '../utils/helpers/api_helper.dart';
 import '../utils/helpers/navigation_helper.dart';
 import '../values/app_colors.dart';
 import '../values/app_routes.dart';
@@ -19,9 +20,22 @@ class DepositPage extends StatefulWidget {
 
 class _DepositPageState extends State<DepositPage> {
   Map<int, Map<String, String>> dataMap = {};
+  String? simpananSukarelaNumber;
   late int totalAmount;
 
-  String? getSimpananSukarelaNumber(Map<int, Map<String, String>> data) {
+  Future<void> fetchData() async {
+    final data = await ApiHelper.getListRekening(loginToken: apiLoginToken);
+    setState(() {
+      dataMap = data;
+      simpananSukarelaNumber = getTotalAmount(dataMap);
+      for (var entry in dataMap.entries) {
+        totalAmount = totalAmount +
+            int.parse(entry.value['amount'].toString().replaceAll("Rp. ", ""));
+      }
+    });
+  }
+
+  String? getTotalAmount(Map<int, Map<String, String>> data) {
     print(data);
     for (var entry in data.entries) {
       print(entry.value['name']);
@@ -44,7 +58,7 @@ class _DepositPageState extends State<DepositPage> {
   }
 
   String indonesianCurrencyFormat(String data) {
-    int dataInt = int.parse(data);
+    int dataInt = int.parse(data.replaceAll("Rp. ", ""));
     var dataFormatted =
         NumberFormat.currency(locale: 'id_ID', symbol: 'Rp. ', decimalDigits: 0)
             .format(dataInt);
@@ -53,8 +67,9 @@ class _DepositPageState extends State<DepositPage> {
 
   @override
   void initState() {
-    super.initState();
     totalAmount = 0;
+    fetchData();
+    super.initState();
   }
 
   @override
@@ -167,7 +182,7 @@ class _DepositPageState extends State<DepositPage> {
                   style: AppTheme.bodySmall,
                 ),
                 Text(
-                  totalAmount.toString(),
+                  indonesianCurrencyFormat(totalAmount.toString()),
                   style: AppTheme.bodyLarge,
                 ),
               ],

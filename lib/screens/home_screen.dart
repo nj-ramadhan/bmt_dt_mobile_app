@@ -37,16 +37,17 @@ class _HomePageState extends State<HomePage> {
       print(entry.value['name']);
       print(entry.value['amount']);
       if (entry.value['name'].toString() == 'SIMPANAN SUKARELA') {
-        print("data nya uang " + entry.value['amount'].toString());
-        updateDetailsRek(
-            entry.value['number'].toString(),
-            entry.value['amount'].toString(),
-            apiDataDestinationSirelaId,
-            apiDataDestinationSirelaName,
-            apiDataSendaAmount,
-            apiDataSendaComment,
-            apiDataKodeTrx,
-            apiDataMetodeTransfer);
+        print("data nya uang " +
+            entry.value['amount'].toString().replaceAll("Rp. ", ""));
+        // updateDetailsRek(
+        //     entry.value['number'].toString(),
+        //     entry.value['amount'].toString().replaceAll("Rp. ", ""),
+        //     apiDataDestinationSirelaId,
+        //     apiDataDestinationSirelaName,
+        //     apiDataSendaAmount,
+        //     apiDataSendaComment,
+        //     apiDataKodeTrx,
+        //     apiDataMetodeTransfer);
         return entry.value['number'];
       }
     }
@@ -60,7 +61,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   String indonesianCurrencyFormat(String data) {
-    int dataInt = int.parse(data);
+    int dataInt = int.parse(data.replaceAll("Rp. ", ""));
     var dataFormatted =
         NumberFormat.currency(locale: 'id_ID', symbol: 'Rp. ', decimalDigits: 0)
             .format(dataInt);

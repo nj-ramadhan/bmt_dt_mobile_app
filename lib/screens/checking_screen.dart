@@ -370,6 +370,10 @@ class _CheckingPageState extends State<CheckingPage> with RestorationMixin {
                                           ),
                                         ),
                                         Text(
+                                          dataTransaction[i]?['status'] ?? '',
+                                          style: AppTheme.bodySmall,
+                                        ),
+                                        Text(
                                             indonesianCurrencyFormat(
                                                 dataTransaction[i]
                                                         ?['nominal_bayar'] ??
