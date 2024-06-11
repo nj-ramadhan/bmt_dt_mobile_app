@@ -24,7 +24,7 @@ class ShoppingProviderListPage extends StatefulWidget {
 class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
   late String frontCodeNumber;
   late String providerCodeNumber;
-  late String providerKeyword;
+  // late String providerKeyword;
   late String providerLogo;
 
   Map<int, Map<String, String>> dataProvider = {};
@@ -33,15 +33,16 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
   late TextEditingController frontCodeController;
 
   Future<void> fetchDataProvider() async {
+    print( "data front code $frontCodeNumber");
     final data = await ApiHelper.getListProvider(
         loginToken: apiLoginToken, frontCode: frontCodeNumber);
     setState(() {
       dataProvider = data;
-      debugPrint('response list data provider: $dataProvider');
+      // debugPrint('response list data provider: $dataProvider');
 
       providerCodeNumber = dataProvider[1]?['no_provider'] ?? '';
       providerLogo = dataProvider[1]?['logo_kartu'] ?? '';
-      providerKeyword = dataProvider[1]?['keyword_kode_depan_nomor'] ?? '';
+      
       updateProviderCode(providerCodeNumber);
       fetchDataProduct();
     });
@@ -60,12 +61,14 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
     });
   }
 
-  void updateFrontCode(String value,String selection) => setState(() {
-        if (selection != '4 DIgit Depan No.Hp') {
-          frontCodeNumber = selection;
+  void updateFrontCode(String value) => setState(() {
+        if (apiDataProductKeyword != '4 DIgit Depan No.Hp') {
+          print("masuk kesini");
+          frontCodeNumber = apiDataProductKeyword;
         }  else {
           frontCodeNumber = value.substring(0, 4);
         }
+        print("isi front code number $frontCodeNumber");
         apiDataProductClientNumber = value;
         debugPrint(
             'response client number: $apiDataProductClientNumber, front code: $frontCodeNumber, transaction type: $apiDataProductTransactionType, product code: $apiDataProductCode');
@@ -199,7 +202,7 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
                           textAlign: TextAlign.end,
                           keyboardType: TextInputType.number,
                           onChanged: (_) =>
-                              updateFrontCode(frontCodeController.text,providerKeyword),
+                              updateFrontCode(frontCodeController.text),
                         ),
                       ),
                     ],
