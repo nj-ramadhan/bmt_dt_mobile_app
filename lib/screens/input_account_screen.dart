@@ -24,112 +24,125 @@ class _InputAccountPageState extends State<InputAccountPage> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-
-    return Scaffold(
-      body: Container(
+    return Container(
+      constraints: const BoxConstraints.expand(),
+      decoration: const BoxDecoration(
         color: AppColors.lightGreen,
-        child: Column(
+        // image: DecorationImage(
+        //     image: AssetImage('assets/images/background2.jpg'),
+        //     fit: BoxFit.cover),
+      ),
+      child: Scaffold(
+        body: ListView(
+          padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
           children: [
-            GradientBackground(
-              colors: const [Colors.transparent, Colors.transparent],
+            Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                GradientBackground(
+                  colors: const [Colors.transparent, Colors.transparent],
                   children: [
-                    IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      onPressed: () => NavigationHelper.pushReplacementNamed(
-                        AppRoutes.transfer,
-                      ),
-                    ),
-                    const Text(
-                      AppStrings.transferToOtherClient,
-                      style: AppTheme.titleLarge,
-                    ),
-                    Image.network(
-                      apiDataAppLogoBar,
-                      width: screenWidth * 0.25,
-                      fit: BoxFit.cover,
-                      alignment: Alignment.topCenter,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.arrow_back),
+                          onPressed: () =>
+                              NavigationHelper.pushReplacementNamed(
+                            AppRoutes.transfer,
+                          ),
+                        ),
+                        const Text(
+                          AppStrings.transferToOtherClient,
+                          style: AppTheme.titleLarge,
+                        ),
+                        Image.network(
+                          apiDataAppLogoBar,
+                          width: screenWidth * 0.25,
+                          fit: BoxFit.cover,
+                          alignment: Alignment.topCenter,
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
-            ),
-            Expanded(
-              child: Container(
-                color: Color(0xFFD5F5E3), // Set the background color
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  children: <Widget>[
-                    Text(
-                      'Masukkan Nomor Rekening Tujuan',
-                      style: TextStyle(fontSize: 16.0),
-                    ),
-                    SizedBox(height: 20.0),
-                    TextField(
-                      controller: _accountNumberController,
-                      decoration: InputDecoration(
-                        labelText: 'Nomor Rekening',
-                        labelStyle:
-                            TextStyle(color: Colors.black), // Black label color
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Colors.black), // Black underline
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Colors.black), // Black underline on focus
-                        ),
-                      ),
-                      keyboardType: TextInputType.number,
-                    ),
-                    Spacer(),
-                    ElevatedButton(
-                      onPressed: () async {
-                        debugPrint('data' + _accountNumberController.text);
-                        print('data' + apiLoginToken);
-
-                        String accountHolder =
-                            await ApiHelper.getAccountHolderSirela(
-                                idSirela: _accountNumberController.text,
-                                loginToken: apiLoginToken);
-                        if (accountHolder != "error") {
-                          updateDetailsRek(
-                            apiDataOwnSirelaId,
-                            apiDataOwnSirelaAmount,
-                            _accountNumberController.text,
-                            accountHolder,
-                            apiDataSendaAmount,
-                            apiDataSendaComment,
-                            apiDataKodeTrx,
-                            apiDataMetodeTransfer,
-                          );
-                          NavigationHelper.pushReplacementNamed(
-                            AppRoutes.input_amount,
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text("ID Sirela Tidak Ditemukan"),
-                          ));
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                      ),
-                      child: Text(
-                        'Lanjut',
+                Padding(
+                  padding: EdgeInsets.fromLTRB(
+                      screenWidth * 0.03, 0, screenWidth * 0.03, 0),
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(height: screenHeight * 0.04),
+                      Text(
+                        'Masukkan Nomor Rekening Tujuan',
                         style: TextStyle(fontSize: 16.0),
                       ),
-                    ),
-                  ],
+                      SizedBox(height: screenHeight * 0.02),
+                      TextField(
+                        controller: _accountNumberController,
+                        decoration: InputDecoration(
+                          labelText: 'Nomor Rekening',
+                          labelStyle: TextStyle(
+                              color: Colors.black), // Black label color
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Colors.black), // Black underline
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color:
+                                    Colors.black), // Black underline on focus
+                          ),
+                        ),
+                        keyboardType: TextInputType.number,
+                      ),
+                      SizedBox(height: screenHeight * 0.04),
+                      ElevatedButton(
+                        onPressed: () async {
+                          debugPrint('data' + _accountNumberController.text);
+                          print('data' + apiLoginToken);
+
+                          String accountHolder =
+                              await ApiHelper.getAccountHolderSirela(
+                                  idSirela: _accountNumberController.text,
+                                  loginToken: apiLoginToken);
+                          if (accountHolder != "error") {
+                            updateDetailsRek(
+                              apiDataOwnSirelaId,
+                              apiDataOwnSirelaAmount,
+                              _accountNumberController.text,
+                              accountHolder,
+                              apiDataSendaAmount,
+                              apiDataSendaComment,
+                              apiDataKodeTrx,
+                              apiDataMetodeTransfer,
+                            );
+                            NavigationHelper.pushReplacementNamed(
+                              AppRoutes.input_amount,
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text("ID Sirela Tidak Ditemukan"),
+                            ));
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              Colors.green, // Reference color from second image
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 64.0),
+                          child: Text(
+                            'Lanjut',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
+              ],
             ),
           ],
         ),

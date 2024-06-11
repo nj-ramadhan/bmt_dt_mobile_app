@@ -305,7 +305,7 @@ class _AddClientDifBankPageState extends State<AddClientDifBankPage> {
                       IconButton(
                         icon: const Icon(Icons.arrow_back),
                         onPressed: () => NavigationHelper.pushReplacementNamed(
-                          AppRoutes.home,
+                          AppRoutes.transfer,
                         ),
                       ),
                       const Text(
@@ -415,69 +415,11 @@ class _AddClientDifBankPageState extends State<AddClientDifBankPage> {
                             apiDataKodeTrx,
                             apiDataMetodeTransfer,
                           );
-                          // apiDataProductName =
-                          //     dataProduct[i]?['nama_produk'] ?? '';
-                          // apiDataProductPrice =
-                          //     dataProduct[i]?['harga_jual_agen'] ?? '';
-                          // apiDataProductCode =
-                          //     dataProduct[i]?['kode_dku'] ?? '';
-                          // NavigationHelper.pushReplacementNamed(
-                          //   AppRoutes.shopping_confirm,
-                          // );
                         },
                       ),
                     ),
                 ],
               ),
-              // Container(
-              //   child: ListView.builder(
-              //     itemCount: _accounts.length,
-              //     itemBuilder: (context, index) {
-              //       final account = _accounts[index];
-              //       return ListTile(
-              //         leading: CircleAvatar(
-              //           child: Text(account['account_holder'][0]),
-              //         ),
-              //         title: Text(
-              //             '${account['account_holder']}-${account['account_bank']}'),
-              //         subtitle: Text(
-              //             '${account['account_number']} (${account['account_alias']})'),
-              //         onTap: () {
-              //           updateDetailsRek(
-              //               apiDataOwnSirelaId,
-              //               apiDataSendaAmount,
-              //               account['account_number'],
-              //               account['account_holder'],
-              //               account['account_holder'],
-              //               apiDataSendaComment,
-              //               apiDataKodeTrx,
-              //               apiDataMetodeTransfer);
-              //           updateDifBank(
-              //               apiDataMetodeTransfer,
-              //               account['account_code_bank'],
-              //               account['account_bank']);
-              //           NavigationHelper.pushReplacementNamed(
-              //             AppRoutes.input_amount_dif_bank,
-              //           );
-              //         },
-              //         trailing: Row(
-              //           mainAxisSize: MainAxisSize.min,
-              //           children: [
-              //             IconButton(
-              //               icon: Icon(Icons.edit),
-              //               onPressed: () => _showEditDialog(context, account),
-              //             ),
-              //             IconButton(
-              //               icon: Icon(Icons.delete),
-              //               onPressed: () => _showDeleteDialog(
-              //                   context, account['account_number']),
-              //             ),
-              //           ],
-              //         ),
-              //       );
-              //     },
-              //   ),
-              // ),
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: ElevatedButton(
@@ -486,11 +428,19 @@ class _AddClientDifBankPageState extends State<AddClientDifBankPage> {
                       AppRoutes.input_account_dif_bank,
                     );
                   },
-                  child: Text('Transfer Baru'),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green, // Using green for button
-                    minimumSize:
-                        Size(double.infinity, 50), // Make button full-width
+                    backgroundColor:
+                        Colors.green, // Reference color from second image
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 64.0),
+                    child: Text(
+                      'Transfer Baru',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               ),

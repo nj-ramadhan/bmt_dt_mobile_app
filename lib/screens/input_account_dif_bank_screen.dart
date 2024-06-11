@@ -74,7 +74,7 @@ class _InputAccountDifBankPageState extends State<InputAccountDifBankPage> {
                         ),
                       ),
                       const Text(
-                        AppStrings.transferToOtherClient,
+                        AppStrings.transferToOtherBank,
                         style: AppTheme.titleLarge,
                       ),
                       Image.network(
@@ -87,9 +87,9 @@ class _InputAccountDifBankPageState extends State<InputAccountDifBankPage> {
                   ),
                 ],
               ),
-              Container(
-                color: Color(0xFFD5F5E3), // Set the background color
-                padding: const EdgeInsets.all(16.0),
+              Padding(
+                padding: EdgeInsets.fromLTRB(
+                    screenWidth * 0.03, 0, screenWidth * 0.03, 0),
                 child: Column(
                   children: <Widget>[
                     AppDropdownFormBank(
@@ -97,7 +97,7 @@ class _InputAccountDifBankPageState extends State<InputAccountDifBankPage> {
                       labelText: 'Bank',
                       value: valueDownBank,
                       hint: "Pilih Bank",
-                      dropdownColor: Colors.blue[100],
+                      dropdownColor: AppColors.lightGreen,
                       onChanged: (value) {
                         setState(() {
                           valueDownBank = value;
@@ -110,11 +110,11 @@ class _InputAccountDifBankPageState extends State<InputAccountDifBankPage> {
                         // Lakukan sesuatu dengan title bank yang dipilih
                       },
                     ),
+                    SizedBox(height: screenHeight * 0.04),
                     Text(
                       'Masukkan Nomor Rekening Tujuan',
                       style: TextStyle(fontSize: 16.0),
                     ),
-                    SizedBox(height: 20.0),
                     TextField(
                       controller: _accountNumberController,
                       decoration: InputDecoration(
@@ -133,6 +133,7 @@ class _InputAccountDifBankPageState extends State<InputAccountDifBankPage> {
                       keyboardType: TextInputType.number,
                       enabled: (valueDownBank != null),
                     ),
+                    SizedBox(height: screenHeight * 0.04),
                     ElevatedButton(
                       onPressed: () async {
                         String accountHolder =
@@ -157,7 +158,6 @@ class _InputAccountDifBankPageState extends State<InputAccountDifBankPage> {
                               apiDataMetodeTransfer,
                               valueDownBank.toString(),
                               valueDownCodeBank.toString());
-
                           NavigationHelper.pushReplacementNamed(
                             AppRoutes.input_amount_dif_bank,
                           );
@@ -171,16 +171,17 @@ class _InputAccountDifBankPageState extends State<InputAccountDifBankPage> {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor:
-                            Colors.green, // Change the button color to green
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                            Colors.green, // Reference color from second image
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
+                          borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      child: Text(
-                        'Lanjut',
-                        style: TextStyle(fontSize: 16.0),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 64.0),
+                        child: Text(
+                          'Lanjut',
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                     ),
                   ],

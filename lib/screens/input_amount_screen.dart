@@ -39,7 +39,8 @@ class _InputAmountPageState extends State<InputAmountPage> {
         ),
         child: Scaffold(
             body: ListView(
-                padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
+                padding: EdgeInsets.fromLTRB(screenWidth * 0.04,
+                    screenHeight * 0.01, screenWidth * 0.04, 0),
                 children: [
               GradientBackground(
                 colors: const [Colors.transparent, Colors.transparent],
@@ -68,10 +69,9 @@ class _InputAmountPageState extends State<InputAmountPage> {
                   ),
                 ],
               ),
-              Container(
-                color:
-                    Color(0xFFD5F5E3), // Set the background color of the screen
-                padding: const EdgeInsets.all(16.0),
+              Padding(
+                padding: EdgeInsets.fromLTRB(
+                    screenWidth * 0.03, 0, screenWidth * 0.03, 0),
                 child: Column(
                   children: [
                     Container(
@@ -91,7 +91,7 @@ class _InputAmountPageState extends State<InputAmountPage> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 8),
+                          SizedBox(height: screenHeight * 0.02),
                           Row(
                             children: [
                               Icon(Icons.credit_card, color: Colors.white),
@@ -100,7 +100,12 @@ class _InputAmountPageState extends State<InputAmountPage> {
                                 apiDataOwnSirelaId,
                                 style: TextStyle(color: Colors.white),
                               ),
-                              Spacer(),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Icon(Icons.money, color: Colors.white),
+                              SizedBox(width: 8),
                               Text(
                                 'Saldo: Rp $apiDataOwnSirelaAmount',
                                 style: TextStyle(color: Colors.white),
@@ -110,7 +115,7 @@ class _InputAmountPageState extends State<InputAmountPage> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: screenHeight * 0.02),
                     Container(
                       padding: EdgeInsets.all(16),
                       decoration: BoxDecoration(
@@ -128,22 +133,27 @@ class _InputAmountPageState extends State<InputAmountPage> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 8),
+                          SizedBox(height: screenHeight * 0.02),
+                          Row(children: [
+                            Icon(Icons.credit_card, color: Colors.white),
+                            SizedBox(width: 8),
+                            Text(
+                              apiDataDestinationSirelaId,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ]),
                           Row(
                             children: [
                               Icon(Icons.account_balance, color: Colors.white),
-                              SizedBox(width: 8),
-                              Text(
-                                '$apiDataDestinationSirelaName',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              SizedBox(width: 8),
-                              Row(children: [
-                                Icon(Icons.credit_card, color: Colors.white),
-                                SizedBox(width: 8),
-                                Text(
-                                  '$apiDataDestinationSirelaId',
-                                  style: TextStyle(color: Colors.white),
+                              SizedBox(width: 16),
+                              Column(children: [
+                                Container(
+                                  width: screenWidth * 0.7,
+                                  child: Text(
+                                    apiDataDestinationSirelaName,
+                                    style: TextStyle(color: Colors.white),
+                                    maxLines: 2,
+                                  ),
                                 ),
                               ]),
                             ],
@@ -151,7 +161,7 @@ class _InputAmountPageState extends State<InputAmountPage> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: screenHeight * 0.02),
                     TextField(
                       decoration: InputDecoration(
                         labelText: 'Nominal',
@@ -165,7 +175,7 @@ class _InputAmountPageState extends State<InputAmountPage> {
                       controller: _amountController,
                       keyboardType: TextInputType.number,
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: screenHeight * 0.02),
                     TextField(
                       decoration: InputDecoration(
                         labelText: 'Berita',
@@ -178,7 +188,7 @@ class _InputAmountPageState extends State<InputAmountPage> {
                       ),
                       controller: _commentController,
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: screenHeight * 0.02),
                     Row(
                       children: [
                         Text('Simpan ke Rekening Favorit'),
@@ -193,7 +203,7 @@ class _InputAmountPageState extends State<InputAmountPage> {
                         ),
                       ],
                     ),
-                    Spacer(),
+                    SizedBox(height: screenHeight * 0.04),
                     ElevatedButton(
                       onPressed: () async {
                         if (_saveToFavorite) {
@@ -236,8 +246,11 @@ class _InputAmountPageState extends State<InputAmountPage> {
                         ),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 16.0),
-                        child: Text('Lanjut'),
+                        padding: const EdgeInsets.symmetric(horizontal: 64.0),
+                        child: Text(
+                          'Lanjut',
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                     ),
                   ],
