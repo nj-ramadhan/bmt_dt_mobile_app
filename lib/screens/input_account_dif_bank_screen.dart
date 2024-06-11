@@ -133,7 +133,6 @@ class _InputAccountDifBankPageState extends State<InputAccountDifBankPage> {
                       keyboardType: TextInputType.number,
                       enabled: (valueDownBank != null),
                     ),
-                    Spacer(),
                     ElevatedButton(
                       onPressed: () async {
                         String accountHolder =

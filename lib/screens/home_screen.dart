@@ -39,15 +39,15 @@ class _HomePageState extends State<HomePage> {
       if (entry.value['name'].toString() == 'SIMPANAN SUKARELA') {
         print("data nya uang " +
             entry.value['amount'].toString().replaceAll("Rp. ", ""));
-        // updateDetailsRek(
-        //     entry.value['number'].toString(),
-        //     entry.value['amount'].toString().replaceAll("Rp. ", ""),
-        //     apiDataDestinationSirelaId,
-        //     apiDataDestinationSirelaName,
-        //     apiDataSendaAmount,
-        //     apiDataSendaComment,
-        //     apiDataKodeTrx,
-        //     apiDataMetodeTransfer);
+        updateDetailsRek(
+            entry.value['number'].toString(),
+            entry.value['amount'].toString().replaceAll("Rp. ", ""),
+            apiDataDestinationSirelaId,
+            apiDataDestinationSirelaName,
+            apiDataSendaAmount,
+            apiDataSendaComment,
+            apiDataKodeTrx,
+            apiDataMetodeTransfer);
         return entry.value['number'];
       }
     }

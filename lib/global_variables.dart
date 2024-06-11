@@ -1,4 +1,4 @@
-String globalAppVersion = '1.24.7';
+String globalAppVersion = '1.24.8';
 
 String apiLoginRolePendidikan = 'Role Pendidikan';
 String apiLoginRoleKoperasi = 'Role Koperasi';
@@ -65,7 +65,6 @@ String apiDataAppStatus = 'null';
 String apiDataAppNameString = 'null';
 String apiDataAppLogo = 'null';
 String apiDataAppLogoBar = 'null';
-
 
 String apiDataProductKeyword = 'null';
 String apiDataProductShoppingType = 'null';
