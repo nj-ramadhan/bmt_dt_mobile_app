@@ -24,6 +24,7 @@ class ShoppingProviderListPage extends StatefulWidget {
 class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
   late String frontCodeNumber;
   late String providerCodeNumber;
+  late String providerKeyword;
   late String providerLogo;
 
   Map<int, Map<String, String>> dataProvider = {};
@@ -40,6 +41,7 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
 
       providerCodeNumber = dataProvider[1]?['no_provider'] ?? '';
       providerLogo = dataProvider[1]?['logo_kartu'] ?? '';
+      providerKeyword = dataProvider[1]?['keyword_kode_depan_nomor'] ?? '';
       updateProviderCode(providerCodeNumber);
       fetchDataProduct();
     });
@@ -58,12 +60,10 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
     });
   }
 
-  void updateFrontCode(String value) => setState(() {
-        if (apiDataProductTransactionType == '3') {
-          frontCodeNumber = 'PLN';
-        } else if (apiDataProductTransactionType == '5') {
-          frontCodeNumber = apiDataProductKeyword;
-        } else {
+  void updateFrontCode(String value,String selection) => setState(() {
+        if (selection != '4 DIgit Depan No.Hp') {
+          frontCodeNumber = selection;
+        }  else {
           frontCodeNumber = value.substring(0, 4);
         }
         apiDataProductClientNumber = value;
@@ -199,7 +199,7 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
                           textAlign: TextAlign.end,
                           keyboardType: TextInputType.number,
                           onChanged: (_) =>
-                              updateFrontCode(frontCodeController.text),
+                              updateFrontCode(frontCodeController.text,providerKeyword),
                         ),
                       ),
                     ],
