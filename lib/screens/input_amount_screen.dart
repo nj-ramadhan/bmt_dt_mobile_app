@@ -39,8 +39,7 @@ class _InputAmountPageState extends State<InputAmountPage> {
         ),
         child: Scaffold(
             body: ListView(
-                padding: EdgeInsets.fromLTRB(screenWidth * 0.04,
-                    screenHeight * 0.01, screenWidth * 0.04, 0),
+                padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
                 children: [
               GradientBackground(
                 colors: const [Colors.transparent, Colors.transparent],

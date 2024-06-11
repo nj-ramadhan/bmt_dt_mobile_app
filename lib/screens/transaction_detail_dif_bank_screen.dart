@@ -268,52 +268,104 @@ class _MPinPopupState extends State<MPinPopup> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      contentPadding: EdgeInsets.all(20),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text('mPIN',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-          SizedBox(height: 16),
-          TextFormField(
-            controller: _pinController,
-            obscureText: _obscureText,
-            maxLength: 6,
-            keyboardType: TextInputType.number,
-            style: TextStyle(fontSize: 24),
-            textAlign: TextAlign.center,
-            decoration: InputDecoration(
-              counterText: '',
-              filled: true,
-              fillColor: Colors.white,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30.0),
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    return Container(
+        constraints: const BoxConstraints.expand(),
+        decoration: const BoxDecoration(
+          color: AppColors.lightGreen,
+          // image: DecorationImage(
+          //     image: AssetImage('assets/images/background2.jpg'),
+          //     fit: BoxFit.cover),
+        ),
+        child: Scaffold(
+            body: ListView(
+                padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
+                children: [
+              GradientBackground(
+                colors: const [Colors.transparent, Colors.transparent],
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.arrow_back),
+                        onPressed: () => NavigationHelper.pushReplacementNamed(
+                          AppRoutes.home,
+                        ),
+                      ),
+                      const Text(
+                        AppStrings.transferReceiptTitle,
+                        style: AppTheme.titleLarge,
+                      ),
+                      Image.network(
+                        apiDataAppLogoBar,
+                        width: screenWidth * 0.25,
+                        fit: BoxFit.cover,
+                        alignment: Alignment.topCenter,
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              suffixIcon: IconButton(
-                icon: Icon(
-                  _obscureText ? Icons.visibility : Icons.visibility_off,
-                ),
-                onPressed: () {
-                  setState(() {
-                    _obscureText = !_obscureText;
-                  });
-                },
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text('mPIN',
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                  SizedBox(height: screenHeight * 0.02),
+                  TextFormField(
+                    controller: _pinController,
+                    obscureText: _obscureText,
+                    maxLength: 6,
+                    keyboardType: TextInputType.number,
+                    style: TextStyle(fontSize: 24),
+                    textAlign: TextAlign.center,
+                    decoration: InputDecoration(
+                      counterText: '',
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscureText
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _obscureText = !_obscureText;
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: screenHeight * 0.02),
+                  ElevatedButton(
+                    onPressed: () {
+                      widget.onPinSubmitted(_pinController.text);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor:
+                          Colors.green, // Reference color from second image
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 64.0),
+                      child: Text(
+                        'Submit',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ),
-          SizedBox(height: 16),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.green,
-            ),
-            onPressed: () {
-              widget.onPinSubmitted(_pinController.text);
-            },
-            child: Text('Submit', style: TextStyle(color: Colors.white)),
-          ),
-        ],
-      ),
-    );
+            ])));
   }
 }

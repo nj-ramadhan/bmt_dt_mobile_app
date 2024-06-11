@@ -110,11 +110,19 @@ class _TransferSuccessPageState extends State<TransferSuccessPage> {
                           AppRoutes.home,
                         );
                       },
-                      child: Text('Back to Home'),
                       style: ElevatedButton.styleFrom(
-                        minimumSize:
-                            Size(double.infinity, 50), // Make button full-width
-                        backgroundColor: Colors.green,
+                        backgroundColor:
+                            Colors.green, // Reference color from second image
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 64.0),
+                        child: Text(
+                          'Back to Home',
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                     ),
                   ],
