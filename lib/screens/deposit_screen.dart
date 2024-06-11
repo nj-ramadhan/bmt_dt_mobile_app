@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../global_variables.dart';
 import '../utils/common_widgets/gradient_background.dart';
@@ -17,7 +18,38 @@ class DepositPage extends StatefulWidget {
 }
 
 class _DepositPageState extends State<DepositPage> {
+  Map<int, Map<String, String>> dataMap = {};
   late int totalAmount;
+
+  String? getSimpananSukarelaNumber(Map<int, Map<String, String>> data) {
+    print(data);
+    for (var entry in data.entries) {
+      print(entry.value['name']);
+      print(entry.value['amount']);
+      if (entry.value['name'].toString() == 'SIMPANAN SUKARELA') {
+        print("data nya uang " + entry.value['amount'].toString());
+        updateDetailsRek(
+            entry.value['number'].toString(),
+            entry.value['amount'].toString(),
+            apiDataDestinationSirelaId,
+            apiDataDestinationSirelaName,
+            apiDataSendaAmount,
+            apiDataSendaComment,
+            apiDataKodeTrx,
+            apiDataMetodeTransfer);
+        return entry.value['number'];
+      }
+    }
+    return null; // Return null if SIMPANAN SUKARELA is not found
+  }
+
+  String indonesianCurrencyFormat(String data) {
+    int dataInt = int.parse(data);
+    var dataFormatted =
+        NumberFormat.currency(locale: 'id_ID', symbol: 'Rp. ', decimalDigits: 0)
+            .format(dataInt);
+    return dataFormatted.toString();
+  }
 
   @override
   void initState() {
@@ -71,11 +103,8 @@ class _DepositPageState extends State<DepositPage> {
             Padding(
               padding: const EdgeInsets.all(20),
               child: CarouselSlider(
-                options: CarouselOptions(
-                    enableInfiniteScroll: false,
-                    height: 400,
-                    scrollDirection: Axis.vertical),
-                items: [1, 2, 3, 4, 5, 6].map((i) {
+                options: CarouselOptions(height: screenHeight * 0.22),
+                items: dataMap.keys.map((i) {
                   return Builder(
                     builder: (BuildContext context) {
                       return SizedBox(
@@ -106,15 +135,16 @@ class _DepositPageState extends State<DepositPage> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        '${AppStrings.homeAccount} No. $i',
+                                        dataMap[i]?['name'] ?? '',
                                         style: AppTheme.bodySmall,
                                       ),
-                                      const Text(
-                                        '00.9.123.4.5',
+                                      Text(
+                                        dataMap[i]?['number'] ?? '',
                                         style: AppTheme.bodyMedium,
                                       ),
-                                      const Text(
-                                        'Rp. ******',
+                                      Text(
+                                        indonesianCurrencyFormat(
+                                            dataMap[i]?['amount'] ?? ''),
                                         style: AppTheme.bodyMedium,
                                       ),
                                     ],

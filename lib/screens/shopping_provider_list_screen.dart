@@ -58,26 +58,6 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
     });
   }
 
-  // String? getListProvider(Map<int, Map<String, String>> data) {
-  //   for (var entry in data.entries) {
-  //     return entry.value['keyword_kode_depan_nomor'];
-  //     // if (entry.value['keyword_kode_depan_nomor'] == frontCodeNumber) {
-  //     //   return entry.value['keyword_kode_depan_nomor'];
-  //     // }
-  //   }
-  //   return null;
-  // }
-
-  // String? getListProduct(Map<int, Map<String, String>> data) {
-  //   for (var entry in data.entries) {
-  //     return entry.value['provider_code'];
-  //     // if (entry.value['provider_code'] == providerCodeNumber) {
-  //     //   return entry.value['provider_code'];
-  //     // }
-  //   }
-  //   return null; // Return null if SIMPANAN SUKARELA is not found
-  // }
-
   String indonesianCurrencyFormat(String data) {
     int dataInt = int.parse(data);
     var dataFormatted =
@@ -118,6 +98,38 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
 
   void updateFrontCode(String value) => setState(() {
         frontCodeNumber = value.substring(0, 4);
+        if (apiDataProductTransactionType == '3') {
+          frontCodeNumber = 'PLN';
+        }
+        if (apiDataProductTransactionType == '5') {
+          if (apiDataProductCode == '6') {
+            frontCodeNumber = 'DANA';
+          }
+          if (apiDataProductCode == '7') {
+            frontCodeNumber = 'GOPAY';
+          }
+          if (apiDataProductCode == '8') {
+            frontCodeNumber = 'GOPAY_DRIVER';
+          }
+          if (apiDataProductCode == '9') {
+            frontCodeNumber = 'GRAB';
+          }
+          if (apiDataProductCode == '10') {
+            frontCodeNumber = 'LINK_AJA';
+          }
+          if (apiDataProductCode == '11') {
+            frontCodeNumber = 'I_SAKU';
+          }
+          if (apiDataProductCode == '12') {
+            frontCodeNumber = 'MITRA_BUKALAPAK';
+          }
+          if (apiDataProductCode == '13') {
+            frontCodeNumber = 'OVO';
+          }
+          if (apiDataProductCode == '14') {
+            frontCodeNumber = 'SHOPEE_PAY';
+          }
+        }
         apiDataProductClientNumber = value;
         debugPrint('response client number: $apiDataProductClientNumber');
         // Replace with your logic

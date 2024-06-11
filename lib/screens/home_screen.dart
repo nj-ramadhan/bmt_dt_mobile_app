@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '../global_variables.dart';
@@ -56,6 +57,14 @@ class _HomePageState extends State<HomePage> {
     NavigationHelper.pushReplacementNamed(
       AppRoutes.profile,
     );
+  }
+
+  String indonesianCurrencyFormat(String data) {
+    int dataInt = int.parse(data);
+    var dataFormatted =
+        NumberFormat.currency(locale: 'id_ID', symbol: 'Rp. ', decimalDigits: 0)
+            .format(dataInt);
+    return dataFormatted.toString();
   }
 
   @override
@@ -236,7 +245,8 @@ class _HomePageState extends State<HomePage> {
                                           style: AppTheme.bodyMedium,
                                         ),
                                         Text(
-                                          dataMap[i]?['amount'] ?? '',
+                                          indonesianCurrencyFormat(
+                                              dataMap[i]?['amount'] ?? ''),
                                           style: AppTheme.bodyMedium,
                                         ),
                                       ],
