@@ -74,8 +74,8 @@ class _InputAccountPageState extends State<InputAccountPage> {
                         labelStyle:
                             TextStyle(color: Colors.black), // Black label color
                         enabledBorder: UnderlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.black), // Black underline
+                          borderSide: BorderSide(
+                              color: Colors.black), // Black underline
                         ),
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
@@ -87,8 +87,8 @@ class _InputAccountPageState extends State<InputAccountPage> {
                     Spacer(),
                     ElevatedButton(
                       onPressed: () async {
-                        debugPrint('dataa'+_accountNumberController.text);
-                        print('dataa'+apiLoginToken);
+                        debugPrint('data' + _accountNumberController.text);
+                        print('data' + apiLoginToken);
 
                         String accountHolder =
                             await ApiHelper.getAccountHolderSirela(
@@ -116,7 +116,8 @@ class _InputAccountPageState extends State<InputAccountPage> {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
-                        padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0),
                         ),

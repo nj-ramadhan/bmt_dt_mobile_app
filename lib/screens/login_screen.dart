@@ -439,7 +439,7 @@ print(responseBody);
                       style: AppTheme.bodySmall.copyWith(color: Colors.grey),
                     ),
                     Text(
-                      '1.24.6',
+                      globalAppVersion,
                       style: AppTheme.bodySmall.copyWith(color: Colors.grey),
                     ),
                   ],

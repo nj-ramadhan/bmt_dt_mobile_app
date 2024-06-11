@@ -40,6 +40,7 @@ class _CheckingPageState extends State<CheckingPage> with RestorationMixin {
         dateBegin: valueDateBegin,
         dateFinish: valueDateFinish);
     debugPrint('date begin: $valueDateBegin, date finish: $valueDateFinish');
+
     setState(() {
       dataTransaction = data;
       debugPrint('response list data transaksi: $dataTransaction');

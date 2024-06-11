@@ -350,7 +350,86 @@ class _AddClientDifBankPageState extends State<AddClientDifBankPage> {
                   ],
                 ),
               ),
-              // Expanded(
+              Column(
+                children: [
+                  // dataProvider.keys.map((i) {
+                  for (var i = 1; i <= _accounts.length; i++)
+                    // debugPrint('response: $dataProvider');
+                    Card(
+                      color: AppColors.lightGreen,
+                      child: InkWell(
+                        child: Padding(
+                          padding: EdgeInsets.all(screenWidth * 0.02),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                children: [
+                                  Text(
+                                    _accounts[0]['account_holder'],
+                                    style: AppTheme.bodySmall,
+                                  ),
+                                  Container(
+                                    width: screenWidth * 0.7,
+                                    child: Text(
+                                      _accounts[i]['account_number'] ?? '',
+                                      style: AppTheme.bodyTiny,
+                                      textAlign: TextAlign.center,
+                                      maxLines: 3,
+                                    ),
+                                  ),
+                                  Text(_accounts[i]['account_alias'] ?? '',
+                                      style: AppTheme.bodyMedium),
+                                ],
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  IconButton(
+                                    icon: Icon(Icons.edit),
+                                    onPressed: () =>
+                                        _showEditDialog(context, _accounts[i]),
+                                  ),
+                                  IconButton(
+                                    icon: Icon(Icons.delete),
+                                    onPressed: () => _showDeleteDialog(context,
+                                        _accounts[i]['account_number']),
+                                  ),
+                                ],
+                              ),
+                              const Icon(
+                                Icons.chevron_right,
+                                color: Colors.green,
+                              ),
+                            ],
+                          ),
+                        ),
+                        onTap: () {
+                          updateDetailsRek(
+                            apiDataOwnSirelaId,
+                            apiDataSendaAmount,
+                            _accounts[i]['account_number'],
+                            _accounts[i]['account_holder'],
+                            _accounts[i]['account_holder'],
+                            apiDataSendaComment,
+                            apiDataKodeTrx,
+                            apiDataMetodeTransfer,
+                          );
+                          // apiDataProductName =
+                          //     dataProduct[i]?['nama_produk'] ?? '';
+                          // apiDataProductPrice =
+                          //     dataProduct[i]?['harga_jual_agen'] ?? '';
+                          // apiDataProductCode =
+                          //     dataProduct[i]?['kode_dku'] ?? '';
+                          // NavigationHelper.pushReplacementNamed(
+                          //   AppRoutes.shopping_confirm,
+                          // );
+                        },
+                      ),
+                    ),
+                ],
+              ),
+              // Container(
               //   child: ListView.builder(
               //     itemCount: _accounts.length,
               //     itemBuilder: (context, index) {

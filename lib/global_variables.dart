@@ -1,3 +1,5 @@
+String globalAppVersion = '1.24.7';
+
 String apiLoginRolePendidikan = 'Role Pendidikan';
 String apiLoginRoleKoperasi = 'Role Koperasi';
 String apiLoginNoUser = 'Nomor User';
