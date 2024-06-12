@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
 
-import 'screens/add_client_screen.dart';
-
 import 'screens/add_client_dif_bank_screen.dart';
-
+import 'screens/add_client_screen.dart';
 import 'screens/change_email_screen.dart';
 import 'screens/change_password_screen.dart';
 import 'screens/change_pin_screen.dart';
 import 'screens/checking_screen.dart';
 import 'screens/deposit_screen.dart';
 import 'screens/funding_screen.dart';
+import 'screens/funding_simulation_alqard_screen.dart';
+import 'screens/funding_simulation_hiwalah_screen.dart';
+import 'screens/funding_simulation_ijarah_screen.dart';
+import 'screens/funding_simulation_mudharabah_screen.dart';
+import 'screens/funding_simulation_murabahah_screen.dart';
+import 'screens/funding_simulation_musyarakah_screen.dart';
+import 'screens/funding_simulation_rahn_screen.dart';
+import 'screens/funding_simulation_screen.dart';
 import 'screens/home_screen.dart';
-
 import 'screens/input_account_dif_bank_screen.dart';
 import 'screens/input_account_screen.dart';
-import 'screens/input_amount_screen.dart';
 import 'screens/input_amount_dif_bank_screen.dart';
-
+import 'screens/input_amount_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/menu_screen.dart';
 import 'screens/payment_screen.dart';
@@ -30,11 +34,9 @@ import 'screens/saving_voluntary_screen.dart';
 import 'screens/shopping_confirm_screen.dart';
 import 'screens/shopping_provider_list_screen.dart';
 import 'screens/shopping_screen.dart';
-import 'screens/transaction_detail_screen.dart';
-
 import 'screens/transaction_detail_dif_bank_screen.dart';
+import 'screens/transaction_detail_screen.dart';
 import 'screens/transfer_metode_screen.dart';
-
 import 'screens/transfer_screen.dart';
 import 'screens/transfer_success_screen.dart';
 import 'utils/common_widgets/invalid_route.dart';
@@ -56,6 +58,13 @@ class Routes {
     }
 
     switch (settings.name) {
+      case AppRoutes.home:
+        return getRoute(widget: Builder(
+          builder: (context) {
+            return const HomePage();
+          },
+        ));
+
       case AppRoutes.login:
         return getRoute(widget: const LoginPage());
 
@@ -64,13 +73,6 @@ class Routes {
 
       case AppRoutes.registeration_success:
         return getRoute(widget: const RegistrationSuccessPage());
-
-      case AppRoutes.home:
-        return getRoute(widget: Builder(
-          builder: (context) {
-            return const HomePage();
-          },
-        ));
 
       case AppRoutes.menu:
         return getRoute(widget: const MenuPage());
@@ -137,6 +139,30 @@ class Routes {
 
       case AppRoutes.funding:
         return getRoute(widget: const FundingPage());
+
+      case AppRoutes.funding_simulation:
+        return getRoute(widget: const FundingSimulationPage());
+
+      case AppRoutes.funding_simulation_murabahah:
+        return getRoute(widget: const FundingSimulationMurabahahPage());
+
+      case AppRoutes.funding_simulation_mudharabah:
+        return getRoute(widget: const FundingSimulationMudharabahPage());
+
+      case AppRoutes.funding_simulation_musyarakah:
+        return getRoute(widget: const FundingSimulationMusyarakahPage());
+
+      case AppRoutes.funding_simulation_ijarah:
+        return getRoute(widget: const FundingSimulationIjarahPage());
+
+      case AppRoutes.funding_simulation_alqard:
+        return getRoute(widget: const FundingSimulationAlQardPage());
+
+      case AppRoutes.funding_simulation_hiwalah:
+        return getRoute(widget: const FundingSimulationHiwalahPage());
+
+      case AppRoutes.funding_simulation_rahn:
+        return getRoute(widget: const FundingSimulationRahnPage());
 
       case AppRoutes.payment:
         return getRoute(widget: const PaymentPage());

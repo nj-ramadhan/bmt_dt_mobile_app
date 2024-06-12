@@ -8,14 +8,15 @@ import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
 
-class FundingPage extends StatefulWidget {
-  const FundingPage({super.key});
+class FundingSimulationRahnPage extends StatefulWidget {
+  const FundingSimulationRahnPage({super.key});
 
   @override
-  State<FundingPage> createState() => _FundingPageState();
+  State<FundingSimulationRahnPage> createState() =>
+      _FundingSimulationRahnPageState();
 }
 
-class _FundingPageState extends State<FundingPage> {
+class _FundingSimulationRahnPageState extends State<FundingSimulationRahnPage> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -92,13 +93,13 @@ class _FundingPageState extends State<FundingPage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      AppStrings.fundingSimulation,
+                                      AppStrings.fundingRahn,
                                       style: TextStyle(
                                         color: Colors.white,
                                       ),
                                     ),
                                     Text(
-                                      AppStrings.fundingSimulationSubtitle,
+                                      AppStrings.fundingRahnSubtitle,
                                       overflow: TextOverflow.clip,
                                       style: TextStyle(
                                         color: Colors.white,
@@ -119,7 +120,7 @@ class _FundingPageState extends State<FundingPage> {
                       ),
                       onTap: () {
                         NavigationHelper.pushReplacementNamed(
-                          AppRoutes.funding_simulation,
+                          AppRoutes.home,
                         );
                       },
                     ),

@@ -168,7 +168,7 @@ class _LoginPageState extends State<LoginPage> {
         headers: headers,
       );
       final responseBody = json.decode(response.body);
-print(responseBody);
+      print(responseBody);
       if (response.statusCode == 200) {
         // final responseBody = json.decode(response.body);
         responseDetailsUserNik =
@@ -185,7 +185,6 @@ print(responseBody);
         // debugPrint('response details:$responseBody');
         // debugPrint(
         //     'response details user nama: $responseDetailsUserNamaLengkap');
-
 
         responseDetailsAccountNoUser =
             responseBody['data_account_details']['no_user'].toString();

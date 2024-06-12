@@ -19,7 +19,8 @@ class AppRoutes {
   static const String shopping_provider_list = 'shopping_provider_list';
   static const String shopping_confirm = 'shopping_confirm';
   static const String transaction_detail = 'transaction_detail';
-  static const String transaction_detail_dif_Bank = 'transaction_detail_dif_Bank';
+  static const String transaction_detail_dif_Bank =
+      'transaction_detail_dif_Bank';
   static const String transaction_sucess = 'transaction_sucess';
   static const String transfer_metode = 'transfer_metode';
   static const String add_client = 'add_client';
@@ -29,6 +30,17 @@ class AppRoutes {
   static const String input_amount = 'input_amount';
   static const String input_amount_dif_bank = 'input_amount_dif_bank';
   static const String funding = 'funding';
+  static const String funding_simulation = 'funding_simulation';
+  static const String funding_simulation_murabahah =
+      'funding_simulation_murabahah';
+  static const String funding_simulation_mudharabah =
+      'funding_simulation_mudharabah';
+  static const String funding_simulation_musyarakah =
+      'funding_simulation_musyarakah';
+  static const String funding_simulation_ijarah = 'funding_simulation_ijarah';
+  static const String funding_simulation_alqard = 'funding_simulation_alqard';
+  static const String funding_simulation_hiwalah = 'funding_simulation_hiwalah';
+  static const String funding_simulation_rahn = 'funding_simulation_rahn';
   static const String payment = 'payment';
   static const String transfer = 'transfer';
   static const String takepicture = 'takepicture';

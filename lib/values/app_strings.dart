@@ -185,6 +185,28 @@ class AppStrings {
   static const String fundingSubmission = 'Riwayat Pengajuan';
   static const String fundingSubmissionSubtitle =
       'Cek daftar pengajuan yang telah anda buat';
+
+  static const String fundingMurabahah = 'MURABAHAH';
+  static const String fundingMurabahahSubtitle = 'Jual Beli';
+  static const String fundingMudharabah = 'MUDHARABAH';
+  static const String fundingMudharabahSubtitle = 'Kerjasama';
+  static const String fundingMusyarakah = 'MUSYARAKAH';
+  static const String fundingMusyarakahSubtitle = 'Kerjasama Banyak Pihak';
+  static const String fundingIjarah = 'IJARAH';
+  static const String fundingIjarahSubtitle = 'Jasa';
+  static const String fundingAlQard = 'AL QARD';
+  static const String fundingAlQardSubtitle = 'Pinjaman';
+  static const String fundingHiwalah = 'HIWALAH';
+  static const String fundingHiwalahSubtitle = 'Pengalihan Utang Piutang';
+  static const String fundingRahn = 'RAHN';
+  static const String fundingRahnSubtitle = 'Gadai';
+
+  static const String fundingPrice = 'Harga Perolehan';
+  static const String fundingMargin = 'Margin (% per Tahun)';
+  static const String fundingPeriod = 'Jangka Waktu (Bulan)';
+  static const String fundingPriceSelling = 'Harga Jual';
+  static const String fundingInstalment = 'Perhitungan Angsuran';
+
   static const String fundingTransaction = 'Transaksi Pembiayaan';
   static const String fundingTransactionSubtitle = 'Transaksi Pembiayaan';
   static const String fundingHistory = 'Riwayat Pembiayaan';

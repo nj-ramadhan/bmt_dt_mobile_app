@@ -8,14 +8,16 @@ import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
 
-class FundingPage extends StatefulWidget {
-  const FundingPage({super.key});
+class FundingSimulationHiwalahPage extends StatefulWidget {
+  const FundingSimulationHiwalahPage({super.key});
 
   @override
-  State<FundingPage> createState() => _FundingPageState();
+  State<FundingSimulationHiwalahPage> createState() =>
+      _FundingSimulationHiwalahPageState();
 }
 
-class _FundingPageState extends State<FundingPage> {
+class _FundingSimulationHiwalahPageState
+    extends State<FundingSimulationHiwalahPage> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -92,13 +94,13 @@ class _FundingPageState extends State<FundingPage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      AppStrings.fundingSimulation,
+                                      AppStrings.fundingHiwalah,
                                       style: TextStyle(
                                         color: Colors.white,
                                       ),
                                     ),
                                     Text(
-                                      AppStrings.fundingSimulationSubtitle,
+                                      AppStrings.fundingHiwalahSubtitle,
                                       overflow: TextOverflow.clip,
                                       style: TextStyle(
                                         color: Colors.white,
@@ -119,7 +121,7 @@ class _FundingPageState extends State<FundingPage> {
                       ),
                       onTap: () {
                         NavigationHelper.pushReplacementNamed(
-                          AppRoutes.funding_simulation,
+                          AppRoutes.home,
                         );
                       },
                     ),
