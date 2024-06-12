@@ -116,7 +116,7 @@ class _ShoppingConfirmPageState extends State<ShoppingConfirmPage> {
                   children: [
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
-                      onPressed: () => NavigationHelper.pushReplacementNamed(
+                      onPressed: () => NavigationHelper.pushNamed(
                         AppRoutes.shopping_provider_list,
                       ),
                     ),

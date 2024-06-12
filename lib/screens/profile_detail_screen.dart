@@ -169,7 +169,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
                   children: [
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
-                      onPressed: () => NavigationHelper.pushReplacementNamed(
+                      onPressed: () => NavigationHelper.pushNamed(
                         AppRoutes.profile,
                       ),
                     ),

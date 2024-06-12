@@ -38,7 +38,7 @@ class _MenuPageState extends State<MenuPage> {
                   children: [
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
-                      onPressed: () => NavigationHelper.pushReplacementNamed(
+                      onPressed: () => NavigationHelper.pushNamed(
                         AppRoutes.home,
                       ),
                     ),
@@ -73,7 +73,7 @@ class _MenuPageState extends State<MenuPage> {
                       Icons.check,
                       size: 40,
                     ),
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
+                    onPressed: () => NavigationHelper.pushNamed(
                       AppRoutes.checking,
                     ),
                     label: const Text(AppStrings.checkingTitle),
@@ -84,7 +84,7 @@ class _MenuPageState extends State<MenuPage> {
                       Icons.money,
                       size: 40,
                     ),
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
+                    onPressed: () => NavigationHelper.pushNamed(
                       AppRoutes.deposit,
                     ),
                     label: const Text(AppStrings.depositTitle),
@@ -95,7 +95,7 @@ class _MenuPageState extends State<MenuPage> {
                       Icons.send,
                       size: 40,
                     ),
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
+                    onPressed: () => NavigationHelper.pushNamed(
                       AppRoutes.payment,
                     ),
                     label: const Text(AppStrings.paymentTitle),
@@ -106,7 +106,7 @@ class _MenuPageState extends State<MenuPage> {
                       Icons.forward,
                       size: 40,
                     ),
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
+                    onPressed: () => NavigationHelper.pushNamed(
                       AppRoutes.transfer,
                     ),
                     label: const Text(AppStrings.transferTitle),
@@ -117,7 +117,7 @@ class _MenuPageState extends State<MenuPage> {
                       Icons.home,
                       size: 40,
                     ),
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
+                    onPressed: () => NavigationHelper.pushNamed(
                       AppRoutes.home,
                     ),
                     label: const Text(AppStrings.homeTitle),
@@ -128,7 +128,7 @@ class _MenuPageState extends State<MenuPage> {
                       Icons.logout,
                       size: 40,
                     ),
-                    onPressed: () => NavigationHelper.pushReplacementNamed(
+                    onPressed: () => NavigationHelper.pushNamed(
                       AppRoutes.login,
                     ),
                     label: const Text(AppStrings.logout),

@@ -224,7 +224,7 @@ class _CheckingPageState extends State<CheckingPage> with RestorationMixin {
                   children: [
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
-                      onPressed: () => NavigationHelper.pushReplacementNamed(
+                      onPressed: () => NavigationHelper.pushNamed(
                         AppRoutes.home,
                       ),
                     ),
@@ -395,7 +395,7 @@ class _CheckingPageState extends State<CheckingPage> with RestorationMixin {
                                 //     dataProduct[i]?['harga_jual_agen'] ?? '';
                                 // apiDataProductCode =
                                 //     dataProduct[i]?['kode_dku'] ?? '';
-                                // NavigationHelper.pushReplacementNamed(
+                                // NavigationHelper.pushNamed(
                                 //   AppRoutes.shopping_confirm,
                                 // );
                               },

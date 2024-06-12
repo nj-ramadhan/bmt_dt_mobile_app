@@ -77,7 +77,7 @@ class _FundingSimulationMudharabahPageState
     //         // ignore: void_checks
     //         AppStrings.loggedIn,
     //       );
-    //       await NavigationHelper.pushReplacementNamed(
+    //       await NavigationHelper.pushNamed(
     //         AppRoutes.home,
     //       );
     //     } else {
@@ -163,7 +163,7 @@ class _FundingSimulationMudharabahPageState
                   children: [
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
-                      onPressed: () => NavigationHelper.pushReplacementNamed(
+                      onPressed: () => NavigationHelper.pushNamed(
                         AppRoutes.home,
                       ),
                     ),

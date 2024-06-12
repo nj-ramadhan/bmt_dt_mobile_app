@@ -69,7 +69,7 @@ class _InputAccountDifBankPageState extends State<InputAccountDifBankPage> {
                     children: [
                       IconButton(
                         icon: const Icon(Icons.arrow_back),
-                        onPressed: () => NavigationHelper.pushReplacementNamed(
+                        onPressed: () => NavigationHelper.pushNamed(
                           AppRoutes.transfer,
                         ),
                       ),
@@ -158,7 +158,7 @@ class _InputAccountDifBankPageState extends State<InputAccountDifBankPage> {
                               apiDataMetodeTransfer,
                               valueDownBank.toString(),
                               valueDownCodeBank.toString());
-                          NavigationHelper.pushReplacementNamed(
+                          NavigationHelper.pushNamed(
                             AppRoutes.input_amount_dif_bank,
                           );
                         } else {

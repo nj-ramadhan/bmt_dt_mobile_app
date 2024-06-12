@@ -115,7 +115,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                             IconButton(
                               icon: const Icon(Icons.arrow_back),
                               onPressed: () =>
-                                  NavigationHelper.pushReplacementNamed(
+                                  NavigationHelper.pushNamed(
                                 AppRoutes.home,
                               ),
                             ),
@@ -194,7 +194,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                       product.keyword_kode_depan_nomor;
                                   debugPrint(
                                       'response shopping, transaction type: $apiDataProductTransactionType, keyword $apiDataProductKeyword');
-                                  NavigationHelper.pushReplacementNamed(
+                                  NavigationHelper.pushNamed(
                                     AppRoutes.shopping_provider_list,
                                   );
                                 },
@@ -228,7 +228,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                           IconButton(
                             icon: const Icon(Icons.arrow_back),
                             onPressed: () =>
-                                NavigationHelper.pushReplacementNamed(
+                                NavigationHelper.pushNamed(
                               AppRoutes.home,
                             ),
                           ),

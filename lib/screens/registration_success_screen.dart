@@ -43,7 +43,7 @@ class _RegistrationSuccessPage extends State<RegistrationSuccessPage> {
               SizedBox(height: 40),
               ElevatedButton(
                 onPressed: () =>
-                              NavigationHelper.pushReplacementNamed(
+                              NavigationHelper.pushNamed(
                             AppRoutes.login,
                           ),
                 style: ElevatedButton.styleFrom(

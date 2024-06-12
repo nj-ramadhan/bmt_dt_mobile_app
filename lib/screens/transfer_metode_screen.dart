@@ -89,7 +89,7 @@ class _TransferMetodePageState extends State<TransferMetodePage> {
                   children: [
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
-                      onPressed: () => NavigationHelper.pushReplacementNamed(
+                      onPressed: () => NavigationHelper.pushNamed(
                         AppRoutes.transfer,
                       ),
                     ),
@@ -156,7 +156,7 @@ class _TransferMetodePageState extends State<TransferMetodePage> {
                           apiDataKodeTrx,
                           "TO",
                         );
-                        NavigationHelper.pushReplacementNamed(
+                        NavigationHelper.pushNamed(
                           AppRoutes.add_client,
                         );
                       },
@@ -207,7 +207,7 @@ class _TransferMetodePageState extends State<TransferMetodePage> {
                           apiDataKodeTrx,
                           "BIFAST",
                         );
-                        NavigationHelper.pushReplacementNamed(
+                        NavigationHelper.pushNamed(
                           AppRoutes.add_client_dif_bank,
                         );
                       },
@@ -258,7 +258,7 @@ class _TransferMetodePageState extends State<TransferMetodePage> {
                           apiDataKodeTrx,
                           "RTGS",
                         );
-                        NavigationHelper.pushReplacementNamed(
+                        NavigationHelper.pushNamed(
                           AppRoutes.add_client_dif_bank,
                         );
                       },

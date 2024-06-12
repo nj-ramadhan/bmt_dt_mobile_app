@@ -50,7 +50,7 @@ class _InputAmountPageState extends State<InputAmountPage> {
                     children: [
                       IconButton(
                         icon: const Icon(Icons.arrow_back),
-                        onPressed: () => NavigationHelper.pushReplacementNamed(
+                        onPressed: () => NavigationHelper.pushNamed(
                           AppRoutes.transfer,
                         ),
                       ),
@@ -233,7 +233,7 @@ class _InputAmountPageState extends State<InputAmountPage> {
                             _commentController.text,
                             apiDataKodeTrx,
                             apiDataMetodeTransfer);
-                        NavigationHelper.pushReplacementNamed(
+                        NavigationHelper.pushNamed(
                           AppRoutes.transaction_detail,
                         );
                       },

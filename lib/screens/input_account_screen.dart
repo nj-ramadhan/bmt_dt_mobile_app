@@ -47,7 +47,7 @@ class _InputAccountPageState extends State<InputAccountPage> {
                         IconButton(
                           icon: const Icon(Icons.arrow_back),
                           onPressed: () =>
-                              NavigationHelper.pushReplacementNamed(
+                              NavigationHelper.pushNamed(
                             AppRoutes.transfer,
                           ),
                         ),
@@ -115,7 +115,7 @@ class _InputAccountPageState extends State<InputAccountPage> {
                               apiDataKodeTrx,
                               apiDataMetodeTransfer,
                             );
-                            NavigationHelper.pushReplacementNamed(
+                            NavigationHelper.pushNamed(
                               AppRoutes.input_amount,
                             );
                           } else {

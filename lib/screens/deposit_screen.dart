@@ -97,7 +97,7 @@ class _DepositPageState extends State<DepositPage> {
                   children: [
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
-                      onPressed: () => NavigationHelper.pushReplacementNamed(
+                      onPressed: () => NavigationHelper.pushNamed(
                         AppRoutes.home,
                       ),
                     ),

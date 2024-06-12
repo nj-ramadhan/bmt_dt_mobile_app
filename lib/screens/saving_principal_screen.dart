@@ -90,7 +90,7 @@ class _SavingPrincipalPageState extends State<SavingPrincipalPage> {
                   children: [
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
-                      onPressed: () => NavigationHelper.pushReplacementNamed(
+                      onPressed: () => NavigationHelper.pushNamed(
                         AppRoutes.home,
                       ),
                     ),
@@ -233,7 +233,7 @@ class _SavingPrincipalPageState extends State<SavingPrincipalPage> {
                         ),
                       ),
                       onTap: () {
-                        NavigationHelper.pushReplacementNamed(
+                        NavigationHelper.pushNamed(
                           AppRoutes.home,
                         );
                       },
@@ -274,7 +274,7 @@ class _SavingPrincipalPageState extends State<SavingPrincipalPage> {
                         ),
                       ),
                       onTap: () {
-                        NavigationHelper.pushReplacementNamed(
+                        NavigationHelper.pushNamed(
                           AppRoutes.home,
                         );
                       },

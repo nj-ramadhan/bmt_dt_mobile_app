@@ -89,7 +89,7 @@ class _TransferPageState extends State<TransferPage> {
                   children: [
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
-                      onPressed: () => NavigationHelper.pushReplacementNamed(
+                      onPressed: () => NavigationHelper.pushNamed(
                         AppRoutes.home,
                       ),
                     ),
@@ -233,7 +233,7 @@ class _TransferPageState extends State<TransferPage> {
                         ),
                       ),
                       onTap: () {
-                        NavigationHelper.pushReplacementNamed(
+                        NavigationHelper.pushNamed(
                           AppRoutes.add_client,
                         );
                       },
@@ -274,7 +274,7 @@ class _TransferPageState extends State<TransferPage> {
                         ),
                       ),
                       onTap: () {
-                        NavigationHelper.pushReplacementNamed(
+                        NavigationHelper.pushNamed(
                           AppRoutes.transfer_metode,
                         );
                       },

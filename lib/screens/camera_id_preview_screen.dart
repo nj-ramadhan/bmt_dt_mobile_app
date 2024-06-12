@@ -43,7 +43,7 @@ class PreviewIDPage extends StatelessWidget {
                   children: [
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
-                      onPressed: () => NavigationHelper.pushReplacementNamed(
+                      onPressed: () => NavigationHelper.pushNamed(
                         AppRoutes.home,
                       ),
                     ),
@@ -70,7 +70,7 @@ class PreviewIDPage extends StatelessWidget {
                 const SizedBox(height: 10),
                 FilledButton(
                   // onPressed: () =>
-                  //     NavigationHelper.pushReplacementNamed(
+                  //     NavigationHelper.pushNamed(
                   //   AppRoutes.register,
                   // ),
                   // ),

@@ -41,7 +41,7 @@ class _FundingSimulationPageState extends State<FundingSimulationPage> {
                   children: [
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
-                      onPressed: () => NavigationHelper.pushReplacementNamed(
+                      onPressed: () => NavigationHelper.pushNamed(
                         AppRoutes.home,
                       ),
                     ),
@@ -118,7 +118,7 @@ class _FundingSimulationPageState extends State<FundingSimulationPage> {
                         ),
                       ),
                       onTap: () {
-                        NavigationHelper.pushReplacementNamed(
+                        NavigationHelper.pushNamed(
                           AppRoutes.funding_simulation_mudharabah,
                         );
                       },
@@ -178,7 +178,7 @@ class _FundingSimulationPageState extends State<FundingSimulationPage> {
                         ),
                       ),
                       onTap: () {
-                        NavigationHelper.pushReplacementNamed(
+                        NavigationHelper.pushNamed(
                           AppRoutes.funding_simulation_murabahah,
                         );
                       },
@@ -238,7 +238,7 @@ class _FundingSimulationPageState extends State<FundingSimulationPage> {
                         ),
                       ),
                       onTap: () {
-                        NavigationHelper.pushReplacementNamed(
+                        NavigationHelper.pushNamed(
                           AppRoutes.funding_simulation_musyarakah,
                         );
                       },
@@ -298,7 +298,7 @@ class _FundingSimulationPageState extends State<FundingSimulationPage> {
                         ),
                       ),
                       onTap: () {
-                        NavigationHelper.pushReplacementNamed(
+                        NavigationHelper.pushNamed(
                           AppRoutes.funding_simulation_ijarah,
                         );
                       },
@@ -358,7 +358,7 @@ class _FundingSimulationPageState extends State<FundingSimulationPage> {
                         ),
                       ),
                       onTap: () {
-                        NavigationHelper.pushReplacementNamed(
+                        NavigationHelper.pushNamed(
                           AppRoutes.funding_simulation_alqard,
                         );
                       },
@@ -418,7 +418,7 @@ class _FundingSimulationPageState extends State<FundingSimulationPage> {
                         ),
                       ),
                       onTap: () {
-                        NavigationHelper.pushReplacementNamed(
+                        NavigationHelper.pushNamed(
                           AppRoutes.funding_simulation_hiwalah,
                         );
                       },
@@ -478,7 +478,7 @@ class _FundingSimulationPageState extends State<FundingSimulationPage> {
                         ),
                       ),
                       onTap: () {
-                        NavigationHelper.pushReplacementNamed(
+                        NavigationHelper.pushNamed(
                           AppRoutes.funding_simulation_rahn,
                         );
                       },

@@ -730,7 +730,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                                     print(responRegister['status'].toString());
                                     if (responRegister['status'].toString() ==
                                         'berhasil') {
-                                      NavigationHelper.pushReplacementNamed(
+                                      NavigationHelper.pushNamed(
                                         AppRoutes.registeration_success,
                                       );
                                     }
@@ -761,7 +761,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                   style: AppTheme.bodySmall.copyWith(color: Colors.black),
                 ),
                 TextButton(
-                  onPressed: () => NavigationHelper.pushReplacementNamed(
+                  onPressed: () => NavigationHelper.pushNamed(
                     AppRoutes.login,
                   ),
                   child: const Text(AppStrings.login),

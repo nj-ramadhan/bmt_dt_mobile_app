@@ -42,7 +42,7 @@ class _FundingSimulationRahnPageState extends State<FundingSimulationRahnPage> {
                   children: [
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
-                      onPressed: () => NavigationHelper.pushReplacementNamed(
+                      onPressed: () => NavigationHelper.pushNamed(
                         AppRoutes.home,
                       ),
                     ),
@@ -119,7 +119,7 @@ class _FundingSimulationRahnPageState extends State<FundingSimulationRahnPage> {
                         ),
                       ),
                       onTap: () {
-                        NavigationHelper.pushReplacementNamed(
+                        NavigationHelper.pushNamed(
                           AppRoutes.home,
                         );
                       },
@@ -179,7 +179,7 @@ class _FundingSimulationRahnPageState extends State<FundingSimulationRahnPage> {
                         ),
                       ),
                       onTap: () {
-                        NavigationHelper.pushReplacementNamed(
+                        NavigationHelper.pushNamed(
                           AppRoutes.home,
                         );
                       },
@@ -239,7 +239,7 @@ class _FundingSimulationRahnPageState extends State<FundingSimulationRahnPage> {
                         ),
                       ),
                       onTap: () {
-                        NavigationHelper.pushReplacementNamed(
+                        NavigationHelper.pushNamed(
                           AppRoutes.home,
                         );
                       },
@@ -299,7 +299,7 @@ class _FundingSimulationRahnPageState extends State<FundingSimulationRahnPage> {
                         ),
                       ),
                       onTap: () {
-                        NavigationHelper.pushReplacementNamed(
+                        NavigationHelper.pushNamed(
                           AppRoutes.home,
                         );
                       },

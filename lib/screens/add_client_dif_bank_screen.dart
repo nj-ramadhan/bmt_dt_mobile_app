@@ -304,7 +304,7 @@ class _AddClientDifBankPageState extends State<AddClientDifBankPage> {
                     children: [
                       IconButton(
                         icon: const Icon(Icons.arrow_back),
-                        onPressed: () => NavigationHelper.pushReplacementNamed(
+                        onPressed: () => NavigationHelper.pushNamed(
                           AppRoutes.transfer,
                         ),
                       ),
@@ -424,7 +424,7 @@ class _AddClientDifBankPageState extends State<AddClientDifBankPage> {
                 padding: const EdgeInsets.all(16.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    NavigationHelper.pushReplacementNamed(
+                    NavigationHelper.pushNamed(
                       AppRoutes.input_account_dif_bank,
                     );
                   },

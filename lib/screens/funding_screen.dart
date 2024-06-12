@@ -41,7 +41,7 @@ class _FundingPageState extends State<FundingPage> {
                   children: [
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
-                      onPressed: () => NavigationHelper.pushReplacementNamed(
+                      onPressed: () => NavigationHelper.pushNamed(
                         AppRoutes.home,
                       ),
                     ),
@@ -118,7 +118,7 @@ class _FundingPageState extends State<FundingPage> {
                         ),
                       ),
                       onTap: () {
-                        NavigationHelper.pushReplacementNamed(
+                        NavigationHelper.pushNamed(
                           AppRoutes.funding_simulation,
                         );
                       },
@@ -178,7 +178,7 @@ class _FundingPageState extends State<FundingPage> {
                         ),
                       ),
                       onTap: () {
-                        NavigationHelper.pushReplacementNamed(
+                        NavigationHelper.pushNamed(
                           AppRoutes.home,
                         );
                       },
@@ -238,7 +238,7 @@ class _FundingPageState extends State<FundingPage> {
                         ),
                       ),
                       onTap: () {
-                        NavigationHelper.pushReplacementNamed(
+                        NavigationHelper.pushNamed(
                           AppRoutes.home,
                         );
                       },
@@ -298,7 +298,7 @@ class _FundingPageState extends State<FundingPage> {
                         ),
                       ),
                       onTap: () {
-                        NavigationHelper.pushReplacementNamed(
+                        NavigationHelper.pushNamed(
                           AppRoutes.home,
                         );
                       },

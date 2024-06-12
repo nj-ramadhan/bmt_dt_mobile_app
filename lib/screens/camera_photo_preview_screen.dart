@@ -62,13 +62,13 @@ class PreviewPhotoPage extends StatelessWidget {
                 const SizedBox(height: 10),
                 FilledButton(
                   // onPressed: () =>
-                  //     NavigationHelper.pushReplacementNamed(
+                  //     NavigationHelper.pushNamed(
                   //   AppRoutes.register,
                   // ),
                   onPressed: () =>
-                      //   NavigationHelper.pushReplacementNamed(
+                      //   NavigationHelper.pushNamed(
                       // AppRoutes.register,
-                      NavigationHelper.pushReplacementNamed(
+                      NavigationHelper.pushNamed(
                     AppRoutes.register,
                   ),
                   child: const Text(AppStrings.registerFill),

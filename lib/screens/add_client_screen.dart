@@ -231,7 +231,7 @@ class _AddClientPageState extends State<AddClientPage> {
                   children: [
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
-                      onPressed: () => NavigationHelper.pushReplacementNamed(
+                      onPressed: () => NavigationHelper.pushNamed(
                         AppRoutes.transfer,
                       ),
                     ),
@@ -347,7 +347,7 @@ class _AddClientPageState extends State<AddClientPage> {
                         //     dataProduct[i]?['harga_jual_agen'] ?? '';
                         // apiDataProductCode =
                         //     dataProduct[i]?['kode_dku'] ?? '';
-                        // NavigationHelper.pushReplacementNamed(
+                        // NavigationHelper.pushNamed(
                         //   AppRoutes.shopping_confirm,
                         // );
                       },
@@ -379,7 +379,7 @@ class _AddClientPageState extends State<AddClientPage> {
             //             apiDataKodeTrx,
             //             apiDataMetodeTransfer,
             //           );
-            //           NavigationHelper.pushReplacementNamed(
+            //           NavigationHelper.pushNamed(
             //             AppRoutes.input_amount,
             //           );
             //         },
@@ -405,7 +405,7 @@ class _AddClientPageState extends State<AddClientPage> {
               padding: const EdgeInsets.all(16.0),
               child: ElevatedButton(
                 onPressed: () {
-                  NavigationHelper.pushReplacementNamed(
+                  NavigationHelper.pushNamed(
                     AppRoutes.input_account,
                   );
                 },

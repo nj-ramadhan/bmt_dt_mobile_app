@@ -47,7 +47,7 @@ class _TransactionDetailDifBankPageState
                     children: [
                       IconButton(
                         icon: const Icon(Icons.arrow_back),
-                        onPressed: () => NavigationHelper.pushReplacementNamed(
+                        onPressed: () => NavigationHelper.pushNamed(
                           AppRoutes.transfer,
                         ),
                       ),
@@ -115,7 +115,7 @@ class _TransactionDetailDifBankPageState
                                       apiDataSendaComment,
                                       statusTransfer['kd_trx'].toString(),
                                       apiDataMetodeTransfer);
-                                  NavigationHelper.pushReplacementNamed(
+                                  NavigationHelper.pushNamed(
                                     AppRoutes.transaction_sucess,
                                   );
                                 } else {

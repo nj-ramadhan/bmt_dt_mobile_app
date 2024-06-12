@@ -120,7 +120,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
                   children: [
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
-                      onPressed: () => NavigationHelper.pushReplacementNamed(
+                      onPressed: () => NavigationHelper.pushNamed(
                         AppRoutes.profile,
                       ),
                     ),

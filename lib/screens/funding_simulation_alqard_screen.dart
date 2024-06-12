@@ -43,7 +43,7 @@ class _FundingSimulationAlQardPageState
                   children: [
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
-                      onPressed: () => NavigationHelper.pushReplacementNamed(
+                      onPressed: () => NavigationHelper.pushNamed(
                         AppRoutes.home,
                       ),
                     ),
@@ -120,7 +120,7 @@ class _FundingSimulationAlQardPageState
                         ),
                       ),
                       onTap: () {
-                        NavigationHelper.pushReplacementNamed(
+                        NavigationHelper.pushNamed(
                           AppRoutes.home,
                         );
                       },
@@ -180,7 +180,7 @@ class _FundingSimulationAlQardPageState
                         ),
                       ),
                       onTap: () {
-                        NavigationHelper.pushReplacementNamed(
+                        NavigationHelper.pushNamed(
                           AppRoutes.home,
                         );
                       },
@@ -240,7 +240,7 @@ class _FundingSimulationAlQardPageState
                         ),
                       ),
                       onTap: () {
-                        NavigationHelper.pushReplacementNamed(
+                        NavigationHelper.pushNamed(
                           AppRoutes.home,
                         );
                       },
@@ -300,7 +300,7 @@ class _FundingSimulationAlQardPageState
                         ),
                       ),
                       onTap: () {
-                        NavigationHelper.pushReplacementNamed(
+                        NavigationHelper.pushNamed(
                           AppRoutes.home,
                         );
                       },

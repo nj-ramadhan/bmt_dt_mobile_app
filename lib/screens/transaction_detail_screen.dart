@@ -45,7 +45,7 @@ class _TransactionDetailPageState extends State<TransactionDetailPage> {
                     children: [
                       IconButton(
                         icon: const Icon(Icons.arrow_back),
-                        onPressed: () => NavigationHelper.pushReplacementNamed(
+                        onPressed: () => NavigationHelper.pushNamed(
                           AppRoutes.transfer,
                         ),
                       ),
@@ -110,7 +110,7 @@ class _TransactionDetailPageState extends State<TransactionDetailPage> {
                                       apiDataSendaComment,
                                       statusTransfer['kd_trx'].toString(),
                                       apiDataMetodeTransfer);
-                                  NavigationHelper.pushReplacementNamed(
+                                  NavigationHelper.pushNamed(
                                     AppRoutes.transaction_sucess,
                                   );
                                 } else {

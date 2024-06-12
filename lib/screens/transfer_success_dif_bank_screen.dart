@@ -41,7 +41,7 @@ class _TransferSuccessPageState extends State<TransferSuccessPage> {
                     children: [
                       IconButton(
                         icon: const Icon(Icons.arrow_back),
-                        onPressed: () => NavigationHelper.pushReplacementNamed(
+                        onPressed: () => NavigationHelper.pushNamed(
                           AppRoutes.home,
                         ),
                       ),
@@ -106,7 +106,7 @@ class _TransferSuccessPageState extends State<TransferSuccessPage> {
                     Spacer(),
                     ElevatedButton(
                       onPressed: () {
-                        NavigationHelper.pushReplacementNamed(
+                        NavigationHelper.pushNamed(
                           AppRoutes.home,
                         );
                       },

@@ -146,7 +146,7 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
                   children: [
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
-                      onPressed: () => NavigationHelper.pushReplacementNamed(
+                      onPressed: () => NavigationHelper.pushNamed(
                         AppRoutes.shopping,
                       ),
                     ),
@@ -269,7 +269,7 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
                                   dataProduct[i]?['harga_jual_agen'] ?? '';
                               apiDataProductCode =
                                   dataProvider[1]?['no_provider'] ?? '';
-                              NavigationHelper.pushReplacementNamed(
+                              NavigationHelper.pushNamed(
                                 AppRoutes.shopping_confirm,
                               );
                             },

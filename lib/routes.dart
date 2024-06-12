@@ -58,12 +58,15 @@ class Routes {
     }
 
     switch (settings.name) {
+      // case AppRoutes.home:
+      //   return getRoute(widget: Builder(
+      //     builder: (context) {
+      //       return const HomePage();
+      //     },
+      //   ));
+
       case AppRoutes.home:
-        return getRoute(widget: Builder(
-          builder: (context) {
-            return const HomePage();
-          },
-        ));
+        return getRoute(widget: const HomePage());
 
       case AppRoutes.login:
         return getRoute(widget: const LoginPage());

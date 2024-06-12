@@ -99,7 +99,7 @@ class _ChangePinPageState extends State<ChangePinPage> {
                   children: [
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
-                      onPressed: () => NavigationHelper.pushReplacementNamed(
+                      onPressed: () => NavigationHelper.pushNamed(
                         AppRoutes.profile,
                       ),
                     ),

@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void openProfileScreen() {
-    NavigationHelper.pushReplacementNamed(
+    NavigationHelper.pushNamed(
       AppRoutes.profile,
     );
   }
@@ -111,15 +111,13 @@ class _HomePageState extends State<HomePage> {
                                   const Text(AppStrings.logoutConfirmationText),
                               actions: <Widget>[
                                 ElevatedButton(
-                                  onPressed: () =>
-                                      NavigationHelper.pushReplacementNamed(
+                                  onPressed: () => NavigationHelper.pushNamed(
                                     AppRoutes.home,
                                   ),
                                   child: const Text(AppStrings.noConfirm),
                                 ),
                                 ElevatedButton(
-                                  onPressed: () =>
-                                      NavigationHelper.pushReplacementNamed(
+                                  onPressed: () => NavigationHelper.pushNamed(
                                     AppRoutes.login,
                                   ),
                                   child: const Text(AppStrings.yesConfirm),
@@ -187,7 +185,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   onTap: openProfileScreen
-                  // onTap: () => NavigationHelper.pushReplacementNamed(
+                  // onTap: () => NavigationHelper.pushNamed(
                   //   AppRoutes.profile,
                   // ),
                   ),
@@ -278,15 +276,15 @@ class _HomePageState extends State<HomePage> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       ElevatedButton(
-                                        onPressed: () => NavigationHelper
-                                            .pushReplacementNamed(
+                                        onPressed: () =>
+                                            NavigationHelper.pushNamed(
                                                 AppRoutes.checking),
                                         child: const Text(
                                             AppStrings.checkingTitle),
                                       ),
                                       ElevatedButton(
-                                        onPressed: () => NavigationHelper
-                                            .pushReplacementNamed(
+                                        onPressed: () =>
+                                            NavigationHelper.pushNamed(
                                           AppRoutes.deposit,
                                         ),
                                         child: const Text(
@@ -333,8 +331,7 @@ class _HomePageState extends State<HomePage> {
                               screenWidth * 0.05,
                             ),
                             shape: const CircleBorder(),
-                            onPressed: () =>
-                                NavigationHelper.pushReplacementNamed(
+                            onPressed: () => NavigationHelper.pushNamed(
                               AppRoutes.shopping,
                             ),
                             child: const Icon(
@@ -357,8 +354,7 @@ class _HomePageState extends State<HomePage> {
                               screenWidth * 0.05,
                             ),
                             shape: const CircleBorder(),
-                            onPressed: () =>
-                                NavigationHelper.pushReplacementNamed(
+                            onPressed: () => NavigationHelper.pushNamed(
                               AppRoutes.payment,
                             ),
                             child: const Icon(
@@ -381,8 +377,7 @@ class _HomePageState extends State<HomePage> {
                               screenWidth * 0.05,
                             ),
                             shape: const CircleBorder(),
-                            onPressed: () =>
-                                NavigationHelper.pushReplacementNamed(
+                            onPressed: () => NavigationHelper.pushNamed(
                               AppRoutes.funding,
                             ),
                             child: const Icon(
@@ -417,8 +412,8 @@ class _HomePageState extends State<HomePage> {
                                           AppStrings.featureInformationText),
                                       actions: <Widget>[
                                         ElevatedButton(
-                                          onPressed: () => NavigationHelper
-                                              .pushReplacementNamed(
+                                          onPressed: () =>
+                                              NavigationHelper.pushNamed(
                                             AppRoutes.home,
                                           ),
                                           child:
@@ -457,8 +452,7 @@ class _HomePageState extends State<HomePage> {
                               screenWidth * 0.05,
                             ),
                             shape: const CircleBorder(),
-                            onPressed: () =>
-                                NavigationHelper.pushReplacementNamed(
+                            onPressed: () => NavigationHelper.pushNamed(
                               AppRoutes.transfer,
                             ),
                             child: const Icon(
@@ -481,8 +475,7 @@ class _HomePageState extends State<HomePage> {
                               screenWidth * 0.05,
                             ),
                             shape: const CircleBorder(),
-                            onPressed: () =>
-                                NavigationHelper.pushReplacementNamed(
+                            onPressed: () => NavigationHelper.pushNamed(
                               AppRoutes.saving_mandatory,
                             ),
                             child: const Icon(
@@ -505,8 +498,7 @@ class _HomePageState extends State<HomePage> {
                               screenWidth * 0.05,
                             ),
                             shape: const CircleBorder(),
-                            onPressed: () =>
-                                NavigationHelper.pushReplacementNamed(
+                            onPressed: () => NavigationHelper.pushNamed(
                               AppRoutes.saving_principal,
                             ),
                             child: const Icon(
@@ -529,8 +521,7 @@ class _HomePageState extends State<HomePage> {
                               screenWidth * 0.05,
                             ),
                             shape: const CircleBorder(),
-                            onPressed: () =>
-                                NavigationHelper.pushReplacementNamed(
+                            onPressed: () => NavigationHelper.pushNamed(
                               AppRoutes.saving_voluntary,
                             ),
                             child: const Icon(
