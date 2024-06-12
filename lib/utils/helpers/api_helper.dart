@@ -576,6 +576,59 @@ class ApiHelper {
     }
   }
 
+  static Future<Map<String, dynamic>> getTransferDifBank(
+      String token,
+      String idSirela,
+      String nominalTopUp,
+      String notes,
+      String pin,
+      String idDestination,
+      String bankDestination,
+      String typeDestination,
+      String nameDestination
+      ) async {
+    final url = Uri.https('dkuapi.dkuindonesia.id',
+        '/api/dku_bank/transfer_bank');
+// https://dkuapi.dkuindonesia.id/api/dku_bank/credit_transfer/36055
+    final headers = {
+      'Authorization': 'Bearer $token',
+      'Content-Type': 'application/x-www-form-urlencoded',
+    };
+    print("ID Sirela $idSirela");
+
+    print("Jenis Transfer $typeDestination kode bank tujuan $bankDestination rek_tujuan $idDestination nama rekening tujuan $nameDestination");
+    print("memo notes $notes besaran transfer $nominalTopUp");
+    final body = {
+      'jenis_transfer': "$typeDestination",
+      'kode_bank_tujuan': "$bankDestination",
+      'rek_tujuan': "$idDestination",
+      'nama_rekening_tujuan': "$nameDestination",
+      'nominal': nominalTopUp+".00",
+      'nominal_matauang': "IDR",
+      'catatan': notes,
+      'm_bayar': "sk-$idSirela",
+      'pin': pin,
+      'bifast_tujuan_transaksi': "02",
+      'bifast_tipe_rekening': "SVGS",
+      'bifast_tipe_nasabah': "01",
+      'rtgs_or_llg_domisili': "1",
+      'rtgs_or_llg_tipe_nasabah': "1",
+      'rtgs_or_llg_kewarganegaraan': "1",
+      'customerRefCode': "myid_app123",
+    };
+
+    final response = await http.post(url, headers: headers, body: body);
+    print(json.decode(response.body));
+    final data = json.decode(response.body);
+    if (response.statusCode == 200) {
+      print('Transfer successful');
+      return data;
+    } else {
+      print('Failed to transfer: ${response.body}');
+      return {"error": "data error"};
+    }
+  }
+
   static Future<List<DropdownItemsStringIdModel>> getListBankTO({
     required String loginToken,
   }) async {

@@ -93,13 +93,16 @@ class _TransactionDetailDifBankPageState
                             return MPinPopup(
                               onPinSubmitted: (String pin) async {
                                 Map<String, dynamic> statusTransfer =
-                                    await ApiHelper.getTransferSirela(
+                                    await ApiHelper.getTransferDifBank(
                                         apiLoginToken,
                                         apiDataOwnSirelaId,
                                         apiDataSendaAmount,
                                         apiDataSendaComment,
                                         pin,
-                                        apiDataDestinationSirelaId);
+                                        apiDataDestinationSirelaId,
+                                        apiDataKodeBank,
+                                        apiDataMetodeTransfer,
+                                        apiDataDestinationSirelaName);
                                 if (statusTransfer['status_trx'].toString() ==
                                     'BERHASIL DIKIRIM') {
                                   //menuju halaman
@@ -267,70 +270,69 @@ class _MPinPopupState extends State<MPinPopup> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
     return AlertDialog(
-        contentPadding: EdgeInsets.all(20),
-        content: ListView(
-            padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
-            children: [
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text('mPIN',
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-                  SizedBox(height: screenHeight * 0.02),
-                  TextFormField(
-                    controller: _pinController,
-                    obscureText: _obscureText,
-                    maxLength: 6,
-                    keyboardType: TextInputType.number,
-                    style: TextStyle(fontSize: 24),
-                    textAlign: TextAlign.center,
-                    decoration: InputDecoration(
-                      counterText: '',
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30.0),
+      contentPadding: EdgeInsets.all(20),
+      content: SingleChildScrollView(
+        child: ListBody(
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('mPIN',
+                    style:
+                        TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                SizedBox(height: 20),
+                TextFormField(
+                  controller: _pinController,
+                  obscureText: _obscureText,
+                  maxLength: 6,
+                  keyboardType: TextInputType.number,
+                  style: TextStyle(fontSize: 24),
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                    counterText: '',
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscureText ? Icons.visibility : Icons.visibility_off,
                       ),
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          _obscureText
-                              ? Icons.visibility
-                              : Icons.visibility_off,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _obscureText = !_obscureText;
-                          });
-                        },
-                      ),
+                      onPressed: () {
+                        setState(() {
+                          _obscureText = !_obscureText;
+                        });
+                      },
                     ),
                   ),
-                  SizedBox(height: screenHeight * 0.02),
-                  ElevatedButton(
-                    onPressed: () {
-                      widget.onPinSubmitted(_pinController.text);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          Colors.green, // Reference color from second image
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 64.0),
-                      child: Text(
-                        'Submit',
-                        style: TextStyle(color: Colors.white),
-                      ),
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    widget.onPinSubmitted(_pinController.text);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor:
+                        Colors.green, // Reference color from second image
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
                     ),
                   ),
-                ],
-              ),
-            ]));
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 64.0),
+                    child: Text(
+                      'Submit',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
