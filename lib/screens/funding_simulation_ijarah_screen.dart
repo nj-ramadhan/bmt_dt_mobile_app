@@ -1,8 +1,11 @@
+import 'package:bmt_dt_mobile_app/components/dropdown_V2.dart';
 import 'package:flutter/material.dart';
 
+import '../components/app_drop_down_form_field.dart';
 import '../components/app_text_form_field.dart';
 import '../global_variables.dart';
 import '../utils/common_widgets/gradient_background.dart';
+import '../utils/helpers/api_helper.dart';
 import '../utils/helpers/navigation_helper.dart';
 import '../values/app_colors.dart';
 import '../values/app_routes.dart';
@@ -19,12 +22,16 @@ class FundingSimulationIjarahPage extends StatefulWidget {
 
 class _FundingSimulationIjarahPageState
     extends State<FundingSimulationIjarahPage> {
+  late Future<List<DropdownItemsStringIdModel>> _listOption;
   final ValueNotifier<bool> fieldValidNotifier = ValueNotifier(false);
 
   late final TextEditingController priceController;
   late final TextEditingController marginController;
   late final TextEditingController periodController;
   late final TextEditingController priceSellingController;
+
+  String? valueDownOption;
+  String? valueDownCodeOption;
 
   Future<void> simulateFunding() async {
     const url = 'https://dkuapi.dkuindonesia.id/api/Authorization/create_token';
@@ -128,6 +135,16 @@ class _FundingSimulationIjarahPageState
 
   @override
   void initState() {
+    if (apiDataMetodeTransfer == "TO") {
+      // _table = 'different_bank_TO';
+      _listOption = ApiHelper.getListBankTO(loginToken: apiLoginToken);
+    } else if (apiDataMetodeTransfer == "BIFAST") {
+      _listOption = ApiHelper.getListBankBIFAST(loginToken: apiLoginToken);
+      // _table = 'different_bank_BIFAST';
+    } else {
+      _listOption = ApiHelper.getListBankRTGS(loginToken: apiLoginToken);
+      // _table = 'different_bank_RTGS';
+    }
     initializeControllers();
     super.initState();
   }
@@ -164,7 +181,7 @@ class _FundingSimulationIjarahPageState
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
                       onPressed: () => NavigationHelper.pushNamed(
-                        AppRoutes.home,
+                        AppRoutes.funding_simulation,
                       ),
                     ),
                     const Text(
@@ -228,19 +245,26 @@ class _FundingSimulationIjarahPageState
                     //           : AppStrings.invalidPhone;
                     // },
                   ),
-                  AppTextFormField(
-                    controller: priceSellingController,
-                    labelText: AppStrings.fundingPriceSelling,
-                    keyboardType: TextInputType.number,
-                    textInputAction: TextInputAction.next,
-                    // onChanged: (_) => _formKey.currentState?.validate(),
-                    // validator: (value) {
-                    //   return value!.isEmpty
-                    //       ? AppStrings.pleaseEnterPhone
-                    //       : AppConstants.phoneRegex.hasMatch(value)
-                    //           ? null
-                    //           : AppStrings.invalidPhone;
-                    // },
+                  AppDropdownFormBank(
+                    future: _listOption,
+                    labelText: 'Opsi',
+                    value: valueDownOption,
+                    hint: "Pilih Opsi",
+                    dropdownColor: AppColors.lightGreen,
+                    onChanged: (value) {
+                      setState(() {
+                        valueDownOption = value;
+                      });
+                    },
+                    onItemSelected: (title) {
+                      valueDownCodeOption = title;
+                      print(
+                          'Selected bank title: $valueDownOption $valueDownCodeOption');
+                      // Lakukan sesuatu dengan title bank yang dipilih
+                    },
+                  ),
+                  SizedBox(
+                    height: screenHeight * 0.02,
                   ),
                   ValueListenableBuilder(
                     valueListenable: fieldValidNotifier,
@@ -250,6 +274,82 @@ class _FundingSimulationIjarahPageState
                         child: const Text(AppStrings.fundingSimulation),
                       );
                     },
+                  ),
+                  SizedBox(
+                    height: screenHeight * 0.02,
+                  ),
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Nilai Angsuran per Bulan',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.normal)),
+                                Text('$apiDataKodeTrx'),
+                              ]),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Lama Angsuran',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.normal)),
+                                Text('$apiDataKodeTrx'),
+                              ]),
+                          Divider(color: AppColors.darkestGreen),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Biaya Administrasi:',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.normal)),
+                              Text('$apiDataKodeTrx'),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Notaris:',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.normal)),
+                              Text('$apiDataKodeTrx'),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('APHT/Asuransi:',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.normal)),
+                              Text('$apiDataKodeTrx'),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Materai:',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.normal)),
+                              Text('$apiDataKodeTrx'),
+                            ],
+                          ),
+                          Divider(color: AppColors.darkestGreen),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Jumlah:',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                              Text('$apiDataKodeTrx'),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),

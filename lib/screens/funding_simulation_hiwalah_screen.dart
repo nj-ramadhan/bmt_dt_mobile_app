@@ -164,7 +164,7 @@ class _FundingSimulationHiwalahPageState
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
                       onPressed: () => NavigationHelper.pushNamed(
-                        AppRoutes.home,
+                        AppRoutes.funding_simulation,
                       ),
                     ),
                     const Text(

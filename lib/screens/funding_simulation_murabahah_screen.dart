@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../components/app_drop_down_form_field.dart';
 import '../components/app_text_form_field.dart';
+import '../components/dropdown_V2.dart';
 import '../global_variables.dart';
 import '../utils/common_widgets/gradient_background.dart';
+import '../utils/helpers/api_helper.dart';
 import '../utils/helpers/navigation_helper.dart';
 import '../values/app_colors.dart';
 import '../values/app_routes.dart';
@@ -19,12 +22,21 @@ class FundingSimulationMurabahahPage extends StatefulWidget {
 
 class _FundingSimulationMurabahahPageState
     extends State<FundingSimulationMurabahahPage> {
+  late Future<List<DropdownItemsStringIdModel>> _listOption;
   final ValueNotifier<bool> fieldValidNotifier = ValueNotifier(false);
 
   late final TextEditingController priceController;
   late final TextEditingController marginController;
   late final TextEditingController periodController;
   late final TextEditingController priceSellingController;
+
+  late String price;
+  late String margin;
+  late String priceSelling;
+  late String period;
+
+  String? valueDownOption;
+  String? valueDownCodeOption;
 
   Future<void> simulateFunding() async {
     const url = 'https://dkuapi.dkuindonesia.id/api/Authorization/create_token';
@@ -128,6 +140,21 @@ class _FundingSimulationMurabahahPageState
 
   @override
   void initState() {
+    if (apiDataMetodeTransfer == "TO") {
+      // _table = 'different_bank_TO';
+      _listOption = ApiHelper.getListBankTO(loginToken: apiLoginToken);
+    } else if (apiDataMetodeTransfer == "BIFAST") {
+      _listOption = ApiHelper.getListBankBIFAST(loginToken: apiLoginToken);
+      // _table = 'different_bank_BIFAST';
+    } else {
+      _listOption = ApiHelper.getListBankRTGS(loginToken: apiLoginToken);
+      // _table = 'different_bank_RTGS';
+    }
+
+    price = '0';
+    margin = '0';
+    priceSelling = '0';
+    period = '0';
     initializeControllers();
     super.initState();
   }
@@ -164,7 +191,7 @@ class _FundingSimulationMurabahahPageState
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
                       onPressed: () => NavigationHelper.pushNamed(
-                        AppRoutes.home,
+                        AppRoutes.funding_simulation,
                       ),
                     ),
                     const Text(
@@ -242,6 +269,27 @@ class _FundingSimulationMurabahahPageState
                     //           : AppStrings.invalidPhone;
                     // },
                   ),
+                  AppDropdownFormBank(
+                    future: _listOption,
+                    labelText: 'Opsi',
+                    value: valueDownOption,
+                    hint: "Pilih Opsi",
+                    dropdownColor: AppColors.lightGreen,
+                    onChanged: (value) {
+                      setState(() {
+                        valueDownOption = value;
+                      });
+                    },
+                    onItemSelected: (title) {
+                      valueDownCodeOption = title;
+                      print(
+                          'Selected bank title: $valueDownOption $valueDownCodeOption');
+                      // Lakukan sesuatu dengan title bank yang dipilih
+                    },
+                  ),
+                  SizedBox(
+                    height: screenHeight * 0.02,
+                  ),
                   ValueListenableBuilder(
                     valueListenable: fieldValidNotifier,
                     builder: (_, isValid, __) {
@@ -250,6 +298,74 @@ class _FundingSimulationMurabahahPageState
                         child: const Text(AppStrings.fundingSimulation),
                       );
                     },
+                  ),
+                  SizedBox(
+                    height: screenHeight * 0.02,
+                  ),
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Nilai Angsuran per Bulan',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.normal)),
+                                Text('$apiDataKodeTrx'),
+                              ]),
+                          Divider(color: AppColors.darkestGreen),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Biaya Administrasi:',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.normal)),
+                              Text('$apiDataKodeTrx'),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Notaris:',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.normal)),
+                              Text('$apiDataKodeTrx'),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('APHT/Asuransi:',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.normal)),
+                              Text('$apiDataKodeTrx'),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Materai:',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.normal)),
+                              Text('$apiDataKodeTrx'),
+                            ],
+                          ),
+                          Divider(color: AppColors.darkestGreen),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Jumlah:',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                              Text('$apiDataKodeTrx'),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),

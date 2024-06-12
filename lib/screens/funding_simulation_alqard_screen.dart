@@ -26,6 +26,9 @@ class _FundingSimulationAlQardPageState
   late final TextEditingController periodController;
   late final TextEditingController priceSellingController;
 
+  String? valueDownOption;
+  String? valueDownCodeOption;
+
   Future<void> simulateFunding() async {
     const url = 'https://dkuapi.dkuindonesia.id/api/Authorization/create_token';
     const headers = {
@@ -164,7 +167,7 @@ class _FundingSimulationAlQardPageState
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
                       onPressed: () => NavigationHelper.pushNamed(
-                        AppRoutes.home,
+                        AppRoutes.funding_simulation,
                       ),
                     ),
                     const Text(
@@ -201,36 +204,8 @@ class _FundingSimulationAlQardPageState
                     // },
                   ),
                   AppTextFormField(
-                    controller: marginController,
-                    labelText: AppStrings.fundingMargin,
-                    keyboardType: TextInputType.number,
-                    textInputAction: TextInputAction.next,
-                    // onChanged: (_) => _formKey.currentState?.validate(),
-                    // validator: (value) {
-                    //   return value!.isEmpty
-                    //       ? AppStrings.pleaseEnterPhone
-                    //       : AppConstants.phoneRegex.hasMatch(value)
-                    //           ? null
-                    //           : AppStrings.invalidPhone;
-                    // },
-                  ),
-                  AppTextFormField(
                     controller: periodController,
                     labelText: AppStrings.fundingPeriod,
-                    keyboardType: TextInputType.number,
-                    textInputAction: TextInputAction.next,
-                    // onChanged: (_) => _formKey.currentState?.validate(),
-                    // validator: (value) {
-                    //   return value!.isEmpty
-                    //       ? AppStrings.pleaseEnterPhone
-                    //       : AppConstants.phoneRegex.hasMatch(value)
-                    //           ? null
-                    //           : AppStrings.invalidPhone;
-                    // },
-                  ),
-                  AppTextFormField(
-                    controller: priceSellingController,
-                    labelText: AppStrings.fundingPriceSelling,
                     keyboardType: TextInputType.number,
                     textInputAction: TextInputAction.next,
                     // onChanged: (_) => _formKey.currentState?.validate(),
@@ -250,6 +225,74 @@ class _FundingSimulationAlQardPageState
                         child: const Text(AppStrings.fundingSimulation),
                       );
                     },
+                  ),
+                  SizedBox(
+                    height: screenHeight * 0.02,
+                  ),
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Nilai Angsuran per Bulan',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.normal)),
+                                Text('$apiDataKodeTrx'),
+                              ]),
+                          Divider(color: AppColors.darkestGreen),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Biaya Administrasi:',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.normal)),
+                              Text('$apiDataKodeTrx'),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Notaris:',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.normal)),
+                              Text('$apiDataKodeTrx'),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('APHT/Asuransi:',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.normal)),
+                              Text('$apiDataKodeTrx'),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Materai:',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.normal)),
+                              Text('$apiDataKodeTrx'),
+                            ],
+                          ),
+                          Divider(color: AppColors.darkestGreen),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Jumlah:',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                              Text('$apiDataKodeTrx'),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),

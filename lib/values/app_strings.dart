@@ -207,6 +207,12 @@ class AppStrings {
   static const String fundingPriceSelling = 'Harga Jual';
   static const String fundingInstalment = 'Perhitungan Angsuran';
 
+  static const String fundingCapital = 'Kebutuhan Modal';
+  static const String fundingTotalCapital = 'Kebutuhan Modal Keseluruhan';
+  static const String fundingProjectValue = 'Nilai Project';
+  static const String fundingProfitValue = 'Proyeksi Keuntungan';
+  static const String fundingProfitSharing = 'Porsi Bagi Hasil untuk BMT (%)';
+
   static const String fundingTransaction = 'Transaksi Pembiayaan';
   static const String fundingTransactionSubtitle = 'Transaksi Pembiayaan';
   static const String fundingHistory = 'Riwayat Pembiayaan';

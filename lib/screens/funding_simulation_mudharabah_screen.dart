@@ -21,10 +21,17 @@ class _FundingSimulationMudharabahPageState
     extends State<FundingSimulationMudharabahPage> {
   final ValueNotifier<bool> fieldValidNotifier = ValueNotifier(false);
 
-  late final TextEditingController priceController;
-  late final TextEditingController marginController;
+  late final TextEditingController capitalController;
+  late final TextEditingController projectValueController;
+  late final TextEditingController profitValueController;
+  late final TextEditingController profitSharingController;
   late final TextEditingController periodController;
-  late final TextEditingController priceSellingController;
+
+  late String capital;
+  late String projectValue;
+  late String profitValue;
+  late String profitSharing;
+  late String period;
 
   Future<void> simulateFunding() async {
     const url = 'https://dkuapi.dkuindonesia.id/api/Authorization/create_token';
@@ -96,30 +103,37 @@ class _FundingSimulationMudharabahPageState
   }
 
   void initializeControllers() {
-    priceController = TextEditingController()..addListener(controllerListener);
-    marginController = TextEditingController()..addListener(controllerListener);
+    capitalController = TextEditingController()
+      ..addListener(controllerListener);
+    projectValueController = TextEditingController()
+      ..addListener(controllerListener);
+    profitValueController = TextEditingController()
+      ..addListener(controllerListener);
     periodController = TextEditingController()..addListener(controllerListener);
-    priceSellingController = TextEditingController()
+    profitSharingController = TextEditingController()
       ..addListener(controllerListener);
   }
 
   void disposeControllers() {
-    priceController.dispose();
-    marginController.dispose();
+    capitalController.dispose();
+    projectValueController.dispose();
+    profitValueController.dispose();
     periodController.dispose();
-    priceSellingController.dispose();
+    profitSharingController.dispose();
   }
 
   void controllerListener() {
-    final price = priceController.text;
-    final margin = marginController.text;
+    final capital = capitalController.text;
+    final projectValue = projectValueController.text;
+    final profitValue = projectValueController.text;
     final period = periodController.text;
-    final priceSelling = priceSellingController.text;
+    final profitSharing = profitSharingController.text;
 
-    if (price.isEmpty &&
-        margin.isEmpty &&
+    if (capital.isEmpty &&
+        projectValue.isEmpty &&
+        profitValue.isEmpty &&
         period.isEmpty &&
-        priceSelling.isEmpty) {
+        profitSharing.isEmpty) {
       fieldValidNotifier.value = false;
     } else {
       fieldValidNotifier.value = true;
@@ -128,6 +142,11 @@ class _FundingSimulationMudharabahPageState
 
   @override
   void initState() {
+    capital = '0';
+    projectValue = '0';
+    profitValue = '0';
+    profitSharing = '0';
+    period = '0';
     initializeControllers();
     super.initState();
   }
@@ -164,7 +183,7 @@ class _FundingSimulationMudharabahPageState
                     IconButton(
                       icon: const Icon(Icons.arrow_back),
                       onPressed: () => NavigationHelper.pushNamed(
-                        AppRoutes.home,
+                        AppRoutes.funding_simulation,
                       ),
                     ),
                     const Text(
@@ -187,11 +206,11 @@ class _FundingSimulationMudharabahPageState
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   AppTextFormField(
-                    controller: priceController,
-                    labelText: AppStrings.fundingPrice,
+                    controller: capitalController,
+                    labelText: AppStrings.fundingCapital,
                     keyboardType: TextInputType.number,
                     textInputAction: TextInputAction.next,
-                    // onChanged: (_) => _formKey.currentState?.validate(),
+                    onChanged: (_) => capital = capitalController.text,
                     // validator: (value) {
                     //   return value!.isEmpty
                     //       ? AppStrings.pleaseEnterPhone
@@ -201,11 +220,41 @@ class _FundingSimulationMudharabahPageState
                     // },
                   ),
                   AppTextFormField(
-                    controller: marginController,
-                    labelText: AppStrings.fundingMargin,
+                    controller: projectValueController,
+                    labelText: AppStrings.fundingProjectValue,
                     keyboardType: TextInputType.number,
                     textInputAction: TextInputAction.next,
-                    // onChanged: (_) => _formKey.currentState?.validate(),
+                    onChanged: (_) =>
+                        projectValue = projectValueController.text,
+                    // validator: (value) {
+                    //   return value!.isEmpty
+                    //       ? AppStrings.pleaseEnterPhone
+                    //       : AppConstants.phoneRegex.hasMatch(value)
+                    //           ? null
+                    //           : AppStrings.invalidPhone;
+                    // },
+                  ),
+                  AppTextFormField(
+                    controller: profitValueController,
+                    labelText: AppStrings.fundingProfitValue,
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.next,
+                    onChanged: (_) => profitValue = profitValueController.text,
+                    // validator: (value) {
+                    //   return value!.isEmpty
+                    //       ? AppStrings.pleaseEnterPhone
+                    //       : AppConstants.phoneRegex.hasMatch(value)
+                    //           ? null
+                    //           : AppStrings.invalidPhone;
+                    // },
+                  ),
+                  AppTextFormField(
+                    controller: profitSharingController,
+                    labelText: AppStrings.fundingProfitSharing,
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.next,
+                    onChanged: (_) =>
+                        profitSharing = profitSharingController.text,
                     // validator: (value) {
                     //   return value!.isEmpty
                     //       ? AppStrings.pleaseEnterPhone
@@ -219,21 +268,7 @@ class _FundingSimulationMudharabahPageState
                     labelText: AppStrings.fundingPeriod,
                     keyboardType: TextInputType.number,
                     textInputAction: TextInputAction.next,
-                    // onChanged: (_) => _formKey.currentState?.validate(),
-                    // validator: (value) {
-                    //   return value!.isEmpty
-                    //       ? AppStrings.pleaseEnterPhone
-                    //       : AppConstants.phoneRegex.hasMatch(value)
-                    //           ? null
-                    //           : AppStrings.invalidPhone;
-                    // },
-                  ),
-                  AppTextFormField(
-                    controller: priceSellingController,
-                    labelText: AppStrings.fundingPriceSelling,
-                    keyboardType: TextInputType.number,
-                    textInputAction: TextInputAction.next,
-                    // onChanged: (_) => _formKey.currentState?.validate(),
+                    onChanged: (_) => period = periodController.text,
                     // validator: (value) {
                     //   return value!.isEmpty
                     //       ? AppStrings.pleaseEnterPhone
@@ -250,6 +285,82 @@ class _FundingSimulationMudharabahPageState
                         child: const Text(AppStrings.fundingSimulation),
                       );
                     },
+                  ),
+                  SizedBox(
+                    height: screenHeight * 0.02,
+                  ),
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Nilai Bagi Hasil',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.normal)),
+                                Text(profitSharing),
+                              ]),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Total Pengembalian',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.normal)),
+                                Text('$apiDataKodeTrx'),
+                              ]),
+                          Divider(color: AppColors.darkestGreen),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Biaya Administrasi:',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.normal)),
+                              Text('$apiDataKodeTrx'),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Notaris:',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.normal)),
+                              Text('$apiDataKodeTrx'),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('APHT/Asuransi:',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.normal)),
+                              Text('$apiDataKodeTrx'),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Materai:',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.normal)),
+                              Text('$apiDataKodeTrx'),
+                            ],
+                          ),
+                          Divider(color: AppColors.darkestGreen),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Jumlah:',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                              Text('$apiDataKodeTrx'),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
