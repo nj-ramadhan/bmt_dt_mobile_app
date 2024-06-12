@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../components/app_text_form_field.dart';
 import '../global_variables.dart';
 import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/navigation_helper.dart';
@@ -18,6 +19,125 @@ class FundingSimulationAlQardPage extends StatefulWidget {
 
 class _FundingSimulationAlQardPageState
     extends State<FundingSimulationAlQardPage> {
+  final ValueNotifier<bool> fieldValidNotifier = ValueNotifier(false);
+
+  late final TextEditingController priceController;
+  late final TextEditingController marginController;
+  late final TextEditingController periodController;
+  late final TextEditingController priceSellingController;
+
+  Future<void> simulateFunding() async {
+    const url = 'https://dkuapi.dkuindonesia.id/api/Authorization/create_token';
+    const headers = {
+      'ClientID':
+          'jLdCPSe3816XRXk7+aCMc+Et0nk1y6\/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ\/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A\/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs\/WzXeZ9pQGOkHyX6IK\/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M\/fXTrjkHB\/v+1VFKgkGRFz0eIhDXZ3yp7e\/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n\/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3\/gKIXwL6NGFqzdeEy3xC\/Qr6',
+      'Content-Type': 'application/json',
+    };
+    // final body = json.encode({
+    //   'status': 'OK',
+    //   'data_post': [
+    //     {
+    //       'username': phoneController.text,
+    //       'password': passwordController.text,
+    //     }
+    //   ],
+    // });
+
+    // try {
+    //   final response = await http.post(
+    //     Uri.parse(url),
+    //     headers: headers,
+    //     body: body,
+    //   );
+
+    //   if (response.statusCode == 200) {
+    //     final responseBody = json.decode(response.body);
+    //     responseLoginRolePendidikan =
+    //         responseBody['role_pendidikan'].toString();
+    //     responseLoginRoleKoperasi = responseBody['role_koperasi'].toString();
+    //     responseLoginNoUser = responseBody['no_user'].toString();
+    //     responseLoginToken = responseBody['token'].toString();
+    //     responseLoginRefreshToken = responseBody['refresh_token'].toString();
+
+    //     updateLoginVariables(
+    //       responseLoginRolePendidikan,
+    //       responseLoginRoleKoperasi,
+    //       responseLoginNoUser,
+    //       responseLoginToken,
+    //       responseLoginRefreshToken,
+    //     );
+
+    //     getDetails();
+
+    //     if (responseLoginToken.length >= 100) {
+    //       phoneController.clear();
+    //       passwordController.clear();
+
+    //       SnackbarHelper.showSnackBar(
+    //         // ignore: void_checks
+    //         AppStrings.loggedIn,
+    //       );
+    //       await NavigationHelper.pushNamed(
+    //         AppRoutes.home,
+    //       );
+    //     } else {
+    //       SnackbarHelper.showSnackBar(
+    //         // ignore: void_checks
+    //         responseLoginToken,
+    //       );
+    //       debugPrint('API response: $responseBody.');
+    //     }
+    //   } else {
+    //     debugPrint('Request failed with status: ${response.statusCode}.');
+    //   }
+    // } catch (e) {
+    //   debugPrint('Error: $e');
+    // }
+  }
+
+  void initializeControllers() {
+    priceController = TextEditingController()..addListener(controllerListener);
+    marginController = TextEditingController()..addListener(controllerListener);
+    periodController = TextEditingController()..addListener(controllerListener);
+    priceSellingController = TextEditingController()
+      ..addListener(controllerListener);
+  }
+
+  void disposeControllers() {
+    priceController.dispose();
+    marginController.dispose();
+    periodController.dispose();
+    priceSellingController.dispose();
+  }
+
+  void controllerListener() {
+    final price = priceController.text;
+    final margin = marginController.text;
+    final period = periodController.text;
+    final priceSelling = priceSellingController.text;
+
+    if (price.isEmpty &&
+        margin.isEmpty &&
+        period.isEmpty &&
+        priceSelling.isEmpty) {
+      fieldValidNotifier.value = false;
+    } else {
+      fieldValidNotifier.value = true;
+    }
+  }
+
+  @override
+  void initState() {
+    initializeControllers();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    disposeControllers();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -48,7 +168,7 @@ class _FundingSimulationAlQardPageState
                       ),
                     ),
                     const Text(
-                      AppStrings.fundingTitle,
+                      AppStrings.fundingAlQard,
                       style: AppTheme.titleLarge,
                     ),
                     Image.network(
@@ -66,245 +186,70 @@ class _FundingSimulationAlQardPageState
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Card(
-                    color: AppColors.primaryColor,
-                    child: InkWell(
-                      child: Padding(
-                        padding: EdgeInsets.all(screenWidth * 0.02),
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Material(
-                              color: AppColors.darkGreen,
-                              shape: CircleBorder(),
-                              child: Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Image(
-                                  image:
-                                      AssetImage('assets/images/handphone.png'),
-                                  height: 30,
-                                  alignment: Alignment.topCenter,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      AppStrings.fundingAlQard,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    Text(
-                                      AppStrings.fundingAlQardSubtitle,
-                                      overflow: TextOverflow.clip,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Icon(
-                              Icons.chevron_right,
-                              color: Colors.white,
-                            ),
-                          ],
-                        ),
-                      ),
-                      onTap: () {
-                        NavigationHelper.pushNamed(
-                          AppRoutes.home,
-                        );
-                      },
-                    ),
+                  AppTextFormField(
+                    controller: priceController,
+                    labelText: AppStrings.fundingPrice,
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.next,
+                    // onChanged: (_) => _formKey.currentState?.validate(),
+                    // validator: (value) {
+                    //   return value!.isEmpty
+                    //       ? AppStrings.pleaseEnterPhone
+                    //       : AppConstants.phoneRegex.hasMatch(value)
+                    //           ? null
+                    //           : AppStrings.invalidPhone;
+                    // },
                   ),
-                  Card(
-                    color: AppColors.primaryColor,
-                    child: InkWell(
-                      child: Padding(
-                        padding: EdgeInsets.all(screenWidth * 0.02),
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Material(
-                              color: AppColors.darkGreen,
-                              shape: CircleBorder(),
-                              child: Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Image(
-                                  image:
-                                      AssetImage('assets/images/handphone.png'),
-                                  height: 30,
-                                  alignment: Alignment.topCenter,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      AppStrings.fundingSubmission,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    Text(
-                                      AppStrings.fundingSubmissionSubtitle,
-                                      overflow: TextOverflow.clip,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Icon(
-                              Icons.chevron_right,
-                              color: Colors.white,
-                            ),
-                          ],
-                        ),
-                      ),
-                      onTap: () {
-                        NavigationHelper.pushNamed(
-                          AppRoutes.home,
-                        );
-                      },
-                    ),
+                  AppTextFormField(
+                    controller: marginController,
+                    labelText: AppStrings.fundingMargin,
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.next,
+                    // onChanged: (_) => _formKey.currentState?.validate(),
+                    // validator: (value) {
+                    //   return value!.isEmpty
+                    //       ? AppStrings.pleaseEnterPhone
+                    //       : AppConstants.phoneRegex.hasMatch(value)
+                    //           ? null
+                    //           : AppStrings.invalidPhone;
+                    // },
                   ),
-                  Card(
-                    color: AppColors.primaryColor,
-                    child: InkWell(
-                      child: Padding(
-                        padding: EdgeInsets.all(screenWidth * 0.02),
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Material(
-                              color: AppColors.darkGreen,
-                              shape: CircleBorder(),
-                              child: Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Image(
-                                  image:
-                                      AssetImage('assets/images/handphone.png'),
-                                  height: 30,
-                                  alignment: Alignment.topCenter,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      AppStrings.fundingTransaction,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    Text(
-                                      AppStrings.fundingTransactionSubtitle,
-                                      overflow: TextOverflow.clip,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Icon(
-                              Icons.chevron_right,
-                              color: Colors.white,
-                            ),
-                          ],
-                        ),
-                      ),
-                      onTap: () {
-                        NavigationHelper.pushNamed(
-                          AppRoutes.home,
-                        );
-                      },
-                    ),
+                  AppTextFormField(
+                    controller: periodController,
+                    labelText: AppStrings.fundingPeriod,
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.next,
+                    // onChanged: (_) => _formKey.currentState?.validate(),
+                    // validator: (value) {
+                    //   return value!.isEmpty
+                    //       ? AppStrings.pleaseEnterPhone
+                    //       : AppConstants.phoneRegex.hasMatch(value)
+                    //           ? null
+                    //           : AppStrings.invalidPhone;
+                    // },
                   ),
-                  Card(
-                    color: AppColors.primaryColor,
-                    child: InkWell(
-                      child: Padding(
-                        padding: EdgeInsets.all(screenWidth * 0.02),
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Material(
-                              color: AppColors.darkGreen,
-                              shape: CircleBorder(),
-                              child: Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Image(
-                                  image:
-                                      AssetImage('assets/images/handphone.png'),
-                                  height: 30,
-                                  alignment: Alignment.topCenter,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      AppStrings.fundingHistory,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    Text(
-                                      AppStrings.fundingHistorySubtitle,
-                                      overflow: TextOverflow.clip,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Icon(
-                              Icons.chevron_right,
-                              color: Colors.white,
-                            ),
-                          ],
-                        ),
-                      ),
-                      onTap: () {
-                        NavigationHelper.pushNamed(
-                          AppRoutes.home,
-                        );
-                      },
-                    ),
+                  AppTextFormField(
+                    controller: priceSellingController,
+                    labelText: AppStrings.fundingPriceSelling,
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.next,
+                    // onChanged: (_) => _formKey.currentState?.validate(),
+                    // validator: (value) {
+                    //   return value!.isEmpty
+                    //       ? AppStrings.pleaseEnterPhone
+                    //       : AppConstants.phoneRegex.hasMatch(value)
+                    //           ? null
+                    //           : AppStrings.invalidPhone;
+                    // },
+                  ),
+                  ValueListenableBuilder(
+                    valueListenable: fieldValidNotifier,
+                    builder: (_, isValid, __) {
+                      return FilledButton(
+                        onPressed: isValid ? simulateFunding : null,
+                        child: const Text(AppStrings.fundingSimulation),
+                      );
+                    },
                   ),
                 ],
               ),

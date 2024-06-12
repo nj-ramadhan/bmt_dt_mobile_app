@@ -168,7 +168,7 @@ class _FundingSimulationMudharabahPageState
                       ),
                     ),
                     const Text(
-                      AppStrings.fundingTitle,
+                      AppStrings.fundingMudharabah,
                       style: AppTheme.titleLarge,
                     ),
                     Image.network(
