@@ -6,6 +6,8 @@ import 'screens/change_email_screen.dart';
 import 'screens/change_password_screen.dart';
 import 'screens/change_pin_screen.dart';
 import 'screens/checking_screen.dart';
+import 'screens/checking_detail_screen.dart';
+import 'screens/checking_report_screen.dart';
 import 'screens/deposit_screen.dart';
 import 'screens/funding_screen.dart';
 import 'screens/funding_simulation_alqard_screen.dart';
@@ -130,6 +132,12 @@ class Routes {
 
       case AppRoutes.checking:
         return getRoute(widget: const CheckingPage());
+
+      case AppRoutes.checking_detail:
+        return getRoute(widget: const CheckingDetailPage());
+
+      case AppRoutes.checking_report:
+        return getRoute(widget: const CheckingReportPage());
 
       case AppRoutes.shopping:
         return getRoute(widget: const ShoppingPage());

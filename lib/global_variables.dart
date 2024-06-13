@@ -89,6 +89,11 @@ String apiDataMetodeTransfer = "null";
 String apiDataKodeBank = "null";
 String apiDataBank = "null";
 
+String apiDataCheckingTransactionCode = 'null';
+String apiDataCheckingTransactionTitle = 'null';
+String apiDataCheckingTransactionStatus = 'null';
+String apiDataCheckingTransactionAmount = 'null';
+
 void updateLoginVariables(
   String newApiRolePendidikan,
   String newApiRoleKoperasi,
@@ -266,28 +271,39 @@ void updateDetailProducts(
 }
 
 void updateDetailsRek(
-  String newapiDataOwnSirelaId,
-  String newapiDataOwnSirelaAmount,
-  String newapiDataDestinationSirelaId,
-  String newapiDataDestinationSirelaName,
-  String newapiDataSendaAmount,
-  String newapiDataSendaComment,
-  String newapiDataKodeTrx,
-  String newapiDataMetodeTransfer,
+  String newApiDataOwnSirelaId,
+  String newApiDataOwnSirelaAmount,
+  String newApiDataDestinationSirelaId,
+  String newApiDataDestinationSirelaName,
+  String newApiDataSendaAmount,
+  String newApiDataSendaComment,
+  String newApiDataKodeTrx,
+  String newApiDataMetodeTransfer,
 ) {
-  apiDataOwnSirelaId = newapiDataOwnSirelaId;
-  apiDataOwnSirelaAmount = newapiDataOwnSirelaAmount;
-  apiDataDestinationSirelaId = newapiDataDestinationSirelaId;
-  apiDataDestinationSirelaName = newapiDataDestinationSirelaName;
-  apiDataSendaAmount = newapiDataSendaAmount;
-  apiDataSendaComment = newapiDataSendaComment;
-  apiDataKodeTrx = newapiDataKodeTrx;
-  apiDataMetodeTransfer = newapiDataMetodeTransfer;
+  apiDataOwnSirelaId = newApiDataOwnSirelaId;
+  apiDataOwnSirelaAmount = newApiDataOwnSirelaAmount;
+  apiDataDestinationSirelaId = newApiDataDestinationSirelaId;
+  apiDataDestinationSirelaName = newApiDataDestinationSirelaName;
+  apiDataSendaAmount = newApiDataSendaAmount;
+  apiDataSendaComment = newApiDataSendaComment;
+  apiDataKodeTrx = newApiDataKodeTrx;
+  apiDataMetodeTransfer = newApiDataMetodeTransfer;
 }
 
-void updateDifBank(String newapiDataMetodeTransfer, String newapiDataKodeBank,
-    String newapiDataBank) {
-  apiDataMetodeTransfer = newapiDataMetodeTransfer;
-  apiDataKodeBank = newapiDataKodeBank;
-  apiDataBank = newapiDataBank;
+void updateDifBank(String newApiDataMetodeTransfer, String newApiDataKodeBank,
+    String newApiDataBank) {
+  apiDataMetodeTransfer = newApiDataMetodeTransfer;
+  apiDataKodeBank = newApiDataKodeBank;
+  apiDataBank = newApiDataBank;
+}
+
+void updateDetailsChecking(
+    String newApiDataCheckingTransactionCode,
+    String newApiDataCheckingTransactionTitle,
+    String newApiDataCheckingTransactionStatus,
+    String newApiDataCheckingTransactionAmount) {
+  apiDataCheckingTransactionCode = newApiDataCheckingTransactionCode;
+  apiDataCheckingTransactionTitle = newApiDataCheckingTransactionTitle;
+  apiDataCheckingTransactionStatus = newApiDataCheckingTransactionStatus;
+  apiDataCheckingTransactionAmount = newApiDataCheckingTransactionAmount;
 }

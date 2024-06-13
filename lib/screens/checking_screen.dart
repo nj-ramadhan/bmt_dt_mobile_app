@@ -389,15 +389,14 @@ class _CheckingPageState extends State<CheckingPage> with RestorationMixin {
                                 ),
                               ),
                               onTap: () {
-                                // apiDataProductName =
-                                //     dataProduct[i]?['nama_produk'] ?? '';
-                                // apiDataProductPrice =
-                                //     dataProduct[i]?['harga_jual_agen'] ?? '';
-                                // apiDataProductCode =
-                                //     dataProduct[i]?['kode_dku'] ?? '';
-                                // NavigationHelper.pushNamed(
-                                //   AppRoutes.shopping_confirm,
-                                // );
+                                updateDetailsChecking(
+                                    dataTransaction[i]?['trx_code'] ?? '',
+                                    dataTransaction[i]?['trx_title'] ?? '',
+                                    dataTransaction[i]?['status'] ?? '',
+                                    dataTransaction[i]?['status'] ?? '');
+                                NavigationHelper.pushNamed(
+                                  AppRoutes.checking_detail,
+                                );
                               },
                             ),
                           ),
