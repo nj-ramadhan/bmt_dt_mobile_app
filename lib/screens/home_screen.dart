@@ -47,7 +47,8 @@ class _HomePageState extends State<HomePage> {
             apiDataSendaAmount,
             apiDataSendaComment,
             apiDataKodeTrx,
-            apiDataMetodeTransfer);
+            apiDataMetodeTransfer,
+            apiDataAdminAmount);
         return entry.value['number'];
       }
     }

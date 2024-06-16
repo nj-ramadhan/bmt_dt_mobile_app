@@ -22,6 +22,12 @@ class _TransactionDetailDifBankPageState
   final Color backgroundColor = Color(
       0xFFD5F5E3); // Adjust this color to match the exact color from the image.
   bool _isLoading = false; // Add this line
+  String Total  = 'Null';
+void initState() {
+    super.initState();
+    int total = int.parse(apiDataAdminAmount) + int.parse(apiDataSendaAmount);
+    Total = total.toString();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +81,7 @@ class _TransactionDetailDifBankPageState
                       icon: Icons.credit_card,
                       title: 'Rekening Sumber',
                       accountNumber: '$apiDataOwnSirelaId',
-                      balance: 'Rp $apiDataSendaAmount',
+                      balance: 'Rp $apiDataOwnSirelaAmount',
                     ),
                     SizedBox(height: 16),
                     TransferDetailCard(
@@ -138,6 +144,7 @@ class _TransactionDetailDifBankPageState
                                           apiDataSendaComment,
                                           statusTransfer['kd_trx'].toString(),
                                           apiDataMetodeTransfer,
+                                          apiDataAdminAmount
                                         );
                                         NavigationHelper.pushNamed(
                                           AppRoutes.transaction_sucess,
@@ -235,8 +242,8 @@ class TransferInfoCard extends StatelessWidget {
             TransferInfoRow(label: 'Berita', value: '$apiDataSendaComment'),
             TransferInfoRow(label: 'Tanggal Transfer', value: 'Sekarang'),
             Divider(color: Colors.white),
-            TransferInfoRow(label: 'Biaya Admin', value: 'Rp 0'),
-            TransferInfoRow(label: 'Total', value: 'Rp $apiDataSendaAmount'),
+            TransferInfoRow(label: 'Biaya Admin', value: 'Rp $apiDataAdminAmount'),
+            TransferInfoRow(label: 'Total', value: 'Rp ${(int.parse(apiDataSendaAmount) + int.parse(apiDataAdminAmount)).toString()}'),
           ],
         ),
       ),

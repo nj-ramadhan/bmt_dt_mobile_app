@@ -286,7 +286,8 @@ Widget build(BuildContext context) {
                           apiDataSendaAmount,
                           apiDataSendaComment,
                           apiDataKodeTrx,
-                          apiDataMetodeTransfer
+                          apiDataMetodeTransfer,
+                          apiDataAdminAmount
                         );
                         NavigationHelper.pushReplacementNamed(
                           AppRoutes.input_amount,

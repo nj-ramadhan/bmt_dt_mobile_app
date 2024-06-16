@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../global_variables.dart';
 import '../utils/common_widgets/gradient_background.dart';
-import '../utils/helpers/api_helper.dart';
 import '../utils/helpers/navigation_helper.dart';
 import '../values/app_colors.dart';
 import '../values/app_routes.dart';

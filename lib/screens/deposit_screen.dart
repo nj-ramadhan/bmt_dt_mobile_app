@@ -50,7 +50,8 @@ class _DepositPageState extends State<DepositPage> {
             apiDataSendaAmount,
             apiDataSendaComment,
             apiDataKodeTrx,
-            apiDataMetodeTransfer);
+            apiDataMetodeTransfer,
+            apiDataAdminAmount);
         return entry.value['number'];
       }
     }

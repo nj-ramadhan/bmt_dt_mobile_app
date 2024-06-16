@@ -114,6 +114,7 @@ class _InputAccountPageState extends State<InputAccountPage> {
                               apiDataSendaComment,
                               apiDataKodeTrx,
                               apiDataMetodeTransfer,
+                              apiDataAdminAmount,
                             );
                             NavigationHelper.pushNamed(
                               AppRoutes.input_amount,

@@ -232,7 +232,8 @@ class _InputAmountPageState extends State<InputAmountPage> {
                             _amountController.text,
                             _commentController.text,
                             apiDataKodeTrx,
-                            apiDataMetodeTransfer);
+                            apiDataMetodeTransfer,
+                            apiDataAdminAmount);
                         NavigationHelper.pushNamed(
                           AppRoutes.transaction_detail,
                         );

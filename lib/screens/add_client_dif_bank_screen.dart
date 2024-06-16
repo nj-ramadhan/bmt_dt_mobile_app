@@ -345,11 +345,12 @@ class _AddClientDifBankPageState extends State<AddClientDifBankPage> {
                           apiDataSendaAmount,
                           apiDataSendaComment,
                           apiDataKodeTrx,
-                          apiDataMetodeTransfer
+                          apiDataMetodeTransfer,
+                          apiDataAdminAmount
                         );
-                        NavigationHelper.pushReplacementNamed(
-                          AppRoutes.input_amount,
-                        );
+                        NavigationHelper.pushNamed(
+                            AppRoutes.input_amount_dif_bank,
+                          );
 
                         }, // Add your onTap functionality here
                         child: Padding(

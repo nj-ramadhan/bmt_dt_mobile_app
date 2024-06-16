@@ -81,7 +81,7 @@ class _TransferSuccessPageState extends State<TransferSuccessPage> {
                             Text('Rekening Sumber:',
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                             Text("Id pengirim $apiDataOwnSirelaId"),
-                            Text("Nama Penerima $apiDataUserNamaLengkap"),
+                            Text("Nama Pengirim $apiDataUserNamaLengkap"),
                             SizedBox(height: 8),
                             Text('Rekening Tujuan:',
                                 style: TextStyle(fontWeight: FontWeight.bold)),

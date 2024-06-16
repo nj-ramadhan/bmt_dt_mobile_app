@@ -82,6 +82,7 @@ String apiDataDestinationSirelaId = 'null';
 String apiDataDestinationSirelaName = 'null';
 String apiDataSendaAmount = "null";
 String apiDataSendaComment = "null";
+String apiDataAdminAmount = "null";
 
 String apiDataKodeTrx = "null";
 
@@ -279,6 +280,7 @@ void updateDetailsRek(
   String newApiDataSendaComment,
   String newApiDataKodeTrx,
   String newApiDataMetodeTransfer,
+  String newApiDataAdminAmount,
 ) {
   apiDataOwnSirelaId = newApiDataOwnSirelaId;
   apiDataOwnSirelaAmount = newApiDataOwnSirelaAmount;
@@ -288,6 +290,7 @@ void updateDetailsRek(
   apiDataSendaComment = newApiDataSendaComment;
   apiDataKodeTrx = newApiDataKodeTrx;
   apiDataMetodeTransfer = newApiDataMetodeTransfer;
+  apiDataAdminAmount = newApiDataAdminAmount;
 }
 
 void updateDifBank(String newApiDataMetodeTransfer, String newApiDataKodeBank,

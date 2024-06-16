@@ -153,7 +153,8 @@ class _InputAccountDifBankPageState extends State<InputAccountDifBankPage> {
                               apiDataSendaAmount,
                               apiDataSendaComment,
                               apiDataKodeTrx,
-                              apiDataMetodeTransfer);
+                              apiDataMetodeTransfer,
+                              apiDataAdminAmount);
                           updateDifBank(
                               apiDataMetodeTransfer,
                               valueDownBank.toString(),

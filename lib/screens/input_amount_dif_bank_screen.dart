@@ -149,7 +149,7 @@ class _InputAmountDifBankPageState extends State<InputAmountDifBankPage> {
                                 Container(
                                   width: screenWidth * 0.7,
                                   child: Text(
-                                    apiDataDestinationSirelaName,
+                                    "$apiDataDestinationSirelaName",
                                     style: TextStyle(color: Colors.white),
                                     maxLines: 2,
                                   ),
@@ -240,7 +240,8 @@ class _InputAmountDifBankPageState extends State<InputAmountDifBankPage> {
                             _amountController.text,
                             _commentController.text,
                             apiDataKodeTrx,
-                            apiDataMetodeTransfer);
+                            apiDataMetodeTransfer,
+                            apiDataAdminAmount);
                         NavigationHelper.pushNamed(
                           AppRoutes.transaction_detail_dif_Bank,
                         );

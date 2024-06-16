@@ -132,7 +132,8 @@ class _TransactionDetailPageState extends State<TransactionDetailPage> {
                                       apiDataSendaAmount,
                                       apiDataSendaComment,
                                       statusTransfer['kd_trx'].toString(),
-                                      apiDataMetodeTransfer);
+                                      apiDataMetodeTransfer,
+                                      apiDataAdminAmount);
                                   NavigationHelper.pushNamed(
                                     AppRoutes.transaction_sucess,
                                   );
@@ -227,8 +228,8 @@ class TransferInfoCard extends StatelessWidget {
             TransferInfoRow(label: 'Berita', value: '$apiDataSendaComment'),
             TransferInfoRow(label: 'Tanggal Transfer', value: 'Sekarang'),
             Divider(color: Colors.white),
-            TransferInfoRow(label: 'Biaya Admin', value: 'Rp 0'),
-            TransferInfoRow(label: 'Total', value: 'Rp $apiDataSendaAmount'),
+            TransferInfoRow(label: 'Biaya Admin', value: 'Rp $apiDataAdminAmount'),
+            TransferInfoRow(label: 'Total', value: 'Rp ${(int.parse(apiDataSendaAmount) + int.parse(apiDataAdminAmount)).toString()}'),
           ],
         ),
       ),
