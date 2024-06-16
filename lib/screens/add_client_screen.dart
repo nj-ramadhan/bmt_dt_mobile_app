@@ -208,226 +208,189 @@ class _AddClientPageState extends State<AddClientPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
-    return Container(
-      constraints: const BoxConstraints.expand(),
+Widget build(BuildContext context) {
+  final screenWidth = MediaQuery.of(context).size.width;
+  final screenHeight = MediaQuery.of(context).size.height;
+  return Scaffold(
+    body: Container(
       decoration: const BoxDecoration(
         color: AppColors.lightGreen,
-        // image: DecorationImage(
-        //     image: AssetImage('assets/images/background2.jpg'),
-        //     fit: BoxFit.cover),
       ),
-      child: Scaffold(
-        body: ListView(
-          padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
-          children: [
-            GradientBackground(
-              colors: const [Colors.transparent, Colors.transparent],
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      onPressed: () => NavigationHelper.pushNamed(
-                        AppRoutes.transfer,
-                      ),
-                    ),
-                    const Text(
-                      AppStrings.transferToOtherClient,
-                      style: AppTheme.titleLarge,
-                    ),
-                    Image.network(
-                      apiDataAppLogoBar,
-                      width: screenWidth * 0.25,
-                      fit: BoxFit.cover,
-                      alignment: Alignment.topCenter,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
+      child: ListView(
+        padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
+        children: [
+          GradientBackground(
+            colors: const [Colors.transparent, Colors.transparent],
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: TextField(
-                      controller: _searchController,
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.search),
-                        hintText: 'Cari...',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                      ),
-                      style: TextStyle(color: Colors.black),
-                      onChanged: _searchAccounts,
-                    ),
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    onPressed: () => NavigationHelper.pushNamed(AppRoutes.transfer),
                   ),
-                  SizedBox(width: 8.0),
-                  TextButton(
-                    onPressed: () => _showAddDialog(context),
-                    child:
-                        Text('Tambah', style: TextStyle(color: Colors.black)),
+                  const Text(
+                    AppStrings.transferToOtherClient,
+                    style: AppTheme.titleLarge,
+                  ),
+                  Image.network(
+                    apiDataAppLogoBar,
+                    width: screenWidth * 0.25,
+                    fit: BoxFit.cover,
+                    alignment: Alignment.topCenter,
                   ),
                 ],
               ),
-            ),
-            Column(
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
               children: [
-                // dataProvider.keys.map((i) {
-                for (var i = 1; i <= _accounts.length; i++)
-                  // debugPrint('response: $dataProvider');
-                  Card(
-                    color: AppColors.lightGreen,
-                    child: InkWell(
-                      child: Padding(
-                        padding: EdgeInsets.all(screenWidth * 0.02),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              children: [
-                                Text(
-                                  _accounts[0]['account_holder'],
-                                  style: AppTheme.bodySmall,
-                                ),
-                                Container(
-                                  width: screenWidth * 0.7,
-                                  child: Text(
-                                    _accounts[i]['account_number'] ?? '',
-                                    style: AppTheme.bodyTiny,
-                                    textAlign: TextAlign.center,
-                                    maxLines: 3,
-                                  ),
-                                ),
-                                Text(_accounts[i]['account_alias'] ?? '',
-                                    style: AppTheme.bodyMedium),
-                              ],
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                IconButton(
-                                  icon: Icon(Icons.edit),
-                                  onPressed: () =>
-                                      _showEditDialog(context, _accounts[i]),
-                                ),
-                                IconButton(
-                                  icon: Icon(Icons.delete),
-                                  onPressed: () => _showDeleteDialog(
-                                      context, _accounts[i]['account_number']),
-                                ),
-                              ],
-                            ),
-                            const Icon(
-                              Icons.chevron_right,
-                              color: Colors.green,
-                            ),
-                          ],
-                        ),
+                Expanded(
+                  child: TextField(
+                    controller: _searchController,
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.search),
+                      hintText: 'Cari...',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
-                      onTap: () {
-                        updateDetailsRek(
-                          apiDataOwnSirelaId,
-                          apiDataSendaAmount,
-                          _accounts[i]['account_number'],
-                          _accounts[i]['account_holder'],
-                          _accounts[i]['account_holder'],
-                          apiDataSendaComment,
-                          apiDataKodeTrx,
-                          apiDataMetodeTransfer,
-                        );
-                        // apiDataProductName =
-                        //     dataProduct[i]?['nama_produk'] ?? '';
-                        // apiDataProductPrice =
-                        //     dataProduct[i]?['harga_jual_agen'] ?? '';
-                        // apiDataProductCode =
-                        //     dataProduct[i]?['kode_dku'] ?? '';
-                        // NavigationHelper.pushNamed(
-                        //   AppRoutes.shopping_confirm,
-                        // );
-                      },
                     ),
-                  ),
-              ],
-            ),
-            // Container(
-            //   width: screenWidth * 0.7,
-            //   child: ListView.builder(
-            //     itemCount: _accounts.length,
-            //     itemBuilder: (context, index) {
-            //       final account = _accounts[index];
-            //       return ListTile(
-            //         leading: CircleAvatar(
-            //           child: Text(account['account_holder'][0]),
-            //         ),
-            //         title: Text(account['account_holder']),
-            //         subtitle: Text(
-            //             '${account['account_number']} (${account['account_alias']})'),
-            //         onTap: () {
-            //           updateDetailsRek(
-            //             apiDataOwnSirelaId,
-            //             apiDataSendaAmount,
-            //             account['account_number'],
-            //             account['account_holder'],
-            //             account['account_holder'],
-            //             apiDataSendaComment,
-            //             apiDataKodeTrx,
-            //             apiDataMetodeTransfer,
-            //           );
-            //           NavigationHelper.pushNamed(
-            //             AppRoutes.input_amount,
-            //           );
-            //         },
-            //         trailing: Row(
-            //           mainAxisSize: MainAxisSize.min,
-            //           children: [
-            //             IconButton(
-            //               icon: Icon(Icons.edit),
-            //               onPressed: () => _showEditDialog(context, account),
-            //             ),
-            //             IconButton(
-            //               icon: Icon(Icons.delete),
-            //               onPressed: () => _showDeleteDialog(
-            //                   context, account['account_number']),
-            //             ),
-            //           ],
-            //         ),
-            //       );
-            //     },
-            //   ),
-            // ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  NavigationHelper.pushNamed(
-                    AppRoutes.input_account,
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor:
-                      Colors.green, // Reference color from second image
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    style: TextStyle(color: Colors.black),
+                    onChanged: _searchAccounts,
                   ),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 64.0),
-                  child: Text(
-                    'Transfer Baru',
-                    style: TextStyle(color: Colors.white),
-                  ),
+                SizedBox(width: 8.0),
+                TextButton(
+                  onPressed: () => _showAddDialog(context),
+                  child: Text('Tambah', style: TextStyle(color: Colors.black)),
+                ),
+              ],
+            ),
+          ),
+          // Add a condition to check if the data is loaded
+          _accounts.isEmpty
+              ? Center()
+              : Column(
+                  children: _accounts.map((account) {
+                    return Card(
+                      color: AppColors.lightGreen,
+                      child: InkWell(
+                        onTap: () {
+                            updateDetailsRek(
+                          apiDataOwnSirelaId,
+                          apiDataOwnSirelaAmount,
+                          account['account_number'],
+                          account['account_holder'],
+                          // account['account_alias'],
+                          apiDataSendaAmount,
+                          apiDataSendaComment,
+                          apiDataKodeTrx,
+                          apiDataMetodeTransfer
+                        );
+                        NavigationHelper.pushReplacementNamed(
+                          AppRoutes.input_amount,
+                        );
+
+                        }, // Add your onTap functionality here
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Table(
+                                  columnWidths: {
+                                    0: IntrinsicColumnWidth(),
+                                    1: FixedColumnWidth(10),
+                                    2: FlexColumnWidth(),
+                                  },
+                                  children: [
+                                    _buildTableRow("Nama", account['account_holder']),
+                                    _buildTableRow("No. rek", account['account_number']),
+                                    _buildTableRow("Alias", account['account_alias']),
+                                  ],
+                                ),
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  IconButton(
+                                    icon: Icon(Icons.edit, color: Colors.blue),
+                                    onPressed: () {
+                                      _showEditDialog(context, account);// Add your edit functionality here
+                                    },
+                                  ),
+                                  IconButton(
+                                    icon: Icon(Icons.delete, color: Colors.red),
+                                    onPressed: () {
+                                      _showDeleteDialog(context, account['account_number']);// Add your delete functionality here
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ElevatedButton(
+              onPressed: () {
+                NavigationHelper.pushNamed(AppRoutes.input_account);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 64.0),
+                child: Text(
+                  'Transfer Baru',
+                  style: TextStyle(color: Colors.white),
                 ),
               ),
             ),
-          ],
+          ),
+        ],
+      ),
+    ),
+  );
+}
+  
+}
+
+
+TableRow _buildTableRow(String label, String value) {
+  return TableRow(
+    children: [
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4.0),
+        child: Text(
+          label,
+          style: TextStyle(fontSize: 16),
         ),
       ),
-    );
-  }
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4.0),
+        child: Text(
+          ":",
+          style: TextStyle(fontSize: 16),
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4.0),
+        child: Text(
+          value,
+          style: TextStyle(fontSize: 16),
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
+    ],
+  );
 }

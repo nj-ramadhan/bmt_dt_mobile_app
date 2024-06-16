@@ -72,7 +72,7 @@ class _TransactionDetailPageState extends State<TransactionDetailPage> {
                       icon: Icons.credit_card,
                       title: 'Rekening Sumber',
                       accountNumber: '$apiDataOwnSirelaId',
-                      balance: 'Rp $apiDataSendaAmount',
+                      balance: 'Rp $apiDataOwnSirelaAmount',
                     ),
                     SizedBox(height: 16),
                     TransferDetailCard(

@@ -157,7 +157,7 @@ class _TransferMetodePageState extends State<TransferMetodePage> {
                           "TO",
                         );
                         NavigationHelper.pushNamed(
-                          AppRoutes.add_client,
+                          AppRoutes.add_client_dif_bank,
                         );
                       },
                     ),

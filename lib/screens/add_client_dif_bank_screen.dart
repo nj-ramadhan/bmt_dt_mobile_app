@@ -230,7 +230,7 @@ class _AddClientDifBankPageState extends State<AddClientDifBankPage> {
                   },
                 ),
               ),
-              enabled: (valueDownBank != null),
+              enabled: (valueDownCodeBank != null),
             ),
             TextField(
               controller: _accountHolderController,

@@ -258,13 +258,13 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ],
                               ),
-                              const Text(
-                                AppStrings.homeAccountSubtitle,
-                                style: AppTheme.bodyTiny,
-                              ),
-                              SizedBox(
-                                height: screenHeight * 0.01,
-                              ),
+                              // const Text(
+                              //   AppStrings.homeAccountSubtitle,
+                              //   style: AppTheme.bodyTiny,
+                              // ),
+                              // SizedBox(
+                              //   height: screenHeight * 0.01,
+                              // ),
                               ColoredBox(
                                 color: Colors.white,
                                 child: Padding(
