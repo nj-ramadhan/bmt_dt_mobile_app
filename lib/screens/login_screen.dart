@@ -1,15 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
 
-// import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../components/app_text_form_field.dart';
 import '../global_variables.dart';
 import '../resources/resources.dart';
-// import '../screens/camera_id_screen.dart';
 import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/api_helper.dart';
 import '../utils/helpers/navigation_helper.dart';
@@ -127,6 +126,10 @@ class _LoginPageState extends State<LoginPage> {
         getDetails();
 
         if (responseLoginToken.length >= 100) {
+          // Simpan data login
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString('phone', phoneController.text);
+
           phoneController.clear();
           passwordController.clear();
 
@@ -170,7 +173,6 @@ class _LoginPageState extends State<LoginPage> {
       final responseBody = json.decode(response.body);
       print(responseBody);
       if (response.statusCode == 200) {
-        // final responseBody = json.decode(response.body);
         responseDetailsUserNik =
             responseBody['data_user_details']['nik'].toString();
         responseDetailsUserNamaLengkap =
@@ -181,10 +183,6 @@ class _LoginPageState extends State<LoginPage> {
             responseBody['data_user_details']['jenis_kelamin'].toString();
         responseDetailsUserTempatLahir =
             responseBody['data_user_details']['tempat_lahir'].toString();
-
-        // debugPrint('response details:$responseBody');
-        // debugPrint(
-        //     'response details user nama: $responseDetailsUserNamaLengkap');
 
         responseDetailsAccountNoUser =
             responseBody['data_account_details']['no_user'].toString();
@@ -253,10 +251,26 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  Future<void> loadLoginData() async {
+    final prefs = await SharedPreferences.getInstance();
+    phoneController.text = prefs.getString('phone') ?? '';
+    // Kata sandi sebaiknya tidak diisi ulang untuk alasan keamanan
+    passwordController.text = ''; 
+  }
+
+  Future<void> logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('phone'); // Jika Anda ingin menghapus nomor telepon
+    // await prefs.clear(); // Jika Anda ingin menghapus semua data
+    // Pastikan `phone` tidak dihapus jika ingin tetap mengisi input dengan nomor telepon setelah logout
+    Navigator.pushReplacementNamed(context, AppRoutes.login);
+  }
+
   @override
   void initState() {
     fetchData();
     initializeControllers();
+    loadLoginData();
     super.initState();
   }
 

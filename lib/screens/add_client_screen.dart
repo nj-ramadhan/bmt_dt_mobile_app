@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
+import '../components/app_table_items.dart';
 import '../global_variables.dart';
 import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/api_helper.dart';
@@ -306,9 +305,9 @@ Widget build(BuildContext context) {
                                     2: FlexColumnWidth(),
                                   },
                                   children: [
-                                    _buildTableRow("Nama", account['account_holder']),
-                                    _buildTableRow("No. rek", account['account_number']),
-                                    _buildTableRow("Alias", account['account_alias']),
+                                    CustomTableRow.build("Nama", account['account_holder']),
+                                    CustomTableRow.build("No. rek", account['account_number']),
+                                    CustomTableRow.build("Alias", account['account_alias']),
                                   ],
                                 ),
                               ),
@@ -366,31 +365,3 @@ Widget build(BuildContext context) {
 }
 
 
-TableRow _buildTableRow(String label, String value) {
-  return TableRow(
-    children: [
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4.0),
-        child: Text(
-          label,
-          style: TextStyle(fontSize: 16),
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4.0),
-        child: Text(
-          ":",
-          style: TextStyle(fontSize: 16),
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4.0),
-        child: Text(
-          value,
-          style: TextStyle(fontSize: 16),
-          overflow: TextOverflow.ellipsis,
-        ),
-      ),
-    ],
-  );
-}

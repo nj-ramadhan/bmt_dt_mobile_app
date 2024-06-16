@@ -21,6 +21,7 @@ class _TransactionDetailDifBankPageState
     extends State<TransactionDetailDifBankPage> {
   final Color backgroundColor = Color(
       0xFFD5F5E3); // Adjust this color to match the exact color from the image.
+  bool _isLoading = false; // Add this line
 
   @override
   Widget build(BuildContext context) {
@@ -86,14 +87,32 @@ class _TransactionDetailDifBankPageState
                     SizedBox(height: 16),
                     TransferInfoCard(),
                     ConfirmationButton(
-                      onConfirm: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return MPinPopup(
-                              onPinSubmitted: (String pin) async {
-                                Map<String, dynamic> statusTransfer =
-                                    await ApiHelper.getTransferDifBank(
+                      onConfirm: _isLoading
+                          ? null
+                          : () {
+                              setState(() {
+                                _isLoading = true; // Set loading to true when button is pressed
+                              });
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return MPinPopup(
+                                    onPinSubmitted: (String pin) async {
+                                      setState(() {
+                                        _isLoading =
+                                            false; // Set loading to false after API call
+                                      });
+                                      showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (BuildContext context) {
+                                        return const Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      },
+                                    );
+                                      Map<String, dynamic> statusTransfer =
+                                          await ApiHelper.getTransferDifBank(
                                         apiLoginToken,
                                         apiDataOwnSirelaId,
                                         apiDataSendaAmount,
@@ -102,32 +121,43 @@ class _TransactionDetailDifBankPageState
                                         apiDataDestinationSirelaId,
                                         apiDataKodeBank,
                                         apiDataMetodeTransfer,
-                                        apiDataDestinationSirelaName);
-                                if (statusTransfer['status_trx'].toString() ==
-                                    'BERHASIL DIKIRIM') {
-                                  //menuju halaman
-                                  updateDetailsRek(
-                                      apiDataOwnSirelaId,
-                                      apiDataOwnSirelaAmount,
-                                      apiDataDestinationSirelaId,
-                                      apiDataDestinationSirelaName,
-                                      apiDataSendaAmount,
-                                      apiDataSendaComment,
-                                      statusTransfer['kd_trx'].toString(),
-                                      apiDataMetodeTransfer);
-                                  NavigationHelper.pushNamed(
-                                    AppRoutes.transaction_sucess,
+                                        apiDataDestinationSirelaName,
+                                      );
+                                      Navigator.of(context).pop(); // Close loading indicator
+
+                                      if (statusTransfer['status_trx']
+                                              .toString() ==
+                                          'BERHASIL DIKIRIM') {
+                                        //menuju halaman
+                                        updateDetailsRek(
+                                          apiDataOwnSirelaId,
+                                          apiDataOwnSirelaAmount,
+                                          apiDataDestinationSirelaId,
+                                          apiDataDestinationSirelaName,
+                                          apiDataSendaAmount,
+                                          apiDataSendaComment,
+                                          statusTransfer['kd_trx'].toString(),
+                                          apiDataMetodeTransfer,
+                                        );
+                                        NavigationHelper.pushNamed(
+                                          AppRoutes.transaction_sucess,
+                                        );
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                              content: Text('Incorrect PIN')),
+                                        );
+                                      }
+                                    setState(() {
+                                        _isLoading =
+                                            true; // Set loading to false after API call
+                                      });
+                                    },
                                   );
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text('Incorrect PIN')),
-                                  );
-                                }
-                              },
-                            );
-                          },
-                        );
-                      },
+                                },
+                              );
+                            },
                     ),
                   ],
                 ),
@@ -236,7 +266,7 @@ class TransferInfoRow extends StatelessWidget {
 }
 
 class ConfirmationButton extends StatelessWidget {
-  final VoidCallback onConfirm;
+  final VoidCallback? onConfirm;
 
   ConfirmationButton({required this.onConfirm});
 

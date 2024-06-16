@@ -19,7 +19,8 @@ class TransactionDetailPage extends StatefulWidget {
 class _TransactionDetailPageState extends State<TransactionDetailPage> {
   final Color backgroundColor = Color(
       0xFFD5F5E3); // Adjust this color to match the exact color from the image.
-
+   bool _isLoading = false;
+   
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -72,7 +73,7 @@ class _TransactionDetailPageState extends State<TransactionDetailPage> {
                       icon: Icons.credit_card,
                       title: 'Rekening Sumber',
                       accountNumber: '$apiDataOwnSirelaId',
-                      balance: 'Rp $apiDataOwnSirelaAmount',
+                      balance: 'Rp $apiDataSendaAmount',
                     ),
                     SizedBox(height: 16),
                     TransferDetailCard(
@@ -84,12 +85,31 @@ class _TransactionDetailPageState extends State<TransactionDetailPage> {
                     SizedBox(height: 16),
                     TransferInfoCard(),
                     ConfirmationButton(
-                      onConfirm: () {
+                       onConfirm: _isLoading
+                          ? null
+                          : () {
+                            setState(() {
+                                _isLoading = true; // Set loading to true when button is pressed
+                              });
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
                             return MPinPopup(
                               onPinSubmitted: (String pin) async {
+                                
+                               setState(() {
+                                        _isLoading =
+                                            false; // Set loading to false after API call
+                                      });
+                              showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (BuildContext context) {
+                                        return const Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      },
+                                    );
                                 Map<String, dynamic> statusTransfer =
                                     await ApiHelper.getTransferSirela(
                                         apiLoginToken,
@@ -98,6 +118,9 @@ class _TransactionDetailPageState extends State<TransactionDetailPage> {
                                         apiDataSendaComment,
                                         pin,
                                         apiDataDestinationSirelaId);
+
+                                        Navigator.of(context).pop(); // Close loading indicator
+
                                 if (statusTransfer['status_trx'].toString() ==
                                     'BERHASIL DIKIRIM') {
                                   //menuju halaman
@@ -118,6 +141,10 @@ class _TransactionDetailPageState extends State<TransactionDetailPage> {
                                     SnackBar(content: Text('Incorrect PIN')),
                                   );
                                 }
+                                setState(() {
+                                        _isLoading =
+                                            true; // Set loading to false after API call
+                                      });
                               },
                             );
                           },
@@ -231,7 +258,7 @@ class TransferInfoRow extends StatelessWidget {
 }
 
 class ConfirmationButton extends StatelessWidget {
-  final VoidCallback onConfirm;
+  final VoidCallback? onConfirm;
 
   ConfirmationButton({required this.onConfirm});
 
