@@ -8,6 +8,7 @@ import '../values/app_colors.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
 import 'camera_id_preview_screen.dart';
+import '../components/base_layout.dart';
 
 class CameraIDPage extends StatefulWidget {
   const CameraIDPage({required this.cameras, super.key});
@@ -76,90 +77,92 @@ class _CameraIDPageState extends State<CameraIDPage> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    return Container(
-      constraints: const BoxConstraints.expand(),
-      decoration: const BoxDecoration(
-        color: AppColors.lightGreen,
-        // image: DecorationImage(
-        //   image: AssetImage('assets/images/background1.jpg'),
-        //   fit: BoxFit.contain,
-        // ),
-      ),
-      child: Scaffold(
-        body: ListView(
-          padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
-          children: [
-            GradientBackground(
-              colors: const [Colors.transparent, Colors.transparent],
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      AppStrings.cameraIDTitle,
-                      style: AppTheme.titleLarge,
-                    ),
-                    Image.network(
-                      apiDataAppLogoBar,
-                      width: screenWidth * 0.25,
-                      fit: BoxFit.cover,
-                      alignment: Alignment.topCenter,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            Stack(
-              children: [
-                Column(
-                  children: [
-                    if (_cameraController.value.isInitialized)
-                      CameraPreview(_cameraController)
-                    else
-                      Container(
-                          color: Colors.black,
-                          child:
-                              const Center(child: CircularProgressIndicator())),
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.06,
-                      decoration: const BoxDecoration(color: Colors.green),
-                      child: Row(
-                        children: [
-                          Expanded(
-                              child: IconButton(
-                            padding: EdgeInsets.zero,
-                            iconSize: 30,
-                            icon: Icon(
-                                _isRearCameraSelected
-                                    ? CupertinoIcons.switch_camera
-                                    : CupertinoIcons.switch_camera_solid,
-                                color: Colors.white),
-                            onPressed: () {
-                              setState(() => _isRearCameraSelected =
-                                  !_isRearCameraSelected);
-                              initCamera(widget
-                                  .cameras![_isRearCameraSelected ? 0 : 1]);
-                            },
-                          )),
-                          Expanded(
-                              child: IconButton(
-                            onPressed: takePicture,
-                            iconSize: 50,
-                            padding: EdgeInsets.zero,
-                            constraints: const BoxConstraints(),
-                            icon: const Icon(Icons.circle, color: Colors.white),
-                          )),
-                          const Spacer(),
-                        ],
+    return BaseLayout(
+      child: Container(
+        constraints: const BoxConstraints.expand(),
+        decoration: const BoxDecoration(
+          color: AppColors.lightGreen,
+          // image: DecorationImage(
+          //   image: AssetImage('assets/images/background1.jpg'),
+          //   fit: BoxFit.contain,
+          // ),
+        ),
+        child: Scaffold(
+          body: ListView(
+            padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
+            children: [
+              GradientBackground(
+                colors: const [Colors.transparent, Colors.transparent],
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        AppStrings.cameraIDTitle,
+                        style: AppTheme.titleLarge,
                       ),
-                    ),
-                  ],
-                ),
-                const Image(image: AssetImage('assets/images/id_mask.png')),
-              ],
-            )
-          ],
+                      Image.network(
+                        apiDataAppLogoBar,
+                        width: screenWidth * 0.25,
+                        fit: BoxFit.cover,
+                        alignment: Alignment.topCenter,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Stack(
+                children: [
+                  Column(
+                    children: [
+                      if (_cameraController.value.isInitialized)
+                        CameraPreview(_cameraController)
+                      else
+                        Container(
+                            color: Colors.black,
+                            child:
+                                const Center(child: CircularProgressIndicator())),
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.06,
+                        decoration: const BoxDecoration(color: Colors.green),
+                        child: Row(
+                          children: [
+                            Expanded(
+                                child: IconButton(
+                              padding: EdgeInsets.zero,
+                              iconSize: 30,
+                              icon: Icon(
+                                  _isRearCameraSelected
+                                      ? CupertinoIcons.switch_camera
+                                      : CupertinoIcons.switch_camera_solid,
+                                  color: Colors.white),
+                              onPressed: () {
+                                setState(() => _isRearCameraSelected =
+                                    !_isRearCameraSelected);
+                                initCamera(widget
+                                    .cameras![_isRearCameraSelected ? 0 : 1]);
+                              },
+                            )),
+                            Expanded(
+                                child: IconButton(
+                              onPressed: takePicture,
+                              iconSize: 50,
+                              padding: EdgeInsets.zero,
+                              constraints: const BoxConstraints(),
+                              icon: const Icon(Icons.circle, color: Colors.white),
+                            )),
+                            const Spacer(),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Image(image: AssetImage('assets/images/id_mask.png')),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

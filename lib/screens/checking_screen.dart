@@ -9,6 +9,7 @@ import '../values/app_colors.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
+import '../components/base_layout.dart';
 
 class CheckingPage extends StatefulWidget {
   const CheckingPage({super.key, this.restorationId});
@@ -203,208 +204,210 @@ class _CheckingPageState extends State<CheckingPage> with RestorationMixin {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    return Container(
-      constraints: const BoxConstraints.expand(),
-      decoration: const BoxDecoration(
-        color: AppColors.lightGreen,
-        // image: DecorationImage(
-        //     image: AssetImage('assets/images/background1.jpg'),
-        //     fit: BoxFit.cover),
-      ),
-      child: Scaffold(
-        body: ListView(
-          padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
-          children: [
-            GradientBackground(
-              colors: const [Colors.transparent, Colors.transparent],
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      onPressed: () => NavigationHelper.pushNamed(
-                        AppRoutes.home,
-                      ),
-                    ),
-                    const Text(
-                      AppStrings.checkingTitle,
-                      style: AppTheme.titleLarge,
-                    ),
-                    Image.network(
-                      apiDataAppLogoBar,
-                      width: screenWidth * 0.25,
-                      fit: BoxFit.cover,
-                      alignment: Alignment.topCenter,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Card(
-                      color: AppColors.lightGreen,
-                      child: SizedBox(
-                        height: 220,
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.all(screenWidth * 0.02),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Expanded(
-                                    child: FilledButton(
-                                      onPressed: () {
-                                        _restorableBeginDatePickerRouteFuture
-                                            .present();
-                                        valueDateBegin = _selectBeginDateOnly(
-                                          _selectedBeginDate.value,
-                                        );
-                                      },
-                                      child: Text(
-                                        _showBeginDateOnly(
-                                            _selectedBeginDate.value),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  const Material(
-                                    color: AppColors.darkGreen,
-                                    shape: CircleBorder(),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(15),
-                                      child: Icon(Icons.calendar_month,
-                                          color: Colors.white),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(screenWidth * 0.02),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Expanded(
-                                    child: FilledButton(
-                                      onPressed: () {
-                                        _restorableEndDatePickerRouteFuture
-                                            .present();
-                                        valueDateFinish = _selectEndDateOnly(
-                                          _selectedEndDate.value,
-                                        );
-                                      },
-                                      child: Text(
-                                        _showEndDateOnly(
-                                            _selectedEndDate.value),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  const Material(
-                                    color: AppColors.darkGreen,
-                                    shape: CircleBorder(),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(15),
-                                      child: Icon(Icons.calendar_month,
-                                          color: Colors.white),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(screenWidth * 0.02),
-                              child: FilledButton(
-                                onPressed: fetchCheckingHistory,
-                                child: const Text(AppStrings.checkingProcees),
-                              ),
-                            ),
-                          ],
+    return BaseLayout(
+      child: Container(
+        constraints: const BoxConstraints.expand(),
+        decoration: const BoxDecoration(
+          color: AppColors.lightGreen,
+          // image: DecorationImage(
+          //     image: AssetImage('assets/images/background1.jpg'),
+          //     fit: BoxFit.cover),
+        ),
+        child: Scaffold(
+          body: ListView(
+            padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
+            children: [
+              GradientBackground(
+                colors: const [Colors.transparent, Colors.transparent],
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.arrow_back),
+                        onPressed: () => NavigationHelper.pushNamed(
+                          AppRoutes.home,
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: screenHeight * 0.02,
-                    ),
-                    Column(
-                      children: [
-                        // dataProvider.keys.map((i) {
-                        for (var i = 1; i <= dataTransaction.keys.length; i++)
-                          // debugPrint('response: $dataProvider');
-                          Card(
-                            color: AppColors.lightGreen,
-                            child: InkWell(
-                              child: Padding(
+                      const Text(
+                        AppStrings.checkingTitle,
+                        style: AppTheme.titleLarge,
+                      ),
+                      Image.network(
+                        apiDataAppLogoBar,
+                        width: screenWidth * 0.25,
+                        fit: BoxFit.cover,
+                        alignment: Alignment.topCenter,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Card(
+                        color: AppColors.lightGreen,
+                        child: SizedBox(
+                          height: 220,
+                          child: Column(
+                            children: [
+                              Padding(
                                 padding: EdgeInsets.all(screenWidth * 0.02),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Text(
-                                          dataTransaction[i]?['trx_code'] ?? '',
-                                          style: AppTheme.bodySmall,
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: FilledButton(
+                                        onPressed: () {
+                                          _restorableBeginDatePickerRouteFuture
+                                              .present();
+                                          valueDateBegin = _selectBeginDateOnly(
+                                            _selectedBeginDate.value,
+                                          );
+                                        },
+                                        child: Text(
+                                          _showBeginDateOnly(
+                                              _selectedBeginDate.value),
                                         ),
-                                        Container(
-                                          width: screenWidth * 0.7,
-                                          child: Text(
-                                            dataTransaction[i]?['trx_title'] ??
-                                                '',
-                                            style: AppTheme.bodyTiny,
-                                            textAlign: TextAlign.center,
-                                            maxLines: 3,
-                                          ),
-                                        ),
-                                        Text(
-                                          dataTransaction[i]?['status'] ?? '',
-                                          style: AppTheme.bodySmall,
-                                        ),
-                                        Text(
-                                            indonesianCurrencyFormat(
-                                                dataTransaction[i]
-                                                        ?['nominal_bayar'] ??
-                                                    ''),
-                                            style: AppTheme.bodyMedium),
-                                      ],
+                                      ),
                                     ),
-                                    const Icon(
-                                      Icons.chevron_right,
-                                      color: Colors.green,
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    const Material(
+                                      color: AppColors.darkGreen,
+                                      shape: CircleBorder(),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(15),
+                                        child: Icon(Icons.calendar_month,
+                                            color: Colors.white),
+                                      ),
                                     ),
                                   ],
                                 ),
                               ),
-                              onTap: () {
-                                updateDetailsChecking(
-                                    dataTransaction[i]?['trx_code'] ?? '',
-                                    dataTransaction[i]?['trx_title'] ?? '',
-                                    dataTransaction[i]?['status'] ?? '',
-                                    dataTransaction[i]?['status'] ?? '');
-                                NavigationHelper.pushNamed(
-                                  AppRoutes.checking_detail,
-                                );
-                              },
-                            ),
+                              Padding(
+                                padding: EdgeInsets.all(screenWidth * 0.02),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: FilledButton(
+                                        onPressed: () {
+                                          _restorableEndDatePickerRouteFuture
+                                              .present();
+                                          valueDateFinish = _selectEndDateOnly(
+                                            _selectedEndDate.value,
+                                          );
+                                        },
+                                        child: Text(
+                                          _showEndDateOnly(
+                                              _selectedEndDate.value),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    const Material(
+                                      color: AppColors.darkGreen,
+                                      shape: CircleBorder(),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(15),
+                                        child: Icon(Icons.calendar_month,
+                                            color: Colors.white),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(screenWidth * 0.02),
+                                child: FilledButton(
+                                  onPressed: fetchCheckingHistory,
+                                  child: const Text(AppStrings.checkingProcees),
+                                ),
+                              ),
+                            ],
                           ),
-                      ],
-                    ),
-                  ],
-                )),
-          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.02,
+                      ),
+                      Column(
+                        children: [
+                          // dataProvider.keys.map((i) {
+                          for (var i = 1; i <= dataTransaction.keys.length; i++)
+                            // debugPrint('response: $dataProvider');
+                            Card(
+                              color: AppColors.lightGreen,
+                              child: InkWell(
+                                child: Padding(
+                                  padding: EdgeInsets.all(screenWidth * 0.02),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          Text(
+                                            dataTransaction[i]?['trx_code'] ?? '',
+                                            style: AppTheme.bodySmall,
+                                          ),
+                                          Container(
+                                            width: screenWidth * 0.7,
+                                            child: Text(
+                                              dataTransaction[i]?['trx_title'] ??
+                                                  '',
+                                              style: AppTheme.bodyTiny,
+                                              textAlign: TextAlign.center,
+                                              maxLines: 3,
+                                            ),
+                                          ),
+                                          Text(
+                                            dataTransaction[i]?['status'] ?? '',
+                                            style: AppTheme.bodySmall,
+                                          ),
+                                          Text(
+                                              indonesianCurrencyFormat(
+                                                  dataTransaction[i]
+                                                          ?['nominal_bayar'] ??
+                                                      ''),
+                                              style: AppTheme.bodyMedium),
+                                        ],
+                                      ),
+                                      const Icon(
+                                        Icons.chevron_right,
+                                        color: Colors.green,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                onTap: () {
+                                  updateDetailsChecking(
+                                      dataTransaction[i]?['trx_code'] ?? '',
+                                      dataTransaction[i]?['trx_title'] ?? '',
+                                      dataTransaction[i]?['status'] ?? '',
+                                      dataTransaction[i]?['status'] ?? '');
+                                  NavigationHelper.pushNamed(
+                                    AppRoutes.checking_detail,
+                                  );
+                                },
+                              ),
+                            ),
+                        ],
+                      ),
+                    ],
+                  )),
+            ],
+          ),
         ),
       ),
     );

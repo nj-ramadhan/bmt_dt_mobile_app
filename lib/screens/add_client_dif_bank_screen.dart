@@ -12,6 +12,7 @@ import '../values/app_colors.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
+import '../components/base_layout.dart';
 
 class AddClientDifBankPage extends StatefulWidget {
   const AddClientDifBankPage({super.key});
@@ -263,160 +264,162 @@ class _AddClientDifBankPageState extends State<AddClientDifBankPage> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    return Container(
-      constraints: const BoxConstraints.expand(),
-      decoration: const BoxDecoration(
-        color: AppColors.lightGreen,
-        // image: DecorationImage(
-        //     image: AssetImage('assets/images/background2.jpg'),
-        //     fit: BoxFit.cover),
-      ),
-      child: Scaffold(
-        body: ListView(
-          padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
-          children: [
-            GradientBackground(
-              colors: const [Colors.transparent, Colors.transparent],
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      onPressed: () =>
-                          NavigationHelper.pushNamed(AppRoutes.transfer),
-                    ),
-                    const Text(
-                      AppStrings.transferToOtherBank,
-                      style: AppTheme.titleLarge,
-                    ),
-                    Image.network(
-                      apiDataAppLogoBar,
-                      width: screenWidth * 0.25,
-                      fit: BoxFit.cover,
-                      alignment: Alignment.topCenter,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
+    return BaseLayout(
+      child: Container(
+        constraints: const BoxConstraints.expand(),
+        decoration: const BoxDecoration(
+          color: AppColors.lightGreen,
+          // image: DecorationImage(
+          //     image: AssetImage('assets/images/background2.jpg'),
+          //     fit: BoxFit.cover),
+        ),
+        child: Scaffold(
+          body: ListView(
+            padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
+            children: [
+              GradientBackground(
+                colors: const [Colors.transparent, Colors.transparent],
                 children: [
-                  Expanded(
-                    child: TextField(
-                      controller: _searchController,
-                      decoration: InputDecoration(
-                        prefixIcon: const Icon(Icons.search),
-                        hintText: 'Cari...',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.arrow_back),
+                        onPressed: () =>
+                            NavigationHelper.pushNamed(AppRoutes.transfer),
                       ),
-                      style: const TextStyle(color: Colors.black),
-                      onChanged: _searchAccounts,
-                    ),
-                  ),
-                  const SizedBox(width: 8.0),
-                  TextButton(
-                    onPressed: () => _showAddDialog(context),
-                    child: const Text(
-                      'Tambah',
-                      style: TextStyle(color: Colors.black),
-                    ),
+                      const Text(
+                        AppStrings.transferToOtherBank,
+                        style: AppTheme.titleLarge,
+                      ),
+                      Image.network(
+                        apiDataAppLogoBar,
+                        width: screenWidth * 0.25,
+                        fit: BoxFit.cover,
+                        alignment: Alignment.topCenter,
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ),
-            Column(
-              children: _accounts.map((account) {
-                return Card(
-                      color: AppColors.lightGreen,
-                      child: InkWell(
-                        onTap: () {
-                            updateDetailsRek(
-                          apiDataOwnSirelaId,
-                          apiDataOwnSirelaAmount,
-                          account['account_number'],
-                          account['account_holder'],
-                          // account['account_alias'],
-                          apiDataSendaAmount,
-                          apiDataSendaComment,
-                          apiDataKodeTrx,
-                          apiDataMetodeTransfer,
-                          apiDataAdminAmount
-                        );
-                        NavigationHelper.pushNamed(
-                            AppRoutes.input_amount_dif_bank,
-                          );
-
-                        }, // Add your onTap functionality here
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Table(
-                                  columnWidths: {
-                                    0: IntrinsicColumnWidth(),
-                                    1: FixedColumnWidth(10),
-                                    2: FlexColumnWidth(),
-                                  },
-                                  children: [
-                                    CustomTableRow.build("Nama", account['account_holder']),
-                                    CustomTableRow.build("No. rek", account['account_number']),
-                                    CustomTableRow.build("Alias", account['account_alias']),
-                                  ],
-                                ),
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  IconButton(
-                                    icon: Icon(Icons.edit, color: Colors.blue),
-                                    onPressed: () {
-                                      _showEditDialog(context, account);// Add your edit functionality here
-                                    },
-                                  ),
-                                  IconButton(
-                                    icon: Icon(Icons.delete, color: Colors.red),
-                                    onPressed: () {
-                                      _showDeleteDialog(context, account['account_number']);// Add your delete functionality here
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ],
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: _searchController,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.search),
+                          hintText: 'Cari...',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
                           ),
                         ),
+                        style: const TextStyle(color: Colors.black),
+                        onChanged: _searchAccounts,
                       ),
-                    );
-                  }).toList(),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  NavigationHelper.pushNamed(AppRoutes.input_account_dif_bank);
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
+                    ),
+                    const SizedBox(width: 8.0),
+                    TextButton(
+                      onPressed: () => _showAddDialog(context),
+                      child: const Text(
+                        'Tambah',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ],
                 ),
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 64.0),
-                  child: Text(
-                    'Transfer Baru',
-                    style: TextStyle(color: Colors.white),
+              ),
+              Column(
+                children: _accounts.map((account) {
+                  return Card(
+                        color: AppColors.lightGreen,
+                        child: InkWell(
+                          onTap: () {
+                              updateDetailsRek(
+                            apiDataOwnSirelaId,
+                            apiDataOwnSirelaAmount,
+                            account['account_number'],
+                            account['account_holder'],
+                            // account['account_alias'],
+                            apiDataSendaAmount,
+                            apiDataSendaComment,
+                            apiDataKodeTrx,
+                            apiDataMetodeTransfer,
+                            apiDataAdminAmount
+                          );
+                          NavigationHelper.pushNamed(
+                              AppRoutes.input_amount_dif_bank,
+                            );
+      
+                          }, // Add your onTap functionality here
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Table(
+                                    columnWidths: {
+                                      0: IntrinsicColumnWidth(),
+                                      1: FixedColumnWidth(10),
+                                      2: FlexColumnWidth(),
+                                    },
+                                    children: [
+                                      CustomTableRow.build("Nama", account['account_holder']),
+                                      CustomTableRow.build("No. rek", account['account_number']),
+                                      CustomTableRow.build("Alias", account['account_alias']),
+                                    ],
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    IconButton(
+                                      icon: Icon(Icons.edit, color: Colors.blue),
+                                      onPressed: () {
+                                        _showEditDialog(context, account);// Add your edit functionality here
+                                      },
+                                    ),
+                                    IconButton(
+                                      icon: Icon(Icons.delete, color: Colors.red),
+                                      onPressed: () {
+                                        _showDeleteDialog(context, account['account_number']);// Add your delete functionality here
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    }).toList(),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    NavigationHelper.pushNamed(AppRoutes.input_account_dif_bank);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 64.0),
+                    child: Text(
+                      'Transfer Baru',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

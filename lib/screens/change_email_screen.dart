@@ -12,6 +12,7 @@ import '../values/app_regex.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
+import '../components/base_layout.dart';
 
 class ChangeEmailPage extends StatefulWidget {
   const ChangeEmailPage({super.key});
@@ -99,133 +100,135 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    return Container(
-      constraints: const BoxConstraints.expand(),
-      decoration: const BoxDecoration(
-        color: AppColors.lightGreen,
-        image: DecorationImage(
-            image: AssetImage('assets/images/background1.jpg'),
-            fit: BoxFit.cover),
-      ),
-      child: Scaffold(
-        body: ListView(
-          padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
-          children: [
-            GradientBackground(
-              colors: const [Colors.transparent, Colors.transparent],
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      onPressed: () => NavigationHelper.pushNamed(
-                        AppRoutes.profile,
+    return BaseLayout(
+      child: Container(
+        constraints: const BoxConstraints.expand(),
+        decoration: const BoxDecoration(
+          color: AppColors.lightGreen,
+          image: DecorationImage(
+              image: AssetImage('assets/images/background1.jpg'),
+              fit: BoxFit.cover),
+        ),
+        child: Scaffold(
+          body: ListView(
+            padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
+            children: [
+              GradientBackground(
+                colors: const [Colors.transparent, Colors.transparent],
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.arrow_back),
+                        onPressed: () => NavigationHelper.pushNamed(
+                          AppRoutes.profile,
+                        ),
                       ),
-                    ),
-                    const Text(
-                      AppStrings.email,
-                      style: AppTheme.titleLarge,
-                    ),
-                    Image.network(
-                      apiDataAppLogoBar,
-                      width: screenWidth * 0.25,
-                      fit: BoxFit.cover,
-                      alignment: Alignment.topCenter,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AppTextFormField(
-                      labelText: AppStrings.email,
-                      controller: emailController,
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.emailAddress,
-                      onChanged: (_) => _formKey.currentState?.validate(),
-                      validator: (value) {
-                        return value!.isEmpty
-                            ? AppStrings.pleaseEnterEmailAddress
-                            : AppConstants.emailRegex.hasMatch(value)
-                                ? null
-                                : AppStrings.invalidEmailAddress;
-                      },
-                    ),
-                    AppTextFormField(
-                      labelText: AppStrings.newEmail,
-                      controller: newEmailController,
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.emailAddress,
-                      onChanged: (_) => _formKey.currentState?.validate(),
-                      validator: (value) {
-                        return value!.isEmpty
-                            ? AppStrings.pleaseEnterNewEmailAddress
-                            : AppConstants.emailRegex.hasMatch(value)
-                                ? null
-                                : AppStrings.invalidEmailAddress;
-                      },
-                    ),
-                    ValueListenableBuilder<bool>(
-                      valueListenable: pinNotifier,
-                      builder: (_, pinObscure, __) {
-                        return AppTextFormField(
-                          obscureText: pinObscure,
-                          controller: pinController,
-                          labelText: AppStrings.pin,
-                          textInputAction: TextInputAction.next,
-                          keyboardType: TextInputType.number,
-                          onChanged: (_) => _formKey.currentState?.validate(),
-                          validator: (value) {
-                            return value!.isEmpty
-                                ? AppStrings.pleaseEnterPin
-                                : AppConstants.pinRegex.hasMatch(value)
-                                    ? null
-                                    : AppStrings.invalidPin;
-                          },
-                          suffixIcon: Focus(
-                            descendantsAreFocusable: false,
-                            child: IconButton(
-                              onPressed: () => pinNotifier.value = !pinObscure,
-                              style: IconButton.styleFrom(
-                                minimumSize: const Size.square(48),
-                              ),
-                              icon: Icon(
-                                pinObscure
-                                    ? Icons.visibility_off_outlined
-                                    : Icons.visibility_outlined,
-                                color: Colors.black,
+                      const Text(
+                        AppStrings.email,
+                        style: AppTheme.titleLarge,
+                      ),
+                      Image.network(
+                        apiDataAppLogoBar,
+                        width: screenWidth * 0.25,
+                        fit: BoxFit.cover,
+                        alignment: Alignment.topCenter,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppTextFormField(
+                        labelText: AppStrings.email,
+                        controller: emailController,
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.emailAddress,
+                        onChanged: (_) => _formKey.currentState?.validate(),
+                        validator: (value) {
+                          return value!.isEmpty
+                              ? AppStrings.pleaseEnterEmailAddress
+                              : AppConstants.emailRegex.hasMatch(value)
+                                  ? null
+                                  : AppStrings.invalidEmailAddress;
+                        },
+                      ),
+                      AppTextFormField(
+                        labelText: AppStrings.newEmail,
+                        controller: newEmailController,
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.emailAddress,
+                        onChanged: (_) => _formKey.currentState?.validate(),
+                        validator: (value) {
+                          return value!.isEmpty
+                              ? AppStrings.pleaseEnterNewEmailAddress
+                              : AppConstants.emailRegex.hasMatch(value)
+                                  ? null
+                                  : AppStrings.invalidEmailAddress;
+                        },
+                      ),
+                      ValueListenableBuilder<bool>(
+                        valueListenable: pinNotifier,
+                        builder: (_, pinObscure, __) {
+                          return AppTextFormField(
+                            obscureText: pinObscure,
+                            controller: pinController,
+                            labelText: AppStrings.pin,
+                            textInputAction: TextInputAction.next,
+                            keyboardType: TextInputType.number,
+                            onChanged: (_) => _formKey.currentState?.validate(),
+                            validator: (value) {
+                              return value!.isEmpty
+                                  ? AppStrings.pleaseEnterPin
+                                  : AppConstants.pinRegex.hasMatch(value)
+                                      ? null
+                                      : AppStrings.invalidPin;
+                            },
+                            suffixIcon: Focus(
+                              descendantsAreFocusable: false,
+                              child: IconButton(
+                                onPressed: () => pinNotifier.value = !pinObscure,
+                                style: IconButton.styleFrom(
+                                  minimumSize: const Size.square(48),
+                                ),
+                                icon: Icon(
+                                  pinObscure
+                                      ? Icons.visibility_off_outlined
+                                      : Icons.visibility_outlined,
+                                  color: Colors.black,
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      },
-                    ),
-                    ValueListenableBuilder(
-                      valueListenable: fieldValidNotifier,
-                      builder: (_, isValid, __) {
-                        return FilledButton(
-                          onPressed: isValid
-                              ? () {
-                                  fetchEmailUpdate();
-                                }
-                              : null,
-                          child: const Text(AppStrings.changeEmail),
-                        );
-                      },
-                    ),
-                  ],
+                          );
+                        },
+                      ),
+                      ValueListenableBuilder(
+                        valueListenable: fieldValidNotifier,
+                        builder: (_, isValid, __) {
+                          return FilledButton(
+                            onPressed: isValid
+                                ? () {
+                                    fetchEmailUpdate();
+                                  }
+                                : null,
+                            child: const Text(AppStrings.changeEmail),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

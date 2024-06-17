@@ -284,184 +284,184 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    return Container(
-      // constraints: const BoxConstraints.expand(),
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(Images.background1),
-          fit: BoxFit.cover,
+    return  Container(
+        // constraints: const BoxConstraints.expand(),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(Images.background1),
+            fit: BoxFit.cover,
+          ),
         ),
-      ),
-      child: Scaffold(
-        body: ListView(
-          padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
-          children: [
-            GradientBackground(
-              colors: const [Colors.transparent, Colors.transparent],
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      AppStrings.signInToYourNAccount,
-                      style: AppTheme.titleLarge,
-                    ),
-                    Image.network(
-                      apiDataAppLogoBar,
-                      width: screenWidth * 0.25,
-                      fit: BoxFit.cover,
-                      alignment: Alignment.topCenter,
-                      errorBuilder: (BuildContext context, Object exception,
-                          StackTrace? stackTrace) {
-                        return const Text('icon');
-                      },
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Image.network(
-              apiDataAppLogo,
-              height: screenHeight * 0.25,
-              fit: BoxFit.contain,
-              alignment: Alignment.topCenter,
-              errorBuilder: (BuildContext context, Object exception,
-                  StackTrace? stackTrace) {
-                return const Text('icon');
-              },
-            ),
-            Text(
-              apiDataAppNameString,
-              textAlign: TextAlign.center,
-              style: AppTheme.bodyMedium.copyWith(color: Colors.black),
-            ),
-            Text(
-              "MOBILE",
-              textAlign: TextAlign.center,
-              style: AppTheme.bodySmall.copyWith(color: Colors.black),
-            ),
-            Form(
-              key: _formKey,
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    AppTextFormField(
-                      controller: phoneController,
-                      labelText: AppStrings.phone,
-                      keyboardType: TextInputType.phone,
-                      textInputAction: TextInputAction.next,
-                      onChanged: (_) => _formKey.currentState?.validate(),
-                      validator: (value) {
-                        return value!.isEmpty
-                            ? AppStrings.pleaseEnterPhone
-                            : AppConstants.phoneRegex.hasMatch(value)
-                                ? null
-                                : AppStrings.invalidPhone;
-                      },
-                    ),
-                    ValueListenableBuilder(
-                      valueListenable: passwordNotifier,
-                      builder: (_, passwordObscure, __) {
-                        return AppTextFormField(
-                          obscureText: passwordObscure,
-                          controller: passwordController,
-                          labelText: AppStrings.password,
-                          textInputAction: TextInputAction.done,
-                          keyboardType: TextInputType.visiblePassword,
-                          onChanged: (_) => _formKey.currentState?.validate(),
-                          validator: (value) {
-                            return value!.isEmpty
-                                ? AppStrings.pleaseEnterPassword
-                                : AppConstants.passwordRegex.hasMatch(value)
-                                    ? null
-                                    : AppStrings.invalidPassword;
-                          },
-                          suffixIcon: IconButton(
+        child: Scaffold(
+          body: ListView(
+            padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
+            children: [
+              GradientBackground(
+                colors: const [Colors.transparent, Colors.transparent],
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        AppStrings.signInToYourNAccount,
+                        style: AppTheme.titleLarge,
+                      ),
+                      Image.network(
+                        apiDataAppLogoBar,
+                        width: screenWidth * 0.25,
+                        fit: BoxFit.cover,
+                        alignment: Alignment.topCenter,
+                        errorBuilder: (BuildContext context, Object exception,
+                            StackTrace? stackTrace) {
+                          return const Text('icon');
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              Image.network(
+                apiDataAppLogo,
+                height: screenHeight * 0.25,
+                fit: BoxFit.contain,
+                alignment: Alignment.topCenter,
+                errorBuilder: (BuildContext context, Object exception,
+                    StackTrace? stackTrace) {
+                  return const Text('icon');
+                },
+              ),
+              Text(
+                apiDataAppNameString,
+                textAlign: TextAlign.center,
+                style: AppTheme.bodyMedium.copyWith(color: Colors.black),
+              ),
+              Text(
+                "MOBILE",
+                textAlign: TextAlign.center,
+                style: AppTheme.bodySmall.copyWith(color: Colors.black),
+              ),
+              Form(
+                key: _formKey,
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      AppTextFormField(
+                        controller: phoneController,
+                        labelText: AppStrings.phone,
+                        keyboardType: TextInputType.phone,
+                        textInputAction: TextInputAction.next,
+                        onChanged: (_) => _formKey.currentState?.validate(),
+                        validator: (value) {
+                          return value!.isEmpty
+                              ? AppStrings.pleaseEnterPhone
+                              : AppConstants.phoneRegex.hasMatch(value)
+                                  ? null
+                                  : AppStrings.invalidPhone;
+                        },
+                      ),
+                      ValueListenableBuilder(
+                        valueListenable: passwordNotifier,
+                        builder: (_, passwordObscure, __) {
+                          return AppTextFormField(
+                            obscureText: passwordObscure,
+                            controller: passwordController,
+                            labelText: AppStrings.password,
+                            textInputAction: TextInputAction.done,
+                            keyboardType: TextInputType.visiblePassword,
+                            onChanged: (_) => _formKey.currentState?.validate(),
+                            validator: (value) {
+                              return value!.isEmpty
+                                  ? AppStrings.pleaseEnterPassword
+                                  : AppConstants.passwordRegex.hasMatch(value)
+                                      ? null
+                                      : AppStrings.invalidPassword;
+                            },
+                            suffixIcon: IconButton(
+                              onPressed: () =>
+                                  passwordNotifier.value = !passwordObscure,
+                              style: IconButton.styleFrom(
+                                minimumSize: const Size.square(48),
+                              ),
+                              icon: Icon(
+                                passwordObscure
+                                    ? Icons.visibility_off_outlined
+                                    : Icons.visibility_outlined,
+                                size: 20,
+                                color: Colors.black,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                      ValueListenableBuilder(
+                        valueListenable: fieldValidNotifier,
+                        builder: (_, isValid, __) {
+                          return FilledButton(
+                            onPressed: isValid ? createToken : null,
+                            child: const Text(AppStrings.login),
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 20),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: IconButton(
+                              color: Colors.white,
+                              onPressed: () {},
+                              icon: SvgPicture.asset(Vectors.fingerprint,
+                                  width: 60),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            AppStrings.doNotHaveAnAccount,
+                            style:
+                                AppTheme.bodySmall.copyWith(color: Colors.black),
+                          ),
+                          const SizedBox(width: 10),
+                          TextButton(
                             onPressed: () =>
-                                passwordNotifier.value = !passwordObscure,
-                            style: IconButton.styleFrom(
-                              minimumSize: const Size.square(48),
+                                NavigationHelper.pushReplacementNamed(
+                              AppRoutes.register,
                             ),
-                            icon: Icon(
-                              passwordObscure
-                                  ? Icons.visibility_off_outlined
-                                  : Icons.visibility_outlined,
-                              size: 20,
-                              color: Colors.black,
-                            ),
+                            // onPressed: () async {
+                            //   await availableCameras().then((value) =>
+                            //       Navigator.push(
+                            //           context,
+                            //           // ignore: inference_failure_on_instance_creation
+                            //           MaterialPageRoute(
+                            //               builder: (_) =>
+                            //                   CameraIDPage(cameras: value))));
+                            // },
+                            child: const Text(AppStrings.register),
                           ),
-                        );
-                      },
-                    ),
-                    ValueListenableBuilder(
-                      valueListenable: fieldValidNotifier,
-                      builder: (_, isValid, __) {
-                        return FilledButton(
-                          onPressed: isValid ? createToken : null,
-                          child: const Text(AppStrings.login),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: IconButton(
-                            color: Colors.white,
-                            onPressed: () {},
-                            icon: SvgPicture.asset(Vectors.fingerprint,
-                                width: 60),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          AppStrings.doNotHaveAnAccount,
-                          style:
-                              AppTheme.bodySmall.copyWith(color: Colors.black),
-                        ),
-                        const SizedBox(width: 10),
-                        TextButton(
-                          onPressed: () =>
-                              NavigationHelper.pushReplacementNamed(
-                            AppRoutes.register,
-                          ),
-                          // onPressed: () async {
-                          //   await availableCameras().then((value) =>
-                          //       Navigator.push(
-                          //           context,
-                          //           // ignore: inference_failure_on_instance_creation
-                          //           MaterialPageRoute(
-                          //               builder: (_) =>
-                          //                   CameraIDPage(cameras: value))));
-                          // },
-                          child: const Text(AppStrings.register),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    Text(
-                      'Version',
-                      style: AppTheme.bodySmall.copyWith(color: Colors.grey),
-                    ),
-                    Text(
-                      globalAppVersion,
-                      style: AppTheme.bodySmall.copyWith(color: Colors.grey),
-                    ),
-                  ],
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      Text(
+                        'Version',
+                        style: AppTheme.bodySmall.copyWith(color: Colors.grey),
+                      ),
+                      Text(
+                        globalAppVersion,
+                        style: AppTheme.bodySmall.copyWith(color: Colors.grey),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
+      );
   }
 }

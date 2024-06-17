@@ -1,5 +1,5 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -22,6 +22,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String? simpananSukarelaNumber;
   Map<int, Map<String, String>> dataMap = {};
+
+  int _currentIndex = 0;
 
   Future<void> fetchData() async {
     final data = await ApiHelper.getListRekening(loginToken: apiLoginToken);
@@ -76,6 +78,13 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
+  void onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+      // Add navigation logic here based on index
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -92,6 +101,7 @@ class _HomePageState extends State<HomePage> {
         body: ListView(
           padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
           children: [
+            // ... existing body content ...
             GradientBackground(
               colors: const [Colors.transparent, Colors.transparent],
               children: [
@@ -578,6 +588,24 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
+            ),
+          ],
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          onTap: onTabTapped,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Beranda',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.qr_code),
+              label: 'QR',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: 'Pengaturan',
             ),
           ],
         ),

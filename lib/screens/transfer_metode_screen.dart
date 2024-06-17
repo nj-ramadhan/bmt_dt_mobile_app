@@ -10,6 +10,7 @@ import '../values/app_colors.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
+import '../components/base_layout.dart';
 
 class TransferMetodePage extends StatefulWidget {
   const TransferMetodePage({super.key});
@@ -106,66 +107,68 @@ class _TransferMetodePageState extends State<TransferMetodePage> {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
-    return Container(
-      constraints: const BoxConstraints.expand(),
-      decoration: const BoxDecoration(
-        color: AppColors.lightGreen,
-      ),
-      child: Scaffold(
-        body: ListView(
-          padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
-          children: [
-            GradientBackground(
-              colors: const [Colors.transparent, Colors.transparent],
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      onPressed: () => NavigationHelper.pushNamed(
-                        AppRoutes.transfer,
-                      ),
-                    ),
-                    const Text(
-                      AppStrings.transferMethodTitle,
-                      style: AppTheme.titleLarge,
-                    ),
-                    Image.network(
-                      apiDataAppLogoBar,
-                      width: screenWidth * 0.25,
-                      fit: BoxFit.cover,
-                      alignment: Alignment.topCenter,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.all(screenWidth * 0.02),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+    return BaseLayout(
+      child: Container(
+        constraints: const BoxConstraints.expand(),
+        decoration: const BoxDecoration(
+          color: AppColors.lightGreen,
+        ),
+        child: Scaffold(
+          body: ListView(
+            padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
+            children: [
+              GradientBackground(
+                colors: const [Colors.transparent, Colors.transparent],
                 children: [
-                  buildTransferCard(
-                    context,
-                    'TO',
-                    parseFee(transferFees['TO']?['biaya_admin']),
-                  ),
-                  buildTransferCard(
-                    context,
-                    'BIFAST',
-                    parseFee(transferFees['BIFAST']?['biaya_admin']),
-                  ),
-                  buildTransferCard(
-                    context,
-                    'RTGS',
-                    parseFee(transferFees['RTGS']?['biaya_admin']),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.arrow_back),
+                        onPressed: () => NavigationHelper.pushNamed(
+                          AppRoutes.transfer,
+                        ),
+                      ),
+                      const Text(
+                        AppStrings.transferMethodTitle,
+                        style: AppTheme.titleLarge,
+                      ),
+                      Image.network(
+                        apiDataAppLogoBar,
+                        width: screenWidth * 0.25,
+                        fit: BoxFit.cover,
+                        alignment: Alignment.topCenter,
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ),
-          ],
+              Padding(
+                padding: EdgeInsets.all(screenWidth * 0.02),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    buildTransferCard(
+                      context,
+                      'TO',
+                      parseFee(transferFees['TO']?['biaya_admin']),
+                    ),
+                    buildTransferCard(
+                      context,
+                      'BIFAST',
+                      parseFee(transferFees['BIFAST']?['biaya_admin']),
+                    ),
+                    buildTransferCard(
+                      context,
+                      'RTGS',
+                      parseFee(transferFees['RTGS']?['biaya_admin']),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

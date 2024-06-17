@@ -8,6 +8,7 @@ import '../values/app_colors.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
+import '../components/base_layout.dart';
 
 class FundingSimulationMudharabahPage extends StatefulWidget {
   const FundingSimulationMudharabahPage({super.key});
@@ -161,211 +162,213 @@ class _FundingSimulationMudharabahPageState
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    return Container(
-      constraints: const BoxConstraints.expand(),
-      decoration: const BoxDecoration(
-        color: AppColors.lightGreen,
-        // image: DecorationImage(
-        //     image: AssetImage('assets/images/background2.jpg'),
-        //     fit: BoxFit.cover),
-      ),
-      child: Scaffold(
-        body: ListView(
-          padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
-          children: [
-            GradientBackground(
-              colors: const [Colors.transparent, Colors.transparent],
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      onPressed: () => NavigationHelper.pushNamed(
-                        AppRoutes.funding_simulation,
-                      ),
-                    ),
-                    const Text(
-                      AppStrings.fundingMudharabah,
-                      style: AppTheme.titleLarge,
-                    ),
-                    Image.network(
-                      apiDataAppLogoBar,
-                      width: screenWidth * 0.25,
-                      fit: BoxFit.cover,
-                      alignment: Alignment.topCenter,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+    return BaseLayout(
+      child: Container(
+        constraints: const BoxConstraints.expand(),
+        decoration: const BoxDecoration(
+          color: AppColors.lightGreen,
+          // image: DecorationImage(
+          //     image: AssetImage('assets/images/background2.jpg'),
+          //     fit: BoxFit.cover),
+        ),
+        child: Scaffold(
+          body: ListView(
+            padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
+            children: [
+              GradientBackground(
+                colors: const [Colors.transparent, Colors.transparent],
                 children: [
-                  AppTextFormField(
-                    controller: capitalController,
-                    labelText: AppStrings.fundingCapital,
-                    keyboardType: TextInputType.number,
-                    textInputAction: TextInputAction.next,
-                    onChanged: (_) => capital = capitalController.text,
-                    // validator: (value) {
-                    //   return value!.isEmpty
-                    //       ? AppStrings.pleaseEnterPhone
-                    //       : AppConstants.phoneRegex.hasMatch(value)
-                    //           ? null
-                    //           : AppStrings.invalidPhone;
-                    // },
-                  ),
-                  AppTextFormField(
-                    controller: projectValueController,
-                    labelText: AppStrings.fundingProjectValue,
-                    keyboardType: TextInputType.number,
-                    textInputAction: TextInputAction.next,
-                    onChanged: (_) =>
-                        projectValue = projectValueController.text,
-                    // validator: (value) {
-                    //   return value!.isEmpty
-                    //       ? AppStrings.pleaseEnterPhone
-                    //       : AppConstants.phoneRegex.hasMatch(value)
-                    //           ? null
-                    //           : AppStrings.invalidPhone;
-                    // },
-                  ),
-                  AppTextFormField(
-                    controller: profitValueController,
-                    labelText: AppStrings.fundingProfitValue,
-                    keyboardType: TextInputType.number,
-                    textInputAction: TextInputAction.next,
-                    onChanged: (_) => profitValue = profitValueController.text,
-                    // validator: (value) {
-                    //   return value!.isEmpty
-                    //       ? AppStrings.pleaseEnterPhone
-                    //       : AppConstants.phoneRegex.hasMatch(value)
-                    //           ? null
-                    //           : AppStrings.invalidPhone;
-                    // },
-                  ),
-                  AppTextFormField(
-                    controller: profitSharingController,
-                    labelText: AppStrings.fundingProfitSharing,
-                    keyboardType: TextInputType.number,
-                    textInputAction: TextInputAction.next,
-                    onChanged: (_) =>
-                        profitSharing = profitSharingController.text,
-                    // validator: (value) {
-                    //   return value!.isEmpty
-                    //       ? AppStrings.pleaseEnterPhone
-                    //       : AppConstants.phoneRegex.hasMatch(value)
-                    //           ? null
-                    //           : AppStrings.invalidPhone;
-                    // },
-                  ),
-                  AppTextFormField(
-                    controller: periodController,
-                    labelText: AppStrings.fundingPeriod,
-                    keyboardType: TextInputType.number,
-                    textInputAction: TextInputAction.next,
-                    onChanged: (_) => period = periodController.text,
-                    // validator: (value) {
-                    //   return value!.isEmpty
-                    //       ? AppStrings.pleaseEnterPhone
-                    //       : AppConstants.phoneRegex.hasMatch(value)
-                    //           ? null
-                    //           : AppStrings.invalidPhone;
-                    // },
-                  ),
-                  ValueListenableBuilder(
-                    valueListenable: fieldValidNotifier,
-                    builder: (_, isValid, __) {
-                      return FilledButton(
-                        onPressed: isValid ? simulateFunding : null,
-                        child: const Text(AppStrings.fundingSimulation),
-                      );
-                    },
-                  ),
-                  SizedBox(
-                    height: screenHeight * 0.02,
-                  ),
-                  Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text('Nilai Bagi Hasil',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.normal)),
-                                Text(profitSharing),
-                              ]),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text('Total Pengembalian',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.normal)),
-                                Text('$apiDataKodeTrx'),
-                              ]),
-                          Divider(color: AppColors.darkestGreen),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Biaya Administrasi:',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.normal)),
-                              Text('$apiDataKodeTrx'),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Notaris:',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.normal)),
-                              Text('$apiDataKodeTrx'),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('APHT/Asuransi:',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.normal)),
-                              Text('$apiDataKodeTrx'),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Materai:',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.normal)),
-                              Text('$apiDataKodeTrx'),
-                            ],
-                          ),
-                          Divider(color: AppColors.darkestGreen),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Jumlah:',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                              Text('$apiDataKodeTrx'),
-                            ],
-                          ),
-                        ],
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.arrow_back),
+                        onPressed: () => NavigationHelper.pushNamed(
+                          AppRoutes.funding_simulation,
+                        ),
                       ),
-                    ),
+                      const Text(
+                        AppStrings.fundingMudharabah,
+                        style: AppTheme.titleLarge,
+                      ),
+                      Image.network(
+                        apiDataAppLogoBar,
+                        width: screenWidth * 0.25,
+                        fit: BoxFit.cover,
+                        alignment: Alignment.topCenter,
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    AppTextFormField(
+                      controller: capitalController,
+                      labelText: AppStrings.fundingCapital,
+                      keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.next,
+                      onChanged: (_) => capital = capitalController.text,
+                      // validator: (value) {
+                      //   return value!.isEmpty
+                      //       ? AppStrings.pleaseEnterPhone
+                      //       : AppConstants.phoneRegex.hasMatch(value)
+                      //           ? null
+                      //           : AppStrings.invalidPhone;
+                      // },
+                    ),
+                    AppTextFormField(
+                      controller: projectValueController,
+                      labelText: AppStrings.fundingProjectValue,
+                      keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.next,
+                      onChanged: (_) =>
+                          projectValue = projectValueController.text,
+                      // validator: (value) {
+                      //   return value!.isEmpty
+                      //       ? AppStrings.pleaseEnterPhone
+                      //       : AppConstants.phoneRegex.hasMatch(value)
+                      //           ? null
+                      //           : AppStrings.invalidPhone;
+                      // },
+                    ),
+                    AppTextFormField(
+                      controller: profitValueController,
+                      labelText: AppStrings.fundingProfitValue,
+                      keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.next,
+                      onChanged: (_) => profitValue = profitValueController.text,
+                      // validator: (value) {
+                      //   return value!.isEmpty
+                      //       ? AppStrings.pleaseEnterPhone
+                      //       : AppConstants.phoneRegex.hasMatch(value)
+                      //           ? null
+                      //           : AppStrings.invalidPhone;
+                      // },
+                    ),
+                    AppTextFormField(
+                      controller: profitSharingController,
+                      labelText: AppStrings.fundingProfitSharing,
+                      keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.next,
+                      onChanged: (_) =>
+                          profitSharing = profitSharingController.text,
+                      // validator: (value) {
+                      //   return value!.isEmpty
+                      //       ? AppStrings.pleaseEnterPhone
+                      //       : AppConstants.phoneRegex.hasMatch(value)
+                      //           ? null
+                      //           : AppStrings.invalidPhone;
+                      // },
+                    ),
+                    AppTextFormField(
+                      controller: periodController,
+                      labelText: AppStrings.fundingPeriod,
+                      keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.next,
+                      onChanged: (_) => period = periodController.text,
+                      // validator: (value) {
+                      //   return value!.isEmpty
+                      //       ? AppStrings.pleaseEnterPhone
+                      //       : AppConstants.phoneRegex.hasMatch(value)
+                      //           ? null
+                      //           : AppStrings.invalidPhone;
+                      // },
+                    ),
+                    ValueListenableBuilder(
+                      valueListenable: fieldValidNotifier,
+                      builder: (_, isValid, __) {
+                        return FilledButton(
+                          onPressed: isValid ? simulateFunding : null,
+                          child: const Text(AppStrings.fundingSimulation),
+                        );
+                      },
+                    ),
+                    SizedBox(
+                      height: screenHeight * 0.02,
+                    ),
+                    Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text('Nilai Bagi Hasil',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.normal)),
+                                  Text(profitSharing),
+                                ]),
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text('Total Pengembalian',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.normal)),
+                                  Text('$apiDataKodeTrx'),
+                                ]),
+                            Divider(color: AppColors.darkestGreen),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Biaya Administrasi:',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.normal)),
+                                Text('$apiDataKodeTrx'),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Notaris:',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.normal)),
+                                Text('$apiDataKodeTrx'),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('APHT/Asuransi:',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.normal)),
+                                Text('$apiDataKodeTrx'),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Materai:',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.normal)),
+                                Text('$apiDataKodeTrx'),
+                              ],
+                            ),
+                            Divider(color: AppColors.darkestGreen),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Jumlah:',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold)),
+                                Text('$apiDataKodeTrx'),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
