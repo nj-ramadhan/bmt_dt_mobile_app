@@ -21,7 +21,7 @@ class BaseLayout extends StatelessWidget {
         NavigationHelper.pushNamed(AppRoutes.home); // Navigate to Home page
         break;
       case 1:
-        NavigationHelper.pushNamed(AppRoutes.home); // Navigate to QR page
+        NavigationHelper.pushNamed(AppRoutes.qrcode); // Navigate to QR page
         break;
       case 2:
         NavigationHelper.pushNamed(AppRoutes.home); // Navigate to Settings page

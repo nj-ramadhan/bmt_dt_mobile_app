@@ -43,6 +43,7 @@ import 'screens/transfer_screen.dart';
 import 'screens/transfer_success_screen.dart';
 import 'utils/common_widgets/invalid_route.dart';
 import 'values/app_routes.dart';
+import 'screens/camera_qrcode.dart';
 
 class Routes {
   const Routes._();
@@ -81,6 +82,9 @@ class Routes {
 
       case AppRoutes.menu:
         return getRoute(widget: const MenuPage());
+
+      case AppRoutes.qrcode:
+        return getRoute(widget: const QrScanPage());
 
       case AppRoutes.profile:
         return getRoute(widget: const ProfilePage());

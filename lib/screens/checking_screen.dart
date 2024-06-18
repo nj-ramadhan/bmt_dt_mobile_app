@@ -395,7 +395,7 @@ class _CheckingPageState extends State<CheckingPage> with RestorationMixin {
                                       dataTransaction[i]?['trx_code'] ?? '',
                                       dataTransaction[i]?['trx_title'] ?? '',
                                       dataTransaction[i]?['status'] ?? '',
-                                      dataTransaction[i]?['status'] ?? '');
+                                      dataTransaction[i]?['nominal_bayar'] ?? '');
                                   NavigationHelper.pushNamed(
                                     AppRoutes.checking_detail,
                                   );

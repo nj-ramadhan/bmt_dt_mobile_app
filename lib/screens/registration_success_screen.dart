@@ -5,13 +5,23 @@ import '../values/app_routes.dart';
 import '../components/base_layout.dart';
 
 class RegistrationSuccessPage extends StatefulWidget {
-  const RegistrationSuccessPage({super.key});
+  final String? originPage;
+
+  const RegistrationSuccessPage({super.key, this.originPage});
 
   @override
   State<RegistrationSuccessPage> createState() => _RegistrationSuccessPage();
 }
 
 class _RegistrationSuccessPage extends State<RegistrationSuccessPage> {
+  void _onButtonPressed() {
+    if (widget.originPage == 'home') {
+      Navigator.of(context).popUntil((route) => route.isFirst);
+    } else {
+      NavigationHelper.pushNamed(AppRoutes.login);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BaseLayout(
@@ -44,16 +54,17 @@ class _RegistrationSuccessPage extends State<RegistrationSuccessPage> {
                 ),
                 SizedBox(height: 40),
                 ElevatedButton(
-                  onPressed: () =>
-                                NavigationHelper.pushNamed(
-                              AppRoutes.login,
-                            ),
+                  onPressed: _onButtonPressed,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.greenAccent,
                     padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                     textStyle: TextStyle(fontSize: 18),
                   ),
-                  child: Text('Lanjut ke Halaman Login'),
+                  child: Text(
+                    widget.originPage == 'home'
+                        ? 'Lanjut ke Halaman Home'
+                        : 'Lanjut ke Halaman Login',
+                  ),
                 ),
               ],
             ),
