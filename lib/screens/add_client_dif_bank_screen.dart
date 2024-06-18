@@ -211,23 +211,24 @@ class _AddClientDifBankPageState extends State<AddClientDifBankPage> {
                 ),
                 enabled: valueDownCodeBank != null,
               ),
-              TextField(
-                controller: _accountHolderController,
-                decoration: const InputDecoration(labelText: 'Account Holder'),
-                readOnly: true,
-              ),
-              TextField(
-                controller: _accountAliasController,
-                decoration: const InputDecoration(labelText: 'Account Alias'),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () async {
-                String accountNumber = _accountNumberController.text;
-                String accountHolder = _accountHolderController.text;
-                String accountAlias = _accountAliasController.text;
+            TextField(
+              controller: _accountHolderController,
+              decoration: InputDecoration(labelText: 'Account Holder'),
+              readOnly: true,
+            ),
+            TextField(
+              controller: _accountAliasController,
+              decoration: InputDecoration(labelText: 'Account Alias'),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () async {
+              String accountNumber = _accountNumberController.text;
+              String accountHolder = _accountHolderController.text;
+              String accountAlias = _accountAliasController.text;
+
 
                 if (accountNumber.isNotEmpty && accountHolder.isNotEmpty) {
                   int result = await db.addAccountDifBank(
