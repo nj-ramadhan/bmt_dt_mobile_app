@@ -82,6 +82,7 @@ String apiDataDestinationSirelaId = 'null';
 String apiDataDestinationSirelaName = 'null';
 String apiDataSendaAmount = "null";
 String apiDataSendaComment = "null";
+String apiDataAdminAmount = "null";
 
 String apiDataKodeTrx = "null";
 
@@ -89,6 +90,12 @@ String apiDataMetodeTransfer = "null";
 String apiDataKodeBank = "null";
 String apiDataBank = "null";
 
+String apiDataCheckingTransactionCode = 'null';
+String apiDataCheckingTransactionTitle = 'null';
+String apiDataCheckingTransactionStatus = 'null';
+String apiDataCheckingTransactionAmount = 'null';
+
+String apiDataClientID = "jLdCPSe3816XRXk7+aCMc+Et0nk1y6\/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ\/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A\/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs\/WzXeZ9pQGOkHyX6IK\/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M\/fXTrjkHB\/v+1VFKgkGRFz0eIhDXZ3yp7e\/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n\/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3\/gKIXwL6NGFqzdeEy3xC\/Qr6";
 void updateLoginVariables(
   String newApiRolePendidikan,
   String newApiRoleKoperasi,
@@ -266,28 +273,41 @@ void updateDetailProducts(
 }
 
 void updateDetailsRek(
-  String newapiDataOwnSirelaId,
-  String newapiDataOwnSirelaAmount,
-  String newapiDataDestinationSirelaId,
-  String newapiDataDestinationSirelaName,
-  String newapiDataSendaAmount,
-  String newapiDataSendaComment,
-  String newapiDataKodeTrx,
-  String newapiDataMetodeTransfer,
+  String newApiDataOwnSirelaId,
+  String newApiDataOwnSirelaAmount,
+  String newApiDataDestinationSirelaId,
+  String newApiDataDestinationSirelaName,
+  String newApiDataSendaAmount,
+  String newApiDataSendaComment,
+  String newApiDataKodeTrx,
+  String newApiDataMetodeTransfer,
+  String newApiDataAdminAmount,
 ) {
-  apiDataOwnSirelaId = newapiDataOwnSirelaId;
-  apiDataOwnSirelaAmount = newapiDataOwnSirelaAmount;
-  apiDataDestinationSirelaId = newapiDataDestinationSirelaId;
-  apiDataDestinationSirelaName = newapiDataDestinationSirelaName;
-  apiDataSendaAmount = newapiDataSendaAmount;
-  apiDataSendaComment = newapiDataSendaComment;
-  apiDataKodeTrx = newapiDataKodeTrx;
-  apiDataMetodeTransfer = newapiDataMetodeTransfer;
+  apiDataOwnSirelaId = newApiDataOwnSirelaId;
+  apiDataOwnSirelaAmount = newApiDataOwnSirelaAmount;
+  apiDataDestinationSirelaId = newApiDataDestinationSirelaId;
+  apiDataDestinationSirelaName = newApiDataDestinationSirelaName;
+  apiDataSendaAmount = newApiDataSendaAmount;
+  apiDataSendaComment = newApiDataSendaComment;
+  apiDataKodeTrx = newApiDataKodeTrx;
+  apiDataMetodeTransfer = newApiDataMetodeTransfer;
+  apiDataAdminAmount = newApiDataAdminAmount;
 }
 
-void updateDifBank(String newapiDataMetodeTransfer, String newapiDataKodeBank,
-    String newapiDataBank) {
-  apiDataMetodeTransfer = newapiDataMetodeTransfer;
-  apiDataKodeBank = newapiDataKodeBank;
-  apiDataBank = newapiDataBank;
+void updateDifBank(String newApiDataMetodeTransfer, String newApiDataKodeBank,
+    String newApiDataBank) {
+  apiDataMetodeTransfer = newApiDataMetodeTransfer;
+  apiDataKodeBank = newApiDataKodeBank;
+  apiDataBank = newApiDataBank;
+}
+
+void updateDetailsChecking(
+    String newApiDataCheckingTransactionCode,
+    String newApiDataCheckingTransactionTitle,
+    String newApiDataCheckingTransactionStatus,
+    String newApiDataCheckingTransactionAmount) {
+  apiDataCheckingTransactionCode = newApiDataCheckingTransactionCode;
+  apiDataCheckingTransactionTitle = newApiDataCheckingTransactionTitle;
+  apiDataCheckingTransactionStatus = newApiDataCheckingTransactionStatus;
+  apiDataCheckingTransactionAmount = newApiDataCheckingTransactionAmount;
 }

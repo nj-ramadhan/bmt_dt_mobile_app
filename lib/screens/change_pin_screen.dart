@@ -11,6 +11,7 @@ import '../values/app_regex.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
+import '../components/base_layout.dart';
 
 class ChangePinPage extends StatefulWidget {
   const ChangePinPage({super.key});
@@ -78,179 +79,181 @@ class _ChangePinPageState extends State<ChangePinPage> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    return Container(
-      constraints: const BoxConstraints.expand(),
-      decoration: const BoxDecoration(
-        color: AppColors.lightGreen,
-        // image: DecorationImage(
-        //     image: AssetImage('assets/images/background1.jpg'),
-        //     fit: BoxFit.cover),
-      ),
-      child: Scaffold(
-        body: ListView(
-          padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
-          children: [
-            GradientBackground(
-              colors: const [Colors.transparent, Colors.transparent],
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      onPressed: () => NavigationHelper.pushReplacementNamed(
-                        AppRoutes.profile,
+    return BaseLayout(
+      child: Container(
+        constraints: const BoxConstraints.expand(),
+        decoration: const BoxDecoration(
+          color: AppColors.lightGreen,
+          // image: DecorationImage(
+          //     image: AssetImage('assets/images/background1.jpg'),
+          //     fit: BoxFit.cover),
+        ),
+        child: Scaffold(
+          body: ListView(
+            padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
+            children: [
+              GradientBackground(
+                colors: const [Colors.transparent, Colors.transparent],
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.arrow_back),
+                        onPressed: () => NavigationHelper.pushNamed(
+                          AppRoutes.profile,
+                        ),
                       ),
-                    ),
-                    const Text(
-                      AppStrings.email,
-                      style: AppTheme.titleLarge,
-                    ),
-                    Image.network(
-                      apiDataAppLogoBar,
-                      width: screenWidth * 0.25,
-                      fit: BoxFit.cover,
-                      alignment: Alignment.topCenter,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ValueListenableBuilder<bool>(
-                      valueListenable: pinNotifier,
-                      builder: (_, pinObscure, __) {
-                        return AppTextFormField(
-                          obscureText: pinObscure,
-                          controller: pinController,
-                          labelText: AppStrings.pin,
-                          textInputAction: TextInputAction.next,
-                          keyboardType: TextInputType.visiblePassword,
-                          onChanged: (_) => _formKey.currentState?.validate(),
-                          validator: (value) {
-                            return value!.isEmpty
-                                ? AppStrings.pleaseEnterPassword
-                                : AppConstants.passwordRegex.hasMatch(value)
-                                    ? null
-                                    : AppStrings.invalidPassword;
-                          },
-                          suffixIcon: Focus(
-                            descendantsAreFocusable: false,
-                            child: IconButton(
-                              onPressed: () => pinNotifier.value = !pinObscure,
-                              style: IconButton.styleFrom(
-                                minimumSize: const Size.square(48),
-                              ),
-                              icon: Icon(
-                                pinObscure
-                                    ? Icons.visibility_off_outlined
-                                    : Icons.visibility_outlined,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    ValueListenableBuilder<bool>(
-                      valueListenable: newPinNotifier,
-                      builder: (_, pinObscure, __) {
-                        return AppTextFormField(
-                          obscureText: pinObscure,
-                          controller: newPinController,
-                          labelText: AppStrings.newPin,
-                          textInputAction: TextInputAction.next,
-                          keyboardType: TextInputType.visiblePassword,
-                          onChanged: (_) => _formKey.currentState?.validate(),
-                          validator: (value) {
-                            return value!.isEmpty
-                                ? AppStrings.pleaseEnterPin
-                                : AppConstants.passwordRegex.hasMatch(value)
-                                    ? null
-                                    : AppStrings.invalidPin;
-                          },
-                          suffixIcon: Focus(
-                            descendantsAreFocusable: false,
-                            child: IconButton(
-                              onPressed: () => pinNotifier.value = !pinObscure,
-                              style: IconButton.styleFrom(
-                                minimumSize: const Size.square(48),
-                              ),
-                              icon: Icon(
-                                pinObscure
-                                    ? Icons.visibility_off_outlined
-                                    : Icons.visibility_outlined,
-                                color: Colors.black,
+                      const Text(
+                        AppStrings.email,
+                        style: AppTheme.titleLarge,
+                      ),
+                      Image.network(
+                        apiDataAppLogoBar,
+                        width: screenWidth * 0.25,
+                        fit: BoxFit.cover,
+                        alignment: Alignment.topCenter,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ValueListenableBuilder<bool>(
+                        valueListenable: pinNotifier,
+                        builder: (_, pinObscure, __) {
+                          return AppTextFormField(
+                            obscureText: pinObscure,
+                            controller: pinController,
+                            labelText: AppStrings.pin,
+                            textInputAction: TextInputAction.next,
+                            keyboardType: TextInputType.visiblePassword,
+                            onChanged: (_) => _formKey.currentState?.validate(),
+                            validator: (value) {
+                              return value!.isEmpty
+                                  ? AppStrings.pleaseEnterPassword
+                                  : AppConstants.passwordRegex.hasMatch(value)
+                                      ? null
+                                      : AppStrings.invalidPassword;
+                            },
+                            suffixIcon: Focus(
+                              descendantsAreFocusable: false,
+                              child: IconButton(
+                                onPressed: () => pinNotifier.value = !pinObscure,
+                                style: IconButton.styleFrom(
+                                  minimumSize: const Size.square(48),
+                                ),
+                                icon: Icon(
+                                  pinObscure
+                                      ? Icons.visibility_off_outlined
+                                      : Icons.visibility_outlined,
+                                  color: Colors.black,
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      },
-                    ),
-                    ValueListenableBuilder<bool>(
-                      valueListenable: confirmPinNotifier,
-                      builder: (_, pinObscure, __) {
-                        return AppTextFormField(
-                          obscureText: pinObscure,
-                          controller: confirmPinController,
-                          labelText: AppStrings.confirmPin,
-                          textInputAction: TextInputAction.next,
-                          keyboardType: TextInputType.visiblePassword,
-                          onChanged: (_) => _formKey.currentState?.validate(),
-                          validator: (value) {
-                            return value!.isEmpty
-                                ? AppStrings.pleaseEnterPin
-                                : AppStrings.invalidPin;
-                          },
-                          suffixIcon: Focus(
-                            descendantsAreFocusable: false,
-                            child: IconButton(
-                              onPressed: () => pinNotifier.value = !pinObscure,
-                              style: IconButton.styleFrom(
-                                minimumSize: const Size.square(48),
-                              ),
-                              icon: Icon(
-                                pinObscure
-                                    ? Icons.visibility_off_outlined
-                                    : Icons.visibility_outlined,
-                                color: Colors.black,
+                          );
+                        },
+                      ),
+                      ValueListenableBuilder<bool>(
+                        valueListenable: newPinNotifier,
+                        builder: (_, pinObscure, __) {
+                          return AppTextFormField(
+                            obscureText: pinObscure,
+                            controller: newPinController,
+                            labelText: AppStrings.newPin,
+                            textInputAction: TextInputAction.next,
+                            keyboardType: TextInputType.visiblePassword,
+                            onChanged: (_) => _formKey.currentState?.validate(),
+                            validator: (value) {
+                              return value!.isEmpty
+                                  ? AppStrings.pleaseEnterPin
+                                  : AppConstants.passwordRegex.hasMatch(value)
+                                      ? null
+                                      : AppStrings.invalidPin;
+                            },
+                            suffixIcon: Focus(
+                              descendantsAreFocusable: false,
+                              child: IconButton(
+                                onPressed: () => pinNotifier.value = !pinObscure,
+                                style: IconButton.styleFrom(
+                                  minimumSize: const Size.square(48),
+                                ),
+                                icon: Icon(
+                                  pinObscure
+                                      ? Icons.visibility_off_outlined
+                                      : Icons.visibility_outlined,
+                                  color: Colors.black,
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      },
-                    ),
-                    ValueListenableBuilder(
-                      valueListenable: fieldValidNotifier,
-                      builder: (_, isValid, __) {
-                        return FilledButton(
-                          onPressed: isValid
-                              ? () {
-                                  SnackbarHelper.showSnackBar(
-                                    // ignore: void_checks
-                                    AppStrings.changePinComplete,
-                                  );
-                                  pinController.clear();
-                                  newPinController.clear();
-                                  confirmPinController.clear();
-                                }
-                              : null,
-                          child: const Text(AppStrings.changePin),
-                        );
-                      },
-                    ),
-                  ],
+                          );
+                        },
+                      ),
+                      ValueListenableBuilder<bool>(
+                        valueListenable: confirmPinNotifier,
+                        builder: (_, pinObscure, __) {
+                          return AppTextFormField(
+                            obscureText: pinObscure,
+                            controller: confirmPinController,
+                            labelText: AppStrings.confirmPin,
+                            textInputAction: TextInputAction.next,
+                            keyboardType: TextInputType.visiblePassword,
+                            onChanged: (_) => _formKey.currentState?.validate(),
+                            validator: (value) {
+                              return value!.isEmpty
+                                  ? AppStrings.pleaseEnterPin
+                                  : AppStrings.invalidPin;
+                            },
+                            suffixIcon: Focus(
+                              descendantsAreFocusable: false,
+                              child: IconButton(
+                                onPressed: () => pinNotifier.value = !pinObscure,
+                                style: IconButton.styleFrom(
+                                  minimumSize: const Size.square(48),
+                                ),
+                                icon: Icon(
+                                  pinObscure
+                                      ? Icons.visibility_off_outlined
+                                      : Icons.visibility_outlined,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                      ValueListenableBuilder(
+                        valueListenable: fieldValidNotifier,
+                        builder: (_, isValid, __) {
+                          return FilledButton(
+                            onPressed: isValid
+                                ? () {
+                                    SnackbarHelper.showSnackBar(
+                                      // ignore: void_checks
+                                      AppStrings.changePinComplete,
+                                    );
+                                    pinController.clear();
+                                    newPinController.clear();
+                                    confirmPinController.clear();
+                                  }
+                                : null,
+                            child: const Text(AppStrings.changePin),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -14,7 +14,7 @@ import '../values/app_colors.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
-
+import '../components/base_layout.dart';
 class ShoppingConfirmPage extends StatefulWidget {
   const ShoppingConfirmPage({super.key});
   @override
@@ -95,106 +95,108 @@ class _ShoppingConfirmPageState extends State<ShoppingConfirmPage> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    return Container(
-      constraints: const BoxConstraints.expand(),
-      decoration: const BoxDecoration(
-        color: AppColors.lightGreen,
-        // image: DecorationImage(
-        //     image: AssetImage('assets/images/background2.jpg'),
-        //     fit: BoxFit.cover),
-      ),
-      child: Scaffold(
-        body: ListView(
-          padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
-          children: [
-            GradientBackground(
-              colors: const [Colors.transparent, Colors.transparent],
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      onPressed: () => NavigationHelper.pushReplacementNamed(
-                        AppRoutes.shopping_provider_list,
-                      ),
-                    ),
-                    const Text(
-                      AppStrings.shoppingTitle,
-                      style: AppTheme.titleLarge,
-                    ),
-                    Image.network(
-                      apiDataAppLogoBar,
-                      width: screenWidth * 0.25,
-                      fit: BoxFit.cover,
-                      alignment: Alignment.topCenter,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.all(screenWidth * 0.05),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+    return BaseLayout(
+      child: Container(
+        constraints: const BoxConstraints.expand(),
+        decoration: const BoxDecoration(
+          color: AppColors.lightGreen,
+          // image: DecorationImage(
+          //     image: AssetImage('assets/images/background2.jpg'),
+          //     fit: BoxFit.cover),
+        ),
+        child: Scaffold(
+          body: ListView(
+            padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
+            children: [
+              GradientBackground(
+                colors: const [Colors.transparent, Colors.transparent],
                 children: [
-                  Text(
-                    'Anda akan membeli paket',
-                    style: AppTheme.bodySmall,
-                  ),
-                  Text(
-                    apiDataProductName,
-                    style: AppTheme.bodyLarge,
-                  ),
-                  SizedBox(
-                    height: screenHeight * 0.02,
-                  ),
-                  Text(
-                    'Seharga',
-                    style: AppTheme.bodySmall,
-                  ),
-                  Text(
-                    indonesianCurrencyFormat(apiDataProductPrice),
-                    style: AppTheme.bodyLarge,
-                  ),
-                  SizedBox(
-                    height: screenHeight * 0.02,
-                  ),
-                  Text(
-                    'Nomor Tujuan',
-                    style: AppTheme.bodySmall,
-                  ),
-                  Text(
-                    apiDataProductClientNumber,
-                    style: AppTheme.bodyLarge,
-                  ),
-                  SizedBox(
-                    height: screenHeight * 0.05,
-                  ),
-                  TextField(
-                    decoration: const InputDecoration(
-                        hintText: AppStrings.pin,
-                        fillColor: AppColors.lightGreen),
-                    controller: pinNumberController,
-                    textInputAction: TextInputAction.done,
-                    textAlign: TextAlign.end,
-                    keyboardType: TextInputType.number,
-                    onChanged: (_) => updatePinNumber(pinNumberController.text),
-                  ),
-                  SizedBox(
-                    height: screenHeight * 0.02,
-                  ),
-                  FilledButton(
-                    onPressed: () {
-                      fetchDataBuyProduct();
-                    },
-                    child: Text('Continue'),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.arrow_back),
+                        onPressed: () => NavigationHelper.pushNamed(
+                          AppRoutes.shopping_provider_list,
+                        ),
+                      ),
+                      const Text(
+                        AppStrings.shoppingTitle,
+                        style: AppTheme.titleLarge,
+                      ),
+                      Image.network(
+                        apiDataAppLogoBar,
+                        width: screenWidth * 0.25,
+                        fit: BoxFit.cover,
+                        alignment: Alignment.topCenter,
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ),
-          ],
+              Padding(
+                padding: EdgeInsets.all(screenWidth * 0.05),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Anda akan membeli paket',
+                      style: AppTheme.bodySmall,
+                    ),
+                    Text(
+                      apiDataProductName,
+                      style: AppTheme.bodyLarge,
+                    ),
+                    SizedBox(
+                      height: screenHeight * 0.02,
+                    ),
+                    Text(
+                      'Seharga',
+                      style: AppTheme.bodySmall,
+                    ),
+                    Text(
+                      indonesianCurrencyFormat(apiDataProductPrice),
+                      style: AppTheme.bodyLarge,
+                    ),
+                    SizedBox(
+                      height: screenHeight * 0.02,
+                    ),
+                    Text(
+                      'Nomor Tujuan',
+                      style: AppTheme.bodySmall,
+                    ),
+                    Text(
+                      apiDataProductClientNumber,
+                      style: AppTheme.bodyLarge,
+                    ),
+                    SizedBox(
+                      height: screenHeight * 0.05,
+                    ),
+                    TextField(
+                      decoration: const InputDecoration(
+                          hintText: AppStrings.pin,
+                          fillColor: AppColors.lightGreen),
+                      controller: pinNumberController,
+                      textInputAction: TextInputAction.done,
+                      textAlign: TextAlign.end,
+                      keyboardType: TextInputType.number,
+                      onChanged: (_) => updatePinNumber(pinNumberController.text),
+                    ),
+                    SizedBox(
+                      height: screenHeight * 0.02,
+                    ),
+                    FilledButton(
+                      onPressed: () {
+                        fetchDataBuyProduct();
+                      },
+                      child: Text('Continue'),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

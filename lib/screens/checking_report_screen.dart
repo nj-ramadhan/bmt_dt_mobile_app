@@ -9,14 +9,16 @@ import '../values/app_strings.dart';
 import '../values/app_theme.dart';
 import '../components/base_layout.dart';
 
-class TransferSuccessPage extends StatefulWidget {
-  const TransferSuccessPage({super.key});
+class CheckingReportPage extends StatefulWidget {
+  const CheckingReportPage({super.key, this.restorationId});
+  final String? restorationId;
+  // const CheckingPage({super.key});
 
   @override
-  State<TransferSuccessPage> createState() => _TransferSuccessPageState();
+  State<CheckingReportPage> createState() => _CheckingReportPageState();
 }
 
-class _TransferSuccessPageState extends State<TransferSuccessPage> {
+class _CheckingReportPageState extends State<CheckingReportPage> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -44,11 +46,11 @@ class _TransferSuccessPageState extends State<TransferSuccessPage> {
                         IconButton(
                           icon: const Icon(Icons.arrow_back),
                           onPressed: () => NavigationHelper.pushNamed(
-                            AppRoutes.home,
+                            AppRoutes.checking,
                           ),
                         ),
                         const Text(
-                          AppStrings.transferReceiptTitle,
+                          AppStrings.checkingTitle,
                           style: AppTheme.titleLarge,
                         ),
                         Image.network(
@@ -72,45 +74,36 @@ class _TransferSuccessPageState extends State<TransferSuccessPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Transfer Receipt',
+                              Text('Kode Transaksi',
                                   style: TextStyle(
                                       fontSize: 24, fontWeight: FontWeight.bold)),
                               Divider(color: Colors.black),
                               Text('Kode Transaksi:',
                                   style: TextStyle(fontWeight: FontWeight.bold)),
-                              Text('$apiDataKodeTrx'),
+                              Text('$apiDataCheckingTransactionCode'),
                               SizedBox(height: 8),
-                              Text('Rekening Sumber:',
+                              Text('Judul Transaksi:',
                                   style: TextStyle(fontWeight: FontWeight.bold)),
-                              Text("Id pengirim $apiDataOwnSirelaId"),
-                              Text("Nama Pengirim $apiDataUserNamaLengkap"),
+                              Text("$apiDataCheckingTransactionTitle"),
                               SizedBox(height: 8),
-                              Text('Rekening Tujuan:',
+                              Text('Status:',
                                   style: TextStyle(fontWeight: FontWeight.bold)),
-                              Text("Id Penerima $apiDataDestinationSirelaId"),
-                              Text("Nama Penerima $apiDataDestinationSirelaName"),
+                              Text("$apiDataCheckingTransactionStatus"),
                               SizedBox(height: 8),
                               Text('Nominal:',
                                   style: TextStyle(fontWeight: FontWeight.bold)),
-                              Text('Rp $apiDataSendaAmount'),
+                              Text('Rp $apiDataCheckingTransactionAmount'),
                               SizedBox(height: 8),
-                              Text('Berita:',
-                                  style: TextStyle(fontWeight: FontWeight.bold)),
-                              Text(apiDataSendaComment),
-                              SizedBox(height: 8),
-                              Text('Tanggal Transfer:',
-                                  style: TextStyle(fontWeight: FontWeight.bold)),
-                              Text('Sekarang'),
                             ],
                           ),
                         ),
                       ),
-                      Spacer(),
+                      SizedBox(height: screenHeight * 0.02),
                       ElevatedButton(
                         onPressed: () {
-                          NavigationHelper.pushNamed(
-                            AppRoutes.home,
-                          );
+                          // NavigationHelper.pushNamed(
+                          //   AppRoutes.home,
+                          // );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor:
@@ -122,7 +115,7 @@ class _TransferSuccessPageState extends State<TransferSuccessPage> {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 64.0),
                           child: Text(
-                            'Back to Home',
+                            'Ajukan Pengaduan',
                             style: TextStyle(color: Colors.white),
                           ),
                         ),

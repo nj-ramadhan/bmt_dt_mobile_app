@@ -9,14 +9,14 @@ import '../values/app_strings.dart';
 import '../values/app_theme.dart';
 import '../components/base_layout.dart';
 
-class FundingPage extends StatefulWidget {
-  const FundingPage({super.key});
+class FundingSimulationPage extends StatefulWidget {
+  const FundingSimulationPage({super.key});
 
   @override
-  State<FundingPage> createState() => _FundingPageState();
+  State<FundingSimulationPage> createState() => _FundingSimulationPageState();
 }
 
-class _FundingPageState extends State<FundingPage> {
+class _FundingSimulationPageState extends State<FundingSimulationPage> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -94,13 +94,13 @@ class _FundingPageState extends State<FundingPage> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        AppStrings.fundingSimulation,
+                                        AppStrings.fundingMudharabah,
                                         style: TextStyle(
                                           color: Colors.white,
                                         ),
                                       ),
                                       Text(
-                                        AppStrings.fundingSimulationSubtitle,
+                                        AppStrings.fundingMudharabahSubtitle,
                                         overflow: TextOverflow.clip,
                                         style: TextStyle(
                                           color: Colors.white,
@@ -121,7 +121,7 @@ class _FundingPageState extends State<FundingPage> {
                         ),
                         onTap: () {
                           NavigationHelper.pushNamed(
-                            AppRoutes.funding_simulation,
+                            AppRoutes.funding_simulation_mudharabah,
                           );
                         },
                       ),
@@ -154,13 +154,13 @@ class _FundingPageState extends State<FundingPage> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        AppStrings.fundingSubmission,
+                                        AppStrings.fundingMurabahah,
                                         style: TextStyle(
                                           color: Colors.white,
                                         ),
                                       ),
                                       Text(
-                                        AppStrings.fundingSubmissionSubtitle,
+                                        AppStrings.fundingMurabahahSubtitle,
                                         overflow: TextOverflow.clip,
                                         style: TextStyle(
                                           color: Colors.white,
@@ -181,7 +181,7 @@ class _FundingPageState extends State<FundingPage> {
                         ),
                         onTap: () {
                           NavigationHelper.pushNamed(
-                            AppRoutes.home,
+                            AppRoutes.funding_simulation_murabahah,
                           );
                         },
                       ),
@@ -214,13 +214,13 @@ class _FundingPageState extends State<FundingPage> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        AppStrings.fundingTransaction,
+                                        AppStrings.fundingMusyarakah,
                                         style: TextStyle(
                                           color: Colors.white,
                                         ),
                                       ),
                                       Text(
-                                        AppStrings.fundingTransactionSubtitle,
+                                        AppStrings.fundingMusyarakahSubtitle,
                                         overflow: TextOverflow.clip,
                                         style: TextStyle(
                                           color: Colors.white,
@@ -241,7 +241,7 @@ class _FundingPageState extends State<FundingPage> {
                         ),
                         onTap: () {
                           NavigationHelper.pushNamed(
-                            AppRoutes.home,
+                            AppRoutes.funding_simulation_musyarakah,
                           );
                         },
                       ),
@@ -274,13 +274,13 @@ class _FundingPageState extends State<FundingPage> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        AppStrings.fundingHistory,
+                                        AppStrings.fundingIjarah,
                                         style: TextStyle(
                                           color: Colors.white,
                                         ),
                                       ),
                                       Text(
-                                        AppStrings.fundingHistorySubtitle,
+                                        AppStrings.fundingIjarahSubtitle,
                                         overflow: TextOverflow.clip,
                                         style: TextStyle(
                                           color: Colors.white,
@@ -301,7 +301,187 @@ class _FundingPageState extends State<FundingPage> {
                         ),
                         onTap: () {
                           NavigationHelper.pushNamed(
-                            AppRoutes.home,
+                            AppRoutes.funding_simulation_ijarah,
+                          );
+                        },
+                      ),
+                    ),
+                    Card(
+                      color: AppColors.primaryColor,
+                      child: InkWell(
+                        child: Padding(
+                          padding: EdgeInsets.all(screenWidth * 0.02),
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Material(
+                                color: AppColors.darkGreen,
+                                shape: CircleBorder(),
+                                child: Padding(
+                                  padding: EdgeInsets.all(10),
+                                  child: Image(
+                                    image:
+                                        AssetImage('assets/images/handphone.png'),
+                                    height: 30,
+                                    alignment: Alignment.topCenter,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        AppStrings.fundingAlQard,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Text(
+                                        AppStrings.fundingAlQardSubtitle,
+                                        overflow: TextOverflow.clip,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Icon(
+                                Icons.chevron_right,
+                                color: Colors.white,
+                              ),
+                            ],
+                          ),
+                        ),
+                        onTap: () {
+                          NavigationHelper.pushNamed(
+                            AppRoutes.funding_simulation_alqard,
+                          );
+                        },
+                      ),
+                    ),
+                    Card(
+                      color: AppColors.primaryColor,
+                      child: InkWell(
+                        child: Padding(
+                          padding: EdgeInsets.all(screenWidth * 0.02),
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Material(
+                                color: AppColors.darkGreen,
+                                shape: CircleBorder(),
+                                child: Padding(
+                                  padding: EdgeInsets.all(10),
+                                  child: Image(
+                                    image:
+                                        AssetImage('assets/images/handphone.png'),
+                                    height: 30,
+                                    alignment: Alignment.topCenter,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        AppStrings.fundingHiwalah,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Text(
+                                        AppStrings.fundingHiwalahSubtitle,
+                                        overflow: TextOverflow.clip,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Icon(
+                                Icons.chevron_right,
+                                color: Colors.white,
+                              ),
+                            ],
+                          ),
+                        ),
+                        onTap: () {
+                          NavigationHelper.pushNamed(
+                            AppRoutes.funding_simulation_hiwalah,
+                          );
+                        },
+                      ),
+                    ),
+                    Card(
+                      color: AppColors.primaryColor,
+                      child: InkWell(
+                        child: Padding(
+                          padding: EdgeInsets.all(screenWidth * 0.02),
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Material(
+                                color: AppColors.darkGreen,
+                                shape: CircleBorder(),
+                                child: Padding(
+                                  padding: EdgeInsets.all(10),
+                                  child: Image(
+                                    image:
+                                        AssetImage('assets/images/handphone.png'),
+                                    height: 30,
+                                    alignment: Alignment.topCenter,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        AppStrings.fundingRahn,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Text(
+                                        AppStrings.fundingRahnSubtitle,
+                                        overflow: TextOverflow.clip,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Icon(
+                                Icons.chevron_right,
+                                color: Colors.white,
+                              ),
+                            ],
+                          ),
+                        ),
+                        onTap: () {
+                          NavigationHelper.pushNamed(
+                            AppRoutes.funding_simulation_rahn,
                           );
                         },
                       ),

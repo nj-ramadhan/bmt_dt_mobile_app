@@ -8,6 +8,7 @@ import '../values/app_colors.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
+import '../components/base_layout.dart';
 
 class TransactionDetailPage extends StatefulWidget {
   const TransactionDetailPage({super.key});
@@ -19,115 +20,145 @@ class TransactionDetailPage extends StatefulWidget {
 class _TransactionDetailPageState extends State<TransactionDetailPage> {
   final Color backgroundColor = Color(
       0xFFD5F5E3); // Adjust this color to match the exact color from the image.
-
+   bool _isLoading = false;
+   
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    return Container(
-        constraints: const BoxConstraints.expand(),
-        decoration: const BoxDecoration(
-          color: AppColors.lightGreen,
-          // image: DecorationImage(
-          //     image: AssetImage('assets/images/background2.jpg'),
-          //     fit: BoxFit.cover),
-        ),
-        child: Scaffold(
-            body: ListView(
-                padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
-                children: [
-              GradientBackground(
-                colors: const [Colors.transparent, Colors.transparent],
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.arrow_back),
-                        onPressed: () => NavigationHelper.pushReplacementNamed(
-                          AppRoutes.transfer,
-                        ),
-                      ),
-                      const Text(
-                        AppStrings.transferToOtherClient,
-                        style: AppTheme.titleLarge,
-                      ),
-                      Image.network(
-                        apiDataAppLogoBar,
-                        width: screenWidth * 0.25,
-                        fit: BoxFit.cover,
-                        alignment: Alignment.topCenter,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Container(
-                color: backgroundColor,
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
+    return BaseLayout(
+      child: Container(
+          constraints: const BoxConstraints.expand(),
+          decoration: const BoxDecoration(
+            color: AppColors.lightGreen,
+            // image: DecorationImage(
+            //     image: AssetImage('assets/images/background2.jpg'),
+            //     fit: BoxFit.cover),
+          ),
+          child: Scaffold(
+              body: ListView(
+                  padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
                   children: [
-                    TransferDetailCard(
-                      icon: Icons.credit_card,
-                      title: 'Rekening Sumber',
-                      accountNumber: '$apiDataOwnSirelaId',
-                      balance: 'Rp $apiDataSendaAmount',
-                    ),
-                    SizedBox(height: 16),
-                    TransferDetailCard(
-                      icon: Icons.account_balance,
-                      title: 'Rekening Tujuan',
-                      accountNumber: '$apiDataDestinationSirelaId',
-                      name: '$apiDataDestinationSirelaName',
-                    ),
-                    SizedBox(height: 16),
-                    TransferInfoCard(),
-                    ConfirmationButton(
-                      onConfirm: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return MPinPopup(
-                              onPinSubmitted: (String pin) async {
-                                Map<String, dynamic> statusTransfer =
-                                    await ApiHelper.getTransferSirela(
-                                        apiLoginToken,
-                                        apiDataOwnSirelaId,
-                                        apiDataSendaAmount,
-                                        apiDataSendaComment,
-                                        pin,
-                                        apiDataDestinationSirelaId);
-                                if (statusTransfer['status_trx'].toString() ==
-                                    'BERHASIL DIKIRIM') {
-                                  //menuju halaman
-                                  updateDetailsRek(
-                                      apiDataOwnSirelaId,
-                                      apiDataOwnSirelaAmount,
-                                      apiDataDestinationSirelaId,
-                                      apiDataDestinationSirelaName,
-                                      apiDataSendaAmount,
-                                      apiDataSendaComment,
-                                      statusTransfer['kd_trx'].toString(),
-                                      apiDataMetodeTransfer);
-                                  NavigationHelper.pushReplacementNamed(
-                                    AppRoutes.transaction_sucess,
-                                  );
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text('Incorrect PIN')),
-                                  );
-                                }
-                              },
-                            );
-                          },
-                        );
-                      },
+                GradientBackground(
+                  colors: const [Colors.transparent, Colors.transparent],
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.arrow_back),
+                          onPressed: () => NavigationHelper.pushNamed(
+                            AppRoutes.transfer,
+                          ),
+                        ),
+                        const Text(
+                          AppStrings.transferToOtherClient,
+                          style: AppTheme.titleLarge,
+                        ),
+                        Image.network(
+                          apiDataAppLogoBar,
+                          width: screenWidth * 0.25,
+                          fit: BoxFit.cover,
+                          alignment: Alignment.topCenter,
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ),
-            ])));
+                Container(
+                  color: backgroundColor,
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      TransferDetailCard(
+                        icon: Icons.credit_card,
+                        title: 'Rekening Sumber',
+                        accountNumber: '$apiDataOwnSirelaId',
+                        balance: 'Rp $apiDataSendaAmount',
+                      ),
+                      SizedBox(height: 16),
+                      TransferDetailCard(
+                        icon: Icons.account_balance,
+                        title: 'Rekening Tujuan',
+                        accountNumber: '$apiDataDestinationSirelaId',
+                        name: '$apiDataDestinationSirelaName',
+                      ),
+                      SizedBox(height: 16),
+                      TransferInfoCard(),
+                      ConfirmationButton(
+                         onConfirm: _isLoading
+                            ? null
+                            : () {
+                              setState(() {
+                                  _isLoading = true; // Set loading to true when button is pressed
+                                });
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return MPinPopup(
+                                onPinSubmitted: (String pin) async {
+                                  
+                                 setState(() {
+                                          _isLoading =
+                                              false; // Set loading to false after API call
+                                        });
+                                showDialog(
+                                        context: context,
+                                        barrierDismissible: false,
+                                        builder: (BuildContext context) {
+                                          return const Center(
+                                            child: CircularProgressIndicator(),
+                                          );
+                                        },
+                                      );
+                                  Map<String, dynamic> statusTransfer =
+                                      await ApiHelper.getTransferSirela(
+                                          apiLoginToken,
+                                          apiDataOwnSirelaId,
+                                          apiDataSendaAmount,
+                                          apiDataSendaComment,
+                                          pin,
+                                          apiDataDestinationSirelaId);
+      
+                                          Navigator.of(context).pop(); // Close loading indicator
+      
+                                  if (statusTransfer['status_trx'].toString() ==
+                                      'BERHASIL DIKIRIM') {
+                                    //menuju halaman
+                                    updateDetailsRek(
+                                        apiDataOwnSirelaId,
+                                        apiDataOwnSirelaAmount,
+                                        apiDataDestinationSirelaId,
+                                        apiDataDestinationSirelaName,
+                                        apiDataSendaAmount,
+                                        apiDataSendaComment,
+                                        statusTransfer['kd_trx'].toString(),
+                                        apiDataMetodeTransfer,
+                                        apiDataAdminAmount);
+                                    NavigationHelper.pushNamed(
+                                      AppRoutes.transaction_sucess,
+                                    );
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text('Incorrect PIN')),
+                                    );
+                                  }
+                                  setState(() {
+                                          _isLoading =
+                                              true; // Set loading to false after API call
+                                        });
+                                },
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ]))),
+    );
   }
 }
 
@@ -200,8 +231,8 @@ class TransferInfoCard extends StatelessWidget {
             TransferInfoRow(label: 'Berita', value: '$apiDataSendaComment'),
             TransferInfoRow(label: 'Tanggal Transfer', value: 'Sekarang'),
             Divider(color: Colors.white),
-            TransferInfoRow(label: 'Biaya Admin', value: 'Rp 0'),
-            TransferInfoRow(label: 'Total', value: 'Rp $apiDataSendaAmount'),
+            TransferInfoRow(label: 'Biaya Admin', value: 'Rp $apiDataAdminAmount'),
+            TransferInfoRow(label: 'Total', value: 'Rp ${(int.parse(apiDataSendaAmount) + int.parse(apiDataAdminAmount)).toString()}'),
           ],
         ),
       ),
@@ -231,7 +262,7 @@ class TransferInfoRow extends StatelessWidget {
 }
 
 class ConfirmationButton extends StatelessWidget {
-  final VoidCallback onConfirm;
+  final VoidCallback? onConfirm;
 
   ConfirmationButton({required this.onConfirm});
 

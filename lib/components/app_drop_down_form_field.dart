@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dropdown_V2.dart';
+import 'app_drop_down_items.dart';
 
 class AppDropdownFormField extends StatelessWidget {
   const AppDropdownFormField({
@@ -121,7 +121,6 @@ class AppDropdownList extends StatelessWidget {
   }
 }
 
-
 class AppDropdownFormBank extends StatelessWidget {
   const AppDropdownFormBank({
     required this.future,
@@ -156,12 +155,16 @@ class AppDropdownFormBank extends StatelessWidget {
                 color: Colors.black, // Set label color to black
               ),
               enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.black), // Set underline color to black
+                borderSide: BorderSide(
+                    color: Colors.black), // Set underline color to black
               ),
               focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.black), // Set underline color to black when focused
+                borderSide: BorderSide(
+                    color: Colors
+                        .black), // Set underline color to black when focused
               ),
-              contentPadding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0), // Adjust padding
+              contentPadding: const EdgeInsets.symmetric(
+                  vertical: 8.0, horizontal: 12.0), // Adjust padding
               fillColor: Colors.transparent, // Make background transparent
               filled: false, // Do not fill background
             ),
@@ -180,7 +183,8 @@ class AppDropdownFormBank extends StatelessWidget {
                 onChanged!(selectedValue);
               }
               if (onItemSelected != null) {
-                var selectedItem = snapshot.data!.firstWhere((e) => e.id.toString() == selectedValue);
+                var selectedItem = snapshot.data!
+                    .firstWhere((e) => e.id.toString() == selectedValue);
                 onItemSelected!(selectedItem.title);
               }
             },
@@ -194,4 +198,3 @@ class AppDropdownFormBank extends StatelessWidget {
     );
   }
 }
-

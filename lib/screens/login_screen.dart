@@ -1,15 +1,15 @@
 import 'dart:async';
 import 'dart:convert';
 
-// import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl/intl.dart';
 
 import '../components/app_text_form_field.dart';
 import '../global_variables.dart';
 import '../resources/resources.dart';
-// import '../screens/camera_id_screen.dart';
 import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/api_helper.dart';
 import '../utils/helpers/navigation_helper.dart';
@@ -54,8 +54,6 @@ class _LoginPageState extends State<LoginPage> {
   late String responseDetailsUserTempatLahir;
   late String responseDetailsUserTanggalLahir;
   late String responseDetailsUserAlamatLengkap;
-  // late String responseDetailsUserHpOrtu;
-  // late String responseDetailsUserNamaOrtu;
 
   late String responseDetailsAccountNoUser;
   late String responseDetailsAccountEmail;
@@ -85,9 +83,8 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> createToken() async {
     const url = 'https://dkuapi.dkuindonesia.id/api/Authorization/create_token';
-    const headers = {
-      'ClientID':
-          'jLdCPSe3816XRXk7+aCMc+Et0nk1y6\/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ\/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A\/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs\/WzXeZ9pQGOkHyX6IK\/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M\/fXTrjkHB\/v+1VFKgkGRFz0eIhDXZ3yp7e\/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n\/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3\/gKIXwL6NGFqzdeEy3xC\/Qr6',
+    final headers = {
+      'ClientID': apiDataClientID,
       'Content-Type': 'application/json',
     };
     final body = json.encode({
@@ -127,11 +124,14 @@ class _LoginPageState extends State<LoginPage> {
         getDetails();
 
         if (responseLoginToken.length >= 100) {
+          // Simpan data login
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString('phone', phoneController.text);
+
           phoneController.clear();
           passwordController.clear();
 
           SnackbarHelper.showSnackBar(
-            // ignore: void_checks
             AppStrings.loggedIn,
           );
           await NavigationHelper.pushReplacementNamed(
@@ -139,7 +139,6 @@ class _LoginPageState extends State<LoginPage> {
           );
         } else {
           SnackbarHelper.showSnackBar(
-            // ignore: void_checks
             responseLoginToken,
           );
           debugPrint('API response: $responseBody.');
@@ -156,8 +155,7 @@ class _LoginPageState extends State<LoginPage> {
     const url =
         'https://dkuapi.dkuindonesia.id/api/Authorization/get_my_profile';
     final headers = {
-      'ClientID':
-          'jLdCPSe3816XRXk7+aCMc+Et0nk1y6\/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ\/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A\/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs\/WzXeZ9pQGOkHyX6IK\/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M\/fXTrjkHB\/v+1VFKgkGRFz0eIhDXZ3yp7e\/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n\/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3\/gKIXwL6NGFqzdeEy3xC\/Qr6',
+      'ClientID': apiDataClientID,
       'Authorization': 'Bearer $apiLoginToken',
       'Content-Type': 'application/json',
     };
@@ -168,9 +166,8 @@ class _LoginPageState extends State<LoginPage> {
         headers: headers,
       );
       final responseBody = json.decode(response.body);
-print(responseBody);
+      print(responseBody);
       if (response.statusCode == 200) {
-        // final responseBody = json.decode(response.body);
         responseDetailsUserNik =
             responseBody['data_user_details']['nik'].toString();
         responseDetailsUserNamaLengkap =
@@ -181,11 +178,6 @@ print(responseBody);
             responseBody['data_user_details']['jenis_kelamin'].toString();
         responseDetailsUserTempatLahir =
             responseBody['data_user_details']['tempat_lahir'].toString();
-
-        // debugPrint('response details:$responseBody');
-        // debugPrint(
-        //     'response details user nama: $responseDetailsUserNamaLengkap');
-
 
         responseDetailsAccountNoUser =
             responseBody['data_account_details']['no_user'].toString();
@@ -254,10 +246,32 @@ print(responseBody);
     }
   }
 
+  Future<void> loadLoginData() async {
+    final prefs = await SharedPreferences.getInstance();
+    phoneController.text = prefs.getString('phone') ?? '';
+    // Kata sandi sebaiknya tidak diisi ulang untuk alasan keamanan
+    passwordController.text = '';
+  }
+
+  Future<void> logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('phone'); // Jika Anda ingin menghapus nomor telepon
+    // await prefs.clear(); // Jika Anda ingin menghapus semua data
+    // Pastikan `phone` tidak dihapus jika ingin tetap mengisi input dengan nomor telepon setelah logout
+    Navigator.pushReplacementNamed(context, AppRoutes.login);
+  }
+
+  bool checkAccessRestriction() {
+    final currentDate = DateTime.now();
+    final restrictedDate = DateTime(currentDate.year, 6, 20); // 20 Juni
+    return currentDate.isBefore(restrictedDate);
+  }
+
   @override
   void initState() {
     fetchData();
     initializeControllers();
+    loadLoginData();
     super.initState();
   }
 
@@ -271,8 +285,21 @@ print(responseBody);
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    
+    // Check access restriction
+    if (!checkAccessRestriction()) {
+      return Scaffold(
+        body: Center(
+          child: Text(
+            'Karena melebihi tanggal Trial hubungi admin DKU',
+            style: AppTheme.bodyLarge.copyWith(color: Colors.black),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
+    }
+    
     return Container(
-      // constraints: const BoxConstraints.expand(),
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage(Images.background1),
@@ -280,6 +307,7 @@ print(responseBody);
         ),
       ),
       child: Scaffold(
+        backgroundColor: Colors.transparent,
         body: ListView(
           padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
           children: [
@@ -419,16 +447,8 @@ print(responseBody);
                           onPressed: () =>
                               NavigationHelper.pushReplacementNamed(
                             AppRoutes.register,
+                                arguments: {'originPage': 'home'},
                           ),
-                          // onPressed: () async {
-                          //   await availableCameras().then((value) =>
-                          //       Navigator.push(
-                          //           context,
-                          //           // ignore: inference_failure_on_instance_creation
-                          //           MaterialPageRoute(
-                          //               builder: (_) =>
-                          //                   CameraIDPage(cameras: value))));
-                          // },
                           child: const Text(AppStrings.register),
                         ),
                       ],

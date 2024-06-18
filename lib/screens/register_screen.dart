@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../components/app_drop_down_form_field.dart';
+import '../components/app_drop_down_items.dart';
 import '../components/app_text_form_field.dart';
-import '../components/dropdown_V2.dart';
 import '../global_variables.dart';
 import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/api_helper.dart';
@@ -14,10 +14,13 @@ import '../values/app_regex.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
+import '../components/base_layout.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key, this.restorationId});
+  final String? originPage; // Add this line to receive the origin page
   final String? restorationId;
+
+  const RegisterPage({super.key, this.restorationId, this.originPage}); // Update constructor
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -91,10 +94,11 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
     'Lain-Lain'
   ];
   final List<String> listDownCitizenship = ['WNI', 'WNA'];
-  late Future<List<DropdownItemsModel>> _province; // Marked as 'late'
+  late Future<List<DropdownItemsModel>> _province;
   late Future<List<DropdownItemsModel>> _futureCity;
   late Future<List<DropdownItemsModel>> _futureDistrict;
   late Future<List<DropdownItemsModel>> _futureSubDistrict;
+
   void initializeControllers() {
     nameController = TextEditingController()..addListener(controllerListener);
     phoneController = TextEditingController()..addListener(controllerListener);
@@ -188,6 +192,14 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
     _futureCity = ApiHelper.getCity(address: '12');
     _futureDistrict = ApiHelper.getDistrict(address: '1204');
     _futureSubDistrict = ApiHelper.getSubDistrict(address: '1204010');
+    String? pageorigin = widget.originPage;
+    print("----------------------------");
+    print("data page origin $pageorigin");
+    // Pre-fill referral field based on origin
+    if (widget.originPage == 'home') {
+      
+      referalController.text = apiDataAccountTelepon; // Assuming the phone number is available
+    }
   }
 
   @override
@@ -280,6 +292,14 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
     return selectedDateOnly;
   }
 
+  void _onBackButtonPressed() {
+    if (widget.originPage == 'home') {
+      Navigator.of(context).popUntil((route) => route.isFirst);
+    } else {
+      Navigator.pop(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -288,9 +308,6 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
       constraints: const BoxConstraints.expand(),
       decoration: const BoxDecoration(
         color: AppColors.lightGreen,
-        // image: DecorationImage(
-        //     image: AssetImage('assets/images/background1.jpg'),
-        //     fit: BoxFit.cover),
       ),
       child: Scaffold(
         body: ListView(
@@ -329,7 +346,6 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                       labelText: AppStrings.id,
                       keyboardType: TextInputType.number,
                       textInputAction: TextInputAction.next,
-                      // onChanged: (value) => _formKey.currentState?.validate(),
                       validator: (value) {
                         return value!.isEmpty
                             ? AppStrings.pleaseEnterId
@@ -344,7 +360,6 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                       labelText: AppStrings.name,
                       keyboardType: TextInputType.name,
                       textInputAction: TextInputAction.next,
-                      // onChanged: (value) => _formKey.currentState?.validate(),
                       validator: (value) {
                         return value!.isEmpty
                             ? AppStrings.pleaseEnterName
@@ -359,7 +374,6 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                       labelText: AppStrings.phone,
                       keyboardType: TextInputType.phone,
                       textInputAction: TextInputAction.next,
-                      // onChanged: (value) => _formKey.currentState?.validate(),
                       validator: (value) {
                         return value!.isEmpty
                             ? AppStrings.pleaseEnterPhone
@@ -374,7 +388,6 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                       controller: emailController,
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.emailAddress,
-                      // onChanged: (_) => _formKey.currentState?.validate(),
                       validator: (value) {
                         return value!.isEmpty
                             ? AppStrings.pleaseEnterEmailAddress
@@ -392,7 +405,6 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                           labelText: AppStrings.password,
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.visiblePassword,
-                          // onChanged: (_) => _formKey.currentState?.validate(),
                           validator: (value) {
                             return value!.isEmpty
                                 ? AppStrings.pleaseEnterPassword
@@ -401,15 +413,6 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                                     : AppStrings.invalidPassword;
                           },
                           suffixIcon: Focus(
-                            /// If false,
-                            ///
-                            /// disable focus for all of this node's descendants
-                            descendantsAreFocusable: false,
-
-                            /// If false,
-                            ///
-                            /// make this widget's descendants un-traversable.
-                            // descendantsAreTraversable: false,
                             child: IconButton(
                               onPressed: () =>
                                   passwordNotifier.value = !passwordObscure,
@@ -436,7 +439,6 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                           obscureText: confirmPasswordObscure,
                           textInputAction: TextInputAction.done,
                           keyboardType: TextInputType.visiblePassword,
-                          // onChanged: (_) => _formKey.currentState?.validate(),
                           validator: (value) {
                             return value!.isEmpty
                                 ? AppStrings.pleaseReEnterPassword
@@ -448,15 +450,6 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                                     : AppStrings.invalidPassword;
                           },
                           suffixIcon: Focus(
-                            /// If false,
-                            ///
-                            /// disable focus for all of this node's descendants.
-                            descendantsAreFocusable: false,
-
-                            /// If false,
-                            ///
-                            /// make this widget's descendants un-traversable.
-                            // descendantsAreTraversable: false,
                             child: IconButton(
                               onPressed: () => confirmPasswordNotifier.value =
                                   !confirmPasswordObscure,
@@ -502,7 +495,6 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                       controller: birthPlaceController,
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.name,
-                      // onChanged: (_) => _formKey.currentState?.validate(),
                       validator: (value) {
                         return value!.isEmpty
                             ? 'Tolong Masukan Tempat Lahir'
@@ -600,7 +592,6 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                       controller: rwController,
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
-                      // onChanged: (_) => _formKey.currentState?.validate(),
                       validator: (value) {
                         return value!.isEmpty
                             ? 'Masukan No RW'
@@ -614,7 +605,6 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                       controller: rtController,
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
-                      // onChanged: (_) => _formKey.currentState?.validate(),
                       validator: (value) {
                         return value!.isEmpty
                             ? 'Masukan No RT'
@@ -640,7 +630,6 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                       labelText: AppStrings.address,
                       keyboardType: TextInputType.streetAddress,
                       textInputAction: TextInputAction.next,
-                      // onChanged: (value) => _formKey.currentState?.validate(),
                       validator: (value) {
                         return value!.isEmpty
                             ? AppStrings.pleaseEnterAddress
@@ -655,7 +644,6 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                       labelText: AppStrings.motherName,
                       keyboardType: TextInputType.name,
                       textInputAction: TextInputAction.next,
-                      // onChanged: (value) => _formKey.currentState?.validate(),
                       validator: (value) {
                         return value!.isEmpty
                             ? AppStrings.pleaseEnterMotherName
@@ -682,20 +670,12 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                       controller: referalController,
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
-                      // onChanged: (_) => _formKey.currentState?.validate(),
-                      validator: (value) {
-                        return value!.isEmpty
-                            ? 'Masukan No RT'
-                            : value.length < 0
-                                ? AppStrings.invalidName
-                                : null;
-                      },
                     ),
                     ValueListenableBuilder(
                       valueListenable: fieldValidNotifier,
                       builder: (_, isValid, __) {
                         return FilledButton(
-                          onPressed: true
+                          onPressed: isValid
                               ? () async {
                                   valuebirthDate =
                                       _selectDateOnly(_selectedDate.value);
@@ -730,20 +710,16 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                                     print(responRegister['status'].toString());
                                     if (responRegister['status'].toString() ==
                                         'berhasil') {
-                                      NavigationHelper.pushReplacementNamed(
+                                      NavigationHelper.pushNamed(
                                         AppRoutes.registeration_success,
+                                        arguments: widget.originPage,
                                       );
                                     }
-                                    // nameController.clear();
-                                    // emailController.clear();
-                                    // passwordController.clear();
-                                    // confirmPasswordController.clear();
                                     SnackbarHelper.showSnackBar(
                                       AppStrings.registrationComplete,
                                     );
                                   }
                                 }
-                              // ignore: dead_code
                               : null,
                           child: const Text(AppStrings.register),
                         );
@@ -761,9 +737,7 @@ class _RegisterPageState extends State<RegisterPage> with RestorationMixin {
                   style: AppTheme.bodySmall.copyWith(color: Colors.black),
                 ),
                 TextButton(
-                  onPressed: () => NavigationHelper.pushReplacementNamed(
-                    AppRoutes.login,
-                  ),
+                  onPressed: _onBackButtonPressed,
                   child: const Text(AppStrings.login),
                 ),
               ],
