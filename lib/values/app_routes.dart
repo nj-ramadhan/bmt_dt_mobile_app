@@ -23,6 +23,8 @@ class AppRoutes {
   static const String transaction_detail = 'transaction_detail';
   static const String transaction_detail_dif_Bank =
       'transaction_detail_dif_Bank';
+
+  static const String qrcode = 'qrcode';
   static const String transaction_sucess = 'transaction_sucess';
   static const String transfer_metode = 'transfer_metode';
   static const String add_client = 'add_client';

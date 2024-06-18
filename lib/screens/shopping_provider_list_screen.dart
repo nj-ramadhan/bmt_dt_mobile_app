@@ -13,6 +13,7 @@ import '../values/app_colors.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
+import '../components/base_layout.dart';
 
 class ShoppingProviderListPage extends StatefulWidget {
   const ShoppingProviderListPage({super.key});
@@ -66,7 +67,10 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
           print("masuk kesini");
           frontCodeNumber = apiDataProductKeyword;
         }  else {
+          if(value.length > 4){
+
           frontCodeNumber = value.substring(0, 4);
+          }
         }
         print("isi front code number $frontCodeNumber");
         apiDataProductClientNumber = value;
@@ -125,162 +129,164 @@ class _ShoppingProviderListPageState extends State<ShoppingProviderListPage> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    return Container(
-      constraints: const BoxConstraints.expand(),
-      decoration: const BoxDecoration(
-        color: AppColors.lightGreen,
-        // image: DecorationImage(
-        //     image: AssetImage('assets/images/background2.jpg'),
-        //     fit: BoxFit.cover),
-      ),
-      child: Scaffold(
-        body: ListView(
-          padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
-          children: [
-            GradientBackground(
-              colors: const [Colors.transparent, Colors.transparent],
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      onPressed: () => NavigationHelper.pushNamed(
-                        AppRoutes.shopping,
-                      ),
-                    ),
-                    const Text(
-                      AppStrings.shoppingTitle,
-                      style: AppTheme.titleLarge,
-                    ),
-                    Image.network(
-                      apiDataAppLogoBar,
-                      width: screenWidth * 0.25,
-                      fit: BoxFit.cover,
-                      alignment: Alignment.topCenter,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.all(screenWidth * 0.02),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+    return BaseLayout(
+      child: Container(
+        constraints: const BoxConstraints.expand(),
+        decoration: const BoxDecoration(
+          color: AppColors.lightGreen,
+          // image: DecorationImage(
+          //     image: AssetImage('assets/images/background2.jpg'),
+          //     fit: BoxFit.cover),
+        ),
+        child: Scaffold(
+          body: ListView(
+            padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
+            children: [
+              GradientBackground(
+                colors: const [Colors.transparent, Colors.transparent],
                 children: [
                   Row(
+                    mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Material(
-                        color: Colors.transparent,
-                        shape: CircleBorder(),
-                        child: Padding(
-                          padding: EdgeInsets.all(15),
-                          child: Image.network(
-                            dataProvider[1]?['logo_kartu'] ?? '',
-                            width: screenWidth * 0.15,
-                            fit: BoxFit.cover,
-                            alignment: Alignment.topCenter,
-                            errorBuilder: (BuildContext context,
-                                Object exception, StackTrace? stackTrace) {
-                              return const Text('icon');
-                            },
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child: TextField(
-                          decoration: const InputDecoration(
-                              hintText: AppStrings.frontCode,
-                              fillColor: AppColors.lightGreen),
-                          controller: frontCodeController,
-                          textInputAction: TextInputAction.done,
-                          textAlign: TextAlign.end,
-                          keyboardType: TextInputType.number,
-                          onChanged: (_) =>
-                              updateFrontCode(frontCodeController.text),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: screenHeight * 0.02,
-                  ),
-                  FilledButton(
-                    onPressed: () {
-                      fetchDataProvider();
-                      // fetchDataProduct();
-                    },
-                    child: Text('Check'),
-                  ),
-                  SizedBox(
-                    height: screenHeight * 0.02,
-                  ),
-                  Column(
                     children: [
-                      // dataProvider.keys.map((i) {
-                      for (var i = 1; i <= dataProduct.keys.length; i++)
-                        // debugPrint('response: $dataProvider');
-                        Card(
-                          color: AppColors.lightGreen,
-                          child: InkWell(
-                            child: Padding(
-                              padding: EdgeInsets.all(screenWidth * 0.02),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    children: [
-                                      Text(
-                                        dataProduct[i]?['nama_produk'] ?? '',
-                                        style: AppTheme.bodySmall,
-                                      ),
-                                      Text(
-                                          indonesianCurrencyFormat(
-                                              dataProduct[i]
-                                                      ?['harga_jual_agen'] ??
-                                                  ''),
-                                          // formatter.format(
-                                          //   (dataProduct[i]
-                                          //           ?['harga_jual_agen'] ??
-                                          //       '')
-                                          // ).toString(),
-                                          // dataProduct[i]?['harga_jual_agen'] ??
-                                          //     '',
-                                          style: AppTheme.bodyMedium),
-                                    ],
-                                  ),
-                                  const Icon(
-                                    Icons.chevron_right,
-                                    color: Colors.green,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            onTap: () {
-                              apiDataProductName =
-                                  dataProduct[i]?['nama_produk'] ?? '';
-                              apiDataProductPrice =
-                                  dataProduct[i]?['harga_jual_agen'] ?? '';
-                              apiDataProductCode =
-                                  dataProvider[1]?['no_provider'] ?? '';
-                              NavigationHelper.pushNamed(
-                                AppRoutes.shopping_confirm,
-                              );
-                            },
-                          ),
+                      IconButton(
+                        icon: const Icon(Icons.arrow_back),
+                        onPressed: () => NavigationHelper.pushNamed(
+                          AppRoutes.shopping,
                         ),
+                      ),
+                      const Text(
+                        AppStrings.shoppingTitle,
+                        style: AppTheme.titleLarge,
+                      ),
+                      Image.network(
+                        apiDataAppLogoBar,
+                        width: screenWidth * 0.25,
+                        fit: BoxFit.cover,
+                        alignment: Alignment.topCenter,
+                      ),
                     ],
                   ),
                 ],
               ),
-            ),
-          ],
+              Padding(
+                padding: EdgeInsets.all(screenWidth * 0.02),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Material(
+                          color: Colors.transparent,
+                          shape: CircleBorder(),
+                          child: Padding(
+                            padding: EdgeInsets.all(15),
+                            child: Image.network(
+                              dataProvider[1]?['logo_kartu'] ?? '',
+                              width: screenWidth * 0.15,
+                              fit: BoxFit.cover,
+                              alignment: Alignment.topCenter,
+                              errorBuilder: (BuildContext context,
+                                  Object exception, StackTrace? stackTrace) {
+                                return const Text('icon');
+                              },
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: TextField(
+                            decoration: const InputDecoration(
+                                hintText: AppStrings.frontCode,
+                                fillColor: AppColors.lightGreen),
+                            controller: frontCodeController,
+                            textInputAction: TextInputAction.done,
+                            textAlign: TextAlign.end,
+                            keyboardType: TextInputType.number,
+                            onChanged: (_) =>
+                                updateFrontCode(frontCodeController.text),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: screenHeight * 0.02,
+                    ),
+                    FilledButton(
+                      onPressed: () {
+                        fetchDataProvider();
+                        // fetchDataProduct();
+                      },
+                      child: Text('Check'),
+                    ),
+                    SizedBox(
+                      height: screenHeight * 0.02,
+                    ),
+                    Column(
+                      children: [
+                        // dataProvider.keys.map((i) {
+                        for (var i = 1; i <= dataProduct.keys.length; i++)
+                          // debugPrint('response: $dataProvider');
+                          Card(
+                            color: AppColors.lightGreen,
+                            child: InkWell(
+                              child: Padding(
+                                padding: EdgeInsets.all(screenWidth * 0.02),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Text(
+                                          dataProduct[i]?['nama_produk'] ?? '',
+                                          style: AppTheme.bodySmall,
+                                        ),
+                                        Text(
+                                            indonesianCurrencyFormat(
+                                                dataProduct[i]
+                                                        ?['harga_jual_agen'] ??
+                                                    ''),
+                                            // formatter.format(
+                                            //   (dataProduct[i]
+                                            //           ?['harga_jual_agen'] ??
+                                            //       '')
+                                            // ).toString(),
+                                            // dataProduct[i]?['harga_jual_agen'] ??
+                                            //     '',
+                                            style: AppTheme.bodyMedium),
+                                      ],
+                                    ),
+                                    const Icon(
+                                      Icons.chevron_right,
+                                      color: Colors.green,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              onTap: () {
+                                apiDataProductName =
+                                    dataProduct[i]?['nama_produk'] ?? '';
+                                apiDataProductPrice =
+                                    dataProduct[i]?['harga_jual_agen'] ?? '';
+                                apiDataProductCode =
+                                    dataProvider[1]?['no_provider'] ?? '';
+                                NavigationHelper.pushNamed(
+                                  AppRoutes.shopping_confirm,
+                                );
+                              },
+                            ),
+                          ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

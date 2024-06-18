@@ -8,6 +8,7 @@ import '../values/app_colors.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
+import '../components/base_layout.dart';
 
 class FundingSimulationRahnPage extends StatefulWidget {
   const FundingSimulationRahnPage({super.key});
@@ -27,9 +28,9 @@ class _FundingSimulationRahnPageState extends State<FundingSimulationRahnPage> {
 
   Future<void> simulateFunding() async {
     const url = 'https://dkuapi.dkuindonesia.id/api/Authorization/create_token';
-    const headers = {
+    final headers = {
       'ClientID':
-          'jLdCPSe3816XRXk7+aCMc+Et0nk1y6\/48a2bpVHFMrkza9T41ymgT7iBDLH8jQ\/7OKmOPQ5d9tON6yBcTQEUiO9yZBfwotnfDzFTS5l7cH++Cuh2MXj5MdUgBdPo22oyTY9x9OqCYkszV5A\/Le8Lm1sA93eDJILe14nPJDBGkKnh5LE4spoyKFgjDRs\/WzXeZ9pQGOkHyX6IK\/2oxI8ZGuKpRxrvMxlPYdhp9dC11Y5QZgdXmAt3DYU6qqaX6I9hhRNYYR4M\/fXTrjkHB\/v+1VFKgkGRFz0eIhDXZ3yp7e\/uKAzAjpxxdsdRHMcQQUqsmx6Og60tJUXzcX1UVYtbHhay40s9Yq6uKdBVDArlKxtxDQ4Nr9NmUHbXBlaQG0Z37e+F1ILz5a0wZrjpst3ncVssMr1HgaXa3HdxMolyFAQslH4k9bujP5n\/B4JLrQX0oRxTVAjxosQMOg750NgtzVArRloEsIQHarjhoRMpDOXFZEZIpxXx4tOGZ3KtUdvY8F9CfWo6IAcFP1KubCu2lxnLfx76MfUU7IpGLqS3\/gKIXwL6NGFqzdeEy3xC\/Qr6',
+          apiDataClientID,
       'Content-Type': 'application/json',
     };
     // final body = json.encode({
@@ -141,119 +142,121 @@ class _FundingSimulationRahnPageState extends State<FundingSimulationRahnPage> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    return Container(
-      constraints: const BoxConstraints.expand(),
-      decoration: const BoxDecoration(
-        color: AppColors.lightGreen,
-        // image: DecorationImage(
-        //     image: AssetImage('assets/images/background2.jpg'),
-        //     fit: BoxFit.cover),
-      ),
-      child: Scaffold(
-        body: ListView(
-          padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
-          children: [
-            GradientBackground(
-              colors: const [Colors.transparent, Colors.transparent],
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      onPressed: () => NavigationHelper.pushNamed(
-                        AppRoutes.funding_simulation,
-                      ),
-                    ),
-                    const Text(
-                      AppStrings.fundingRahn,
-                      style: AppTheme.titleLarge,
-                    ),
-                    Image.network(
-                      apiDataAppLogoBar,
-                      width: screenWidth * 0.25,
-                      fit: BoxFit.cover,
-                      alignment: Alignment.topCenter,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+    return BaseLayout(
+      child: Container(
+        constraints: const BoxConstraints.expand(),
+        decoration: const BoxDecoration(
+          color: AppColors.lightGreen,
+          // image: DecorationImage(
+          //     image: AssetImage('assets/images/background2.jpg'),
+          //     fit: BoxFit.cover),
+        ),
+        child: Scaffold(
+          body: ListView(
+            padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
+            children: [
+              GradientBackground(
+                colors: const [Colors.transparent, Colors.transparent],
                 children: [
-                  AppTextFormField(
-                    controller: priceController,
-                    labelText: AppStrings.fundingPrice,
-                    keyboardType: TextInputType.number,
-                    textInputAction: TextInputAction.next,
-                    // onChanged: (_) => _formKey.currentState?.validate(),
-                    // validator: (value) {
-                    //   return value!.isEmpty
-                    //       ? AppStrings.pleaseEnterPhone
-                    //       : AppConstants.phoneRegex.hasMatch(value)
-                    //           ? null
-                    //           : AppStrings.invalidPhone;
-                    // },
-                  ),
-                  AppTextFormField(
-                    controller: marginController,
-                    labelText: AppStrings.fundingMargin,
-                    keyboardType: TextInputType.number,
-                    textInputAction: TextInputAction.next,
-                    // onChanged: (_) => _formKey.currentState?.validate(),
-                    // validator: (value) {
-                    //   return value!.isEmpty
-                    //       ? AppStrings.pleaseEnterPhone
-                    //       : AppConstants.phoneRegex.hasMatch(value)
-                    //           ? null
-                    //           : AppStrings.invalidPhone;
-                    // },
-                  ),
-                  AppTextFormField(
-                    controller: periodController,
-                    labelText: AppStrings.fundingPeriod,
-                    keyboardType: TextInputType.number,
-                    textInputAction: TextInputAction.next,
-                    // onChanged: (_) => _formKey.currentState?.validate(),
-                    // validator: (value) {
-                    //   return value!.isEmpty
-                    //       ? AppStrings.pleaseEnterPhone
-                    //       : AppConstants.phoneRegex.hasMatch(value)
-                    //           ? null
-                    //           : AppStrings.invalidPhone;
-                    // },
-                  ),
-                  AppTextFormField(
-                    controller: priceSellingController,
-                    labelText: AppStrings.fundingPriceSelling,
-                    keyboardType: TextInputType.number,
-                    textInputAction: TextInputAction.next,
-                    // onChanged: (_) => _formKey.currentState?.validate(),
-                    // validator: (value) {
-                    //   return value!.isEmpty
-                    //       ? AppStrings.pleaseEnterPhone
-                    //       : AppConstants.phoneRegex.hasMatch(value)
-                    //           ? null
-                    //           : AppStrings.invalidPhone;
-                    // },
-                  ),
-                  ValueListenableBuilder(
-                    valueListenable: fieldValidNotifier,
-                    builder: (_, isValid, __) {
-                      return FilledButton(
-                        onPressed: isValid ? simulateFunding : null,
-                        child: const Text(AppStrings.fundingSimulation),
-                      );
-                    },
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.arrow_back),
+                        onPressed: () => NavigationHelper.pushNamed(
+                          AppRoutes.funding_simulation,
+                        ),
+                      ),
+                      const Text(
+                        AppStrings.fundingRahn,
+                        style: AppTheme.titleLarge,
+                      ),
+                      Image.network(
+                        apiDataAppLogoBar,
+                        width: screenWidth * 0.25,
+                        fit: BoxFit.cover,
+                        alignment: Alignment.topCenter,
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    AppTextFormField(
+                      controller: priceController,
+                      labelText: AppStrings.fundingPrice,
+                      keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.next,
+                      // onChanged: (_) => _formKey.currentState?.validate(),
+                      // validator: (value) {
+                      //   return value!.isEmpty
+                      //       ? AppStrings.pleaseEnterPhone
+                      //       : AppConstants.phoneRegex.hasMatch(value)
+                      //           ? null
+                      //           : AppStrings.invalidPhone;
+                      // },
+                    ),
+                    AppTextFormField(
+                      controller: marginController,
+                      labelText: AppStrings.fundingMargin,
+                      keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.next,
+                      // onChanged: (_) => _formKey.currentState?.validate(),
+                      // validator: (value) {
+                      //   return value!.isEmpty
+                      //       ? AppStrings.pleaseEnterPhone
+                      //       : AppConstants.phoneRegex.hasMatch(value)
+                      //           ? null
+                      //           : AppStrings.invalidPhone;
+                      // },
+                    ),
+                    AppTextFormField(
+                      controller: periodController,
+                      labelText: AppStrings.fundingPeriod,
+                      keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.next,
+                      // onChanged: (_) => _formKey.currentState?.validate(),
+                      // validator: (value) {
+                      //   return value!.isEmpty
+                      //       ? AppStrings.pleaseEnterPhone
+                      //       : AppConstants.phoneRegex.hasMatch(value)
+                      //           ? null
+                      //           : AppStrings.invalidPhone;
+                      // },
+                    ),
+                    AppTextFormField(
+                      controller: priceSellingController,
+                      labelText: AppStrings.fundingPriceSelling,
+                      keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.next,
+                      // onChanged: (_) => _formKey.currentState?.validate(),
+                      // validator: (value) {
+                      //   return value!.isEmpty
+                      //       ? AppStrings.pleaseEnterPhone
+                      //       : AppConstants.phoneRegex.hasMatch(value)
+                      //           ? null
+                      //           : AppStrings.invalidPhone;
+                      // },
+                    ),
+                    ValueListenableBuilder(
+                      valueListenable: fieldValidNotifier,
+                      builder: (_, isValid, __) {
+                        return FilledButton(
+                          onPressed: isValid ? simulateFunding : null,
+                          child: const Text(AppStrings.fundingSimulation),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -1,5 +1,5 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -22,6 +22,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String? simpananSukarelaNumber;
   Map<int, Map<String, String>> dataMap = {};
+
+  int _currentIndex = 0;
 
   Future<void> fetchData() async {
     final data = await ApiHelper.getListRekening(loginToken: apiLoginToken);
@@ -47,7 +49,8 @@ class _HomePageState extends State<HomePage> {
             apiDataSendaAmount,
             apiDataSendaComment,
             apiDataKodeTrx,
-            apiDataMetodeTransfer);
+            apiDataMetodeTransfer,
+            apiDataAdminAmount);
         return entry.value['number'];
       }
     }
@@ -75,6 +78,13 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
+  void onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+      // Add navigation logic here based on index
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -91,6 +101,7 @@ class _HomePageState extends State<HomePage> {
         body: ListView(
           padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
           children: [
+            // ... existing body content ...
             GradientBackground(
               colors: const [Colors.transparent, Colors.transparent],
               children: [
@@ -258,13 +269,13 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ],
                               ),
-                              const Text(
-                                AppStrings.homeAccountSubtitle,
-                                style: AppTheme.bodyTiny,
-                              ),
-                              SizedBox(
-                                height: screenHeight * 0.01,
-                              ),
+                              // const Text(
+                              //   AppStrings.homeAccountSubtitle,
+                              //   style: AppTheme.bodyTiny,
+                              // ),
+                              // SizedBox(
+                              //   height: screenHeight * 0.01,
+                              // ),
                               ColoredBox(
                                 color: Colors.white,
                                 child: Padding(
@@ -400,29 +411,10 @@ class _HomePageState extends State<HomePage> {
                               screenWidth * 0.05,
                             ),
                             shape: const CircleBorder(),
-                            onPressed: () async {
-                              // ignore: inference_failure_on_function_invocation
-                              await showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      title: const Text(
-                                          AppStrings.featureInformation),
-                                      content: const Text(
-                                          AppStrings.featureInformationText),
-                                      actions: <Widget>[
-                                        ElevatedButton(
-                                          onPressed: () =>
-                                              NavigationHelper.pushNamed(
-                                            AppRoutes.home,
-                                          ),
-                                          child:
-                                              const Text(AppStrings.okConfirm),
-                                        ),
-                                      ],
-                                    );
-                                  });
-                            },
+                            onPressed: () => NavigationHelper.pushNamed(
+                              AppRoutes.register,
+                              arguments: {'originPage': 'home'},
+                            ),
                             child: const Icon(
                               Icons.person,
                               // size: 40,
@@ -475,9 +467,32 @@ class _HomePageState extends State<HomePage> {
                               screenWidth * 0.05,
                             ),
                             shape: const CircleBorder(),
-                            onPressed: () => NavigationHelper.pushNamed(
-                              AppRoutes.saving_mandatory,
-                            ),
+                            // onPressed: () => NavigationHelper.pushNamed(
+                            //   AppRoutes.saving_mandatory,
+                            // ),
+                            onPressed: () async {
+                              // ignore: inference_failure_on_function_invocation
+                              await showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: const Text(
+                                          AppStrings.featureInformation),
+                                      content: const Text(
+                                          AppStrings.featureInformationText),
+                                      actions: <Widget>[
+                                        ElevatedButton(
+                                          onPressed: () =>
+                                              NavigationHelper.pushNamed(
+                                            AppRoutes.home,
+                                          ),
+                                          child:
+                                              const Text(AppStrings.okConfirm),
+                                        ),
+                                      ],
+                                    );
+                                  });
+                            },
                             child: const Icon(
                               Icons.atm_outlined,
                               // size: 40,
@@ -498,9 +513,32 @@ class _HomePageState extends State<HomePage> {
                               screenWidth * 0.05,
                             ),
                             shape: const CircleBorder(),
-                            onPressed: () => NavigationHelper.pushNamed(
-                              AppRoutes.saving_principal,
-                            ),
+                            // onPressed: () => NavigationHelper.pushNamed(
+                            //   AppRoutes.saving_principal,
+                            // ),
+                            onPressed: () async {
+                              // ignore: inference_failure_on_function_invocation
+                              await showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: const Text(
+                                          AppStrings.featureInformation),
+                                      content: const Text(
+                                          AppStrings.featureInformationText),
+                                      actions: <Widget>[
+                                        ElevatedButton(
+                                          onPressed: () =>
+                                              NavigationHelper.pushNamed(
+                                            AppRoutes.home,
+                                          ),
+                                          child:
+                                              const Text(AppStrings.okConfirm),
+                                        ),
+                                      ],
+                                    );
+                                  });
+                            },
                             child: const Icon(
                               Icons.star_border,
                               // size: 40,
@@ -521,9 +559,32 @@ class _HomePageState extends State<HomePage> {
                               screenWidth * 0.05,
                             ),
                             shape: const CircleBorder(),
-                            onPressed: () => NavigationHelper.pushNamed(
-                              AppRoutes.saving_voluntary,
-                            ),
+                            // onPressed: () => NavigationHelper.pushNamed(
+                            //   AppRoutes.saving_voluntary,
+                            // ),
+                            onPressed: () async {
+                              // ignore: inference_failure_on_function_invocation
+                              await showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: const Text(
+                                          AppStrings.featureInformation),
+                                      content: const Text(
+                                          AppStrings.featureInformationText),
+                                      actions: <Widget>[
+                                        ElevatedButton(
+                                          onPressed: () =>
+                                              NavigationHelper.pushNamed(
+                                            AppRoutes.home,
+                                          ),
+                                          child:
+                                              const Text(AppStrings.okConfirm),
+                                        ),
+                                      ],
+                                    );
+                                  });
+                            },
                             child: const Icon(
                               Icons.shopping_basket_sharp,
                               // size: 40,
@@ -577,6 +638,24 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
+            ),
+          ],
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          onTap: onTabTapped,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Beranda',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.qr_code),
+              label: 'QR',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: 'Pengaturan',
             ),
           ],
         ),
