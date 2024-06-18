@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl/intl.dart';
 
 import '../components/app_text_form_field.dart';
 import '../global_variables.dart';
@@ -53,8 +54,6 @@ class _LoginPageState extends State<LoginPage> {
   late String responseDetailsUserTempatLahir;
   late String responseDetailsUserTanggalLahir;
   late String responseDetailsUserAlamatLengkap;
-  // late String responseDetailsUserHpOrtu;
-  // late String responseDetailsUserNamaOrtu;
 
   late String responseDetailsAccountNoUser;
   late String responseDetailsAccountEmail;
@@ -85,8 +84,7 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> createToken() async {
     const url = 'https://dkuapi.dkuindonesia.id/api/Authorization/create_token';
     final headers = {
-      'ClientID':
-          apiDataClientID,
+      'ClientID': apiDataClientID,
       'Content-Type': 'application/json',
     };
     final body = json.encode({
@@ -134,7 +132,6 @@ class _LoginPageState extends State<LoginPage> {
           passwordController.clear();
 
           SnackbarHelper.showSnackBar(
-            // ignore: void_checks
             AppStrings.loggedIn,
           );
           await NavigationHelper.pushReplacementNamed(
@@ -142,7 +139,6 @@ class _LoginPageState extends State<LoginPage> {
           );
         } else {
           SnackbarHelper.showSnackBar(
-            // ignore: void_checks
             responseLoginToken,
           );
           debugPrint('API response: $responseBody.');
@@ -159,8 +155,7 @@ class _LoginPageState extends State<LoginPage> {
     const url =
         'https://dkuapi.dkuindonesia.id/api/Authorization/get_my_profile';
     final headers = {
-      'ClientID':
-          apiDataClientID,
+      'ClientID': apiDataClientID,
       'Authorization': 'Bearer $apiLoginToken',
       'Content-Type': 'application/json',
     };
@@ -255,7 +250,7 @@ class _LoginPageState extends State<LoginPage> {
     final prefs = await SharedPreferences.getInstance();
     phoneController.text = prefs.getString('phone') ?? '';
     // Kata sandi sebaiknya tidak diisi ulang untuk alasan keamanan
-    passwordController.text = ''; 
+    passwordController.text = '';
   }
 
   Future<void> logout() async {
@@ -264,6 +259,12 @@ class _LoginPageState extends State<LoginPage> {
     // await prefs.clear(); // Jika Anda ingin menghapus semua data
     // Pastikan `phone` tidak dihapus jika ingin tetap mengisi input dengan nomor telepon setelah logout
     Navigator.pushReplacementNamed(context, AppRoutes.login);
+  }
+
+  bool checkAccessRestriction() {
+    final currentDate = DateTime.now();
+    final restrictedDate = DateTime(currentDate.year, 6, 20); // 20 Juni
+    return currentDate.isBefore(restrictedDate);
   }
 
   @override
@@ -284,185 +285,190 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    return  Container(
-        // constraints: const BoxConstraints.expand(),
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(Images.background1),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Scaffold(
-          body: ListView(
-            padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
-            children: [
-              GradientBackground(
-                colors: const [Colors.transparent, Colors.transparent],
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        AppStrings.signInToYourNAccount,
-                        style: AppTheme.titleLarge,
-                      ),
-                      Image.network(
-                        apiDataAppLogoBar,
-                        width: screenWidth * 0.25,
-                        fit: BoxFit.cover,
-                        alignment: Alignment.topCenter,
-                        errorBuilder: (BuildContext context, Object exception,
-                            StackTrace? stackTrace) {
-                          return const Text('icon');
-                        },
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              Image.network(
-                apiDataAppLogo,
-                height: screenHeight * 0.25,
-                fit: BoxFit.contain,
-                alignment: Alignment.topCenter,
-                errorBuilder: (BuildContext context, Object exception,
-                    StackTrace? stackTrace) {
-                  return const Text('icon');
-                },
-              ),
-              Text(
-                apiDataAppNameString,
-                textAlign: TextAlign.center,
-                style: AppTheme.bodyMedium.copyWith(color: Colors.black),
-              ),
-              Text(
-                "MOBILE",
-                textAlign: TextAlign.center,
-                style: AppTheme.bodySmall.copyWith(color: Colors.black),
-              ),
-              Form(
-                key: _formKey,
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      AppTextFormField(
-                        controller: phoneController,
-                        labelText: AppStrings.phone,
-                        keyboardType: TextInputType.phone,
-                        textInputAction: TextInputAction.next,
-                        onChanged: (_) => _formKey.currentState?.validate(),
-                        validator: (value) {
-                          return value!.isEmpty
-                              ? AppStrings.pleaseEnterPhone
-                              : AppConstants.phoneRegex.hasMatch(value)
-                                  ? null
-                                  : AppStrings.invalidPhone;
-                        },
-                      ),
-                      ValueListenableBuilder(
-                        valueListenable: passwordNotifier,
-                        builder: (_, passwordObscure, __) {
-                          return AppTextFormField(
-                            obscureText: passwordObscure,
-                            controller: passwordController,
-                            labelText: AppStrings.password,
-                            textInputAction: TextInputAction.done,
-                            keyboardType: TextInputType.visiblePassword,
-                            onChanged: (_) => _formKey.currentState?.validate(),
-                            validator: (value) {
-                              return value!.isEmpty
-                                  ? AppStrings.pleaseEnterPassword
-                                  : AppConstants.passwordRegex.hasMatch(value)
-                                      ? null
-                                      : AppStrings.invalidPassword;
-                            },
-                            suffixIcon: IconButton(
-                              onPressed: () =>
-                                  passwordNotifier.value = !passwordObscure,
-                              style: IconButton.styleFrom(
-                                minimumSize: const Size.square(48),
-                              ),
-                              icon: Icon(
-                                passwordObscure
-                                    ? Icons.visibility_off_outlined
-                                    : Icons.visibility_outlined,
-                                size: 20,
-                                color: Colors.black,
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                      ValueListenableBuilder(
-                        valueListenable: fieldValidNotifier,
-                        builder: (_, isValid, __) {
-                          return FilledButton(
-                            onPressed: isValid ? createToken : null,
-                            child: const Text(AppStrings.login),
-                          );
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: IconButton(
-                              color: Colors.white,
-                              onPressed: () {},
-                              icon: SvgPicture.asset(Vectors.fingerprint,
-                                  width: 60),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            AppStrings.doNotHaveAnAccount,
-                            style:
-                                AppTheme.bodySmall.copyWith(color: Colors.black),
-                          ),
-                          const SizedBox(width: 10),
-                          TextButton(
-                            onPressed: () =>
-                                NavigationHelper.pushReplacementNamed(
-                              AppRoutes.register,
-                                  arguments: {'originPage': 'home'},
-                            ),
-                            // onPressed: () async {
-                            //   await availableCameras().then((value) =>
-                            //       Navigator.push(
-                            //           context,
-                            //           // ignore: inference_failure_on_instance_creation
-                            //           MaterialPageRoute(
-                            //               builder: (_) =>
-                            //                   CameraIDPage(cameras: value))));
-                            // },
-                            child: const Text(AppStrings.register),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 20),
-                      Text(
-                        'Version',
-                        style: AppTheme.bodySmall.copyWith(color: Colors.grey),
-                      ),
-                      Text(
-                        globalAppVersion,
-                        style: AppTheme.bodySmall.copyWith(color: Colors.grey),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+    
+    // Check access restriction
+    if (!checkAccessRestriction()) {
+      return Scaffold(
+        body: Center(
+          child: Text(
+            'Karena melebihi tanggal Trial hubungi admin DKU',
+            style: AppTheme.bodyLarge.copyWith(color: Colors.black),
+            textAlign: TextAlign.center,
           ),
         ),
       );
+    }
+    
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(Images.background1),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: ListView(
+          padding: EdgeInsets.fromLTRB(0, screenHeight * 0.01, 0, 0),
+          children: [
+            GradientBackground(
+              colors: const [Colors.transparent, Colors.transparent],
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      AppStrings.signInToYourNAccount,
+                      style: AppTheme.titleLarge,
+                    ),
+                    Image.network(
+                      apiDataAppLogoBar,
+                      width: screenWidth * 0.25,
+                      fit: BoxFit.cover,
+                      alignment: Alignment.topCenter,
+                      errorBuilder: (BuildContext context, Object exception,
+                          StackTrace? stackTrace) {
+                        return const Text('icon');
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Image.network(
+              apiDataAppLogo,
+              height: screenHeight * 0.25,
+              fit: BoxFit.contain,
+              alignment: Alignment.topCenter,
+              errorBuilder: (BuildContext context, Object exception,
+                  StackTrace? stackTrace) {
+                return const Text('icon');
+              },
+            ),
+            Text(
+              apiDataAppNameString,
+              textAlign: TextAlign.center,
+              style: AppTheme.bodyMedium.copyWith(color: Colors.black),
+            ),
+            Text(
+              "MOBILE",
+              textAlign: TextAlign.center,
+              style: AppTheme.bodySmall.copyWith(color: Colors.black),
+            ),
+            Form(
+              key: _formKey,
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    AppTextFormField(
+                      controller: phoneController,
+                      labelText: AppStrings.phone,
+                      keyboardType: TextInputType.phone,
+                      textInputAction: TextInputAction.next,
+                      onChanged: (_) => _formKey.currentState?.validate(),
+                      validator: (value) {
+                        return value!.isEmpty
+                            ? AppStrings.pleaseEnterPhone
+                            : AppConstants.phoneRegex.hasMatch(value)
+                                ? null
+                                : AppStrings.invalidPhone;
+                      },
+                    ),
+                    ValueListenableBuilder(
+                      valueListenable: passwordNotifier,
+                      builder: (_, passwordObscure, __) {
+                        return AppTextFormField(
+                          obscureText: passwordObscure,
+                          controller: passwordController,
+                          labelText: AppStrings.password,
+                          textInputAction: TextInputAction.done,
+                          keyboardType: TextInputType.visiblePassword,
+                          onChanged: (_) => _formKey.currentState?.validate(),
+                          validator: (value) {
+                            return value!.isEmpty
+                                ? AppStrings.pleaseEnterPassword
+                                : AppConstants.passwordRegex.hasMatch(value)
+                                    ? null
+                                    : AppStrings.invalidPassword;
+                          },
+                          suffixIcon: IconButton(
+                            onPressed: () =>
+                                passwordNotifier.value = !passwordObscure,
+                            style: IconButton.styleFrom(
+                              minimumSize: const Size.square(48),
+                            ),
+                            icon: Icon(
+                              passwordObscure
+                                  ? Icons.visibility_off_outlined
+                                  : Icons.visibility_outlined,
+                              size: 20,
+                              color: Colors.black,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    ValueListenableBuilder(
+                      valueListenable: fieldValidNotifier,
+                      builder: (_, isValid, __) {
+                        return FilledButton(
+                          onPressed: isValid ? createToken : null,
+                          child: const Text(AppStrings.login),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: IconButton(
+                            color: Colors.white,
+                            onPressed: () {},
+                            icon: SvgPicture.asset(Vectors.fingerprint,
+                                width: 60),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          AppStrings.doNotHaveAnAccount,
+                          style:
+                              AppTheme.bodySmall.copyWith(color: Colors.black),
+                        ),
+                        const SizedBox(width: 10),
+                        TextButton(
+                          onPressed: () =>
+                              NavigationHelper.pushReplacementNamed(
+                            AppRoutes.register,
+                                arguments: {'originPage': 'home'},
+                          ),
+                          child: const Text(AppStrings.register),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      'Version',
+                      style: AppTheme.bodySmall.copyWith(color: Colors.grey),
+                    ),
+                    Text(
+                      globalAppVersion,
+                      style: AppTheme.bodySmall.copyWith(color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
