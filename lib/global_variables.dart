@@ -140,9 +140,9 @@ void updateDetailsUser(
   // String newApiDataUserKelas,
   // String newApiDataUserTahunMasuk,
   // String newApiDataUserFoto,
-  // String newApiDataUserPasFoto,
+  String newApiDataUserPasFoto,
   // String newApiDataUserKtaFoto,
-  // String newApiDataUserKtpFoto,
+  String newApiDataUserKtpFoto,
   // String newApiDataUserKtpOrtu,
   // String newApiDataUserKkFoto,
   // String newApiDataUserAktaFoto,
@@ -170,9 +170,9 @@ void updateDetailsUser(
   // apiDataUserKelas = newApiDataUserKelas;
   // apiDataUserTahunMasuk = newApiDataUserTahunMasuk;
   // apiDataUserFoto = newApiDataUserFoto;
-  // apiDataUserPasFoto = newApiDataUserPasFoto;
+  apiDataUserPasFoto = newApiDataUserPasFoto;
   // apiDataUserKtaFoto = newApiDataUserKtaFoto;
-  // apiDataUserKtpFoto = newApiDataUserKtpFoto;
+  apiDataUserKtpFoto = newApiDataUserKtpFoto;
   // apiDataUserKtpOrtu = newApiDataUserKtpOrtu;
   // apiDataUserKkFoto = newApiDataUserKkFoto;
   // apiDataUserAktaFoto = newApiDataUserAktaFoto;

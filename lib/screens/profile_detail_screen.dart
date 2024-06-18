@@ -196,6 +196,30 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Material(
+                        color: AppColors.primaryColor,
+                        shape: CircleBorder(),
+                        child: Padding(
+                          padding: EdgeInsets.all(10),
+                          child:
+                              // Image(
+                              //   image: AssetImage('assets/images/user.png'),
+                              //   height: 120,
+                              //   alignment: Alignment.topCenter,
+                              // ),
+                              Image.network(
+                            apiDataUserPasFoto,
+                            height: screenHeight * 0.15,
+                            // fit: BoxFit.cover,
+                            alignment: Alignment.topCenter,
+                            errorBuilder: (BuildContext context,
+                                Object exception, StackTrace? stackTrace) {
+                              return const Text('icon');
+                            },
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
                       AppTextFormField(
                         autofocus: true,
                         labelText: AppStrings.id,

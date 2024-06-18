@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -185,12 +185,22 @@ class _HomePageState extends State<HomePage> {
                           SizedBox(
                             width: screenWidth * 0.02,
                           ),
-                          Image(
-                            image: const AssetImage('assets/images/user.png'),
+                          Image.network(
+                            apiDataUserPasFoto,
                             width: screenWidth * 0.15,
-                            // height: 40,
+                            // fit: BoxFit.cover,
                             alignment: Alignment.topCenter,
+                            errorBuilder: (BuildContext context,
+                                Object exception, StackTrace? stackTrace) {
+                              return const Text('icon');
+                            },
                           ),
+                          // Image(
+                          //   image: const AssetImage('assets/images/user.png'),
+                          //   width: screenWidth * 0.15,
+                          //   // height: 40,
+                          //   alignment: Alignment.topCenter,
+                          // ),
                         ],
                       ),
                     ),

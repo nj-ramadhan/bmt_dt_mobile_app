@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../components/base_layout.dart';
 import '../global_variables.dart';
 import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/navigation_helper.dart';
@@ -7,7 +8,6 @@ import '../values/app_colors.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
-import '../components/base_layout.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -62,15 +62,26 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
               const SizedBox(height: 20),
-              const Material(
+              Material(
                 color: AppColors.primaryColor,
                 shape: CircleBorder(),
                 child: Padding(
-                  padding: EdgeInsets.all(50),
-                  child: Image(
-                    image: AssetImage('assets/images/user.png'),
-                    height: 120,
+                  padding: EdgeInsets.all(10),
+                  child:
+                      // Image(
+                      //   image: AssetImage('assets/images/user.png'),
+                      //   height: 120,
+                      //   alignment: Alignment.topCenter,
+                      // ),
+                      Image.network(
+                    apiDataUserPasFoto,
+                    height: screenHeight * 0.15,
+                    // fit: BoxFit.cover,
                     alignment: Alignment.topCenter,
+                    errorBuilder: (BuildContext context, Object exception,
+                        StackTrace? stackTrace) {
+                      return const Text('icon');
+                    },
                   ),
                 ),
               ),

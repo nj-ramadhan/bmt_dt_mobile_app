@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:intl/intl.dart';
 
 import '../components/app_text_form_field.dart';
 import '../global_variables.dart';
@@ -54,6 +53,8 @@ class _LoginPageState extends State<LoginPage> {
   late String responseDetailsUserTempatLahir;
   late String responseDetailsUserTanggalLahir;
   late String responseDetailsUserAlamatLengkap;
+  late String responseDetailsUserPhotoProfile;
+  late String responseDetailsUserPhotoKTP;
 
   late String responseDetailsAccountNoUser;
   late String responseDetailsAccountEmail;
@@ -178,6 +179,10 @@ class _LoginPageState extends State<LoginPage> {
             responseBody['data_user_details']['jenis_kelamin'].toString();
         responseDetailsUserTempatLahir =
             responseBody['data_user_details']['tempat_lahir'].toString();
+        responseDetailsUserPhotoProfile =
+            responseBody['data_user_details']['pas_foto'].toString();
+        responseDetailsUserPhotoKTP =
+            responseBody['data_user_details']['ktp_foto'].toString();
 
         responseDetailsAccountNoUser =
             responseBody['data_account_details']['no_user'].toString();
@@ -194,6 +199,8 @@ class _LoginPageState extends State<LoginPage> {
           responseDetailsUserTempatLahir,
           responseDetailsUserJenisKelamin,
           responseDetailsUserAlamatLengkap,
+          responseDetailsUserPhotoProfile,
+          responseDetailsUserPhotoKTP,
         );
 
         updateDetailsAccount(
@@ -285,7 +292,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    
+
     // Check access restriction
     if (!checkAccessRestriction()) {
       return Scaffold(
@@ -298,7 +305,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
       );
     }
-    
+
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -447,7 +454,7 @@ class _LoginPageState extends State<LoginPage> {
                           onPressed: () =>
                               NavigationHelper.pushReplacementNamed(
                             AppRoutes.register,
-                                arguments: {'originPage': 'home'},
+                            arguments: {'originPage': 'home'},
                           ),
                           child: const Text(AppStrings.register),
                         ),
