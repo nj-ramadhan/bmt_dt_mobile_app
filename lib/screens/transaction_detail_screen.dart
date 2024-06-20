@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../components/base_layout.dart';
 import '../global_variables.dart';
 import '../utils/common_widgets/gradient_background.dart';
 import '../utils/helpers/api_helper.dart';
@@ -8,7 +9,6 @@ import '../values/app_colors.dart';
 import '../values/app_routes.dart';
 import '../values/app_strings.dart';
 import '../values/app_theme.dart';
-import '../components/base_layout.dart';
 
 class TransactionDetailPage extends StatefulWidget {
   const TransactionDetailPage({super.key});
@@ -20,8 +20,8 @@ class TransactionDetailPage extends StatefulWidget {
 class _TransactionDetailPageState extends State<TransactionDetailPage> {
   final Color backgroundColor = Color(
       0xFFD5F5E3); // Adjust this color to match the exact color from the image.
-   bool _isLoading = false;
-   
+  bool _isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -87,72 +87,78 @@ class _TransactionDetailPageState extends State<TransactionDetailPage> {
                       SizedBox(height: 16),
                       TransferInfoCard(),
                       ConfirmationButton(
-                         onConfirm: _isLoading
+                        onConfirm: _isLoading
                             ? null
                             : () {
-                              setState(() {
-                                  _isLoading = true; // Set loading to true when button is pressed
+                                setState(() {
+                                  _isLoading =
+                                      true; // Set loading to true when button is pressed
                                 });
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return MPinPopup(
-                                onPinSubmitted: (String pin) async {
-                                  
-                                 setState(() {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return MPinPopup(
+                                      onPinSubmitted: (String pin) async {
+                                        setState(() {
                                           _isLoading =
                                               false; // Set loading to false after API call
                                         });
-                                showDialog(
-                                        context: context,
-                                        barrierDismissible: false,
-                                        builder: (BuildContext context) {
-                                          return const Center(
-                                            child: CircularProgressIndicator(),
+                                        showDialog(
+                                          context: context,
+                                          barrierDismissible: false,
+                                          builder: (BuildContext context) {
+                                            return const Center(
+                                              child:
+                                                  CircularProgressIndicator(),
+                                            );
+                                          },
+                                        );
+                                        Map<String, dynamic> statusTransfer =
+                                            await ApiHelper.getTransferSirela(
+                                                apiLoginToken,
+                                                apiDataOwnSirelaId,
+                                                apiDataSendaAmount,
+                                                apiDataSendaComment,
+                                                pin,
+                                                apiDataDestinationSirelaId);
+
+                                        Navigator.of(context)
+                                            .pop(); // Close loading indicator
+
+                                        if (statusTransfer['status_trx']
+                                                .toString() ==
+                                            'BERHASIL DIKIRIM') {
+                                          //menuju halaman
+                                          updateDetailsRek(
+                                              apiDataOwnSirelaId,
+                                              apiDataOwnSirelaAmount,
+                                              apiDataDestinationSirelaId,
+                                              apiDataDestinationSirelaName,
+                                              apiDataSendaAmount,
+                                              apiDataSendaComment,
+                                              statusTransfer['kd_trx']
+                                                  .toString(),
+                                              apiDataMetodeTransfer,
+                                              apiDataAdminAmount);
+                                          NavigationHelper.pushNamed(
+                                            AppRoutes.transaction_sucess,
                                           );
-                                        },
-                                      );
-                                  Map<String, dynamic> statusTransfer =
-                                      await ApiHelper.getTransferSirela(
-                                          apiLoginToken,
-                                          apiDataOwnSirelaId,
-                                          apiDataSendaAmount,
-                                          apiDataSendaComment,
-                                          pin,
-                                          apiDataDestinationSirelaId);
-      
-                                          Navigator.of(context).pop(); // Close loading indicator
-      
-                                  if (statusTransfer['status_trx'].toString() ==
-                                      'BERHASIL DIKIRIM') {
-                                    //menuju halaman
-                                    updateDetailsRek(
-                                        apiDataOwnSirelaId,
-                                        apiDataOwnSirelaAmount,
-                                        apiDataDestinationSirelaId,
-                                        apiDataDestinationSirelaName,
-                                        apiDataSendaAmount,
-                                        apiDataSendaComment,
-                                        statusTransfer['kd_trx'].toString(),
-                                        apiDataMetodeTransfer,
-                                        apiDataAdminAmount);
-                                    NavigationHelper.pushNamed(
-                                      AppRoutes.transaction_sucess,
-                                    );
-                                  } else {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text('Incorrect PIN')),
-                                    );
-                                  }
-                                  setState(() {
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                                content: Text('Incorrect PIN')),
+                                          );
+                                        }
+                                        setState(() {
                                           _isLoading =
                                               true; // Set loading to false after API call
                                         });
-                                },
-                              );
-                            },
-                          );
-                        },
+                                      },
+                                    );
+                                  },
+                                );
+                              },
                       ),
                     ],
                   ),
@@ -231,8 +237,12 @@ class TransferInfoCard extends StatelessWidget {
             TransferInfoRow(label: 'Berita', value: '$apiDataSendaComment'),
             TransferInfoRow(label: 'Tanggal Transfer', value: 'Sekarang'),
             Divider(color: Colors.white),
-            TransferInfoRow(label: 'Biaya Admin', value: 'Rp $apiDataAdminAmount'),
-            TransferInfoRow(label: 'Total', value: 'Rp ${(int.parse(apiDataSendaAmount) + int.parse(apiDataAdminAmount)).toString()}'),
+            TransferInfoRow(
+                label: 'Biaya Admin', value: 'Rp $apiDataAdminAmount'),
+            TransferInfoRow(
+                label: 'Total',
+                value:
+                    'Rp ${(int.parse(apiDataSendaAmount) + int.parse(apiDataAdminAmount)).toString()}'),
           ],
         ),
       ),
@@ -296,7 +306,6 @@ class _MPinPopupState extends State<MPinPopup> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     return AlertDialog(
       contentPadding: EdgeInsets.all(20),

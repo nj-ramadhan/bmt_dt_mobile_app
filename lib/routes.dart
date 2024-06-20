@@ -44,6 +44,7 @@ import 'screens/transaction_detail_screen.dart';
 import 'screens/transfer_metode_screen.dart';
 import 'screens/transfer_screen.dart';
 import 'screens/transfer_success_screen.dart';
+import 'screens/transfer_success_dif_bank_screen.dart';
 import 'utils/common_widgets/invalid_route.dart';
 import 'values/app_routes.dart';
 
@@ -120,6 +121,9 @@ class Routes {
 
       case AppRoutes.transaction_sucess:
         return getRoute(widget: const TransferSuccessPage());
+
+      case AppRoutes.transaction_sucess_dif_bank:
+        return getRoute(widget: const TransferSuccessDifBankPage());
 
       case AppRoutes.add_client:
         return getRoute(widget: const AddClientPage());

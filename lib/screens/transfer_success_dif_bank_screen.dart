@@ -9,14 +9,16 @@ import '../values/app_strings.dart';
 import '../values/app_theme.dart';
 import '../components/base_layout.dart';
 
-class TransferSuccessPage extends StatefulWidget {
-  const TransferSuccessPage({super.key});
+class TransferSuccessDifBankPage extends StatefulWidget {
+  const TransferSuccessDifBankPage({super.key});
 
   @override
-  State<TransferSuccessPage> createState() => _TransferSuccessPageState();
+  State<TransferSuccessDifBankPage> createState() =>
+      _TransferSuccessDifBankPageState();
 }
 
-class _TransferSuccessPageState extends State<TransferSuccessPage> {
+class _TransferSuccessDifBankPageState
+    extends State<TransferSuccessDifBankPage> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -74,32 +76,40 @@ class _TransferSuccessPageState extends State<TransferSuccessPage> {
                             children: [
                               Text('Transfer Receipt',
                                   style: TextStyle(
-                                      fontSize: 24, fontWeight: FontWeight.bold)),
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold)),
                               Divider(color: Colors.black),
                               Text('Kode Transaksi:',
-                                  style: TextStyle(fontWeight: FontWeight.bold)),
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
                               Text('$apiDataKodeTrx'),
                               SizedBox(height: 8),
                               Text('Rekening Sumber:',
-                                  style: TextStyle(fontWeight: FontWeight.bold)),
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
                               Text("Id pengirim $apiDataOwnSirelaId"),
                               Text("Nama Pengirim $apiDataUserNamaLengkap"),
                               SizedBox(height: 8),
                               Text('Rekening Tujuan:',
-                                  style: TextStyle(fontWeight: FontWeight.bold)),
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
                               Text("Id Penerima $apiDataDestinationSirelaId"),
-                              Text("Nama Penerima $apiDataDestinationSirelaName"),
+                              Text(
+                                  "Nama Penerima $apiDataDestinationSirelaName"),
                               SizedBox(height: 8),
                               Text('Nominal:',
-                                  style: TextStyle(fontWeight: FontWeight.bold)),
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
                               Text('Rp $apiDataSendaAmount'),
                               SizedBox(height: 8),
                               Text('Berita:',
-                                  style: TextStyle(fontWeight: FontWeight.bold)),
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
                               Text(apiDataSendaComment),
                               SizedBox(height: 8),
                               Text('Tanggal Transfer:',
-                                  style: TextStyle(fontWeight: FontWeight.bold)),
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
                               Text('Sekarang'),
                             ],
                           ),
