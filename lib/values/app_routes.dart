@@ -17,6 +17,8 @@ class AppRoutes {
   static const String checking = 'checking';
   static const String checking_detail = 'checking_detail';
   static const String checking_report = 'checking_report';
+  static const String password_forgot = 'password_forgot';
+  static const String password_verify = 'password_verify';
   static const String shopping = 'shopping';
   static const String shopping_provider_list = 'shopping_provider_list';
   static const String shopping_confirm = 'shopping_confirm';

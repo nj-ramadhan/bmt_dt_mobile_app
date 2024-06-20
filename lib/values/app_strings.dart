@@ -16,6 +16,8 @@ class AppStrings {
   static const String signInToYourAccount = 'masuk ke akun';
   static const String iHaveAnAccount = 'Punya akun?';
   static const String forgotPassword = 'Lupa kata sandi?';
+  static const String requestNewPassword = 'Minta kata sandi baru';
+  static const String verifyPassword = 'Verifikasi kata sandi baru';
   static const String orLoginWith = 'atau masuk dengan';
 
   static const String loggedIn = 'Berhasil masuk!';

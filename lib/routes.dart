@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'screens/add_client_dif_bank_screen.dart';
 import 'screens/add_client_screen.dart';
+import 'screens/camera_qrcode.dart';
 import 'screens/change_email_screen.dart';
 import 'screens/change_password_screen.dart';
 import 'screens/change_pin_screen.dart';
-import 'screens/checking_screen.dart';
 import 'screens/checking_detail_screen.dart';
 import 'screens/checking_report_screen.dart';
+import 'screens/checking_screen.dart';
 import 'screens/deposit_screen.dart';
 import 'screens/funding_screen.dart';
 import 'screens/funding_simulation_alqard_screen.dart';
@@ -25,6 +26,8 @@ import 'screens/input_amount_dif_bank_screen.dart';
 import 'screens/input_amount_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/menu_screen.dart';
+import 'screens/password_forgot_screen.dart';
+import 'screens/password_verify_screen.dart';
 import 'screens/payment_screen.dart';
 import 'screens/profile_detail_screen.dart';
 import 'screens/profile_screen.dart';
@@ -43,7 +46,6 @@ import 'screens/transfer_screen.dart';
 import 'screens/transfer_success_screen.dart';
 import 'utils/common_widgets/invalid_route.dart';
 import 'values/app_routes.dart';
-import 'screens/camera_qrcode.dart';
 
 class Routes {
   const Routes._();
@@ -73,6 +75,12 @@ class Routes {
 
       case AppRoutes.login:
         return getRoute(widget: const LoginPage());
+
+      case AppRoutes.password_forgot:
+        return getRoute(widget: const PasswordForgotPage());
+
+      case AppRoutes.password_verify:
+        return getRoute(widget: const PasswordVerifyPage());
 
       case AppRoutes.register:
         return getRoute(widget: const RegisterPage());

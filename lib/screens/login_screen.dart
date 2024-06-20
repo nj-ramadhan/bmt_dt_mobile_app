@@ -445,6 +445,25 @@ class _LoginPageState extends State<LoginPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
+                          AppStrings.forgotPassword,
+                          style:
+                              AppTheme.bodySmall.copyWith(color: Colors.black),
+                        ),
+                        const SizedBox(width: 10),
+                        TextButton(
+                          onPressed: () =>
+                              NavigationHelper.pushReplacementNamed(
+                            AppRoutes.password_forgot,
+                            arguments: {'originPage': 'home'},
+                          ),
+                          child: const Text(AppStrings.requestNewPassword),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
                           AppStrings.doNotHaveAnAccount,
                           style:
                               AppTheme.bodySmall.copyWith(color: Colors.black),
