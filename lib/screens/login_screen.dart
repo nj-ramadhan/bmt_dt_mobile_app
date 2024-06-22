@@ -114,6 +114,11 @@ class _LoginPageState extends State<LoginPage> {
         responseLoginToken = responseBody['token'].toString();
         responseLoginRefreshToken = responseBody['refresh_token'].toString();
 
+        if (responseLoginRoleKoperasi != 'A3') {
+          await showRoleWarningPopup(context);
+          return;
+        }
+
         updateLoginVariables(
           responseLoginRolePendidikan,
           responseLoginRoleKoperasi,
@@ -270,8 +275,31 @@ class _LoginPageState extends State<LoginPage> {
 
   bool checkAccessRestriction() {
     final currentDate = DateTime.now();
-    final restrictedDate = DateTime(currentDate.year, 6, 20); // 20 Juni
+    final restrictedDate = DateTime(currentDate.year, 7, 30); // 20 Juni
     return currentDate.isBefore(restrictedDate);
+  }
+
+  Future<void> showRoleWarningPopup(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // Prevents dismissing by tapping outside
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Pemberitahuan'),
+          content: const Text(
+              'Anda harus pindah aplikasi karena role koperasi Anda tidak valid untuk aplikasi ini.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+                Navigator.pushReplacementNamed(context, AppRoutes.login); // Redirect to login
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
